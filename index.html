@@ -50,7 +50,7 @@ body{margin:0;background:var(--abyss);color:var(--ink);font-family:var(--body);f
 .app{position:relative;min-height:100vh;overflow-x:hidden;
   background:linear-gradient(180deg,#22b3cf 0%,#0d86ab 30%,#0a5f86 70%,#06324a 100%);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:var(--space-3) 40px}
-.app::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+.app::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;background:
   radial-gradient(60% 40% at 20% 0%,rgba(255,255,255,.25),transparent 70%),
   repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 18px,transparent 18px 60px);filter:saturate(var(--sat,1))}
 .screen{position:relative;z-index:1;max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:var(--space-4)}
@@ -297,7 +297,7 @@ button{font-family:inherit}
 .status{margin-top:auto;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--sea)}
 .gate{display:flex;flex-direction:column;gap:var(--space-4);align-items:center;text-align:center}
 .hold{position:relative;overflow:hidden;width:min(100%,320px);height:70px;border-radius:20px;border:3px solid var(--sea);background:#fff;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none}
-.hold .fill{position:absolute;inset:0 auto 0 0;background:var(--lagoon)}
+.hold .fill{position:absolute;top:0;right:auto;bottom:0;left:0;background:var(--lagoon)}
 .hold .lbl{position:relative;font-family:var(--display);font-size:20px}
 
 /* parent */
@@ -404,8 +404,8 @@ textarea{width:100%;box-sizing:border-box;font-family:ui-monospace,Menlo,monospa
 .challenge.done{background:#e2f8ec}
 .challenge .soft{display:inline-block;margin-top:var(--space-2)}
 .table-area{position:relative;width:100%;aspect-ratio:4/3;border-radius:18px;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:inset 0 0 0 3px #d9c7a8}
-.wall{position:absolute;inset:0 0 55% 0;background:linear-gradient(#f6ead2,#efdcbb)}
-.tabletop{position:absolute;inset:45% 0 0 0;background:linear-gradient(#c98b5a,#a8683c);clip-path:polygon(6% 0,94% 0,100% 100%,0 100%)}
+.wall{position:absolute;top:0;right:0;bottom:55%;left:0;background:linear-gradient(#f6ead2,#efdcbb)}
+.tabletop{position:absolute;top:45%;right:0;bottom:0;left:0;background:linear-gradient(#c98b5a,#a8683c);clip-path:polygon(6% 0,94% 0,100% 100%,0 100%)}
 .piece{position:absolute;transform:translate(-50%,-100%);cursor:grab;touch-action:none;border-radius:10px}
 .piece-svg{display:block;width:100%;height:auto;filter:drop-shadow(0 6px 4px rgba(60,30,10,.28))}
 .piece.sel{outline:3px dashed #7b3fb0;outline-offset:2px}
@@ -464,7 +464,7 @@ textarea{width:100%;box-sizing:border-box;font-family:ui-monospace,Menlo,monospa
 .chip-t.on{background:#7b3fb0;color:#fff;border-color:#7b3fb0}
 .canvas-wrap{position:relative}
 .stage{position:relative;width:100%;aspect-ratio:4/3;border-radius:14px;overflow:hidden;box-shadow:0 0 0 6px #8a5a33,0 0 0 9px #c9a35a;background:#fff}
-.stage canvas,.stage .sketch-svg{position:absolute;inset:0;width:100%;height:100%}
+.stage canvas,.stage .sketch-svg{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%}
 .cv-paint{touch-action:none;cursor:crosshair}
 .sketch-svg{pointer-events:none}
 .sketch-svg *{fill:none!important;stroke:#7d8b96!important;stroke-width:1.6px!important;stroke-dasharray:6 5;vector-effect:non-scaling-stroke;opacity:.8}
@@ -606,7 +606,7 @@ button.pbeat{cursor:pointer}
 .celebration h2,.celebration h3{color:#ffd95a}
 .celebration .eyebrow{color:#bff3ff}
 .celebration .m-bubble{color:var(--ink)}
-.stage-lights{position:absolute;inset:0;pointer-events:none;display:flex;justify-content:space-around}
+.stage-lights{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;display:flex;justify-content:space-around}
 .stage-lights i{width:60px;height:100%;background:linear-gradient(rgba(255,246,200,.45),transparent);transform-origin:top;animation:sway 2.4s ease-in-out infinite alternate}
 @keyframes sway{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
 .dancers{display:flex;gap:var(--space-2);flex-wrap:wrap;justify-content:center;position:relative}
@@ -787,7 +787,7 @@ button.pbeat{cursor:pointer}
 .frame .edited{font-size:13px;color:var(--muted)}
 .save-opts{flex-wrap:wrap}
 .save-opts .btn{flex:1 1 180px}
-.stage .cv-loading{position:absolute;inset:0;display:grid;place-items:center;background:rgba(255,250,241,.85);font-family:var(--display);font-size:24px;color:var(--sea);z-index:3}
+.stage .cv-loading{position:absolute;top:0;right:0;bottom:0;left:0;display:grid;place-items:center;background:rgba(255,250,241,.85);font-family:var(--display);font-size:24px;color:var(--sea);z-index:3}
 /* 4:3 picture boxes — padding-based ratio with absolutely placed content.
    Root cause of the stretched still-life cards on iPad: a box sized only by aspect-ratio held an
    in-flow SVG with height:100% and no intrinsic size. Older Safari resolves that percentage before
@@ -796,8 +796,8 @@ button.pbeat{cursor:pointer}
 .tmpl-grid{align-items:start}
 .tmpl{height:auto;min-width:0}
 .tmpl-pic,.ref-card > div{position:relative;display:block;aspect-ratio:auto;height:0;padding-top:75%}
-.tmpl-pic > svg,.ref-card > div > svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-.tmpl-pic > .blank-c{position:absolute;inset:0;display:grid;place-items:center;padding:var(--space-2);text-align:center}
+.tmpl-pic > svg,.ref-card > div > svg{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;display:block}
+.tmpl-pic > .blank-c{position:absolute;top:0;right:0;bottom:0;left:0;display:grid;place-items:center;padding:var(--space-2);text-align:center}
 .tmpl > span{line-height:1.2}
 /* Same rule for the painting stage and the composition table (all their children are absolutely placed). */
 .stage,.table-area{aspect-ratio:auto;height:0;padding-top:75%}
@@ -832,6 +832,43 @@ button.pbeat{cursor:pointer}
 .mission-tag{margin:0;color:var(--muted)}
 .mission-tag b{color:var(--ink)}
 @media (max-width:620px){.mission-row{flex-wrap:wrap;gap:var(--space-3)}.mission-row .mr-text{flex-basis:calc(100% - 70px)}.mission-row .mr-state{margin-left:64px}.wm-head{flex-wrap:wrap}.wm-head .w-pearl{display:none}}
+/* ===== Art studio on iPad Safari ===== */
+/* Still-life previews: the SVG carries its own 960×720 size, so it sizes itself in every browser
+   (no aspect-ratio, no absolute positioning, no padding trick needed). */
+.tmpl-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));align-items:stretch}
+.tmpl > span{flex:1;display:flex;align-items:center;justify-content:center;text-align:center}
+.tmpl-pic{position:relative;height:auto;padding:0;aspect-ratio:auto;display:block;border:2px solid rgba(0,0,0,.06)}
+.tmpl-pic > svg{position:static;display:block;width:100%;height:auto}
+.tmpl.on .tmpl-pic{border-color:#7b3fb0}
+.ref-card > div{position:relative;height:auto;padding:0;aspect-ratio:auto;display:block}
+.ref-card > div > svg{position:static;display:block;width:100%;height:auto}
+/* Painting workspace: canvas column sized from the visible height (--ws-h, set from JS) */
+.paint-ws{display:flex;flex-direction:column;gap:var(--space-3)}
+.paint-ws .canvas-wrap{width:100%;max-width:calc(var(--ws-h, 600px) * 4 / 3);margin:0 auto}
+.stage,.cv-paint{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.paint-ws .toolbar{gap:var(--space-2)}
+.paint-ws .save-box{display:flex;flex-direction:column;gap:var(--space-2);background:#fff;border-radius:14px;padding:var(--space-3);border:3px solid #7b3fb0}
+/* iPad landscape and desktop: canvas left, compact tool panel right */
+.paint-ws.side{display:grid;grid-template-columns:minmax(0,calc(var(--ws-h, 600px) * 4 / 3)) 280px;justify-content:center;align-items:start;gap:var(--space-4)}
+.paint-ws.side .row-btns{position:-webkit-sticky;position:sticky;bottom:0;background:#f7f1ff;padding-top:var(--space-2);margin-top:auto;z-index:1}
+.paint-ws.side .toolbar{display:flex;flex-direction:column}
+.paint-ws.side .canvas-wrap{margin:0}
+.paint-ws.side .toolbar{max-height:var(--ws-h, 600px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.paint-ws.side .brushes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-1)}
+.paint-ws.side .brushes button{flex-direction:column;justify-content:center;gap:2px;padding:var(--space-1);font-size:13px;min-height:52px}
+.paint-ws.side .colors{display:grid;grid-template-columns:repeat(5,40px);justify-content:space-between;row-gap:var(--space-2)}
+.paint-ws.side .row-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-1)}
+.paint-ws.side .row-btns .btn{padding:0 var(--space-1);font-size:13px;min-height:44px;line-height:1.1}
+.paint-ws.side .row-btns .btn svg{display:none}
+.paint-ws.side .size-row{gap:var(--space-2)}
+.paint-ws.side .row-btns .btn.go{grid-column:1 / -1;min-height:56px;font-size:18px}
+.paint-ws.side .save-opts{display:flex;flex-direction:column}
+/* Portrait tablets: compact toolbar under the canvas */
+@media (max-width:899px), (orientation: portrait){
+  .paint-ws .colors{gap:var(--space-2)}
+  .paint-ws .row-btns{gap:var(--space-2)}
+  .paint-ws .row-btns .btn{min-height:48px}
+}
 </style>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
@@ -3094,8 +3131,15 @@ const BRUSHES = [['lapiz', 'Lápiz'], ['pincel', 'Pincel'], ['acuarela', 'Acuare
 const CW = 960, CH = 720;
 function shade(hex, f) { const n = parseInt(hex.slice(1), 16); let r = n >> 16, g = (n >> 8) & 255, b = n & 255; const t = f < 0 ? 0 : 255, p = Math.abs(f); r = Math.round((t - r) * p + r); g = Math.round((t - g) * p + g); b = Math.round((t - b) * p + b); return `rgb(${r},${g},${b})`; }
 function rgbToHex(css) { const m = css.match(/\d+/g); return m ? '#' + m.slice(0, 3).map(x => (+x).toString(16).padStart(2, '0')).join('') : css; }
+function BlankPreview() {
+  return html`<svg viewBox=${`0 0 ${CW} ${CH}`} width=${CW} height=${CH} className="ref-svg blank-svg" role="img" aria-label="Lienzo en blanco">
+    <rect x="70" y="60" width="820" height="600" rx="36" fill="#ffffff" fillOpacity=".72" stroke="#8a7aa8" strokeWidth="10" strokeDasharray="34 22"/>
+    <g transform="translate(480 300) rotate(-35)"><rect x="-26" y="-190" width="52" height="250" rx="22" fill="#8a5a33"/><rect x="-30" y="40" width="60" height="44" fill="#c9c9c9"/><path d="M-30 84 Q-40 170 0 200 Q40 170 30 84Z" fill="#e53935"/></g>
+    <text x="480" y="590" textAnchor="middle" fontFamily="Andika, sans-serif" fontWeight="700" fontSize="76" fill="#5b3a9e">Lienzo en blanco</text>
+  </svg>`;
+}
 function SketchLayer({ tmpl, colored }) {
-  return html`<svg viewBox=${`0 0 ${CW} ${CH}`} className=${colored ? 'ref-svg' : 'sketch-svg'} aria-hidden="true">${tmpl.objs.map((o, i) => placeG(o, i))}</svg>`;
+  return html`<svg viewBox=${`0 0 ${CW} ${CH}`} width=${CW} height=${CH} preserveAspectRatio="xMidYMid meet" className=${colored ? 'ref-svg' : 'sketch-svg'} aria-hidden="true">${tmpl.objs.map((o, i) => placeG(o, i))}</svg>`;
 }
 function Painter({ onSaved, onExit, resume }) {
   // resume = a gallery artwork to keep painting (same editor, same tools)
@@ -3110,6 +3154,25 @@ function Painter({ onSaved, onExit, resume }) {
   const cv = useRef(null); const bgc = useRef(null); const undo = useRef([]); const redo = useRef([]); const last = useRef(null); const drawing = useRef(false);
   useEffect(() => { if (step !== 'paint' || !bgc.current) return; const c = bgc.current.getContext('2d'); bg.draw(c, CW, CH); }, [step, bg]);
   const ctx = () => cv.current.getContext('2d');
+  const wsRef = useRef(null); const tbRef = useRef(null);
+  useEffect(() => {
+    if (step !== 'paint') return;
+    // Fit the canvas to the space the browser really shows (iPad Safari toolbars included). Only the CSS size
+    // changes; the canvas bitmap (960×720) is never resized, so nothing drawn is lost.
+    const fit = () => {
+      const ws = wsRef.current; if (!ws) return;
+      const vv = window.visualViewport; const vh = vv ? vv.height : window.innerHeight;
+      const top = ws.getBoundingClientRect().top + (window.scrollY || 0);
+      const side = window.matchMedia('(min-width: 900px) and (orientation: landscape)').matches;
+      const tb = side || !tbRef.current ? 0 : tbRef.current.getBoundingClientRect().height + 16;
+      const h = Math.max(260, vh - Math.min(top, vh * 0.32) - tb - 24);
+      ws.style.setProperty('--ws-h', h + 'px'); ws.classList.toggle('side', side);
+    };
+    fit(); const t = setTimeout(fit, 120);
+    window.addEventListener('resize', fit); window.addEventListener('orientationchange', fit);
+    const vv = window.visualViewport; vv && vv.addEventListener('resize', fit);
+    return () => { clearTimeout(t); window.removeEventListener('resize', fit); window.removeEventListener('orientationchange', fit); vv && vv.removeEventListener('resize', fit); };
+  }, [step, saving]);
   useEffect(() => {
     if (!resume) return; let alive = true;
     layerGet(resume.id).then(png => loadImage(png).then(im => im || loadImage(resume.img))).then(im => {
@@ -3162,7 +3225,7 @@ function Painter({ onSaved, onExit, resume }) {
   };
   if (step === 'choose') return html`<div className="m-paint">
     <h3>1. Elige tu bodegón</h3>
-    <div className="tmpl-grid">${TEMPLATES.map(t => html`<button key=${t.id} className=${'tmpl' + (tmpl.id === t.id ? ' on' : '')} onClick=${() => setTmpl(t)}><div className="tmpl-pic" style=${{ background: bg.css }}>${t.objs.length ? html`<${SketchLayer} tmpl=${t} colored=${true}/>` : html`<span className="blank-c">Lienzo en blanco</span>`}</div><span>${t.name}</span></button>`)}</div>
+    <div className="tmpl-grid">${TEMPLATES.map(t => html`<button key=${t.id} className=${'tmpl' + (tmpl.id === t.id ? ' on' : '')} onClick=${() => setTmpl(t)}><div className="tmpl-pic" style=${{ background: bg.css }}>${t.objs.length ? html`<${SketchLayer} tmpl=${t} colored=${true}/>` : html`<${BlankPreview}/>`}</div><span>${t.name}</span></button>`)}</div>
     <h3>2. Elige el fondo</h3>
     <div className="bg-row">${BGS.map(b => html`<button key=${b.id} className=${'bg-btn' + (bg.id === b.id ? ' on' : '')} onClick=${() => setBg(b)}><i style=${{ background: b.css }}></i>${b.name}</button>`)}</div>
     <button className="btn go big" onClick=${() => { setStep('paint'); setTool(tmpl.objs.length ? 'lapiz' : 'pincel'); setColor(tmpl.objs.length ? '#5b3a1e' : '#e53935'); }}>¡A pintar!</button></div>`;
@@ -3173,24 +3236,26 @@ function Painter({ onSaved, onExit, resume }) {
   return html`<div className="m-paint">
     <div className="paint-top">${tmpl.objs.length ? html`<button className=${'chip-t' + (showRef ? ' on' : '')} onClick=${() => setShowRef(!showRef)}>Modelo</button><button className=${'chip-t' + (sketch ? ' on' : '')} onClick=${() => setSketch(!sketch)}>Boceto guía</button>` : null}
       <span className="tip">${tmpl.objs.length ? 'Observa el modelo, dibuja con lápiz y luego pinta.' : '¡Pinta lo que tú quieras!'}</span></div>
+    <div className="paint-ws" ref=${wsRef}>
     <div className="canvas-wrap">
       ${showRef && tmpl.objs.length ? html`<div className="ref-card" aria-label="Modelo del bodegón"><div style=${{ background: bg.css }}><${SketchLayer} tmpl=${tmpl} colored=${true}/></div><small>Modelo</small></div>` : null}
       <div className="stage"><canvas ref=${bgc} width=${CW} height=${CH} className="cv-bg"></canvas>
         ${sketch && tmpl.objs.length ? html`<${SketchLayer} tmpl=${tmpl}/>` : null}
         <canvas ref=${cv} width=${CW} height=${CH} className="cv-paint" onPointerDown=${down} onPointerMove=${move} onPointerUp=${up} onPointerCancel=${up} onPointerLeave=${up} aria-label="Lienzo para pintar"></canvas>${loading ? html`<div className="cv-loading" role="status">Abriendo tu obra…</div>` : null}</div>
     </div>
-    <div className="toolbar">
+    <div className="toolbar" ref=${tbRef}>
       <div className="brushes" role="group" aria-label="Pinceles">${BRUSHES.map(([k, l]) => html`<button key=${k} className=${tool === k ? 'on' : ''} onClick=${() => setTool(k)} aria-pressed=${tool === k}><${BrushIcon} k=${k}/>${l}</button>`)}</div>
       <div className="colors" role="group" aria-label="Colores">${PAINT_COLORS.concat(MY_MIX ? [rgbToHex(MY_MIX)] : []).map((c, i) => html`<button key=${c + i} className=${'cdot' + (color === c ? ' on' : '')} style=${{ background: c }} onClick=${() => { setColor(c); if (tool === 'borrador') setTool('pincel'); }} aria-label=${i === PAINT_COLORS.length ? 'Mi mezcla del laboratorio' : 'color ' + c}>${i === PAINT_COLORS.length ? html`<small>mía</small>` : null}</button>`)}</div>
       <div className="size-row"><label htmlFor="bsize">Tamaño</label><input id="bsize" type="range" min="4" max="60" value=${size} onInput=${e => setSize(+e.target.value)}/><span className="size-dot" style=${{ width: Math.max(4, size * 0.6), height: Math.max(4, size * 0.6), background: tool === 'borrador' ? '#ccc' : color }}></span></div>
-      <div className="row-btns">
+      ${saving ? null : html`<div className="row-btns">
         <button className="btn ghost" onClick=${doUndo} disabled=${!undoN}><${Icon} n="back"/> Deshacer</button><button className="btn ghost" onClick=${doRedo} disabled=${!redoN}>Rehacer <${Icon} n="faster" size=${18}/></button>
         ${confirmClear ? html`<button className="btn coral" onClick=${clearAll}>Sí, borrar todo</button><button className="btn ghost" onClick=${() => setConfirmClear(false)}>No</button>` : html`<button className="btn ghost" onClick=${() => setConfirmClear(true)}>Empezar de nuevo</button>`}
-        <button className="btn go" disabled=${loading} onClick=${() => setSaving(true)}>${resume ? 'Guardar' : 'Terminé mi obra'}</button></div>
-    </div>
-    ${saving ? html`<div className="panel save-box"><label htmlFor="art-title"><b>¿Cómo se llama tu obra?</b></label><input id="art-title" type="text" maxLength="40" value=${title} placeholder="Mi bodegón" onInput=${e => setTitle(e.target.value)}/>
+        <button className="btn go" disabled=${loading} onClick=${() => setSaving(true)}>${resume ? 'Guardar' : 'Terminé mi obra'}</button></div>`}
+    ${saving ? html`<div className="save-box" ref=${el => { if (el) try { el.scrollIntoView({ block: 'nearest' }); } catch (e) { } }}><label htmlFor="art-title"><b>¿Cómo se llama tu obra?</b></label><input id="art-title" type="text" maxLength="40" value=${title} placeholder="Mi bodegón" onInput=${e => setTitle(e.target.value)}/>
       ${resume ? html`<div className="row-btns save-opts"><button className="btn go big" onClick=${() => doSave('update')}>Guardar cambios</button><button className="btn lagoon" onClick=${() => doSave('new')}>Guardar como nueva</button><button className="btn ghost" onClick=${() => setSaving(false)}>Seguir pintando</button></div>
       <p className="tip">«Guardar cambios» actualiza esta obra. «Guardar como nueva» deja la original como estaba.</p>` : html`<div className="row-btns"><button className="btn ghost" onClick=${() => setSaving(false)}>Seguir pintando</button><button className="btn go" onClick=${() => doSave('new')}>Guardar en mi galería</button></div>`}</div>` : null}
+    </div>
+    </div>
   </div>`;
 }
 function BrushIcon({ k }) {
