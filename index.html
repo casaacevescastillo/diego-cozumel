@@ -665,7 +665,7 @@ button.pbeat{cursor:pointer}
 .pearl.on .spark.s2{animation-delay:1.2s}
 @keyframes pearl-shine{0%,100%{filter:drop-shadow(0 0 5px rgba(255,214,90,.6))}50%{filter:drop-shadow(0 0 12px rgba(255,214,90,.95))}}
 @keyframes twinkle{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.6);opacity:.55}}
-.pearl-win{display:flex;flex-direction:column;align-items:center;gap:var(--space-2);background:#fffaea;border:3px solid #e0a21c;border-radius:var(--radius-card);padding:var(--space-5) var(--space-4);max-width:460px;width:100%;text-align:center}
+.pearl-win{display:flex;flex-direction:column;align-items:center;gap:var(--space-3);background:#fffaea;border:3px solid #e0a21c;border-radius:var(--radius-card);padding:var(--space-5) var(--space-4);max-width:460px;width:100%;text-align:center}
 .pearl-win .pearl-chip{align-self:center;font-size:17px}
 .pearl-win strong{display:block;font-family:var(--display);font-weight:400;font-size:24px;color:#5b3d00}
 .pearl-win > span:not(.pearl-chip):not(.pw-art){color:#4a4030}
@@ -805,6 +805,33 @@ button.pbeat{cursor:pointer}
 .creature-img{aspect-ratio:auto}
 /* Music pads: fixed responsive height instead of aspect-ratio inside the pads grid. */
 .pad{aspect-ratio:auto;height:clamp(96px,18vw,150px)}
+/* World → five missions */
+.wm-head{display:flex;align-items:center;gap:var(--space-4);border-top:10px solid var(--wc)}
+.wm-head.got{background:#fffaea;box-shadow:0 8px 0 rgba(3,30,46,.28),inset 0 0 0 3px #e0a21c}
+.wm-head > svg{flex:none}
+.wm-info{display:flex;flex-direction:column;gap:var(--space-2);flex:1;min-width:0}
+.wm-info strong{font-family:var(--display);font-weight:400;font-size:var(--fs-title)}
+.wm-info .bar i{background:var(--wc)}
+.wm-info .pearl-chip{align-self:flex-start}
+.mission-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-3)}
+.mission-row{width:100%;display:flex;align-items:center;gap:var(--space-4);text-align:left;border:3px solid transparent;border-radius:var(--radius-card);background:var(--pearl);color:var(--ink);padding:var(--space-4);min-height:88px;cursor:pointer;box-shadow:0 6px 0 rgba(3,30,46,.28);font:inherit}
+.mission-row .mr-num{flex:none;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:26px;background:var(--wc);color:#fff}
+.mission-row .mr-text{display:flex;flex-direction:column;gap:var(--space-1);flex:1;min-width:0}
+.mission-row .mr-kicker{font-size:var(--fs-caption);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.mission-row strong{font-family:var(--display);font-weight:400;font-size:var(--fs-title);line-height:1.15}
+.mission-row small{font-size:var(--fs-caption);color:var(--muted);line-height:1.3}
+.mission-row .mr-state{flex:none;border-radius:var(--radius-pill);padding:var(--space-2) var(--space-3);font-weight:700;font-size:var(--fs-caption);background:#e6f3f6;color:var(--sea);text-align:center}
+.mission-row.next{border-color:var(--sun);background:#fffbe8}
+.mission-row .mr-state.next{background:var(--sun);color:var(--ink)}
+.mission-row.done .mr-num{background:#1a7f45}
+.mission-row .mr-state.done{background:#e2f8ec;color:#1a7f45}
+.mission-row.locked{cursor:default;background:#eef3f5;box-shadow:none;border-color:transparent}
+.mission-row.locked .mr-num{background:#b9c6cc;color:#fff}
+.mission-row.locked strong,.mission-row.locked small{color:#6b7b84}
+.mission-row .mr-state.locked{background:transparent;color:#5d6d76;border:2px dashed #a8b6bd}
+.mission-tag{margin:0;color:var(--muted)}
+.mission-tag b{color:var(--ink)}
+@media (max-width:620px){.mission-row{flex-wrap:wrap;gap:var(--space-3)}.mission-row .mr-text{flex-basis:calc(100% - 70px)}.mission-row .mr-state{margin-left:64px}.wm-head{flex-wrap:wrap}.wm-head .w-pearl{display:none}}
 </style>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
@@ -844,12 +871,12 @@ const SUBJECTS = [
     intro: 'Rayito está contando conchas en la Bahía de los Números. ¿Le ayudas?' },
   { id: 'read', name: 'Reading', world: 'La Cueva de las Historias', pearl: 'Perla de las Historias', guide: 'tuga', color: '#8f6bff', lang: 'en',
     intro: 'En la Cueva de las Historias, Tuga guarda cuentos que brillan en la oscuridad.' },
-  { id: 'esp', name: 'Español', world: 'La Isla de las Letras', pearl: 'Perla de la Sabiduría', guide: 'coralina', color: '#1fa874', lang: 'es',
-    intro: 'En la Isla de las Letras, Coralina escribe mensajes secretos en la arena.' },
+  { id: 'esp', name: 'Español', world: 'La Isla de las Letras', pearl: 'Perla de la Sabiduría', guide: 'estelita', color: '#1fa874', lang: 'es',
+    intro: 'En la Isla de las Letras, Estelita escribe mensajes secretos en la arena. ¡Le encanta descubrir letras y sonidos nuevos contigo!' },
   { id: 'spell', name: 'Spelling', world: 'El Tesoro de los Sonidos', pearl: 'Perla de los Sonidos', guide: 'burbujin', color: '#f5a300', lang: 'en',
     intro: 'Burbujín encontró un cofre en el Tesoro de los Sonidos. ¡Solo se abre deletreando!' },
-  { id: 'nat', name: 'Nature & Society · Cívica', world: 'El Faro de los Fit Kids', pearl: 'insignia Explorador del Océano', guide: 'tuga', color: '#e8524a', lang: 'en', bonus: true,
-    intro: 'Aventura bonus: en el faro de Punta Sur, Tuga te enseña a conocerte y a cuidar tu cuerpo. Al terminarla ganas la insignia Explorador del Océano.' },
+  { id: 'nat', name: 'Nature & Society · Cívica', world: 'El Faro de los Fit Kids', pearl: 'insignia Explorador del Océano', guide: 'lumi', color: '#e8524a', lang: 'en', bonus: true,
+    intro: 'Aventura bonus: en el faro de Punta Sur te espera Lumi, una amiga calamar muy curiosa que brilla como la luz del faro. ¡Juntos van a descubrir cómo eres, cómo cuidar tu cuerpo y cómo convivir con los demás! Al terminarla ganas la insignia Explorador del Océano.' },
 ];
 const SUBJ = Object.fromEntries(SUBJECTS.map(s => [s.id, s]));
 const MAIN = SUBJECTS.filter(s => !s.bonus); // the five magical pearls
@@ -1095,9 +1122,10 @@ GEN.eng_punct = (L) => {
   return Object.assign({ type: 'mc', prompt: 'Tap the word that needs a capital letter.', visual: { k: 'quote', text: s }, options: uniq(wordsOf(s)).map(x => O(x)), answer: w, layout: 'chips',
     hint: 'Look at the first word and at special names.', explain: `"${cap(w)}" needs a capital letter.` });
 };
-const PROPER_EN = ['Cozumel', 'Diego', 'Sofía', 'Héctor', 'Mexico', 'Tuga', 'Friday'];
-const COMMON_EN = ['turtle', 'ocean', 'beach', 'shell', 'boat', 'fish', 'island', 'mom'];
-const NOUN_SENT = [['My dog Max runs on the beach.', 'Max', ['dog', 'beach']], ['Sofía reads a book at home.', 'Sofía', ['book', 'home']], ['The boat sails to Cozumel.', 'Cozumel', ['boat', 'sails']], ['We eat tacos on Friday.', 'Friday', ['tacos', 'eat']]];
+const PROPER_EN = ['Cozumel', 'Diego', 'Sofía', 'Héctor', 'Mexico', 'Tuga', 'Friday', 'Querétaro', 'Luna', 'October', 'Rayito'];
+const COMMON_EN = ['turtle', 'ocean', 'beach', 'shell', 'boat', 'fish', 'island', 'mom', 'crab', 'dog', 'school', 'book', 'sand', 'whale'];
+const NOUN_SENT = [['My dog Max runs on the beach.', 'Max', ['dog', 'beach']], ['Sofía reads a book at home.', 'Sofía', ['book', 'home']], ['The boat sails to Cozumel.', 'Cozumel', ['boat', 'sails']], ['We eat tacos on Friday.', 'Friday', ['tacos', 'eat']],
+  ['My friend Leo likes kites.', 'Leo', ['friend', 'kites']], ['We swim in the ocean on Sunday.', 'Sunday', ['swim', 'ocean']], ['Our school trip is in October.', 'October', ['school', 'trip']], ['The turtle Tuga eats sea grass.', 'Tuga', ['turtle', 'grass']], ['My cat Luna sleeps all day.', 'Luna', ['cat', 'day']], ['The crab hides under a rock in Mexico.', 'Mexico', ['crab', 'rock']]];
 function sortQ(prompt, bins, items, more) { return Object.assign({ type: 'sort', prompt, bins, items: shuffle(items) }, more); }
 GEN.eng_nouns = (L) => {
   if (L < 3) {
@@ -1380,13 +1408,15 @@ const L5 = [
   { w: 'rest', def: 'to stop and relax so your body feels better', sent: 'After a long swim, Diego needs to ___.' },
   { w: 'learn', def: 'to find out something new', sent: 'At school, we ___ new things every day.' },
 ];
-const HEALTHY = [['water', '💧'], ['apple', '🍎'], ['carrot', '🥕'], ['fish', '🐟'], ['a long walk', '🚶']];
-const UNHEALTHY = [['soda every day', '🥤'], ['lots of candy', '🍬'], ['chips every day', null], ['cake for breakfast', '🍰']];
+const L5_ALT = { food: 'Rice, fish and fruit are all kinds of ___.', healthy: 'Drinking water is a ___ habit.', unhealthy: 'Soda every day is ___ for your teeth.', rest: 'When you feel very tired, it is time to ___.', learn: 'Reading books helps you ___ about the ocean.' };
+const HEALTHY = [['water', '💧'], ['apple', '🍎'], ['carrot', '🥕'], ['fish', '🐟'], ['a long walk', '🚶'], ['broccoli', '🥦'], ['playing outside', '⚽'], ['sleeping early', '😴']];
+const UNHEALTHY = [['soda every day', '🥤'], ['lots of candy', '🍬'], ['chips every day', null], ['cake for breakfast', '🍰'], ['staying up very late', '🌙'], ['sitting all day', null]];
 GEN.r_v5 = (L) => {
   if (L === 1) {
     const items = sample(HEALTHY, 3).map(x => O(x[0], x[0], { bin: 'h', emoji: x[1] })).concat(sample(UNHEALTHY, 3).map(x => O(x[0], x[0], { bin: 'u', emoji: x[1] })));
     return sortQ('Sort the choices: healthy or unhealthy?', [{ id: 'h', label: 'healthy' }, { id: 'u', label: 'unhealthy' }], items, { hint: 'Healthy choices help your body grow strong.', explain: 'Water, fruit, vegetables and walking are healthy. Lots of candy and soda are unhealthy.' });
   }
+  if (L === 2 && Math.random() < 0.5) { const it = pick(L5); return mc('Choose the missing word.', it.w, L5.map(x => x.w), { n: 4, visual: { k: 'quote', text: L5_ALT[it.w] }, layout: 'grid', hint: 'Read the sentence with each word. Which one makes sense?', explain: L5_ALT[it.w].replace('___', it.w.toUpperCase()) }); }
   return vocabQ(L, L5);
 };
 
@@ -1394,7 +1424,7 @@ GEN.r_v5 = (L) => {
 const CUENTOS = [
   { title: 'El caballito de mar', parts: ['Había una vez un caballito de mar llamado Lalo que vivía en Cozumel.', 'Un día quiso conocer todo el arrecife y nadó con su amiga Tuga.', 'Al final, vio peces de mil colores y regresó a casa muy feliz.'], who: 'Lalo, el caballito de mar', whoD: ['Un tiburón', 'Diego', 'Una gaviota'], where: 'En el mar de Cozumel', whereD: ['En una escuela', 'En el desierto', 'En un avión'], end: 'Lalo vio peces de mil colores', endD: ['Lalo se perdió para siempre', 'Lalo se fue a la ciudad'] },
   { title: 'La tortuga dormilona', parts: ['Había una vez una tortuga llamada Tuga que dormía mucho.', 'Un día, sus amigos hicieron una fiesta en el arrecife y Tuga casi no llega.', 'Al final, nadó muy rápido, llegó a tiempo y bailó con todos.'], who: 'Tuga, la tortuga', whoD: ['Un delfín', 'Mamá', 'Un cangrejo'], where: 'En el arrecife', whereD: ['En una casa', 'En la montaña', 'En el parque'], end: 'Tuga llegó a tiempo y bailó', endD: ['Tuga se quedó dormida', 'La fiesta se canceló'] },
-  { title: 'Coralina la pintora', parts: ['Había una vez Coralina, un pulpo rosa que amaba pintar.', 'Un día, una ola se llevó sus pinturas muy lejos.', 'Al final, sus amigos la ayudaron a encontrarlas y pintaron juntos.'], who: 'Coralina, el pulpo', whoD: ['Rayito', 'Papá', 'Una tortuga'], where: 'En el fondo del mar', whereD: ['En un museo', 'En la escuela', 'En el cielo'], end: 'Sus amigos la ayudaron', endD: ['Coralina dejó de pintar', 'La ola regresó a casa'] },
+  { title: 'Estelita la pintora', parts: ['Había una vez Estelita, una estrella de mar rosa que amaba pintar.', 'Un día, una ola se llevó sus pinturas muy lejos.', 'Al final, sus amigos la ayudaron a encontrarlas y pintaron juntos.'], who: 'Estelita, la estrella de mar', whoD: ['Rayito', 'Papá', 'Una tortuga'], where: 'En el fondo del mar', whereD: ['En un museo', 'En la escuela', 'En el cielo'], end: 'Sus amigos la ayudaron', endD: ['Estelita dejó de pintar', 'La ola regresó a casa'] },
 ];
 GEN.e_cuento = (L) => {
   const c = pick(CUENTOS); const text = c.parts.join(' ');
@@ -1414,10 +1444,15 @@ const CARTELES = [
   { id: 'reef', title: '¡Cuidemos el arrecife!', lines: ['No toques el coral.', 'Usa bloqueador biodegradable.'], purpose: 'Invitarnos a cuidar el arrecife', D: ['Contar un cuento de piratas', 'Vender helados'] },
   { id: 'castle', title: '¡Gran concurso de castillos de arena!', lines: ['Sábado a las 10 de la mañana', 'Playa San Francisco'], purpose: 'Invitar a un concurso de castillos', D: ['Explicar cómo nadan los peces', 'Contar un cuento'] },
   { id: 'trash', title: '¡No tires basura!', lines: ['La playa es de todos.', 'Usa los botes de basura.'], purpose: 'Pedir que cuidemos la playa limpia', D: ['Anunciar una fiesta', 'Enseñar los números'] },
+  { id: 'books', title: '¡Feria del libro!', lines: ['Lunes en la biblioteca', 'Ven a leer cuentos del mar'], purpose: 'Invitar a la feria del libro', D: ['Explicar cómo comen las tortugas', 'Pedir que no tiremos basura'] },
+  { id: 'hands', title: '¡Lávate las manos!', lines: ['Antes de comer', 'Con agua y jabón'], purpose: 'Recordarnos lavarnos las manos', D: ['Vender jabón', 'Invitar a un concurso'] },
+  { id: 'nests', title: '¡Respeta los nidos de tortuga!', lines: ['No pises la arena marcada.', 'Apaga las luces de noche.'], purpose: 'Pedir que cuidemos los nidos de tortuga', D: ['Enseñar a nadar', 'Contar un cuento de piratas'] },
 ];
 const INFOS = [
   { title: 'Las tortugas marinas', text: 'Las tortugas marinas ponen sus huevos en la arena. Las crías salen de noche y caminan hacia el mar.', q: '¿Dónde ponen sus huevos las tortugas marinas?', a: 'En la arena', D: ['En los árboles', 'En un río'] },
   { title: 'El arrecife', text: 'Un arrecife está formado por corales. Los corales son animales pequeños que viven juntos. Muchos peces viven en el arrecife.', q: '¿Qué son los corales?', a: 'Animales pequeños', D: ['Piedras de colores', 'Plantas de la playa'] },
+  { title: 'Los delfines', text: 'Los delfines viven en el mar, pero respiran aire. Suben a la superficie para respirar por un agujero en su cabeza.', q: '¿Qué respiran los delfines?', a: 'Aire', D: ['Agua', 'Arena'] },
+  { title: 'El pez loro', text: 'El pez loro come algas que crecen en el coral. Con sus dientes fuertes muerde el coral y ayuda a formar arena blanca.', q: '¿Qué come el pez loro?', a: 'Algas', D: ['Pan', 'Hojas de árbol'] },
 ];
 GEN.e_cartel = (L) => {
   if (L === 1) { const c = pick(CARTELES); return mc('¿Para qué sirve este cartel?', c.purpose, c.D, { visual: { k: 'cartel', c }, layout: 'list', hint: 'Lee el mensaje grande del cartel.', explain: `Este cartel sirve para: ${c.purpose.toLowerCase()}.` }); }
@@ -1571,6 +1606,9 @@ const NAT_INFO = [
   ['Which sentence tells your NAME?', 'My name is Diego.', ['I am 7 years old.', 'I like turtles.']],
   ['Which sentence tells your AGE?', 'I am 7 years old.', ['My name is Diego.', 'I live in Querétaro.']],
   ['Which sentence tells something you LOVE?', 'I love sea turtles.', ['I am 7 years old.', 'My name is Diego.']],
+  ['Which sentence tells where you LIVE?', 'I live in Querétaro.', ['My name is Diego.', 'I love sea turtles.']],
+  ['Which sentence tells something you are GOOD at?', 'I am good at swimming.', ['I am 7 years old.', 'My name is Diego.']],
+  ['Which sentence tells your FAVORITE color?', 'My favorite color is blue.', ['I live in Querétaro.', 'I am 7 years old.']],
 ];
 GEN.nat_me = (L) => {
   if (L === 1) { const [q, a, d] = pick(NAT_INFO); return mc(q, a, d, { layout: 'list', hint: 'Name = what people call you. Age = how many years old you are.', explain: `"${a}"` }); }
@@ -1579,6 +1617,7 @@ GEN.nat_me = (L) => {
     const w = pick([['My', 'name', 'is', 'Diego.'], ['I', 'am', 'seven', 'years', 'old.']]);
     return { type: 'build', tk: 'word', prompt: 'Put the words in order to introduce yourself.', answer: w, tiles: shuffle(w), hint: 'The word with a capital letter goes first.', explain: w.join(' ') };
   }
+  if (Math.random() < 0.4) return mc('Diego and Leo are different. Is that okay?', 'Yes! Everyone is special in their own way.', ['No, everyone must be the same.', 'Only if they like the same games.'], { layout: 'list', hint: 'Think: what makes YOU special?', explain: 'Being different is okay. Everyone is special in their own way.' });
   return mc('What makes a person special?', 'Their own talents, ideas and the things they love', ['Only the clothes they wear', 'Nothing, everyone is the same'], { layout: 'list', hint: 'Think about what makes YOU special.', explain: 'Everyone is special because of their talents, ideas and the things they love.' });
 };
 const PHYS = ['hair color', 'eye color', 'height', 'skin color', 'curly or straight hair'];
@@ -1613,11 +1652,20 @@ GEN.nat_habits = (L) => {
   const [q, a, d] = pick(QS); return mc(q, a, d, { layout: 'list', hint: 'Think about what keeps your body strong.', explain: `${a} is the healthy choice.` });
 };
 const PLATE = [['carrot', '🥕', 'g'], ['broccoli', '🥦', 'g'], ['banana', '🍌', 'g'], ['mango', '🥭', 'g'], ['apple', '🍎', 'g'], ['rice', '🍚', 'o'], ['bread', '🍞', 'o'], ['tortilla', '🫓', 'o'], ['oatmeal', '🥣', 'o'], ['beans', '🫘', 'r'], ['egg', '🥚', 'r'], ['fish', '🐟', 'r'], ['chicken', '🍗', 'r'], ['milk', '🥛', 'r']];
+const PLATE_Q = [
+  ['Which food goes in the orange part of the plate?', 'rice', ['fish', 'carrot']],
+  ['Which food goes in the red part of the plate?', 'beans', ['bread', 'banana']],
+  ['Which food goes in the green part of the plate?', 'broccoli', ['chicken', 'tortilla']],
+  ['Which drink is best for your body?', 'water', ['soda', 'a milkshake']],
+  ['Tortillas, rice and bread are in which group?', 'Cereals & grains (orange)', ['Vegetables & fruits (green)', 'Legumes & animal foods (red)']],
+  ['Eggs, beans and fish are in which group?', 'Legumes & animal foods (red)', ['Cereals & grains (orange)', 'Vegetables & fruits (green)']],
+];
 const PLATE_BINS = [{ id: 'g', label: 'Vegetables & fruits (green)' }, { id: 'o', label: 'Cereals & grains (orange)' }, { id: 'r', label: 'Legumes & animal foods (red)' }];
 GEN.nat_plate = (L) => {
   if (L === 3 && Math.random() < 0.5) return Math.random() < 0.5
     ? mc('On the eat well plate, which group should we eat the MOST?', 'Vegetables and fruits', ['Legumes and animal foods', 'Candy and sweets'], { layout: 'list', hint: 'It is the green part of the plate.', explain: 'We should eat lots of vegetables and fruits.' })
     : mc('A healthy meal has food from…', 'all three groups of the plate', ['only one group', 'no groups'], { layout: 'list', hint: 'Look at the three colors of the plate.', explain: 'A healthy meal combines food from all three groups.' });
+  if (L >= 2 && Math.random() < 0.4) { const [q, a, d] = pick(PLATE_Q); return mc(q, a, d, { layout: 'list', hint: LESSONS.nat_plate[0], explain: `Answer: ${a}.` }); }
   const n = L === 1 ? 1 : 2; const items = [];
   PLATE_BINS.forEach(b => sample(PLATE.filter(x => x[2] === b.id), n).forEach(f => items.push(O(f[0], f[0], { bin: b.id, emoji: f[1] }))));
   return sortQ('Put each food on the eat well plate.', PLATE_BINS, items, { hint: LESSONS.nat_plate[0], explain: items.map(i => `${i.label}: ${PLATE_BINS.find(b => b.id === i.bin).label}`).join(' · ') });
@@ -1637,9 +1685,12 @@ const CUID = [
   ['Algo te hace sentir incómodo o con miedo. ¿Qué haces?', 'Se lo digo a un adulto de confianza', ['Me lo guardo en secreto', 'No le digo a nadie nunca']],
   ['Estás muy cansado después de nadar. ¿Qué necesita tu cuerpo?', 'Descansar', ['Correr más', 'Comer dulces']],
   ['Te sientes triste. ¿Qué te puede ayudar?', 'Hablar de lo que siento con alguien que quiero', ['Esconderme y no hablar', 'Gritarle a alguien']],
+  ['Vas a comer. ¿Qué haces primero?', 'Me lavo las manos', ['Juego con la arena', 'Me voy a nadar']],
+  ['Vas a subir a una lancha. ¿Qué te pones?', 'Mi chaleco salvavidas', ['Solo mi gorra', 'Nada']],
+  ['Una persona que no conoces te ofrece dulces. ¿Qué haces?', 'Digo que no y busco a mi familia', ['Me voy con esa persona', 'Acepto y no le digo a nadie']],
 ];
-const CUID_SI = ['Lavarme las manos', 'Usar chaleco en el mar', 'Dormir temprano', 'Ponerme bloqueador', 'Decir cómo me siento'];
-const CUID_NO = ['Nadar solo sin un adulto', 'Tocar el coral', 'No tomar agua en el sol', 'Cruzar la calle sin ver'];
+const CUID_SI = ['Lavarme las manos', 'Usar chaleco en el mar', 'Dormir temprano', 'Ponerme bloqueador', 'Decir cómo me siento', 'Cepillarme los dientes', 'Comer frutas y verduras'];
+const CUID_NO = ['Nadar solo sin un adulto', 'Tocar el coral', 'No tomar agua en el sol', 'Cruzar la calle sin ver', 'Comer solo dulces', 'Subir a la lancha sin chaleco'];
 GEN.civ_cuidado = (L) => {
   if (L === 2) { const items = sample(CUID_SI, 3).map(w => O(w, w, { bin: 's' })).concat(sample(CUID_NO, 3).map(w => O(w, w, { bin: 'n' }))); return sortQ('Clasifica: ¿me cuida o no me cuida?', [{ id: 's', label: 'Me cuida' }, { id: 'n', label: 'No me cuida' }], items, { hint: '¿Me protege o me pone en peligro?', explain: 'Me cuida: ' + items.filter(i => i.bin === 's').map(i => i.label.toLowerCase()).join(', ') + '.' }); }
   if (L === 3 && Math.random() < 0.4) return mc('¿Qué significa conocerme a mí mismo?', 'Saber qué siento, qué me gusta y qué necesito', ['Saber el nombre de todos mis vecinos', 'Saber todos los números'], { layout: 'list', hint: 'Piensa en ti: tus emociones y tus gustos.', explain: 'Conocerme es saber qué siento, qué me gusta y qué necesito.' });
@@ -1651,6 +1702,9 @@ const IDENT = [
   ['Diego nació en México. Su nacionalidad es…', 'Mexicana', ['Japonesa', 'Francesa']],
   ['Tu nombre, tu familia y tu nacionalidad forman tu…', 'Identidad', ['Mochila', 'Tarea']],
   ['¿Quién tiene derecho a un nombre y una nacionalidad?', 'Todas las niñas y los niños', ['Solo los adultos', 'Solo algunos niños']],
+  ['¿Por qué es importante tener un nombre?', 'Porque nos identifica y nos hace únicos', ['Porque es divertido', 'Porque solo lo pide la escuela']],
+  ['Cuando nace un bebé, su familia lo registra. ¿Para qué?', 'Para que tenga su acta de nacimiento', ['Para comprarle juguetes', 'Para que vaya al cine']],
+  ['Además de tu nombre, ¿qué es parte de tu identidad?', 'Tu familia y tu nacionalidad', ['Tu juguete favorito', 'La ropa que usas hoy']],
 ];
 GEN.civ_ident = (L) => {
   if (L === 3 && Math.random() < 0.5) { const items = ['Tener un nombre', 'Tener una nacionalidad', 'Ser registrado al nacer'].map(w => O(w, w, { bin: 's' })).concat(sample(['Tener un videojuego', 'Comer pastel diario', 'Tener celular'], 2).map(w => O(w, w, { bin: 'n' }))); return sortQ('¿Es parte del derecho a la identidad?', [{ id: 's', label: 'Sí es' }, { id: 'n', label: 'No es' }], items, { hint: 'El derecho a la identidad es sobre quién eres: nombre y nacionalidad.', explain: 'Derecho a la identidad: nombre, nacionalidad y registro al nacer.' }); }
@@ -1662,6 +1716,9 @@ const DEC = [
   ['Antes de tomar una decisión es bueno…', 'Pensar en las opciones y en qué puede pasar', ['Decidir sin pensar', 'Dejar que otro decida siempre']],
   ['Alguien dice una idea diferente a la tuya. ¿Qué haces?', 'La escucho con respeto', ['Me burlo', 'Le tapo la boca']],
   ['¿Cómo puedes expresar que algo te enoja?', 'Con palabras: «Me siento enojado porque…»', ['Pegando', 'Rompiendo cosas']],
+  ['Tu equipo tiene que elegir un juego. ¿Qué hacen?', 'Votamos y respetamos lo que gane', ['Gana el que grite más', 'Nadie juega']],
+  ['Te equivocaste en una decisión. ¿Qué haces?', 'Lo reconozco y busco cómo arreglarlo', ['Culpo a otra persona', 'Me enojo y me voy']],
+  ['¿Cómo pides algo que quieres?', 'Con palabras amables: «¿Me lo prestas, por favor?»', ['Lo arrebato', 'Lloro y grito']],
 ];
 GEN.civ_dec = (L) => {
   if (L === 2 && Math.random() < 0.5) { const items = ['Hablar con respeto', 'Escuchar a los demás', 'Decir cómo me siento'].map(w => O(w, w, { bin: 's' })).concat(['Gritar', 'Pegar', 'Burlarme'].map(w => O(w, w, { bin: 'n' }))); return sortQ('Clasifica: ¿forma respetuosa de expresarme?', [{ id: 's', label: 'Respetuosa' }, { id: 'n', label: 'No respetuosa' }], items, { hint: 'Respetuoso es cuidar los sentimientos de todos.', explain: 'Hablar, escuchar y decir cómo me siento son formas respetuosas.' }); }
@@ -1684,7 +1741,7 @@ function validateDraw(target, pts) {
 }
 
 /* ================= ENGINE ================= */
-function freshData() { return { v: 2, worldMissions: {}, lastPartial: null, topics: {}, words: {}, creatures: [], stars: 0, sessions: 0, pearls: [], ach: [], recent: [], log: [], retryWins: 0, guardian: null, played: {}, theme: null, introSeen: false, totalQ: 0 }; }
+function freshData() { return { v: 3, missionsDone: {}, legacyMissions: {}, lastMission: null, worldMissions: {}, lastPartial: null, topics: {}, words: {}, creatures: [], stars: 0, sessions: 0, pearls: [], ach: [], recent: [], log: [], retryWins: 0, guardian: null, played: {}, theme: null, introSeen: false, totalQ: 0 }; }
 function tstat(D, id) { return D.topics[id] ? D.topics[id] : { a: 0, fc: 0, lvl: 1, up: 0, miss: 0, rem: false, hist: [], wrong: 0, last: 0 }; }
 function keyOf(topic, q) {
   const parts = [topic, q.type, q.prompt, JSON.stringify(q.answer), JSON.stringify(q.visual || null)];
@@ -1725,24 +1782,94 @@ function subjectProgress(D, sid) {
   ts.forEach(t => { const s = D.topics[t.id]; const st = topicStatus(s); if (st === 'improving' || st === 'mastered') { sum += 1; done++; } else if (s) sum += Math.min(0.8, s.fc * 0.35 + 0.05); });
   return { p: sum / ts.length, done, total: ts.length };
 }
-const ADV_MISSIONS = 2; // completed missions needed per world, in addition to exploring every topic
+/* ---------- Five missions per world (approved curriculum matrix, newsletter Theme 1 C.E. 26-27) ----------
+   t: main topics · r: review topics (about 1 in 4 challenges) · min: starting difficulty floor
+   (adaptive levels and remediation still apply) · len: challenges. Mission 5 reviews the whole world. */
+const WORLD_MISSIONS = {
+  eng: [
+    { t: 'Las letras perdidas', topics: ['eng_caps'], r: [], min: 1 },
+    { t: 'Conchas en orden ABC', topics: ['eng_abc'], r: ['eng_caps'], min: 1 },
+    { t: 'El mensaje en la botella', topics: ['eng_sentence', 'eng_punct'], r: [], min: 2 },
+    { t: 'Nombres del arrecife', topics: ['eng_nouns'], r: ['eng_punct'], min: 2 },
+    { t: 'La gran marea de palabras', topics: ['eng_art'], r: 'all', len: 10 },
+  ],
+  math: [
+    { t: 'Contando conchas', topics: ['m_n20', 'm_group'], r: [], min: 1 },
+    { t: 'Decenas y unidades', topics: ['m_tens', 'm_pv'], r: [], min: 1 },
+    { t: 'Saltos del delfín', topics: ['m_exp', 'm_line'], r: ['m_tens'], min: 2 },
+    { t: 'Figuras del fondo del mar', topics: ['m_shapes', 'm_sides'], r: [], min: 2 },
+    { t: 'El espejo de Rayito', topics: ['m_sym', 'm_pat'], r: 'all', len: 10 },
+  ],
+  read: [
+    { t: 'El cerebro explorador', topics: ['r_seq', 'r_v1'], r: [], min: 1 },
+    { t: 'Los cinco sentidos', topics: ['r_story', 'r_v2'], r: [], min: 1 },
+    { t: 'Hábitos de explorador', topics: ['r_v3'], r: ['r_seq'], min: 2 },
+    { t: 'El mercado de Cozumel', topics: ['r_v4'], r: ['r_story'], min: 2 },
+    { t: 'La biblioteca brillante', topics: ['r_v5'], r: 'all', len: 10 },
+  ],
+  esp: [
+    { t: 'Cuentos y carteles', topics: ['e_cuento', 'e_cartel'], r: [], min: 1 },
+    { t: 'Letras especiales', topics: ['e_abc', 'e_chll'], r: [], min: 1 },
+    { t: 'Nombres con mayúscula', topics: ['e_sust', 'e_may'], r: [], min: 2 },
+    { t: 'Puntos en la arena', topics: ['e_punto'], r: ['e_may'], min: 2 },
+    { t: 'Números en la playa', topics: ['e_num'], r: 'all', len: 10 },
+  ],
+  spell: [
+    { t: 'Sonidos del alfabeto', topics: ['sp_alpha', 'sp_long'], r: [], min: 1 },
+    { t: 'La c y la g mágicas', topics: ['sp_softc', 'sp_softg'], r: [], min: 1 },
+    { t: 'Ballenas y pies', topics: ['sp_ai', 'sp_ee'], r: [], min: 2 },
+    { t: 'Noche y arcoíris', topics: ['sp_ie', 'sp_oa'], r: [], min: 2 },
+    { t: 'El cofre de las 40 palabras', topics: [], r: 'all', len: 10 },
+  ],
+  nat: [
+    { t: '¿Quién soy?', topics: ['nat_me', 'nat_likes'], r: [], min: 1 },
+    { t: 'Parecidos y diferentes', topics: ['nat_diff', 'civ_ident'], r: [], min: 1 },
+    { t: 'Mi cuerpo y mis sentidos', topics: ['nat_body', 'civ_cuidado'], r: [], min: 2 },
+    { t: 'El plato del bien comer', topics: ['nat_habits', 'nat_plate'], r: [], min: 2 },
+    { t: 'Cuerpo y mente activos', topics: ['nat_active', 'civ_dec'], r: 'all', len: 10 },
+  ],
+};
+const MISSIONS_PER_WORLD = 5;
+const missionDef = (sid, n) => (WORLD_MISSIONS[sid] || [])[n - 1];
+const missionLen = m => m.len || 8;
+const missionsDone = (D, sid) => ((D.missionsDone || {})[sid] || []).filter(n => n >= 1 && n <= MISSIONS_PER_WORLD);
+// Next mission to play in order (missions open one after another); null when all five are done.
+function nextMissionOf(D, sid) { const done = missionsDone(D, sid); for (let n = 1; n <= MISSIONS_PER_WORLD; n++) if (!done.includes(n)) return n; return null; }
+const missionOpen = (D, sid, n) => n === 1 || missionsDone(D, sid).includes(n - 1) || missionsDone(D, sid).includes(n);
+// Topic sequence for a mission: main topics round-robin, about a quarter review, never the same topic twice in a row when avoidable.
+function missionPlan(sid, n) {
+  const m = missionDef(sid, n); const len = missionLen(m); const all = TOPICS.filter(t => t.s === sid).map(t => t.id);
+  const review = m.r === 'all' ? all.filter(x => !m.topics.includes(x)) : m.r;
+  const nRev = m.r === 'all' ? (m.topics.length ? Math.round(len * 0.6) : len) : review.length ? Math.max(1, Math.round(len / 4)) : 0;
+  const out = []; const main = shuffle(m.topics.slice()); const rv = shuffle(review.slice());
+  for (let i = 0; i < len - nRev; i++) out.push(main[i % main.length]);
+  for (let i = 0; i < nRev; i++) out.push(rv[i % rv.length]);
+  let seq = shuffle(out);
+  for (let k = 0; k < 30; k++) { let bad = -1; for (let i = 1; i < seq.length; i++) if (seq[i] === seq[i - 1]) { bad = i; break; } if (bad < 0) break; const j = Math.floor(Math.random() * seq.length); [seq[bad], seq[j]] = [seq[j], seq[bad]]; }
+  return seq;
+}
+const ADV_MISSIONS = MISSIONS_PER_WORLD;
 function adventureProgress(D, sid) {
   const ts = TOPICS.filter(t => t.s === sid);
   const explored = ts.filter(t => D.topics[t.id] && D.topics[t.id].a > 0).length;
-  const missions = Math.min(ADV_MISSIONS, ((D.worldMissions || {})[sid]) || 0);
-  const done = (explored === ts.length && missions >= ADV_MISSIONS) || (!SUBJ[sid].bonus && D.pearls.includes(sid));
-  const p = done ? 1 : Math.min(0.95, 0.5 * missions / ADV_MISSIONS + 0.5 * explored / ts.length);
-  return { p, explored, total: ts.length, missions, need: ADV_MISSIONS, done };
+  const missions = missionsDone(D, sid).length;
+  // A pearl (or the bonus badge) needs all five missions. Rewards already earned are never taken back.
+  const earned = SUBJ[sid].bonus ? (D.ach || []).includes('ocean') : D.pearls.includes(sid);
+  const done = missions >= MISSIONS_PER_WORLD || earned;
+  const p = done ? 1 : missions / MISSIONS_PER_WORLD;
+  return { p, explored, total: ts.length, missions, need: MISSIONS_PER_WORLD, done, earned, next: nextMissionOf(D, sid), legacy: ((D.legacyMissions || {})[sid]) || 0 };
 }
 function nextAdventure(D) {
-  if (D.lastPartial && SUBJ[D.lastPartial] && !SUBJ[D.lastPartial].bonus && !D.pearls.includes(D.lastPartial)) return { kind: 'world', sid: D.lastPartial, why: 'resume' };
+  const lp = D.lastMission;
+  if (lp && SUBJ[lp.sid] && !SUBJ[lp.sid].bonus && !D.pearls.includes(lp.sid) && !missionsDone(D, lp.sid).includes(lp.n)) return { kind: 'world', sid: lp.sid, mission: lp.n, why: 'resume' };
   const inc = MAIN.filter(s => !D.pearls.includes(s.id));
-  if (inc.length) { const best = inc.map((s, i) => ({ s, i, p: adventureProgress(D, s.id).p })).sort((a, b) => b.p - a.p || a.i - b.i)[0]; return { kind: 'world', sid: best.s.id, why: 'next' }; }
+  if (inc.length) { const best = inc.map((s, i) => ({ s, i, p: adventureProgress(D, s.id).p })).sort((a, b) => b.p - a.p || a.i - b.i)[0]; return { kind: 'world', sid: best.s.id, mission: nextMissionOf(D, best.s.id) || 1, why: 'next' }; }
   if (!D.guardian) return { kind: 'final' };
   return weakTopics(D, 1).length ? { kind: 'review' } : { kind: 'daily' };
 }
 function migrateData(D) {
-  D = Object.assign(freshData(), D || {});
+  const ver = (D && D.v) || 1; // read before defaults are merged in
+  D = Object.assign(freshData(), D || {}); D.v = ver;
   if (!Array.isArray(D.pearls)) D.pearls = [];
   if (!Array.isArray(D.ach)) D.ach = [];
   if (!D.topics || typeof D.topics !== 'object') D.topics = {};
@@ -1751,8 +1878,16 @@ function migrateData(D) {
     // v1 -> v2: the sixth "secret pearl" becomes the bonus badge; credit earlier play toward adventure missions
     if (D.pearls.includes('nat')) { D.pearls = D.pearls.filter(x => x !== 'nat'); if (!D.ach.includes('ocean')) D.ach.push('ocean'); }
     const perSubj = {}; (D.log || []).forEach(l => { const t = TOPIC[l.topic]; if (t) perSubj[t.s] = (perSubj[t.s] || 0) + 1; });
-    SUBJECTS.forEach(s => { const est = Math.floor((perSubj[s.id] || 0) / 8); D.worldMissions[s.id] = Math.max(D.worldMissions[s.id] || 0, D.pearls.includes(s.id) ? ADV_MISSIONS : est); });
+    SUBJECTS.forEach(s => { const est = Math.floor((perSubj[s.id] || 0) / 8); D.worldMissions[s.id] = Math.max(D.worldMissions[s.id] || 0, D.pearls.includes(s.id) ? 2 : est); });
     D.v = 2;
+  }
+  if (!D.missionsDone || typeof D.missionsDone !== 'object') D.missionsDone = {};
+  if (!D.legacyMissions || typeof D.legacyMissions !== 'object') D.legacyMissions = {};
+  if (D.v < 3) {
+    // v2 -> v3 (five missions per world): earlier missions mixed every topic, so they cannot be mapped to a
+    // specific new mission. Keep them as "misiones anteriores"; pearls, badges and topic levels stay as they are.
+    SUBJECTS.forEach(s => { const n = (D.worldMissions || {})[s.id] || 0; if (n) D.legacyMissions[s.id] = Math.max(D.legacyMissions[s.id] || 0, n); });
+    D.lastMission = null; D.v = 3;
   }
   return D;
 }
@@ -1777,6 +1912,7 @@ function weakTopics(D, k) {
 function createSession(cfg, D) {
   const sess = { cfg, idx: 0, len: cfg.len || 8, used: {}, subjUsed: {}, results: [], streak: 0, best: 0, retryWins: 0, familyUsed: false };
   if (cfg.mode === 'diag') { sess.fixed = shuffle(cfg.topics); sess.len = sess.fixed.length; }
+  else if (cfg.mode === 'mission') { const m = missionDef(cfg.subject, cfg.mission); sess.fixed = missionPlan(cfg.subject, cfg.mission); sess.len = sess.fixed.length; sess.levelMin = m.min || 0; }
   else if (cfg.mode === 'final') { const f = []; MAIN.forEach(s => sample(TOPICS.filter(t => t.s === s.id), 2).forEach(t => f.push(t.id))); sess.fixed = shuffle(f); sess.len = f.length; }
   sess.pool = cfg.topics && cfg.topics.length ? cfg.topics : cfg.subject ? TOPICS.filter(t => t.s === cfg.subject).map(t => t.id) : TOPICS.map(t => t.id);
   return sess;
@@ -1788,6 +1924,7 @@ function nextQuestion(D, sess, ctx) {
   const s = tstat(D, topic);
   let level = s.lvl; let lesson = null;
   if (sess.cfg.levelMin) level = Math.max(level, sess.cfg.levelMin);
+  if (sess.levelMin && !s.rem) level = Math.max(level, sess.levelMin);
   if (s.rem && sess.cfg.mode !== 'diag' && sess.cfg.mode !== 'final') { level = 1; lesson = topic; }
   else if (sess.cfg.mode === 'review' && s.a && s.fc / s.a < 0.6) { sess.lessoned = sess.lessoned || {}; if (!sess.lessoned[topic]) { sess.lessoned[topic] = 1; lesson = topic; } }
   const q = makeQuestion(topic, level, D, ctx);
@@ -1828,7 +1965,14 @@ function finishSession(D, sess, complete) {
     const per = {}; sess.results.forEach(r => { per[r.s] = (per[r.s] || 0) + 1; });
     Object.keys(per).forEach(sid => { if (per[sid] >= 4) { D.worldMissions[sid] = (D.worldMissions[sid] || 0) + 1; sum.missionFor.push(sid); } });
     if (sess.cfg.subject && D.lastPartial === sess.cfg.subject) D.lastPartial = null;
+    if (sess.cfg.mode === 'mission') {
+      D.missionsDone = D.missionsDone || {}; const l = missionsDone(D, sess.cfg.subject);
+      if (!l.includes(sess.cfg.mission)) { D.missionsDone[sess.cfg.subject] = l.concat(sess.cfg.mission).sort((a, b) => a - b); sum.missionNew = true; }
+      sum.mission = sess.cfg.mission;
+      if (D.lastMission && D.lastMission.sid === sess.cfg.subject && D.lastMission.n === sess.cfg.mission) D.lastMission = null;
+    }
   } else if (sess.cfg.mode === 'world' && sess.results.length) D.lastPartial = sess.cfg.subject;
+  else if (sess.cfg.mode === 'mission' && sess.results.length) { D.lastMission = { sid: sess.cfg.subject, n: sess.cfg.mission }; sum.mission = sess.cfg.mission; }
   D.retryWins = (D.retryWins || 0) + sess.retryWins;
   MAIN.forEach(s => { if (!D.pearls.includes(s.id) && adventureProgress(D, s.id).done) { D.pearls.push(s.id); sum.newPearls.push(s.id); } });
   if (complete && sess.cfg.mode === 'final' && !D.guardian) { D.guardian = Date.now(); }
@@ -1849,7 +1993,7 @@ function recommendations(D) {
   if (weak.length && D.topics[weak[0]].a >= 3) out.push(`Para mañana: repasar «${TOPIC[weak[0]].name}» con el botón «Practicar lo que más me cuesta».`);
   return out.slice(0, 7);
 }
-if (typeof module !== 'undefined') module.exports = { SYM_CASES, MAIN, adventureProgress, nextAdventure, migrateData, ACH, weakTopics, GEN, TOPICS, SPELL, SUBJECTS, makeQuestion, freshData, recordAnswer, createSession, nextQuestion, finishSession, validateDraw, numES, themeCtx, subjectProgress, topicStatus, recommendations, CREATURES, CHLL, SPELL_GROUPS, LESSONS };
+if (typeof module !== 'undefined') module.exports = { WORLD_MISSIONS, MISSIONS_PER_WORLD, missionPlan, missionsDone, nextMissionOf, missionOpen, SYM_CASES, MAIN, adventureProgress, nextAdventure, migrateData, ACH, weakTopics, GEN, TOPICS, SPELL, SUBJECTS, makeQuestion, freshData, recordAnswer, createSession, nextQuestion, finishSession, validateDraw, numES, themeCtx, subjectProgress, topicStatus, recommendations, CREATURES, CHLL, SPELL_GROUPS, LESSONS };
 
 </script>
 <script>
@@ -1874,6 +2018,8 @@ const CHAR_ART = {
   tuga: { src: './assets/characters/tuga.png', w: 720, h: 455, k: 1 },
   rayito: { src: './assets/characters/rayito.png', w: 720, h: 445, k: 1 },
   coralina: { src: './assets/characters/coralina.png', w: 720, h: 483, k: 1.3 },
+  estelita: { src: './assets/characters/estelita.png', w: 720, h: 703, k: 0.95 },
+  lumi: { src: './assets/characters/lumi.png', w: 719, h: 720, k: 0.95 },
   burbujin: { src: './assets/characters/burbujin.png', w: 720, h: 533, k: 1.15 },
   pincelin: { src: './assets/characters/pincelin.png', w: 720, h: 571, k: 1.15 },
   'captain-rhythm': { src: './assets/characters/captain-rhythm.png', w: 720, h: 481, k: 1.1 },
@@ -1887,10 +2033,12 @@ function CharImg({ id, size = 100, cls = '' }) {
 const Tuga = ({ size = 120, cls = '' }) => html`<${CharImg} id="tuga" size=${size} cls=${cls}/>`;
 const Rayito = ({ size = 120, cls = '' }) => html`<${CharImg} id="rayito" size=${size} cls=${cls}/>`;
 const Coralina = ({ size = 100, cls = '' }) => html`<${CharImg} id="coralina" size=${size} cls=${cls}/>`;
+const Estelita = ({ size = 100, cls = '' }) => html`<${CharImg} id="estelita" size=${size} cls=${cls}/>`;
+const Lumi = ({ size = 100, cls = '' }) => html`<${CharImg} id="lumi" size=${size} cls=${cls}/>`;
 const Burbujin = ({ size = 100, cls = '' }) => html`<${CharImg} id="burbujin" size=${size} cls=${cls}/>`;
 const Diego = ({ size = 90, cls = '' }) => html`<${CharImg} id="diego" size=${size} cls=${cls}/>`;
-const GUIDES = { tuga: Tuga, burbujin: Burbujin, coralina: Coralina, rayito: Rayito, diego: Diego };
-const GUIDE_NAMES = { tuga: 'Tuga', burbujin: 'Burbujín', coralina: 'Coralina', rayito: 'Rayito' };
+const GUIDES = { tuga: Tuga, burbujin: Burbujin, coralina: Coralina, estelita: Estelita, lumi: Lumi, rayito: Rayito, diego: Diego };
+const GUIDE_NAMES = { tuga: 'Tuga', burbujin: 'Burbujín', coralina: 'Coralina', estelita: 'Estelita', lumi: 'Lumi', rayito: 'Rayito' };
 function Guide({ id, size, cls }) { const C = GUIDES[id] || Tuga; return html`<${C} size=${size} cls=${cls}/>`; }
 
 function Pearl({ p = 0, size = 44, badge = true }) {
@@ -2180,6 +2328,10 @@ function LineQ({ q, state, submit }) {
 const PRAISE_EN = ['Great thinking, explorer!', 'You got it!', 'Super splash!', 'Fantastic!', 'Awesome work!', 'Brilliant!'];
 const PRAISE_ES = ['¡Excelente, explorador!', '¡Muy bien!', '¡Lo lograste!', '¡Increíble!', '¡Bravo!'];
 const TRY = ['¡Casi lo tienes!', "Let's try another way!", '¡Tuga tiene una pista para ti!'];
+// El Faro de los Fit Kids is guided by Lumi; every other world keeps Tuga as the helper.
+const isLighthouse = topicId => !!(TOPIC[topicId] && TOPIC[topicId].s === 'nat');
+const helperOf = topicId => isLighthouse(topicId) ? 'lumi' : 'tuga';
+const tryMsg = topicId => { const t = pick(TRY); return isLighthouse(topicId) ? t.replace('¡Tuga tiene una pista para ti!', '¡Lumi encendió su luz: aquí va una pista!') : t; };
 function Question({ q, guide, onFirst, onDone, onMiss, familyOk }) {
   const [tries, setTries] = useState(0); const [state, setState] = useState('open'); const [showHint, setShowHint] = useState(false); const [msg, setMsg] = useState(null);
   const firstRef = useRef(null); const familyRef = useRef(false); const stateRef = useRef('open'); const triesRef = useRef(0); const doneRef = useRef(false);
@@ -2195,10 +2347,10 @@ function Question({ q, guide, onFirst, onDone, onMiss, familyOk }) {
     } else {
       const t = triesRef.current + 1; triesRef.current = t; setTries(t);
       if (t >= 2) { stateRef.current = 'reveal'; setState('reveal'); setMsg({ kind: 'reveal', text: es ? 'Mira, así es:' : "Let's look together:", sub: q.explain }); }
-      else { setShowHint(true); setMsg({ kind: 'try', text: pick(TRY) }); }
+      else { setShowHint(true); setMsg({ kind: 'try', text: tryMsg(q.topic) }); }
     }
   };
-  const miss = () => { if (firstRef.current === null) { firstRef.current = false; onFirst(false); } setShowHint(true); setMsg({ kind: 'try', text: pick(TRY) }); onMiss && onMiss(); };
+  const miss = () => { if (firstRef.current === null) { firstRef.current = false; onFirst(false); } setShowHint(true); setMsg({ kind: 'try', text: tryMsg(q.topic) }); onMiss && onMiss(); };
   const Body = { mc: MCQ, order: OrderQ, sort: SortQ, build: BuildQ, match: MatchQ, group: GroupQ, draw: DrawQ, line: LineQ }[q.type];
   const done = state !== 'open';
   return html`<div className="qwrap">
@@ -2207,7 +2359,7 @@ function Question({ q, guide, onFirst, onDone, onMiss, familyOk }) {
     <${Visual} v=${q.visual} lang=${q.lang}/>
     <div className="qbody"><${Body} q=${q} state=${state} submit=${submit} miss=${miss}/></div>
     <div className=${'feedback ' + (msg ? msg.kind : '')} aria-live="polite">
-      ${msg ? html`<div className="fb-msg">${msg.kind === 'right' && q.chest ? html`<${Chest} open=${true} size=${70}/>` : msg.kind === 'right' ? html`<${Burbujin} size=${72} cls="bounce"/>` : html`<${Tuga} size=${84}/>`}
+      ${msg ? html`<div className="fb-msg">${msg.kind === 'right' && q.chest ? html`<${Chest} open=${true} size=${70}/>` : msg.kind === 'right' ? html`<${Burbujin} size=${72} cls="bounce"/>` : html`<${Guide} id=${guide === 'lumi' ? 'lumi' : helperOf(q.topic)} size=${84}/>`}
         <div><strong>${msg.text}</strong>${msg.sub && msg.kind !== 'try' ? html`<p>${msg.sub}</p>` : null}${msg.kind === 'try' && showHint && q.hint ? html`<p>${q.hint}</p>` : null}</div></div>` : null}
       <div className="fb-btns">
         ${!done && !showHint && q.hint && q.level < 3 ? html`<button className="btn ghost" onClick=${() => { setShowHint(true); setMsg({ kind: 'try', text: es ? '¡Una pista!' : 'Here is a hint!' }); }}>${es ? 'Pista' : 'Hint'}</button>` : null}
@@ -2272,7 +2424,7 @@ function Checkin({ onPick, onBack }) {
 
 function todayKey() { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
 function advLabel(data, adv) {
-  if (adv.kind === 'world') { const s = SUBJ[adv.sid]; const p = adventureProgress(data, adv.sid); return { title: (adv.why === 'resume' ? 'Retoma: ' : '') + s.world, sub: `${s.pearl} · misión ${Math.min(p.missions + 1, p.need)} de ${p.need}`, guide: s.guide }; }
+  if (adv.kind === 'world') { const s = SUBJ[adv.sid]; const n = adv.mission || 1; const m = WORLD_MISSIONS[adv.sid][n - 1]; return { title: (adv.why === 'resume' ? 'Retoma: ' : '') + s.world, sub: `Misión ${n} de ${MISSIONS_PER_WORLD}: ${m.t}`, guide: s.guide }; }
   if (adv.kind === 'final') return { title: 'Reto del Guardián', sub: '¡Las 5 perlas brillan! Es hora del gran final.', guide: 'tuga' };
   if (adv.kind === 'review') return { title: 'Misión de repaso', sub: 'Practica lo que más te cuesta para que siga brillando.', guide: 'tuga' };
   return { title: 'Misión sorpresa', sub: 'Retos de todos los mundos.', guide: 'tuga' };
@@ -2291,29 +2443,56 @@ function MapScreen({ data, startWorld, startDaily, startFinal, startContinue, go
       <div className="w-top"><${Guide} id=${s.guide} size=${92}/><span className="w-pearl"><${Pearl} p=${got ? 1 : 0} size=${got ? 84 : 60}/></span></div>
       ${got ? html`<span className="pearl-chip got"><${Icon} n="check" size=${18}/> ¡Perla recuperada!</span>` : html`<span className="pearl-chip todo">Perla por recuperar</span>`}
       <strong>${s.world}</strong><span className="subj">${s.name}</span>
-      ${got ? (() => { const m = subjectProgress(data, s.id); return html`<span className="w-meta">Puedes seguir practicando · Temas dominados: ${m.done} de ${m.total}</span>`; })() : html`<${React.Fragment}><div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%' }}></i></div>
-      <span className="w-meta">Misiones ${p.missions} de ${p.need} · Temas ${p.explored} de ${p.total}</span></${React.Fragment}>`}</button>`; })}</div>
+      ${got ? (() => { const m = subjectProgress(data, s.id); return html`<span className="w-meta">Puedes seguir practicando · Temas dominados: ${m.done} de ${m.total}${p.missions < p.need ? ` · Misiones extra: ${p.missions} de ${p.need}` : ''}</span>`; })() : html`<${React.Fragment}><div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%' }}></i></div>
+      <span className="w-meta">Misiones ${p.missions} de ${p.need}${p.next ? ` · sigue: ${p.next}` : ''}</span></${React.Fragment}>`}</button>`; })}</div>
     <button className=${'guardian panel' + (all ? '' : ' locked')} onClick=${() => all && startFinal()} aria-disabled=${!all}>
       <div className="g-pearls">${MAIN.map(s => html`<${Pearl} key=${s.id} p=${data.pearls.includes(s.id) ? 1 : 0} size=${data.pearls.includes(s.id) ? 40 : 32}/>`)}</div>
       <div><span className="eyebrow">Gran final</span><strong>Reto del Guardián</strong><span>${all ? (data.guardian ? '¡Ya eres Guardián! Puedes jugarlo otra vez.' : '¡Las 5 perlas brillan! Es tu momento.') : `Se abre con las 5 perlas mágicas. Llevas ${data.pearls.length} de 5.`}</span></div></button>
     ${data.guardian ? html`<button className="btn lagoon" onClick=${() => go('certificate')}>Ver mi certificado</button>` : null}
     <button className="btn ghost surprise" onClick=${startDaily}><${Icon} n="dice"/> Misión sorpresa: retos de todos los mundos</button>
     <h3 className="map-sec">Aventuras bonus <small>Para explorar y crear. No hacen falta para las perlas.</small></h3>
-    <button className="studio-entry panel nat-entry" onClick=${() => startWorld('nat')}><${Tuga} size=${104}/><div><span className="eyebrow">Nature & Society · Cívica</span><strong>El Faro de los Fit Kids</strong><span>${natDone ? '✓ Insignia Explorador del Océano ganada' : `Insignia Explorador del Océano · misiones ${nat.missions} de ${nat.need} · temas ${nat.explored} de ${nat.total}`}</span></div><span className="arrow">›</span></button>
+    <button className="studio-entry panel nat-entry" onClick=${() => startWorld('nat')}><${Guide} id=${SUBJ.nat.guide} size=${104}/><div><span className="eyebrow">Nature & Society · Cívica</span><strong>El Faro de los Fit Kids</strong><span>${natDone ? '✓ Insignia Explorador del Océano ganada' : `Insignia Explorador del Océano · misiones ${nat.missions} de ${nat.need}`}</span></div><span className="arrow">›</span></button>
     <button className="studio-entry panel music-entry" onClick=${() => go('music')}><${CaptainRhythm} size=${100}/><div><span className="eyebrow">Music · English</span><strong>The Tropical Orchestra</strong><span>Play, sing, discover, and create!</span></div><span className="arrow">›</span></button>
     <button className="studio-entry panel" onClick=${() => go('art')}><${Pincelin} size=${92}/><div><span className="eyebrow">Arte · Español</span><strong>El Taller Secreto del Artista</strong><span>Los bodegones de Cozumel</span></div><span className="arrow">›</span></button>
   </div>`;
 }
 
+function WorldMissions({ data, sid, onStart, go }) {
+  const s = SUBJ[sid]; const p = adventureProgress(data, sid); const done = missionsDone(data, sid); const next = nextMissionOf(data, sid);
+  const label = s.bonus ? 'insignia' : 'perla';
+  return html`<div className="screen">
+    <div className="topbar"><${NavBtn} icon="back" label="Mapa" onClick=${() => go('map')}/><h2>${s.world}</h2></div>
+    <div className=${'panel wm-head' + (p.earned ? ' got' : '')} style=${{ '--wc': s.color }}>
+      <${Guide} id=${s.guide} size=${104}/>
+      <div className="wm-info"><span className="eyebrow">${s.name}${s.bonus ? ' · aventura bonus' : ''}</span>
+        ${p.earned ? html`<span className="pearl-chip got"><${Icon} n="check" size=${18}/> ${s.bonus ? '¡Insignia ganada!' : '¡Perla recuperada!'}</span>` : null}
+        <strong>Misiones ${p.missions} de ${p.need}</strong>
+        <div className="bar" role="img" aria-label=${`${p.missions} de ${p.need} misiones`}><i style=${{ width: Math.round(p.missions / p.need * 100) + '%' }}></i></div>
+        <span className="muted">${p.earned && p.missions < p.need ? `Tu ${label} ya brilla: estas misiones son aventuras extra para seguir practicando.` : s.bonus ? 'Termina las 5 misiones para ganar la insignia Explorador del Océano.' : `Termina las 5 misiones para recuperar la ${s.pearl}.`}${p.legacy && !p.earned ? ` Antes jugaste ${p.legacy} ${p.legacy === 1 ? 'misión' : 'misiones'} aquí: lo que practicaste te ayuda en estas nuevas.` : ''}</span></div>
+      ${s.bonus ? null : html`<span className="w-pearl"><${Pearl} p=${p.earned ? 1 : 0} size=${p.earned ? 84 : 60}/></span>`}
+    </div>
+    <ol className="mission-list">${WORLD_MISSIONS[sid].map((m, i) => { const n = i + 1; const isDone = done.includes(n); const open = missionOpen(data, sid, n); const isNext = n === next;
+      const state = isDone ? 'done' : isNext ? 'next' : open ? 'open' : 'locked';
+      return html`<li key=${n}><button className=${'mission-row ' + state} onClick=${() => open && onStart(n)} aria-disabled=${!open} style=${{ '--wc': s.color }}>
+        <span className="mr-num" aria-hidden="true">${isDone ? html`<${Icon} n="check" size=${26}/>` : !open ? html`<svg viewBox="0 0 24 24" width="22" height="22"><path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" strokeWidth="2.4"/><rect x="5" y="10" width="14" height="10" rx="2.5" fill="currentColor"/></svg>` : n}</span>
+        <span className="mr-text"><span className="mr-kicker">Misión ${n}${n === MISSIONS_PER_WORLD ? (p.earned ? ' · repaso final' : s.bonus ? ' · gran final del faro' : ' · reto de la perla') : ''}</span><strong>${m.t}</strong>
+          <small>${m.topics.length ? m.topics.map(t => TOPIC[t].name.replace(/^Cívica: /, '')).join(' · ') : 'Repaso de todas las lecciones'}${m.r === 'all' && m.topics.length ? ' · repaso de todo' : ''}</small></span>
+        <span className=${'mr-state ' + state}>${isDone ? 'Completada · jugar otra vez' : isNext ? '¡Siguiente!' : open ? 'Jugar' : `Termina la misión ${n - 1}`}</span>
+      </button></li>`; })}</ol>
+  </div>`;
+}
 function WorldIntro({ sess, ctx, onGo, onBack, data }) {
   const m = sess.cfg.mode; const s = sess.cfg.subject ? SUBJ[sess.cfg.subject] : null;
   const guide = s ? s.guide : 'tuga';
   const prog = s ? adventureProgress(data, s.id) : null; const got = s && (s.bonus ? data.ach.includes('ocean') : data.pearls.includes(s.id));
   const firstToday = !data.log.length || new Date(data.log[data.log.length - 1].t).toDateString() !== new Date().toDateString();
   const vac = firstToday && data.themeDay === todayKey() && ctx && ctx.line ? ctx.line + ' ' : '';
-  const line2 = m === 'final' ? 'Las cinco perlas brillan juntas. Solo falta el Reto del Guardián: 10 retos de los cinco mundos.' : m === 'daily' ? 'Hoy la marea mezcló todos los mundos. ¡Habrá retos de todos lados!' : m === 'review' ? 'Hoy practicamos lo que más cuesta. ¡Así se vuelve fácil!' : m === 'diag' ? 'Un recorrido rápido para ver qué sabes. ¡Haz tu mejor intento!' : s ? (got ? (s.bonus ? '¡Ya eres Explorador del Océano! Puedes seguir practicando aquí.' : `¡Ya recuperaste la ${s.pearl}! Practicar aquí la mantiene brillando.`) : prog.missions ? `¡Volviste! Llevas ${prog.missions} de ${prog.need} misiones ${s.bonus ? 'de esta aventura bonus' : 'de la ' + s.pearl}. Vamos por más.` : s.intro) : 'Una misión especial preparada por mamá y papá.';
+  const mn = m === 'mission' ? sess.cfg.mission : 0; const md = mn ? WORLD_MISSIONS[s.id][mn - 1] : null;
+  const missionLine = !mn ? '' : got && prog.missions < MISSIONS_PER_WORLD ? `Aventura extra: ${s.bonus ? 'tu insignia' : 'tu perla'} ya brilla. ¡Esta misión es para seguir practicando!` : mn === 1 && !prog.missions ? s.intro : mn === MISSIONS_PER_WORLD ? (s.bonus ? '¡Última misión del faro! Al terminarla ganas la insignia Explorador del Océano.' : `¡Última misión! Si la terminas, recuperas la ${s.pearl}.`) : `¡Vamos por la misión ${mn}! Cada misión te acerca a ${s.bonus ? 'la insignia del faro' : 'la ' + s.pearl}.`;
+  const line2 = mn ? missionLine : m === 'final' ? 'Las cinco perlas brillan juntas. Solo falta el Reto del Guardián: 10 retos de los cinco mundos.' : m === 'daily' ? 'Hoy la marea mezcló todos los mundos. ¡Habrá retos de todos lados!' : m === 'review' ? 'Hoy practicamos lo que más cuesta. ¡Así se vuelve fácil!' : m === 'diag' ? 'Un recorrido rápido para ver qué sabes. ¡Haz tu mejor intento!' : s ? (got ? (s.bonus ? '¡Ya eres Explorador del Océano! Puedes seguir practicando aquí.' : `¡Ya recuperaste la ${s.pearl}! Practicar aquí la mantiene brillando.`) : prog.missions ? `¡Volviste! Llevas ${prog.missions} de ${prog.need} misiones ${s.bonus ? 'de esta aventura bonus' : 'de la ' + s.pearl}. Vamos por más.` : s.intro) : 'Una misión especial preparada por mamá y papá.';
   return html`<div className="screen center"><div className="panel story-card">
     <h2>${m === 'final' ? 'Reto del Guardián' : s ? s.world : 'Misión especial'}</h2>
+    ${md ? html`<p className="mission-tag">Misión ${mn} de ${MISSIONS_PER_WORLD} · <b>${md.t}</b></p>` : null}
     <div className="duo"><${Diego} size=${140}/><${Guide} id=${guide} size=${130} cls="float"/></div>
     <p className="speech">${vac}${line2}</p>
     <${Speak} text=${vac + line2} lang="es"/>
@@ -2323,7 +2502,7 @@ function WorldIntro({ sess, ctx, onGo, onBack, data }) {
 }
 function LessonCard({ topic, onGo }) {
   const t = TOPIC[topic]; const es = (t.lang || (t.s === 'esp' ? 'es' : 'en')) === 'es'; const [txt, ex] = LESSONS[topic] || ['', ''];
-  return html`<div className="panel lesson"><div className="row-head"><${Tuga} size=${120}/><h3>${es ? 'Tuga te explica' : 'Tuga explains'}</h3></div>
+  return html`<div className="panel lesson"><div className="row-head"><${Guide} id=${helperOf(topic)} size=${120}/><h3>${isLighthouse(topic) ? (es ? 'Lumi te lo explica' : 'Lumi explains') : es ? 'Tuga te explica' : 'Tuga explains'}</h3></div>
     <p className="lesson-t">${txt}</p>${ex ? html`<p className="lesson-ex">${ex}</p>` : null}<${Speak} text=${txt} lang=${es ? 'es' : 'en'}/>
     <button className="btn go big" onClick=${onGo}>${es ? '¡Ya entendí!' : 'Got it!'}</button></div>`;
 }
@@ -2338,7 +2517,7 @@ function Play({ sess, cur, onFirst, onDone, onLessonDone, onQuit, familyOk }) {
     <div className="panel qcard">${cur.lesson ? html`<${LessonCard} topic=${cur.lesson} onGo=${onLessonDone}/>` : html`<${Question} key=${q.key + sess.idx} q=${q} guide=${s.guide} onFirst=${onFirst} onDone=${onDone} familyOk=${familyOk}/>`}</div>
   </div>`;
 }
-function Summary({ sum, data, onContinue, onMap, onHome, onCert }) {
+function Summary({ sum, data, onContinue, onMap, onHome, onCert, onMissions }) {
   const [open, setOpen] = useState(false);
   useEffect(() => { const t = setTimeout(() => setOpen(true), 350); return () => clearTimeout(t); }, []);
   const c = sum.newCreature; const s = sum.subject ? SUBJ[sum.subject] : null;
@@ -2349,8 +2528,9 @@ function Summary({ sum, data, onContinue, onMap, onHome, onCert }) {
   if (!sum.complete) say = `¡Buen trabajo! ${sum.answered === 1 ? 'Guardé tu respuesta' : `Guardé tus ${sum.answered} respuestas`}. Cuando regreses, retomamos ${s ? 'este mundo' : 'la aventura'}.`;
   else if (finalDone) say = '¡Lo lograste! Las cinco perlas vuelven a brillar y el arrecife recuperó sus colores. ¡Eres Guardián del Arrecife!';
   else if (sum.newPearls.length) say = `¡Mira cómo brilla, Diego! ¡Lo lograste! ${allPearls ? 'Ya tienes las 5: el Reto del Guardián te espera.' : 'El arrecife ya recupera un poco más de color.'}`;
-  else if (sum.newAch.includes('ocean')) say = '¡Terminaste la aventura bonus del faro! Ganaste la insignia Explorador del Océano.';
-  else if (s) { const p = adventureProgress(data, s.id); say = s.bonus ? `Llevas ${p.missions} de ${p.need} misiones de la aventura bonus.` : `Llevas ${p.missions} de ${p.need} misiones de la ${s.pearl}${p.explored < p.total ? ` y ${p.explored} de ${p.total} temas explorados` : ''}.`; }
+  else if (sum.newAch.includes('ocean')) say = '¡Lo lograste! Lumi encendió el faro para celebrarte: ganaste la insignia Explorador del Océano.';
+  else if (s) { const p = adventureProgress(data, s.id); const mt = sum.mission ? WORLD_MISSIONS[s.id][sum.mission - 1].t : '';
+    say = (sum.mission ? `¡Terminaste la misión ${sum.mission}: ${mt}! ` : '') + (p.earned && p.missions < p.need ? `Fue una aventura extra: ${s.bonus ? 'tu insignia' : 'tu perla'} ya brilla. Llevas ${p.missions} de ${p.need} misiones.` : s.bonus ? `Llevas ${p.missions} de ${p.need} misiones de la aventura bonus.` : `Llevas ${p.missions} de ${p.need} misiones de la ${s.pearl}.`); }
   else say = 'Practicaste en varios mundos. Cada reto ayuda a que tus perlas brillen.';
   const newAch = sum.newAch.filter(a => !(a === 'ocean' && say.includes('Explorador')) && !(a === 'guardian' && finalDone) && !(a === 'pearl1' && sum.newPearls.length));
   return html`<div className="screen center"><div className="panel summary">
@@ -2361,14 +2541,14 @@ function Summary({ sum, data, onContinue, onMap, onHome, onCert }) {
       <span className="pw-art"><${Pearl} p=${1} size=${128}/></span>
       <span className="pearl-chip got"><${Icon} n="check" size=${18}/> ¡Perla recuperada!</span>
       <strong>${SUBJ[id].pearl}</strong>
-      <span>Completaste las misiones de ${SUBJ[id].world} y exploraste todos sus temas. Esta perla ya es tuya para siempre. Puedes seguir practicando para dominar cada tema.</span>
+      <span>Completaste las ${MISSIONS_PER_WORLD} misiones de ${SUBJ[id].world}. Esta perla ya es tuya para siempre. Puedes seguir practicando para dominar cada tema.</span>
       <span className="pw-count">${data.pearls.length} de 5 perlas recuperadas</span></div>`)}
     ${c ? html`<div className="discover">${sum.complete ? html`<${Chest} open=${open} size=${120}/>` : null}${open ? html`<div className="reward-stack pop"><p className="eyebrow">Nueva criatura en tu colección</p><div className="creature-frame"><${CreatureArt} id=${c.id} size=${220}/></div><h3>${c.es}</h3><p className="en">${c.en}${c.rare ? ' · descubrimiento especial' : ''}</p><p className="fact">${c.fact}</p></div>` : null}</div>` : null}
     ${newAch.length ? html`<div className="achs">${newAch.map(a => { const A = ACH.find(x => x.id === a); return html`<span key=${a} className="ach"><${Starfish} size=${20}/> Insignia: ${A.name}</span>`; })}</div>` : null}
     ${s && !finalDone && !sum.newPearls.length ? (() => { const p = adventureProgress(data, s.id); return html`<div className="mini-prog"><div className="mp"><${Pearl} p=${data.pearls.includes(s.id) ? 1 : 0} size=${36}/><span>${s.world}</span><div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%', background: s.color }}></i></div></div></div>`; })() : null}
     <div className="row-btns">
       ${finalDone ? html`<button className="btn go big" onClick=${onCert}>Ver mi certificado</button>` : html`<button className="btn go big" onClick=${onContinue}>Continuar mi aventura</button>`}
-      <button className="btn lagoon" onClick=${onMap}>Ir al mapa</button></div>
+      <button className="btn lagoon" onClick=${sum.mission && s ? onMissions : onMap}>${sum.mission && s ? 'Ver las misiones' : 'Ir al mapa'}</button></div>
     <button className="parent-link" onClick=${onHome}>Terminar por hoy</button>
   </div></div>`;
 }
@@ -2421,7 +2601,7 @@ function Parent({ data, setData, go, startCfg, stored, saveFail }) {
   const toggle = id => setSel(s => s.includes(id) ? s.filter(x => x !== id) : s.concat(id));
   const makeReport = () => {
     const lines = [`Reporte de Diego · ${new Date().toLocaleDateString('es-MX', { dateStyle: 'long' })}`, `Misiones completas: ${data.sessions} · Retos: ${att} · Primer intento: ${fc} (${att ? Math.round(fc / att * 100) : 0}%)`, `Perlas: ${data.pearls.length}/5 · Criaturas: ${data.creatures.length}/12`, ''];
-    SUBJECTS.forEach(s => { const ad = adventureProgress(data, s.id); lines.push(`${s.name}${s.bonus ? ' (bonus)' : ''}: aventura ${ad.missions}/${ad.need} misiones, ${ad.explored}/${ad.total} temas explorados`); TOPICS.filter(t => t.s === s.id).forEach(t => { const st = data.topics[t.id]; lines.push(`  · ${t.name}: ${STATUS_ES[topicStatus(st)]}${st ? ` (${st.fc}/${st.a})` : ''}`); }); });
+    SUBJECTS.forEach(s => { const ad = adventureProgress(data, s.id); lines.push(`${s.name}${s.bonus ? ' (bonus)' : ''}: aventura ${ad.missions}/${ad.need} misiones${ad.legacy ? ` (+${ad.legacy} anteriores)` : ''}, ${ad.explored}/${ad.total} temas explorados`); TOPICS.filter(t => t.s === s.id).forEach(t => { const st = data.topics[t.id]; lines.push(`  · ${t.name}: ${STATUS_ES[topicStatus(st)]}${st ? ` (${st.fc}/${st.a})` : ''}`); }); });
     lines.push('', 'Recomendaciones:'); recs.forEach(r => lines.push('  · ' + r));
     setReport(lines.join('\n'));
   };
@@ -2439,9 +2619,9 @@ function Parent({ data, setData, go, startCfg, stored, saveFail }) {
       ${!weak.length ? html`<p className="muted">Se activa cuando Diego tenga algún error registrado.</p>` : null}
       ${missed.length ? html`<${React.Fragment}><h4>Conceptos que más se fallan</h4><ul className="recs">${missed.map(x => html`<li key=${x.t.id}>${x.t.name} · ${x.s.wrong} ${x.s.wrong === 1 ? 'error' : 'errores'} en ${x.s.a} ${x.s.a === 1 ? 'intento' : 'intentos'}</li>`)}</ul></${React.Fragment}>` : null}</section>
     <section className="panel"><h3>Progreso por materia</h3>
-      <p className="muted">Son dos medidas distintas. <b>Aventura:</b> misiones jugadas y temas explorados; con eso Diego gana la perla aunque se equivoque. <b>Dominio:</b> la barra cuenta los temas que ya están en «Mejorando» o «Dominado» según varios intentos. «Dominado» pide nivel 3 y 80% de aciertos recientes.</p>
+      <p className="muted">Son dos medidas distintas. <b>Aventura:</b> las 5 misiones de cada mundo; al terminar las 5, Diego gana la perla aunque se equivoque. <b>Dominio:</b> la barra cuenta los temas que ya están en «Mejorando» o «Dominado» según varios intentos. «Dominado» pide nivel 3 y 80% de aciertos recientes.</p>
       ${SUBJECTS.map(s => { const p = subjectProgress(data, s.id); const ad = adventureProgress(data, s.id); const won = s.bonus ? data.ach.includes('ocean') : data.pearls.includes(s.id); return html`<details key=${s.id} className="subj-d"><summary><span className="sd-name">${s.name}${s.bonus ? ' (bonus)' : ''}</span><div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%', background: s.color }}></i></div><span className="sd-n">${p.done}/${p.total}</span></summary>
-        <p className="adv-line">Aventura: misiones ${ad.missions}/${ad.need} · temas explorados ${ad.explored}/${ad.total} · ${won ? (s.bonus ? 'insignia Explorador del Océano ganada' : 'perla ganada') : (s.bonus ? 'insignia pendiente' : 'perla pendiente')}</p>
+        <p className="adv-line">Aventura: misiones ${ad.missions}/${ad.need}${ad.legacy ? ` · ${ad.legacy} ${ad.legacy === 1 ? 'misión anterior' : 'misiones anteriores'} (versión de 2 misiones)` : ''} · ${won ? (s.bonus ? 'insignia Explorador del Océano ganada' : 'perla ganada') : (s.bonus ? 'insignia pendiente' : 'perla pendiente')}</p>
         <div className="tbl-wrap" tabIndex="0" role="region" aria-label="Tabla"><table className="tbl"><thead><tr><th>Tema</th><th>Estado</th><th>1er intento</th><th>Nivel</th></tr></thead><tbody>${TOPICS.filter(t => t.s === s.id).map(t => { const st = data.topics[t.id]; const k = topicStatus(st); return html`<tr key=${t.id}><td>${t.name}</td><td><span className=${'pill ' + k}>${STATUS_ES[k]}</span></td><td>${st ? `${st.fc}/${st.a}` : '—'}</td><td>${st ? ['', 'Descubrir', 'Explorar', 'Dominar'][st.lvl] : '—'}</td></tr>`; })}</tbody></table></div>
         ${s.id === 'spell' ? html`<${React.Fragment}><div className="words">${SPELL.map(w => html`<span key=${w.id} className=${'wchip' + (data.words[w.id] ? ' on' : '')} title=${SPELL_GROUPS[w.g].label}>${w.w}</span>`)}</div><p className="muted">Verde: palabra ya practicada (${SPELL.filter(w => data.words[w.id]).length}/${SPELL.length}).</p></${React.Fragment}>` : null}
       </details>`; })}</section>
@@ -2514,7 +2694,9 @@ function App() {
   const [saveFail, setSaveFail] = useState(false);
   useEffect(() => { dataRef.current = data; const ok = saveData(data); if (stored) setSaveFail(!ok); }, [data]);
   useEffect(() => { try { window.scrollTo(0, 0); } catch (e) { } }, [screen]);
-  const [musicView, setMusicView] = useState('start');
+  const [musicView, setMusicView] = useState('start'); const [wmSid, setWmSid] = useState(null);
+  const openMissions = sid => { setWmSid(sid); setScreen('missions'); };
+  const startMission = (sid, n) => prepare({ mode: 'mission', subject: sid, mission: n });
   const go = s => { if (s.startsWith('music')) { setMusicView(s.split(':')[1] || 'start'); setScreen('music'); } else setScreen(s); };
   const prepare = cfg => { const s = createSession(cfg, dataRef.current); sessRef.current = s; setPending(s); setScreen('worldintro'); };
   const startFromIntro = () => { const s = sessRef.current; const D = clone(dataRef.current); const n = nextQuestion(D, s, ctx); setCur(n); setScreen('play'); };
@@ -2536,16 +2718,17 @@ function App() {
   };
   const onQuit = () => { const s = sessRef.current; if (s && s.results.length) finish(false); else setScreen('home'); };
   const familyOk = () => { const s = sessRef.current; if (s.familyUsed || Math.random() > 0.6) return false; s.familyUsed = true; return true; };
-  const startContinue = () => { const D = dataRef.current; const a = nextAdventure(D); if (a.kind === 'world') prepare({ mode: 'world', subject: a.sid, len: 8 }); else if (a.kind === 'final') prepare({ mode: 'final' }); else if (a.kind === 'review') prepare({ mode: 'review', topics: weakTopics(D, 5), len: 8 }); else prepare({ mode: 'daily', len: 8 }); };
+  const startContinue = () => { const D = dataRef.current; const a = nextAdventure(D); if (a.kind === 'world') startMission(a.sid, a.mission || nextMissionOf(D, a.sid) || 1); else if (a.kind === 'final') prepare({ mode: 'final' }); else if (a.kind === 'review') prepare({ mode: 'review', topics: weakTopics(D, 5), len: 8 }); else prepare({ mode: 'daily', len: 8 }); };
   const pickTheme = k => { const c = themeCtx(k || data.theme); setCtx(c); setData(d => Object.assign({}, d, k ? { theme: k, themeDay: todayKey() } : { themeDay: todayKey() })); setScreen('map'); };
   let body;
   if (screen === 'home') body = html`<${Home} data=${data} go=${go} stored=${stored} saveFail=${saveFail}/>`;
   else if (screen === 'intro') body = html`<${Intro} go=${go} setData=${setData}/>`;
   else if (screen === 'checkin') body = html`<${Checkin} onPick=${pickTheme} onBack=${() => go('map')}/>`;
-  else if (screen === 'map') body = html`<${MapScreen} data=${data} go=${go} startWorld=${sid => prepare({ mode: 'world', subject: sid, len: 8 })} startDaily=${() => prepare({ mode: 'daily', len: 8 })} startFinal=${() => prepare({ mode: 'final' })} startContinue=${startContinue}/>`;
-  else if (screen === 'worldintro' && pending) body = html`<${WorldIntro} sess=${pending} ctx=${ctx} data=${data} onGo=${startFromIntro} onBack=${() => go(pending.cfg.mode === 'custom' || pending.cfg.mode === 'diag' || pending.cfg.mode === 'review' ? 'parent' : 'map')}/>`;
+  else if (screen === 'map') body = html`<${MapScreen} data=${data} go=${go} startWorld=${openMissions} startDaily=${() => prepare({ mode: 'daily', len: 8 })} startFinal=${() => prepare({ mode: 'final' })} startContinue=${startContinue}/>`;
+  else if (screen === 'worldintro' && pending) body = html`<${WorldIntro} sess=${pending} ctx=${ctx} data=${data} onGo=${startFromIntro} onBack=${() => pending.cfg.mode === 'mission' ? openMissions(pending.cfg.subject) : go(pending.cfg.mode === 'custom' || pending.cfg.mode === 'diag' || pending.cfg.mode === 'review' ? 'parent' : 'map')}/>`;
+  else if (screen === 'missions' && wmSid) body = html`<${WorldMissions} data=${data} sid=${wmSid} onStart=${n => startMission(wmSid, n)} go=${go}/>`;
   else if (screen === 'play' && cur) body = html`<${Play} sess=${sessRef.current} cur=${cur} onFirst=${onFirst} onDone=${onDone} onQuit=${onQuit} familyOk=${familyOk} onLessonDone=${() => setCur(Object.assign({}, cur, { lesson: null }))}/>`;
-  else if (screen === 'summary' && sum) body = html`<${Summary} sum=${sum} data=${data} onContinue=${startContinue} onMap=${() => go('map')} onHome=${() => go('home')} onCert=${() => go('certificate')}/>`;
+  else if (screen === 'summary' && sum) body = html`<${Summary} sum=${sum} data=${data} onContinue=${startContinue} onMap=${() => go('map')} onHome=${() => go('home')} onCert=${() => go('certificate')} onMissions=${() => openMissions(sum.subject)}/>`;
   else if (screen === 'collection') body = html`<${Collection} data=${data} go=${go}/>`;
   else if (screen === 'gate') body = html`<${Gate} go=${go}/>`;
   else if (screen === 'parent') body = html`<${Parent} data=${data} setData=${setData} go=${go} startCfg=${prepare} stored=${stored} saveFail=${saveFail}/>`;
