@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <link rel="apple-touch-icon" sizes="180x180"
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="apple-touch-icon" sizes="180x180"
       href="./apple-touch-icon.png">
 
 <link rel="icon" type="image/png"
@@ -23,9 +25,8 @@
       content="La aventura educativa de Diego">
 
 <meta property="og:image"
-      content="https://casaacevescastillo.github.io/diego-cozumel/thumbnail.jpg">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+      content="https://casaacevescastillo.github.io/diego-cozumel/thumbnail.png">
+<meta name="mobile-web-app-capable" content="yes">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Diego y el Misterio de las 5 Perlas de Cozumel</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -777,14 +778,39 @@ button.pbeat{cursor:pointer}
 .reward-stack h3,.reward-stack p{margin:0;max-width:34ch}
 .reward-stack .fact{overflow-wrap:anywhere}
 .creature-frame{display:flex;align-items:center;justify-content:center;width:100%;height:170px;margin:var(--space-1) 0 var(--space-2)}
-.creature-frame .creature-img{width:auto;height:auto;max-width:min(220px,100%);max-height:100%;aspect-ratio:auto}
+.creature-frame .creature-img{width:auto!important;height:auto!important;max-width:min(220px,100%)!important;max-height:100%;aspect-ratio:auto}
 .fb-msg .chest-img{flex:none;margin:0}
 @media (max-width:520px){.creature-frame{height:140px}}
+/* Gallery: keep painting */
+.continue-paint{align-self:stretch;min-height:56px;font-size:18px}
+.continue-paint svg{flex:none}
+.frame .edited{font-size:13px;color:var(--muted)}
+.save-opts{flex-wrap:wrap}
+.save-opts .btn{flex:1 1 180px}
+.stage .cv-loading{position:absolute;inset:0;display:grid;place-items:center;background:rgba(255,250,241,.85);font-family:var(--display);font-size:24px;color:var(--sea);z-index:3}
+/* 4:3 picture boxes — padding-based ratio with absolutely placed content.
+   Root cause of the stretched still-life cards on iPad: a box sized only by aspect-ratio held an
+   in-flow SVG with height:100% and no intrinsic size. Older Safari resolves that percentage before
+   the ratio, so the grid row grew far past the content and the next blocks overlapped it.
+   A padding box has a definite height in every engine, so the row is sized by real content. */
+.tmpl-grid{align-items:start}
+.tmpl{height:auto;min-width:0}
+.tmpl-pic,.ref-card > div{position:relative;display:block;aspect-ratio:auto;height:0;padding-top:75%}
+.tmpl-pic > svg,.ref-card > div > svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.tmpl-pic > .blank-c{position:absolute;inset:0;display:grid;place-items:center;padding:var(--space-2);text-align:center}
+.tmpl > span{line-height:1.2}
+/* Same rule for the painting stage and the composition table (all their children are absolutely placed). */
+.stage,.table-area{aspect-ratio:auto;height:0;padding-top:75%}
+/* Collection/aquarium creatures: explicit box from the component, no aspect-ratio inside grid cards. */
+.creature-img{aspect-ratio:auto}
+/* Music pads: fixed responsive height instead of aspect-ratio inside the pads grid. */
+.pad{aspect-ratio:auto;height:clamp(96px,18vw,150px)}
 </style>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js"></script>
+<script>if (!(window.React && window.ReactDOM && window.htm)) document.getElementById("root").innerHTML = '<div role="alert" style="max-width:520px;margin:15vh auto;padding:24px;background:#fffaf1;border-radius:22px;font:20px/1.4 system-ui,sans-serif;color:#0d2b3e;text-align:center"><p style="font-size:26px;font-weight:700;margin:0 0 8px">El arrecife no pudo cargar</p><p style="margin:0 0 16px">Revisa la conexión a internet y vuelve a intentarlo. El progreso de Diego sigue guardado.</p><button onclick="location.reload()" style="font:inherit;font-weight:700;padding:12px 24px;border:0;border-radius:16px;background:#ffc531;min-height:56px;cursor:pointer">Intentar de nuevo</button></div>';</script>
 <script>
 /* ================= CONTENT + ENGINE (pure JS, no UI) ================= */
 const rnd = n => Math.floor(Math.random() * n);
@@ -1133,7 +1159,7 @@ GEN.m_group = (L, ctx) => {
   return { type: 'group', prompt: `So many ${many}! Make groups of 10 to count them.`, n, obj: ctx.obj, options: shuffle([String(n), ...sample(ds.map(String), 2)]).map(x => O(x)), answer: String(n), layout: 'grid big', ask: 'How many in all?',
     hint: 'Count the groups by tens: 10, 20, 30... Then count the ones left over.', explain: `${Math.floor(n / 10)} groups of ten and ${n % 10} more makes ${n}.` };
 };
-const toStr = (t, o) => `${t} tens and ${o} ones`;
+const toStr = (t, o) => `${t} ${t === 1 ? 'ten' : 'tens'} and ${o} ${o === 1 ? 'one' : 'ones'}`; // singular for 1 ("1 ten and 1 one")
 GEN.m_tens = (L) => {
   if (L < 3) {
     let t, o; do { t = L === 1 ? rint(1, 4) : rint(5, 9); o = rint(1, 9); } while (o === t);
@@ -1141,14 +1167,14 @@ GEN.m_tens = (L) => {
     return mc('How many tens and ones?', c, [toStr(o, t), toStr(t + 1, o), toStr(t, o + 1 > 9 ? o - 1 : o + 1)], { visual: { k: 'rods', tens: t, ones: o, labels: L === 1 }, layout: 'list', hint: 'Each long rod is one ten. Each little cube is one.', explain: `${t} rods and ${o} cubes: ${c}. That makes ${t * 10 + o}.` });
   }
   let t, o; do { t = rint(2, 9); o = rint(1, 9); } while (o === t);
-  if (Math.random() < 0.5) return mc(`What number has ${t} tens and ${o} ones?`, t * 10 + o, [o * 10 + t, t + o, (t + 1) * 10 + o > 99 ? (t - 1) * 10 + o : (t + 1) * 10 + o], { layout: 'grid big', hint: 'The tens digit goes first.', explain: `${t} tens and ${o} ones is ${t * 10 + o}.` });
+  if (Math.random() < 0.5) return mc(`What number has ${toStr(t, o)}?`, t * 10 + o, [o * 10 + t, t + o, (t + 1) * 10 + o > 99 ? (t - 1) * 10 + o : (t + 1) * 10 + o], { layout: 'grid big', hint: 'The tens digit goes first.', explain: `${toStr(t, o)} is ${t * 10 + o}.` });
   const n = t * 10 + o;
   return Object.assign({ type: 'mc', prompt: `In ${n}, what does the ${t} mean?`, options: [O('tens', `${t} tens (${t * 10})`), O('ones', `${t} ones (${t})`)], answer: 'tens', layout: 'list', hint: 'The first digit is in the tens place.', explain: `In ${n}, the ${t} is in the tens place. It means ${t * 10}.` });
 };
 GEN.m_pv = (L) => {
   let t, o; do { t = rint(1, 9); o = rint(0, 9); } while (o === t);
   const n = t * 10 + o;
-  if (L === 1) return mc('What number is in the place value chart?', n, numOpts(n, [swapDigits(n), n + 10, n - 10].filter(x => x >= 10), 10, 99), { visual: { k: 'pv', tens: t, ones: o }, layout: 'grid big', hint: 'Count the rods in Tens, then the cubes in Ones.', explain: `${t} tens and ${o} ones is ${n}.` });
+  if (L === 1) return mc('What number is in the place value chart?', n, numOpts(n, [swapDigits(n), n + 10, n - 10].filter(x => x >= 10), 10, 99), { visual: { k: 'pv', tens: t, ones: o }, layout: 'grid big', hint: 'Count the rods in Tens, then the cubes in Ones.', explain: `${toStr(t, o)} is ${n}.` });
   if (L === 2) {
     const askT = Math.random() < 0.6;
     const c = askT ? t : o; const ds = askT ? [o, t * 10] : [t, o * 10 || 10];
@@ -1156,7 +1182,7 @@ GEN.m_pv = (L) => {
   }
   const extra = sample([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].filter(d => d !== t && d !== o), 2);
   return { type: 'build', tk: 'digit', prompt: `Put ${n} in the place value chart.`, answer: [String(t), String(o)], tiles: shuffle([t, o, ...extra].map(String)), slotLabels: ['Tens', 'Ones'],
-    hint: 'Which digit tells the tens? Which tells the ones?', explain: `${n} has ${t} tens and ${o} ones.` };
+    hint: 'Which digit tells the tens? Which tells the ones?', explain: `${n} has ${toStr(t, o)}.` };
 };
 GEN.m_exp = (L, ctx) => {
   let t, o; do { t = rint(2, 9); o = rint(1, 9); } while (o === t);
@@ -1823,7 +1849,7 @@ function recommendations(D) {
   if (weak.length && D.topics[weak[0]].a >= 3) out.push(`Para mañana: repasar «${TOPIC[weak[0]].name}» con el botón «Practicar lo que más me cuesta».`);
   return out.slice(0, 7);
 }
-if (typeof module !== 'undefined') module.exports = { MAIN, adventureProgress, nextAdventure, migrateData, ACH, weakTopics, GEN, TOPICS, SPELL, SUBJECTS, makeQuestion, freshData, recordAnswer, createSession, nextQuestion, finishSession, validateDraw, numES, themeCtx, subjectProgress, topicStatus, recommendations, CREATURES, CHLL, SPELL_GROUPS, LESSONS };
+if (typeof module !== 'undefined') module.exports = { SYM_CASES, MAIN, adventureProgress, nextAdventure, migrateData, ACH, weakTopics, GEN, TOPICS, SPELL, SUBJECTS, makeQuestion, freshData, recordAnswer, createSession, nextQuestion, finishSession, validateDraw, numES, themeCtx, subjectProgress, topicStatus, recommendations, CREATURES, CHLL, SPELL_GROUPS, LESSONS };
 
 </script>
 <script>
@@ -1853,7 +1879,7 @@ const CHAR_ART = {
   'captain-rhythm': { src: './assets/characters/captain-rhythm.png', w: 720, h: 481, k: 1.1 },
   diego: { src: './assets/characters/diego.png', w: 720, h: 681, k: 1 },
 };
-// Rendered as <svg><image> so the same component works inside https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.jsL and inside SVG scenes; exact aspect ratio, never stretched.
+// Rendered as <svg><image> so the same component works inside HTML and inside SVG scenes; exact aspect ratio, never stretched.
 function CharImg({ id, size = 100, cls = '' }) {
   const a = CHAR_ART[id]; const w = Math.round(size * a.k); const h = Math.round(w * a.h / a.w);
   return html`<svg className=${'char char-img ' + cls} viewBox=${`0 0 ${a.w} ${a.h}`} width=${w} height=${h} aria-hidden="true"><image href=${a.src} width=${a.w} height=${a.h}/></svg>`;
@@ -1953,7 +1979,7 @@ const CREATURE_ART = {
 function CreatureArt({ id, size = 110, locked, swim }) {
   const a = CREATURE_ART[id]; if (!a) return null;
   const tf = swim && a[3] ? 'scaleX(-1)' : undefined; // face the swimming direction in the aquarium
-  return html`<img className=${'creature-img' + (locked ? ' locked' : '')} src=${'./assets/creatures/' + a[0] + '.png'} width=${size} height=${Math.round(size * 0.75)} alt="" draggable="false" style=${{ objectFit: 'contain', transform: tf }}/>`;
+  return html`<img className=${'creature-img' + (locked ? ' locked' : '')} src=${'./assets/creatures/' + a[0] + '.png'} width=${size} height=${Math.round(size * 0.75)} alt="" draggable="false" style=${{ objectFit: 'contain', transform: tf, width: size + 'px', height: Math.round(size * 0.75) + 'px', maxWidth: '100%' }}/>`;
 }
 
 
@@ -2208,7 +2234,7 @@ function Aquarium({ data }) {
 }
 function PearlRow({ data, size = 34 }) { return html`<div className="pearl-row" role="img" aria-label=${data.pearls.length + ' de 5 perlas recuperadas'}>${MAIN.map(s => { const got = data.pearls.includes(s.id); return html`<span key=${s.id} title=${s.pearl + (got ? ' · recuperada' : ' · por recuperar')}><${Pearl} p=${got ? 1 : 0} size=${got ? Math.round(size * 1.25) : size}/></span>`; })}</div>`; }
 
-function Home({ data, go, stored }) {
+function Home({ data, go, stored, saveFail }) {
   return html`<div className="screen home">
     <${HeroScene} pearls=${data.pearls.length}/>
     <div className="home-card panel">
@@ -2222,6 +2248,7 @@ function Home({ data, go, stored }) {
       <${Aquarium} data=${data}/>
       <button className="parent-link" onClick=${() => go('gate')}>Panel de mamá y papá</button>
       ${!stored ? html`<p className="warn">Este navegador no permite guardar el progreso. Puedes jugar, pero se borrará al cerrar.</p>` : null}
+      ${saveFail ? html`<p className="warn" role="alert">No se pudo guardar el último avance: este navegador se quedó sin espacio. Pide a mamá o papá que creen una copia de seguridad en el panel y borren pinturas viejas de la galería.</p>` : null}
     </div>
   </div>`;
 }
@@ -2258,14 +2285,14 @@ function MapScreen({ data, startWorld, startDaily, startFinal, startContinue, go
   return html`<div className="screen">
     <div className="topbar"><${NavBtn} icon="home" label="Inicio" onClick=${() => go('home')}/><h2>Mapa del arrecife</h2><${PearlRow} data=${data} size=${26}/></div>
     <button className="continue-cta" onClick=${startContinue}><${Guide} id=${L.guide} size=${104}/><div><span className="eyebrow">Continuar mi aventura</span><strong>${L.title}</strong><span>${L.sub}</span></div><span className="go-arrow"><${Icon} n="play" size=${30}/></span></button>
-    <div className="today-chip"><span>¿Qué exploraste hoy?</span>${theme ? html`<span className="emo">${theme.icon}</span><b>${theme.label}</b>` : null}<button onClick=${() => go('checkin')}>${theme ? 'Cambiar el tema de hoy' : 'Elegir (opcional)'}</button></div>
+    <div className="today-chip"><span>¿Qué exploraste hoy?</span>${theme ? html`<${React.Fragment}><span className="emo">${theme.icon}</span><b>${theme.label}</b></${React.Fragment}>` : null}<button onClick=${() => go('checkin')}>${theme ? 'Cambiar el tema de hoy' : 'Elegir (opcional)'}</button></div>
     <h3 className="map-sec">Las 5 perlas mágicas <small>Elige el mundo que quieras</small></h3>
     <div className="worlds">${MAIN.map(s => { const p = adventureProgress(data, s.id); const got = data.pearls.includes(s.id); return html`<button key=${s.id} className=${'world w-' + s.id + (got ? ' got' : '')} onClick=${() => startWorld(s.id)} style=${{ '--wc': s.color }}>
       <div className="w-top"><${Guide} id=${s.guide} size=${92}/><span className="w-pearl"><${Pearl} p=${got ? 1 : 0} size=${got ? 84 : 60}/></span></div>
       ${got ? html`<span className="pearl-chip got"><${Icon} n="check" size=${18}/> ¡Perla recuperada!</span>` : html`<span className="pearl-chip todo">Perla por recuperar</span>`}
       <strong>${s.world}</strong><span className="subj">${s.name}</span>
-      ${got ? (() => { const m = subjectProgress(data, s.id); return html`<span className="w-meta">Puedes seguir practicando · Temas dominados: ${m.done} de ${m.total}</span>`; })() : html`<div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%' }}></i></div>
-      <span className="w-meta">Misiones ${p.missions} de ${p.need} · Temas ${p.explored} de ${p.total}</span>`}</button>`; })}</div>
+      ${got ? (() => { const m = subjectProgress(data, s.id); return html`<span className="w-meta">Puedes seguir practicando · Temas dominados: ${m.done} de ${m.total}</span>`; })() : html`<${React.Fragment}><div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%' }}></i></div>
+      <span className="w-meta">Misiones ${p.missions} de ${p.need} · Temas ${p.explored} de ${p.total}</span></${React.Fragment}>`}</button>`; })}</div>
     <button className=${'guardian panel' + (all ? '' : ' locked')} onClick=${() => all && startFinal()} aria-disabled=${!all}>
       <div className="g-pearls">${MAIN.map(s => html`<${Pearl} key=${s.id} p=${data.pearls.includes(s.id) ? 1 : 0} size=${data.pearls.includes(s.id) ? 40 : 32}/>`)}</div>
       <div><span className="eyebrow">Gran final</span><strong>Reto del Guardián</strong><span>${all ? (data.guardian ? '¡Ya eres Guardián! Puedes jugarlo otra vez.' : '¡Las 5 perlas brillan! Es tu momento.') : `Se abre con las 5 perlas mágicas. Llevas ${data.pearls.length} de 5.`}</span></div></button>
@@ -2307,7 +2334,7 @@ function Play({ sess, cur, onFirst, onDone, onLessonDone, onQuit, familyOk }) {
     <div className="topbar"><${NavBtn} icon="close" label="Salir" onClick=${() => setConfirmQuit(true)}/>
       <span className="chip-w">${s.world}</span>
       <div className="dots" role="img" aria-label=${`Reto ${sess.idx + 1} de ${sess.len}`}>${Array.from({ length: sess.len }, (_, i) => html`<i key=${i} className=${i < sess.idx ? (sess.results[i] && sess.results[i].ok ? 'ok' : 'tried') : i === sess.idx ? 'now' : ''}></i>`)}</div></div>
-    ${confirmQuit ? html`<div className="panel quit"><p>¿Terminar por hoy? Tu progreso ya está guardado.</p><div className="row-btns"><button className="btn ghost" onClick=${() => setConfirmQuit(false)}>Seguir jugando</button><button className="btn coral" onClick=${onQuit}>Terminar por hoy</button></div></div>` : null}
+    ${confirmQuit ? html`<div className="panel quit" role="alertdialog" aria-label="¿Terminar por hoy?" onKeyDown=${e => e.key === 'Escape' && setConfirmQuit(false)}><p>¿Terminar por hoy? Tu progreso ya está guardado.</p><div className="row-btns"><button className="btn ghost" autoFocus onClick=${() => setConfirmQuit(false)}>Seguir jugando</button><button className="btn coral" onClick=${onQuit}>Terminar por hoy</button></div></div>` : null}
     <div className="panel qcard">${cur.lesson ? html`<${LessonCard} topic=${cur.lesson} onGo=${onLessonDone}/>` : html`<${Question} key=${q.key + sess.idx} q=${q} guide=${s.guide} onFirst=${onFirst} onDone=${onDone} familyOk=${familyOk}/>`}</div>
   </div>`;
 }
@@ -2365,7 +2392,7 @@ function Collection({ data, go }) {
     <h3 className="map-sec">Criaturas marinas</h3>
     <div className="cards">${CREATURES.map(c => { const has = data.creatures.includes(c.id); return html`<div key=${c.id} className=${'ccard' + (has ? '' : ' locked') + (c.rare ? ' rare' : '')}>
       <${CreatureArt} id=${c.id} size=${120} locked=${!has}/>
-      ${has ? html`<h4>${c.es}</h4><p className="en">${c.en}</p><p>${c.fact}</p>` : html`<h4>???</h4><p>${c.rare ? 'Criatura especial. ¡Sigue explorando!' : 'Completa una misión para descubrirla.'}</p>`}
+      ${has ? html`<${React.Fragment}><h4>${c.es}</h4><p className="en">${c.en}</p><p>${c.fact}</p></${React.Fragment}>` : html`<${React.Fragment}><h4>???</h4><p>${c.rare ? 'Criatura especial. ¡Sigue explorando!' : 'Completa una misión para descubrirla.'}</p></${React.Fragment}>`}
       <span className="status">${has ? 'Descubierta' : 'Por descubrir'}</span></div>`; })}</div>
   </div>`;
 }
@@ -2381,7 +2408,7 @@ function Gate({ go }) {
     <button className="btn ghost" onClick=${() => go('home')}>Volver</button>
   </div></div>`;
 }
-function Parent({ data, setData, go, startCfg, stored }) {
+function Parent({ data, setData, go, startCfg, stored, saveFail }) {
   const [subj, setSubj] = useState('math'); const [sel, setSel] = useState([]); const [len, setLen] = useState(8);
   const [confirm, setConfirm] = useState(0); const [report, setReport] = useState(''); const [copied, setCopied] = useState('');
   const all = TOPICS.map(t => ({ t, s: data.topics[t.id] }));
@@ -2401,6 +2428,7 @@ function Parent({ data, setData, go, startCfg, stored }) {
   const copy = () => { const ta = document.getElementById('rep'); try { navigator.clipboard.writeText(report).then(() => setCopied('Copiado'), () => { ta && ta.select(); setCopied('Selecciona y copia el texto'); }); } catch (e) { ta && ta.select(); setCopied('Selecciona y copia el texto'); } };
   return html`<div className="screen parent">
     <div className="topbar"><${NavBtn} icon="home" label="Inicio" onClick=${() => go('home')}/><h2>Panel de mamá y papá</h2></div>
+    ${saveFail ? html`<p className="warn" role="alert">No se pudo guardar el último avance: este navegador se quedó sin espacio. Creen una copia de seguridad abajo y borren pinturas viejas de la galería para liberar espacio.</p>` : null}
     <p className=${'store ' + (stored ? 'ok' : 'no')}>${stored ? 'El progreso se guarda en este navegador y dispositivo. No se sincroniza con otros dispositivos.' : 'Este navegador no permite guardar: el progreso se pierde al cerrar.'}</p>
     <section className="panel"><h3>Resumen</h3><div className="kpis">
       <div><b>${att}</b><span>retos intentados</span></div><div><b>${fc}</b><span>correctos al primer intento</span></div>
@@ -2409,13 +2437,13 @@ function Parent({ data, setData, go, startCfg, stored }) {
     <section className="panel"><h3>Recomendaciones</h3>${recs.length ? html`<ul className="recs">${recs.map((r, i) => html`<li key=${i}>${r}</li>`)}</ul>` : html`<p className="muted">Sin recomendaciones todavía.</p>`}
       <button className="btn go" disabled=${!weak.length} onClick=${() => startCfg({ mode: 'review', topics: weak, len: 8 })}>Practicar lo que más me cuesta</button>
       ${!weak.length ? html`<p className="muted">Se activa cuando Diego tenga algún error registrado.</p>` : null}
-      ${missed.length ? html`<h4>Conceptos que más se fallan</h4><ul className="recs">${missed.map(x => html`<li key=${x.t.id}>${x.t.name} · ${x.s.wrong} ${x.s.wrong === 1 ? 'error' : 'errores'} en ${x.s.a} ${x.s.a === 1 ? 'intento' : 'intentos'}</li>`)}</ul>` : null}</section>
+      ${missed.length ? html`<${React.Fragment}><h4>Conceptos que más se fallan</h4><ul className="recs">${missed.map(x => html`<li key=${x.t.id}>${x.t.name} · ${x.s.wrong} ${x.s.wrong === 1 ? 'error' : 'errores'} en ${x.s.a} ${x.s.a === 1 ? 'intento' : 'intentos'}</li>`)}</ul></${React.Fragment}>` : null}</section>
     <section className="panel"><h3>Progreso por materia</h3>
       <p className="muted">Son dos medidas distintas. <b>Aventura:</b> misiones jugadas y temas explorados; con eso Diego gana la perla aunque se equivoque. <b>Dominio:</b> la barra cuenta los temas que ya están en «Mejorando» o «Dominado» según varios intentos. «Dominado» pide nivel 3 y 80% de aciertos recientes.</p>
       ${SUBJECTS.map(s => { const p = subjectProgress(data, s.id); const ad = adventureProgress(data, s.id); const won = s.bonus ? data.ach.includes('ocean') : data.pearls.includes(s.id); return html`<details key=${s.id} className="subj-d"><summary><span className="sd-name">${s.name}${s.bonus ? ' (bonus)' : ''}</span><div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%', background: s.color }}></i></div><span className="sd-n">${p.done}/${p.total}</span></summary>
         <p className="adv-line">Aventura: misiones ${ad.missions}/${ad.need} · temas explorados ${ad.explored}/${ad.total} · ${won ? (s.bonus ? 'insignia Explorador del Océano ganada' : 'perla ganada') : (s.bonus ? 'insignia pendiente' : 'perla pendiente')}</p>
         <div className="tbl-wrap" tabIndex="0" role="region" aria-label="Tabla"><table className="tbl"><thead><tr><th>Tema</th><th>Estado</th><th>1er intento</th><th>Nivel</th></tr></thead><tbody>${TOPICS.filter(t => t.s === s.id).map(t => { const st = data.topics[t.id]; const k = topicStatus(st); return html`<tr key=${t.id}><td>${t.name}</td><td><span className=${'pill ' + k}>${STATUS_ES[k]}</span></td><td>${st ? `${st.fc}/${st.a}` : '—'}</td><td>${st ? ['', 'Descubrir', 'Explorar', 'Dominar'][st.lvl] : '—'}</td></tr>`; })}</tbody></table></div>
-        ${s.id === 'spell' ? html`<div className="words">${SPELL.map(w => html`<span key=${w.id} className=${'wchip' + (data.words[w.id] ? ' on' : '')} title=${SPELL_GROUPS[w.g].label}>${w.w}</span>`)}</div><p className="muted">Verde: palabra ya practicada (${SPELL.filter(w => data.words[w.id]).length}/${SPELL.length}).</p>` : null}
+        ${s.id === 'spell' ? html`<${React.Fragment}><div className="words">${SPELL.map(w => html`<span key=${w.id} className=${'wchip' + (data.words[w.id] ? ' on' : '')} title=${SPELL_GROUPS[w.g].label}>${w.w}</span>`)}</div><p className="muted">Verde: palabra ya practicada (${SPELL.filter(w => data.words[w.id]).length}/${SPELL.length}).</p></${React.Fragment}>` : null}
       </details>`; })}</section>
     <section className="panel"><h3>Crear una práctica</h3>
       <div className="seg">${SUBJECTS.map(s => html`<button key=${s.id} className=${subj === s.id ? 'on' : ''} onClick=${() => { setSubj(s.id); setSel([]); }}>${s.name}</button>`)}</div>
@@ -2454,7 +2482,7 @@ function Backup({ data, setData }) {
     <label htmlFor="bk-in"><b>Restaurar</b>: pega aquí una copia de seguridad</label>
     <textarea id="bk-in" rows="3" value=${inp} onInput=${e => { setInp(e.target.value); setAsk(null); }}></textarea>
     <div className="row-btns wrap"><button className="btn ghost" disabled=${!inp.trim()} onClick=${check}>Revisar copia</button></div>
-    ${ask ? html`<div className="panel quit"><p>Esta copia tiene ${ask.pearls.length} de 5 perlas, ${ask.creatures.length} criaturas y ${ask.sessions} misiones completas. Reemplazará el progreso actual de este dispositivo.</p><div className="row-btns"><button className="btn ghost" onClick=${() => setAsk(null)}>Cancelar</button><button className="btn coral" onClick=${restore}>Sí, restaurar</button></div></div>` : null}
+    ${ask ? html`<div className="panel quit" role="alertdialog" aria-label="Restaurar copia" onKeyDown=${e => e.key === 'Escape' && setAsk(null)}><p>Esta copia tiene ${ask.pearls.length} de 5 perlas, ${ask.creatures.length} criaturas y ${ask.sessions} misiones completas. Reemplazará el progreso actual de este dispositivo.</p><div className="row-btns"><button className="btn ghost" autoFocus onClick=${() => setAsk(null)}>Cancelar</button><button className="btn coral" onClick=${restore}>Sí, restaurar</button></div></div>` : null}
     ${msg ? html`<p className=${'store ' + (msg[0] === 'ok' ? 'ok' : 'no')}>${msg[1]}</p>` : null}
   </section>`;
 }
@@ -2483,7 +2511,8 @@ function App() {
   const [ctx, setCtx] = useState(() => themeCtx(data.themeDay === todayKey() ? data.theme : null));
   const [cur, setCur] = useState(null); const [sum, setSum] = useState(null); const [pending, setPending] = useState(null);
   const sessRef = useRef(null); const dataRef = useRef(data);
-  useEffect(() => { dataRef.current = data; saveData(data); }, [data]);
+  const [saveFail, setSaveFail] = useState(false);
+  useEffect(() => { dataRef.current = data; const ok = saveData(data); if (stored) setSaveFail(!ok); }, [data]);
   useEffect(() => { try { window.scrollTo(0, 0); } catch (e) { } }, [screen]);
   const [musicView, setMusicView] = useState('start');
   const go = s => { if (s.startsWith('music')) { setMusicView(s.split(':')[1] || 'start'); setScreen('music'); } else setScreen(s); };
@@ -2510,7 +2539,7 @@ function App() {
   const startContinue = () => { const D = dataRef.current; const a = nextAdventure(D); if (a.kind === 'world') prepare({ mode: 'world', subject: a.sid, len: 8 }); else if (a.kind === 'final') prepare({ mode: 'final' }); else if (a.kind === 'review') prepare({ mode: 'review', topics: weakTopics(D, 5), len: 8 }); else prepare({ mode: 'daily', len: 8 }); };
   const pickTheme = k => { const c = themeCtx(k || data.theme); setCtx(c); setData(d => Object.assign({}, d, k ? { theme: k, themeDay: todayKey() } : { themeDay: todayKey() })); setScreen('map'); };
   let body;
-  if (screen === 'home') body = html`<${Home} data=${data} go=${go} stored=${stored}/>`;
+  if (screen === 'home') body = html`<${Home} data=${data} go=${go} stored=${stored} saveFail=${saveFail}/>`;
   else if (screen === 'intro') body = html`<${Intro} go=${go} setData=${setData}/>`;
   else if (screen === 'checkin') body = html`<${Checkin} onPick=${pickTheme} onBack=${() => go('map')}/>`;
   else if (screen === 'map') body = html`<${MapScreen} data=${data} go=${go} startWorld=${sid => prepare({ mode: 'world', subject: sid, len: 8 })} startDaily=${() => prepare({ mode: 'daily', len: 8 })} startFinal=${() => prepare({ mode: 'final' })} startContinue=${startContinue}/>`;
@@ -2519,11 +2548,11 @@ function App() {
   else if (screen === 'summary' && sum) body = html`<${Summary} sum=${sum} data=${data} onContinue=${startContinue} onMap=${() => go('map')} onHome=${() => go('home')} onCert=${() => go('certificate')}/>`;
   else if (screen === 'collection') body = html`<${Collection} data=${data} go=${go}/>`;
   else if (screen === 'gate') body = html`<${Gate} go=${go}/>`;
-  else if (screen === 'parent') body = html`<${Parent} data=${data} setData=${setData} go=${go} startCfg=${prepare} stored=${stored}/>`;
+  else if (screen === 'parent') body = html`<${Parent} data=${data} setData=${setData} go=${go} startCfg=${prepare} stored=${stored} saveFail=${saveFail}/>`;
   else if (screen === 'music') body = html`<${MusicWorld} key=${musicView} data=${data} setData=${setData} go=${go} startView=${musicView}/>`;
   else if (screen === 'art') body = html`<${ArtStudio} data=${data} setData=${setData} go=${go}/>`;
   else if (screen === 'certificate') body = html`<${Certificate} data=${data} go=${go}/>`;
-  else body = html`<${Home} data=${data} go=${go} stored=${stored}/>`;
+  else body = html`<${Home} data=${data} go=${go} stored=${stored} saveFail=${saveFail}/>`;
   return html`<div className="app" style=${{ '--sat': 0.6 + data.pearls.length * 0.08 }}><${Bubbles}/>${body}</div>`;
 }
 
@@ -2531,8 +2560,24 @@ function App() {
 const GALLERY_KEY = 'perlas-galeria-v1';
 const SESSION_ART = []; // paintings that could not be stored permanently
 const ART_STATE = { dirty: false };
+// Warn before closing/reloading the page while a painting has unsaved strokes.
+try { window.addEventListener('beforeunload', e => { if (ART_STATE.dirty) { e.preventDefault(); e.returnValue = ''; } }); } catch (e) { }
 function loadGallery() { try { const r = localStorage.getItem(GALLERY_KEY); return r ? JSON.parse(r) : []; } catch (e) { return []; } }
-function saveGallery(list) { try { localStorage.setItem(GALLERY_KEY, JSON.stringify(list)); return true; } catch (e) { return false; } }
+// Paintings share the browser's ~5 MB storage with Diego's progress. Cap the gallery so it can never
+// starve the main save; over the cap a painting stays "solo en esta sesión" (existing message).
+const GALLERY_MAX_CHARS = 3000000;
+// Editable paint layers (transparent PNG of the strokes) live in IndexedDB, keyed by artwork id, so the
+// localStorage gallery keeps its exact shape and size. Older artworks have no layer: they reopen from
+// their flattened picture and can be painted over.
+const LAYER_DB = 'perlas-arte-v1', LAYER_STORE = 'layers';
+const SESSION_LAYERS = {};
+function layerDB() { return new Promise((res, rej) => { try { const r = indexedDB.open(LAYER_DB, 1); r.onupgradeneeded = () => r.result.createObjectStore(LAYER_STORE); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); } catch (e) { rej(e); } }); }
+function layerOp(mode, fn) { return layerDB().then(db => new Promise((res, rej) => { const tx = db.transaction(LAYER_STORE, mode); const st = tx.objectStore(LAYER_STORE); const req = fn(st); tx.oncomplete = () => res(req && req.result); tx.onerror = () => rej(tx.error); tx.onabort = () => rej(tx.error); })); }
+const layerGet = id => SESSION_LAYERS[id] ? Promise.resolve(SESSION_LAYERS[id]) : layerOp('readonly', st => st.get(id)).catch(() => null);
+const layerPut = (id, png) => layerOp('readwrite', st => st.put(png, id)).then(() => true, () => { SESSION_LAYERS[id] = png; return false; });
+const layerDel = id => { delete SESSION_LAYERS[id]; return layerOp('readwrite', st => st.delete(id)).catch(() => null); };
+const loadImage = src => new Promise(res => { if (!src) return res(null); const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; });
+function saveGallery(list) { try { const s = JSON.stringify(list); if (s.length > GALLERY_MAX_CHARS) return false; localStorage.setItem(GALLERY_KEY, s); return true; } catch (e) { return false; } }
 
 /* ---------- Object library: viewBox 0 0 100 100, sitting on the bottom edge ---------- */
 const OBJ_LABEL = { coco: 'coco', mango: 'mango', concha: 'concha', flores: 'flores tropicales', jarron: 'jarrón de cerámica', vaso: 'vaso con agua', sombrero: 'sombrero de playa', toalla: 'toalla doblada', frutero: 'frutero', hojas: 'hojas', maceta: 'maceta de colores', naranja: 'naranja' };
@@ -2869,15 +2914,28 @@ function rgbToHex(css) { const m = css.match(/\d+/g); return m ? '#' + m.slice(0
 function SketchLayer({ tmpl, colored }) {
   return html`<svg viewBox=${`0 0 ${CW} ${CH}`} className=${colored ? 'ref-svg' : 'sketch-svg'} aria-hidden="true">${tmpl.objs.map((o, i) => placeG(o, i))}</svg>`;
 }
-function Painter({ onSaved, onExit }) {
-  const [step, setStep] = useState('choose'); const [tmpl, setTmpl] = useState(TEMPLATES[0]); const [bg, setBg] = useState(BGS[0]);
-  const [tool, setTool] = useState('pincel'); const [color, setColor] = useState('#e53935'); const [size, setSize] = useState(18);
-  const [sketch, setSketch] = useState(true); const [showRef, setShowRef] = useState(true);
+function Painter({ onSaved, onExit, resume }) {
+  // resume = a gallery artwork to keep painting (same editor, same tools)
+  const startTmpl = resume ? (TEMPLATES.find(t => t.id === resume.tmplId) || TEMPLATES.find(t => t.name === resume.tmpl) || TEMPLATES[TEMPLATES.length - 1]) : TEMPLATES[0];
+  const startBg = resume ? (BGS.find(b => b.id === resume.bgId) || BGS[0]) : BGS[0];
+  const [step, setStep] = useState(resume ? 'paint' : 'choose'); const [tmpl, setTmpl] = useState(startTmpl); const [bg, setBg] = useState(startBg);
+  const [loading, setLoading] = useState(!!resume);
+  const [tool, setTool] = useState('pincel'); const [color, setColor] = useState(resume ? '#5b3a1e' : '#e53935'); const [size, setSize] = useState(18);
+  const [sketch, setSketch] = useState(!resume); const [showRef, setShowRef] = useState(true);
   const [undoN, setUndoN] = useState(0); const [redoN, setRedoN] = useState(0); const [confirmClear, setConfirmClear] = useState(false);
-  const [saving, setSaving] = useState(false); const [title, setTitle] = useState(''); const [saved, setSaved] = useState(null);
+  const [saving, setSaving] = useState(false); const [title, setTitle] = useState(resume ? resume.title : ''); const [saved, setSaved] = useState(null);
   const cv = useRef(null); const bgc = useRef(null); const undo = useRef([]); const redo = useRef([]); const last = useRef(null); const drawing = useRef(false);
   useEffect(() => { if (step !== 'paint' || !bgc.current) return; const c = bgc.current.getContext('2d'); bg.draw(c, CW, CH); }, [step, bg]);
   const ctx = () => cv.current.getContext('2d');
+  useEffect(() => {
+    if (!resume) return; let alive = true;
+    layerGet(resume.id).then(png => loadImage(png).then(im => im || loadImage(resume.img))).then(im => {
+      if (!alive || !cv.current) return;
+      if (im) { const c = ctx(); c.clearRect(0, 0, CW, CH); c.drawImage(im, 0, 0, CW, CH); }
+      ART_STATE.dirty = false; setLoading(false);
+    });
+    return () => { alive = false; };
+  }, []);
   const snapshot = () => { ART_STATE.dirty = true; try { undo.current.push(ctx().getImageData(0, 0, CW, CH)); if (undo.current.length > 12) undo.current.shift(); redo.current = []; setUndoN(undo.current.length); setRedoN(0); } catch (e) { } };
   const pos = e => { const r = cv.current.getBoundingClientRect(); return [(e.clientX - r.left) * CW / r.width, (e.clientY - r.top) * CH / r.height]; };
   const stamp = (x0, y0, x1, y1) => {
@@ -2896,14 +2954,28 @@ function Painter({ onSaved, onExit }) {
   const doUndo = () => { if (!undo.current.length) return; redo.current.push(ctx().getImageData(0, 0, CW, CH)); ctx().putImageData(undo.current.pop(), 0, 0); setUndoN(undo.current.length); setRedoN(redo.current.length); };
   const doRedo = () => { if (!redo.current.length) return; undo.current.push(ctx().getImageData(0, 0, CW, CH)); ctx().putImageData(redo.current.pop(), 0, 0); setUndoN(undo.current.length); setRedoN(redo.current.length); };
   const clearAll = () => { snapshot(); ctx().clearRect(0, 0, CW, CH); setConfirmClear(false); };
-  const doSave = () => {
+  const doSave = mode => {
+    if (loading) return;
     const off = document.createElement('canvas'); off.width = CW; off.height = CH; const c = off.getContext('2d'); bg.draw(c, CW, CH); c.drawImage(cv.current, 0, 0);
-    let img; try { img = off.toDataURL('image/jpeg', 0.85); } catch (e) { img = null; }
+    let img, layer; try { img = off.toDataURL('image/jpeg', 0.85); layer = cv.current.toDataURL('image/png'); } catch (e) { img = null; }
     if (!img) return;
-    const item = { id: 'a' + Date.now(), title: title.trim() || 'Mi bodegón', date: new Date().toISOString(), objs: uniq(tmpl.objs.map(o => OBJ_LABEL[o.id])), tmpl: tmpl.name, img };
-    const list = loadGallery(); const ok = saveGallery([item].concat(list));
-    if (!ok) SESSION_ART.unshift(item);
-    ART_STATE.dirty = false; setSaved({ item, ok }); setSaving(false); onSaved(item, ok);
+    const now = new Date().toISOString(); const nm = title.trim();
+    const base = { objs: uniq(tmpl.objs.map(o => OBJ_LABEL[o.id])), tmpl: tmpl.name, tmplId: tmpl.id, bgId: bg.id, img };
+    let item, ok;
+    if (mode === 'update' && resume) {
+      // same artwork: keep id and original creation date, refresh picture + editable layer
+      item = Object.assign({}, resume, base, { title: nm || resume.title, edited: now }); delete item.persisted;
+      const list = loadGallery(); const k = list.findIndex(x => x.id === resume.id);
+      if (k >= 0) { const nl = list.slice(); nl[k] = item; ok = saveGallery(nl); }
+      else { const s = SESSION_ART.findIndex(x => x.id === resume.id); ok = false; if (s >= 0) SESSION_ART[s] = item; else SESSION_ART.unshift(item); }
+      if (!ok && k >= 0) { item = Object.assign({}, item, { id: resume.id + '-s' + Date.now() }); SESSION_ART.unshift(item); } // no space: original stays untouched
+    } else {
+      item = Object.assign({ id: 'a' + Date.now(), title: nm || (resume ? resume.title + ' 2' : 'Mi bodegón'), date: now }, base);
+      const list = loadGallery(); ok = saveGallery([item].concat(list));
+      if (!ok) SESSION_ART.unshift(item);
+    }
+    if (ok) layerPut(item.id, layer); else SESSION_LAYERS[item.id] = layer;
+    ART_STATE.dirty = false; setSaved({ item, ok, mode: mode === 'update' && resume ? 'update' : 'new' }); setSaving(false); onSaved(item, ok);
   };
   if (step === 'choose') return html`<div className="m-paint">
     <h3>1. Elige tu bodegón</h3>
@@ -2911,8 +2983,8 @@ function Painter({ onSaved, onExit }) {
     <h3>2. Elige el fondo</h3>
     <div className="bg-row">${BGS.map(b => html`<button key=${b.id} className=${'bg-btn' + (bg.id === b.id ? ' on' : '')} onClick=${() => setBg(b)}><i style=${{ background: b.css }}></i>${b.name}</button>`)}</div>
     <button className="btn go big" onClick=${() => { setStep('paint'); setTool(tmpl.objs.length ? 'lapiz' : 'pincel'); setColor(tmpl.objs.length ? '#5b3a1e' : '#e53935'); }}>¡A pintar!</button></div>`;
-  if (saved) return html`<div className="m-paint saved-view"><h3>¡Obra terminada!</h3><img src=${saved.item.img} alt=${saved.item.title} className="saved-img"/>
-    <p className=${'store ' + (saved.ok ? 'ok' : 'no')}>${saved.ok ? 'Guardada en la galería de este dispositivo.' : 'No hubo espacio para guardarla de forma permanente: se verá en la galería solo mientras esta página siga abierta.'}</p>
+  if (saved) return html`<div className="m-paint saved-view"><h3>${saved.mode === 'update' ? '¡Cambios guardados!' : '¡Obra terminada!'}</h3><img src=${saved.item.img} alt=${saved.item.title} className="saved-img"/>
+    <p className=${'store ' + (saved.ok ? 'ok' : 'no')}>${saved.ok ? (saved.mode === 'update' ? 'Tu obra se actualizó en la galería.' : 'Guardada en la galería de este dispositivo.') : 'No hubo espacio para guardarla de forma permanente: se verá en la galería solo mientras esta página siga abierta.'}</p>
     <p className="tip">Para guardarla en tus fotos, mantén presionada la imagen (funciona en la mayoría de los iPad y teléfonos).</p>
     <div className="row-btns"><button className="btn lagoon" onClick=${() => onExit('gallery')}>Ver mi galería</button><button className="btn go" onClick=${() => onExit('hub')}>Volver al taller</button></div></div>`;
   return html`<div className="m-paint">
@@ -2922,7 +2994,7 @@ function Painter({ onSaved, onExit }) {
       ${showRef && tmpl.objs.length ? html`<div className="ref-card" aria-label="Modelo del bodegón"><div style=${{ background: bg.css }}><${SketchLayer} tmpl=${tmpl} colored=${true}/></div><small>Modelo</small></div>` : null}
       <div className="stage"><canvas ref=${bgc} width=${CW} height=${CH} className="cv-bg"></canvas>
         ${sketch && tmpl.objs.length ? html`<${SketchLayer} tmpl=${tmpl}/>` : null}
-        <canvas ref=${cv} width=${CW} height=${CH} className="cv-paint" onPointerDown=${down} onPointerMove=${move} onPointerUp=${up} onPointerCancel=${up} onPointerLeave=${up} aria-label="Lienzo para pintar"></canvas></div>
+        <canvas ref=${cv} width=${CW} height=${CH} className="cv-paint" onPointerDown=${down} onPointerMove=${move} onPointerUp=${up} onPointerCancel=${up} onPointerLeave=${up} aria-label="Lienzo para pintar"></canvas>${loading ? html`<div className="cv-loading" role="status">Abriendo tu obra…</div>` : null}</div>
     </div>
     <div className="toolbar">
       <div className="brushes" role="group" aria-label="Pinceles">${BRUSHES.map(([k, l]) => html`<button key=${k} className=${tool === k ? 'on' : ''} onClick=${() => setTool(k)} aria-pressed=${tool === k}><${BrushIcon} k=${k}/>${l}</button>`)}</div>
@@ -2931,10 +3003,11 @@ function Painter({ onSaved, onExit }) {
       <div className="row-btns">
         <button className="btn ghost" onClick=${doUndo} disabled=${!undoN}><${Icon} n="back"/> Deshacer</button><button className="btn ghost" onClick=${doRedo} disabled=${!redoN}>Rehacer <${Icon} n="faster" size=${18}/></button>
         ${confirmClear ? html`<button className="btn coral" onClick=${clearAll}>Sí, borrar todo</button><button className="btn ghost" onClick=${() => setConfirmClear(false)}>No</button>` : html`<button className="btn ghost" onClick=${() => setConfirmClear(true)}>Empezar de nuevo</button>`}
-        <button className="btn go" onClick=${() => setSaving(true)}>Terminé mi obra</button></div>
+        <button className="btn go" disabled=${loading} onClick=${() => setSaving(true)}>${resume ? 'Guardar' : 'Terminé mi obra'}</button></div>
     </div>
     ${saving ? html`<div className="panel save-box"><label htmlFor="art-title"><b>¿Cómo se llama tu obra?</b></label><input id="art-title" type="text" maxLength="40" value=${title} placeholder="Mi bodegón" onInput=${e => setTitle(e.target.value)}/>
-      <div className="row-btns"><button className="btn ghost" onClick=${() => setSaving(false)}>Seguir pintando</button><button className="btn go" onClick=${doSave}>Guardar en mi galería</button></div></div>` : null}
+      ${resume ? html`<div className="row-btns save-opts"><button className="btn go big" onClick=${() => doSave('update')}>Guardar cambios</button><button className="btn lagoon" onClick=${() => doSave('new')}>Guardar como nueva</button><button className="btn ghost" onClick=${() => setSaving(false)}>Seguir pintando</button></div>
+      <p className="tip">«Guardar cambios» actualiza esta obra. «Guardar como nueva» deja la original como estaba.</p>` : html`<div className="row-btns"><button className="btn ghost" onClick=${() => setSaving(false)}>Seguir pintando</button><button className="btn go" onClick=${() => doSave('new')}>Guardar en mi galería</button></div>`}</div>` : null}
   </div>`;
 }
 function BrushIcon({ k }) {
@@ -2943,19 +3016,20 @@ function BrushIcon({ k }) {
 }
 
 /* ---------- Galería ---------- */
-function Gallery({ onBack }) {
+function Gallery({ onBack, onContinue }) {
   const [list, setList] = useState(() => loadGallery().map(a => Object.assign({ persisted: true }, a)).concat(SESSION_ART.map(a => Object.assign({ persisted: false }, a))));
   const [edit, setEdit] = useState(null); const [name, setName] = useState(''); const [del, setDel] = useState(null);
   const persist = l => { const ok = saveGallery(l.filter(a => a.persisted).map(a => { const c = Object.assign({}, a); delete c.persisted; return c; })); return ok; };
   const rename = a => { const l = list.map(x => x.id === a.id ? Object.assign({}, x, { title: name.trim() || x.title }) : x); if (!a.persisted) { const s = SESSION_ART.find(x => x.id === a.id); if (s) s.title = name.trim() || s.title; } persist(l); setList(l); setEdit(null); };
-  const remove = a => { const l = list.filter(x => x.id !== a.id); const i = SESSION_ART.findIndex(x => x.id === a.id); if (i >= 0) SESSION_ART.splice(i, 1); persist(l); setList(l); setDel(null); };
+  const remove = a => { layerDel(a.id); const l = list.filter(x => x.id !== a.id); const i = SESSION_ART.findIndex(x => x.id === a.id); if (i >= 0) SESSION_ART.splice(i, 1); persist(l); setList(l); setDel(null); };
   return html`<div className="gallery">
     <div className="gal-head"><h2>La Galería de Diego Aceves</h2><p className="tip light">Las obras con sello verde están guardadas en este dispositivo. Las de sello amarillo solo duran mientras la página siga abierta.</p></div>
     ${!list.length ? html`<div className="panel empty-gal"><${Pincelin} size=${110}/><p>Tu galería está esperando su primera obra. ¡Pinta un bodegón en la Misión 6!</p></div>` : null}
     <div className="frames">${list.map(a => html`<figure key=${a.id} className="frame"><div className="frame-wood"><img src=${a.img} alt=${a.title}/></div>
       <figcaption>${edit === a.id ? html`<div className="rename"><input type="text" id=${'rn-' + a.id} maxLength="40" value=${name} onInput=${e => setName(e.target.value)} aria-label="Nuevo nombre"/><button className="btn go" onClick=${() => rename(a)}>Listo</button></div>` : html`<strong>${a.title}</strong>`}
         <span>${new Date(a.date).toLocaleDateString('es-MX', { dateStyle: 'long' })}</span><span className="objs">${a.objs && a.objs.length ? a.objs.join(', ') : 'Creación libre'}</span>
-        <span className=${'seal ' + (a.persisted ? 'ok' : 'tmp')}>${a.persisted ? 'Guardada' : 'Solo en esta sesión'}</span>
+        <span className=${'seal ' + (a.persisted ? 'ok' : 'tmp')}>${a.persisted ? 'Guardada' : 'Solo en esta sesión'}</span>${a.edited ? html`<span className="edited">Retocada el ${new Date(a.edited).toLocaleDateString('es-MX', { dateStyle: 'medium' })}</span>` : null}
+        <button className="btn go continue-paint" onClick=${() => onContinue(a)}><${BrushIcon} k="pincel"/> Seguir pintando</button>
         <div className="frame-btns">${edit === a.id ? null : html`<button onClick=${() => { setEdit(a.id); setName(a.title); }}>Cambiar nombre</button>`}
           ${del === a.id ? html`<button className="danger-t" onClick=${() => remove(a)}>Sí, quitarla</button><button onClick=${() => setDel(null)}>No</button>` : html`<button onClick=${() => setDel(a.id)}>Quitar</button>`}</div></figcaption></figure>`)}</div>
     <button className="btn go" onClick=${onBack}>Volver al taller</button></div>`;
@@ -2968,7 +3042,7 @@ const MISSIONS = [
 ];
 function ArtStudio({ data, setData, go }) {
   const [art, award] = useArt(data, setData);
-  const [view, setView] = useState(art.seen ? 'hub' : 'story'); const [won, setWon] = useState(null); const [leaveAsk, setLeaveAsk] = useState(null);
+  const [view, setView] = useState(art.seen ? 'hub' : 'story'); const [won, setWon] = useState(null); const [leaveAsk, setLeaveAsk] = useState(null); const [resume, setResume] = useState(null);
   useEffect(() => { ART_STATE.dirty = false; }, [view]);
   useEffect(() => { try { window.scrollTo(0, 0); } catch (e) { } }, [view]);
   const has = id => art.badges.includes(id);
@@ -2986,17 +3060,17 @@ function ArtStudio({ data, setData, go }) {
       <p>${all ? '¡Eres Artista del Arrecife de Cozumel!' : `Insignias: ${art.badges.length} de ${ART_BADGES.length}. Gánalas todas para ser Maestro del Bodegón Tropical.`}</p></div></div>
     ${all ? html`<div className="artist-title pop"><${Pincelin} size=${70}/><div><p className="eyebrow">Título de artista</p><strong>Artista del Arrecife de Cozumel</strong><span>Maestro del Bodegón Tropical</span></div></div>` : null}
     <div className="medals">${ART_BADGES.map(b => html`<div key=${b.id} className=${'medal' + (has(b.id) ? '' : ' off')}><${Medal} id=${b.id} on=${has(b.id)}/><span>${b.name}</span></div>`)}</div>
-    <div className="mission-grid">${MISSIONS.map(m => html`<button key=${m.n} className=${'mission' + (m.n === 6 ? ' star' : '')} onClick=${() => setView('m' + m.n)}><span className="m-num">Misión ${m.n}</span><strong>${m.t}</strong>${has(m.b) ? html`<span className="m-done">✓ Insignia ganada</span>` : null}</button>`)}</div>
+    <div className="mission-grid">${MISSIONS.map(m => html`<button key=${m.n} className=${'mission' + (m.n === 6 ? ' star' : '')} onClick=${() => { setResume(null); setView('m' + m.n); }}><span className="m-num">Misión ${m.n}</span><strong>${m.t}</strong>${has(m.b) ? html`<span className="m-done">✓ Insignia ganada</span>` : null}</button>`)}</div>
     <button className="btn lagoon big" onClick=${() => setView('gallery')}>La Galería de Diego Aceves</button></div>`;
-  else if (view === 'gallery') body = html`<${Gallery} onBack=${() => setView('hub')}/>`;
+  else if (view === 'gallery') body = html`<${Gallery} onBack=${() => setView('hub')} onContinue=${a => { setResume(a); setView('m6'); }}/>`;
   else {
     const M = { m1: Mission1, m2: Mission2, m3: Mission3, m4: Mission4, m5: Mission5 }[view];
     body = html`<div className="panel mission-panel">
-      ${view === 'm6' ? html`<${Painter} onSaved=${() => award('pintor')} onExit=${t => setView(t === 'gallery' ? 'gallery' : 'hub')}/>` : html`<${M} onDone=${finish} has=${has(MISSIONS.find(x => 'm' + x.n === view).b)}/>`}</div>`;
+      ${view === 'm6' ? html`<${Painter} key=${resume ? resume.id : 'new'} resume=${resume} onSaved=${() => award('pintor')} onExit=${t => { setResume(null); setView(t === 'gallery' ? 'gallery' : 'hub'); }}/>` : html`<${M} onDone=${finish} has=${has(MISSIONS.find(x => 'm' + x.n === view).b)}/>`}</div>`;
   }
   return html`<div className="screen studio">
-    <div className="topbar"><${NavBtn} label=${view === 'hub' || view === 'story' ? 'Mapa' : 'Taller'} onClick=${() => { const dest = view === 'hub' || view === 'story' ? 'map' : 'hub'; if (view === 'm6' && ART_STATE.dirty) { setLeaveAsk(dest); return; } dest === 'map' ? go('map') : setView('hub'); }}/><h2>${view === 'hub' || view === 'story' ? 'Taller del Artista' : titles[view] || 'Taller'}</h2></div>
-    ${leaveAsk ? html`<div className="panel quit"><p>¿Salir sin guardar tu pintura? Se va a borrar.</p><div className="row-btns"><button className="btn go" onClick=${() => setLeaveAsk(null)}>Seguir pintando</button><button className="btn coral" onClick=${() => { const d = leaveAsk; setLeaveAsk(null); ART_STATE.dirty = false; d === 'map' ? go('map') : setView('hub'); }}>Salir sin guardar</button></div></div>` : null}
+    <div className="topbar"><${NavBtn} label=${view === 'hub' || view === 'story' ? 'Mapa' : view === 'm6' && resume ? 'Galería' : 'Taller'} onClick=${() => { const dest = view === 'hub' || view === 'story' ? 'map' : view === 'm6' && resume ? 'gallery' : 'hub'; if (view === 'm6' && ART_STATE.dirty) { setLeaveAsk(dest); return; } if (dest === 'map') go('map'); else { setResume(null); setView(dest); } }}/><h2>${view === 'hub' || view === 'story' ? 'Taller del Artista' : view === 'm6' && resume ? 'Seguir pintando' : titles[view] || 'Taller'}</h2></div>
+    ${leaveAsk ? html`<div className="panel quit" role="alertdialog" aria-label="¿Salir sin guardar?" onKeyDown=${e => e.key === 'Escape' && setLeaveAsk(null)}><p>${resume ? '¿Salir sin guardar los cambios? Tu obra de la galería se queda como estaba.' : '¿Salir sin guardar tu pintura? Se va a borrar.'}</p><div className="row-btns"><button className="btn go" autoFocus onClick=${() => setLeaveAsk(null)}>Seguir pintando</button><button className="btn coral" onClick=${() => { const d = leaveAsk; setLeaveAsk(null); ART_STATE.dirty = false; if (d === 'map') go('map'); else { setResume(null); setView(d); } }}>Salir sin guardar</button></div></div>` : null}
     ${body}</div>`;
 }
 
