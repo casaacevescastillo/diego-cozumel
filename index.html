@@ -42,6 +42,8 @@
   --body:'Andika','Trebuchet MS','Segoe UI',system-ui,sans-serif;
   --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px; --space-6:24px; --space-8:32px; --space-10:40px; --space-12:48px;
   --radius-card:22px; --radius-tile:16px; --radius-pill:999px;
+  --radius-hero:32px; --cream-hero:#fff9f0; --ink-hero:#102f43; --muted-hero:#527082; --tint-hero:#e3f7fa;
+  --shadow-hero:0 10px 0 rgba(7,61,82,.24),0 20px 36px rgba(5,51,76,.15);
   color-scheme: light;
 }
 html,body{height:100%}
@@ -502,7 +504,7 @@ textarea{width:100%;box-sizing:border-box;font-family:ui-monospace,Menlo,monospa
 .frame-btns button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:var(--space-2) var(--space-3);font-weight:700;cursor:pointer;color:var(--ink)}
 .frame-btns .danger-t{border-color:var(--coral);color:#c9452f}
 .rename{display:flex;gap:var(--space-2)}
-@media (max-width:620px){.row-btns > .btn,.seq-ctrl > .btn{flex:1 1 140px}.seq-ctrl > .btn.lagoon{flex-basis:100%}.seq-ctrl{align-items:stretch}.seq-ctrl .bpm{flex:1 1 100%;order:-1}.grid-wrap::after{content:"Desliza para ver los 8 tiempos →";display:block;font-size:13px;color:var(--muted);padding-top:var(--space-1)}}
+@media (max-width:620px){.row-btns > .btn,.seq-ctrl > .btn{flex:1 1 140px}.seq-ctrl > .btn.lagoon{flex-basis:100%}.seq-ctrl{align-items:stretch}.seq-ctrl .bpm{flex:1 1 100%;order:-1}.grid-wrap::after{content:"Swipe to see all 8 beats →";display:block;font-size:13px;color:var(--muted);padding-top:var(--space-1)}}
 @media (max-width:620px){.lab{grid-template-columns:1fr}.tech3{gap:var(--space-2)}.tech3 figcaption{font-size:14px}.studio-head{flex-direction:column!important;text-align:center}}
 
 /* ===== The Tropical Orchestra ===== */
@@ -857,11 +859,11 @@ button.pbeat{cursor:pointer}
 .paint-ws.side .brushes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-1)}
 .paint-ws.side .brushes button{flex-direction:column;justify-content:center;gap:2px;padding:var(--space-1);font-size:13px;min-height:52px}
 .paint-ws.side .colors{display:grid;grid-template-columns:repeat(5,40px);justify-content:space-between;row-gap:var(--space-2)}
-.paint-ws.side .row-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-1)}
+.paint-ws.side .row-btns{display:grid;grid-template-columns:1fr;gap:var(--space-1)}
 .paint-ws.side .row-btns .btn{padding:0 var(--space-1);font-size:13px;min-height:44px;line-height:1.1}
 .paint-ws.side .row-btns .btn svg{display:none}
 .paint-ws.side .size-row{gap:var(--space-2)}
-.paint-ws.side .row-btns .btn.go{grid-column:1 / -1;min-height:56px;font-size:18px}
+.paint-ws.side .row-btns .btn.go{min-height:56px;font-size:18px}
 .paint-ws.side .save-opts{display:flex;flex-direction:column}
 /* Portrait tablets: compact toolbar under the canvas */
 @media (max-width:899px), (orientation: portrait){
@@ -885,6 +887,240 @@ button.pbeat{cursor:pointer}
 .wm-info .mseg{max-width:420px}
 .worlds{align-items:stretch}
 .world .w-progress{margin-top:auto;padding-top:var(--space-1);width:100%}
+/* focused confirmation */
+.modal-back{position:fixed;top:0;right:0;bottom:0;left:0;z-index:50;background:rgba(3,30,46,.55);display:flex;align-items:center;justify-content:center;padding:var(--space-4)}
+.modal{max-width:440px;width:100%;text-align:center;display:flex;flex-direction:column;gap:var(--space-3)}
+.modal h3{font-size:var(--fs-title)}
+.modal .row-btns{justify-content:center}
+.step-label{font-family:var(--display);font-size:16px;color:#fff;white-space:nowrap}
+/* composer */
+.draft-note{margin:0;font-weight:700;color:var(--sea);background:#e6f8fb;border-radius:12px;padding:var(--space-2) var(--space-3)}
+.row-lab{flex-direction:row;align-items:center;gap:var(--space-2)}
+.row-lab > span:last-child{display:flex;flex-direction:column;gap:2px;min-width:0}
+.row-ico{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 2px var(--rc)}
+.seq-row{grid-template-columns:130px repeat(8,1fr)}
+.seq-grid{min-width:600px}
+.speed-dots{display:inline-flex;gap:3px;vertical-align:middle;margin-left:var(--space-1)}
+.speed-dots i{width:8px;height:14px;border-radius:3px;background:#d6e2e6}
+.speed-dots i.on{background:var(--sea)}
+/* art studio flow */
+.draft-offer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3);background:#fff6d6;border:3px solid #f5b400;border-radius:var(--radius-card);padding:var(--space-3) var(--space-4)}
+.draft-offer > div:first-child{display:flex;flex-direction:column;gap:var(--space-1)}
+.draft-offer strong{font-family:var(--display);font-weight:400;font-size:var(--fs-title)}
+.warn-note{background:#fff1ee;color:#8a2e1e}
+.warn-panel{background:#fff1ee;color:#8a2e1e;margin:0}
+.quick-row{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+.quick-row .btn{flex:1 1 220px}
+.hub-h{color:#fff;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-2)}
+.hub-h small{font-family:var(--body);font-size:var(--fs-caption);color:#d8f4f7}
+.gal-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3)}
+.img-wait{aspect-ratio:auto;width:100%;padding-top:75%;background:#efe2c8}
+.chip-t.toggle{display:inline-flex;align-items:center;gap:var(--space-2)}
+.chip-t .tg{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:6px;border:2px solid currentColor;font-size:14px;line-height:1}
+.sketch-svg *{stroke:#4a5964!important;opacity:.9}
+.undo-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2)}
+.undo-row .btn{min-height:44px;font-size:15px;padding:0 var(--space-2)}
+.toolbar .row-btns .restart{font-size:14px;min-height:40px;color:#8a2e1e;box-shadow:none;background:transparent;text-decoration:underline}
+.finish-row{flex-direction:column;align-items:center;gap:var(--space-1)}
+.finish-row .btn.go{align-self:stretch;min-height:56px;font-size:18px}
+.file-btn{position:relative;overflow:hidden;cursor:pointer}
+.file-btn input{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0}
+.bk-text{margin-top:var(--space-2)}.bk-text summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+.bk-text textarea{width:100%}
+.reset-box{display:grid;gap:var(--space-2)}.reset-box input{font:inherit;font-size:18px;padding:10px 14px;border-radius:12px;border:2px solid #c9d6dc;max-width:240px}
+.muted.small{font-size:14px}
+.home-where{margin:0;font-size:17px;background:#e9f7f8;border-radius:14px;padding:8px 14px;max-width:560px}
+.home-pearls{display:flex;flex-direction:column;align-items:center;gap:6px}
+.pearl-cap{margin:0;font-size:15px;color:#3b5566}
+.pearl-row.labeled{gap:14px;align-items:flex-end}
+.pearl-row.labeled span{display:flex;flex-direction:column;align-items:center;gap:2px}
+.pearl-row.labeled small{font-size:12px;font-weight:700;color:#5d7584}.pearl-row.labeled .got small{color:#0d2b3e}
+.home .home-card{gap:var(--space-3)}
+@media (max-width:600px){.scene-diego{transform:translateX(-65%)}.pearl-row.labeled{gap:6px}.pearl-row.labeled small{font-size:11px}}
+.today-chip .tc-note{font-size:14px;color:#3b5566}
+.col-tabs{display:flex;gap:var(--space-2);flex-wrap:wrap;margin:0 0 var(--space-3)}
+.col-tabs button{font:inherit;font-weight:800;font-size:17px;min-height:52px;padding:0 18px;border:0;border-radius:16px;background:rgba(255,250,241,.85);color:#0d2b3e;display:flex;align-items:center;gap:8px;cursor:pointer}
+.col-tabs button small{font-size:13px;background:#e3eef1;border-radius:10px;padding:2px 8px}
+.col-tabs button.on{background:#ffc531;box-shadow:0 4px 0 #d39b00}.col-tabs button.on small{background:#fff3c7}
+.col-intro{color:#fff;margin:0 0 var(--space-2);font-weight:600}.col-intro.dark{color:#0d2b3e}
+.collection .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+.collection .ccard{font:inherit;color:inherit;border:0;cursor:pointer;text-align:center}
+.collection .ccard.locked{cursor:default;opacity:.85}.collection .ccard.locked p{margin:0}
+.empty-state{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3)}.empty-state h3{margin:0 0 6px}
+.made-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-3)}
+.made-card{display:flex;gap:var(--space-3);align-items:center}.made-card h3{margin:0 0 4px}
+.creature-modal{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;max-width:440px}
+.pearl-list small{display:block;font-size:13px;color:#5d7584}
+.collection .ccard{padding:var(--space-3)}
+@media (max-width:599px){.collection .cards{grid-template-columns:repeat(2,minmax(0,1fr))}.empty-state{flex-direction:column;text-align:center}}
+.kpi-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-3)}
+.kpi-g{background:#f3f9fa;border-radius:16px;padding:var(--space-3)}.kpi-g h4{margin:0 0 4px;font-size:15px;text-transform:uppercase;letter-spacing:.04em;color:#3b5566}
+.kpi-big{font-size:32px;font-weight:800;margin:0}.kpi-big small{font-size:16px;font-weight:600}.kpi-g .muted{margin:4px 0 0;font-size:14px}
+.tc-all{grid-column:1/-1}
+.help-row{display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center}
+.hint-btn{font:inherit;font-weight:700;font-size:16px;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:0;border-radius:14px;background:#fff6d6;color:#6b4a00;cursor:pointer}
+.app.focus::before{background:radial-gradient(60% 40% at 20% 0%,rgba(255,255,255,.18),transparent 70%)}
+.g-zones{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:var(--space-3);width:100%;align-items:start}
+.g-zone .loose{max-width:none;margin:0}
+.g-zone{border-radius:18px;padding:var(--space-2) var(--space-3);display:flex;flex-direction:column;gap:var(--space-2)}
+.g-zone.gz-tens{background:#e6f1ff;border:3px solid #2f8cff}.g-zone.gz-ones{background:#fff4e0;border:3px dashed #f5a300}
+.g-h{font-weight:800;font-size:18px}.g-h b{font-size:22px}.g-h small{font-size:16px;color:#3b5566}
+.g-empty{margin:0;color:#5d7584;font-size:15px}
+@media (max-width:640px){.g-zones{grid-template-columns:1fr}}
+.challenge .ch-mode{display:inline-block;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:3px 10px;border-radius:10px;margin-bottom:4px}
+.challenge.guided .ch-mode{background:#e6f1ff;color:#1d5fb8}.challenge.solo .ch-mode{background:#ffe9c2;color:#8a5a00}
+.grid-wrap .seq-row .row-lab{position:sticky;left:0;z-index:2;background:#fffaf1;box-shadow:6px 0 6px -4px rgba(13,43,62,.12)}
+/* ---- Home: the reef image is the background of the whole home screen ---- */
+.app.home-app{background:#2fb4d8 url("./assets/backgrounds/arrecife-home.png") center top/cover no-repeat}
+.app.home-app::before{display:none}
+.home.screen{max-width:1100px}
+.home .home-stage{position:relative}
+/* Hero: Diego is anchored to the exact center of the hero area (above the card) at every size. */
+.home-scene{--sh:clamp(260px,46vh,480px);position:relative;height:var(--sh)}
+.scene-anchor{position:absolute;left:50%;top:50%;width:min(36%,calc(var(--sh) * .8));transform:translate(-54.2%,-47.8%);z-index:3}
+.scene-diego{position:relative;animation:floatD 6s ease-in-out infinite}
+.scene-tuga{position:absolute;width:56%;left:-44%;top:46%;z-index:-1;animation:floatT 5s ease-in-out infinite}
+.scene-diego img,.scene-tuga img,.scene-creature img{display:block;width:100%;height:auto;max-width:none;user-select:none;-webkit-user-drag:none}
+.scene-creature{--w:calc(clamp(56px,8vw,100px) * var(--k,1));position:absolute;width:var(--w);left:clamp(4px,calc(var(--x) - var(--w) / 2),calc(100% - var(--w) - 4px));top:clamp(6px,var(--y),calc(100% - var(--w) * var(--a) - 10px));animation:bob 4.5s ease-in-out infinite}
+.scene-creature.far{z-index:1}.scene-creature.near{z-index:4}
+.scene-creature img{filter:drop-shadow(0 4px 4px rgba(3,30,46,.18))}
+.scene-hint{position:absolute;left:12px;bottom:12px;z-index:5;background:rgba(255,250,241,.92);color:#0d2b3e;font-weight:700;font-size:14px;padding:6px 12px;border-radius:12px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes floatD{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes floatT{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-2deg)}}
+/* Home layering: 0 ocean (.app background) · 10 Diego, Tuga, creatures · 20 cream card · 30 coral foreground */
+.app.home-app{padding-bottom:0;isolation:isolate}
+.home.screen{position:static;padding-bottom:calc(100vw / 3 * .6)}
+.home .home-stage{position:relative;z-index:10}
+.home-card-wrap{position:relative;z-index:20;max-width:680px;margin:0 auto}
+.home .home-card{position:relative;margin:0;max-width:none}
+.home .home-card > *{max-width:520px;width:100%}
+.home .home-card > h1{max-width:640px}
+.home .home-card > .parent-link{width:auto}
+.home-coral-foreground{position:absolute;z-index:30;left:0;bottom:0;width:100%;max-width:none;height:auto;display:block;pointer-events:none;user-select:none;-webkit-user-drag:none}
+@media (max-width:640px){
+  .home-scene{--sh:clamp(250px,44vh,380px)}
+  .scene-anchor{width:min(52%,calc(var(--sh) * .8))}
+  .scene-creature{--w:calc(50px * var(--k,1))}
+  .scene-tuga{left:-34%;width:52%}
+}
+/* ---- Reward screens (summary, pearl, creature, banquet result, certificate) ---- */
+.reward-screen.screen{position:static}
+.reward-screen > *:not(.reward-backdrop){position:relative;z-index:1}
+.reward-backdrop{position:absolute;top:0;right:0;bottom:0;left:0;z-index:0;background:#2fb4d8 url("./assets/backgrounds/arrecife-home.png") center top/cover no-repeat;pointer-events:none}
+.reward-screen > .panel.summary,.reward-screen > .cert{height:auto;min-height:0;align-self:center;width:min(100%,880px);box-sizing:border-box;padding:clamp(24px,3vw,40px)}
+.reward-screen .muted.light{background:rgba(255,250,241,.94);color:#0d2b3e;padding:6px 14px;border-radius:12px}
+.col-hero{display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;border-radius:24px;padding:clamp(28px,6vw,56px) var(--space-3) var(--space-3);background:#3fb6d8 url("./assets/backgrounds/arrecife-home.png") center 45%/cover no-repeat;box-shadow:0 6px 0 rgba(3,30,46,.25);margin-bottom:var(--space-3)}
+.col-hero-in{background:rgba(255,250,241,.94);border-radius:16px;padding:8px 18px;display:flex;align-items:baseline;gap:8px;color:#0d2b3e}
+.col-hero-in b{font-size:24px}.col-hero-in span{font-size:16px;font-weight:600}
+/* ---- Colección · Perlas ---- */
+.col-pearls{display:flex;flex-direction:column;gap:var(--space-3)}
+.cp-intro{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-2) var(--space-4);padding:var(--space-4)}
+.cp-intro h3{margin:0 0 4px}.cp-intro p{margin:0;color:#3b5566;max-width:460px}
+.cp-stats{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.cp-stats span{background:#e9f7f8;border-radius:14px;padding:8px 14px;font-size:15px}.cp-stats b{font-size:18px}
+.cp-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--space-3)}
+.cp-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--space-2);padding:var(--space-3) var(--space-2);background:var(--pearl);border-radius:var(--radius-tile,20px);border:3px solid transparent;box-shadow:0 6px 0 rgba(3,30,46,.22)}
+.cp-card.got{border-color:#e0a21c;background:#fffaea}
+.cp-pearl{display:flex;align-items:center;justify-content:center;height:86px}
+.cp-text{display:flex;flex-direction:column;gap:2px;min-height:3.6em}
+.cp-text b{font-size:16px;line-height:1.2;color:#0d2b3e}.cp-text small{font-size:13px;color:#5d7584;line-height:1.25}
+.cp-card .mseg{width:100%;margin-top:auto}.cp-card .mseg-label{font-size:13px}
+.cp-todo{font-size:13px;font-weight:700;color:#5d7584;border:2px dashed #b9c9cf;border-radius:12px;padding:2px 10px}
+@media (max-width:791px){.cp-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:540px){
+  .cp-grid{grid-template-columns:1fr}
+  .cp-card{display:grid;grid-template-columns:64px 1fr;grid-template-areas:"p t" "p m" "p s";text-align:left;align-items:center;column-gap:var(--space-3);row-gap:4px;padding:var(--space-2) var(--space-3)}
+  .cp-pearl{grid-area:p;height:auto}.cp-pearl svg{width:60px;height:60px}
+  .cp-text{grid-area:t;min-height:0}.cp-card .mseg{grid-area:m}.cp-card > :last-child{grid-area:s;justify-self:start}
+}
+/* ---- Colección · Insignias y Mis creaciones ---- */
+.collection .map-sec{margin:var(--space-4) 0 var(--space-2)}
+.collection .medals.cm-adv{grid-template-columns:repeat(4,minmax(0,1fr))}
+.collection .medals.cm-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.collection .medal{justify-content:flex-start}
+.collection .medal small{font-weight:600;font-size:13px;line-height:1.3}
+.collection .medal.off{opacity:.85}
+.collection .medal:not(.off){box-shadow:0 0 0 3px #e0a21c,0 6px 0 rgba(3,30,46,.22)}
+@media (max-width:791px){.collection .medals.cm-6{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:540px){.collection .medals.cm-adv{grid-template-columns:repeat(2,minmax(0,1fr))}.collection .medals.cm-6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.made-card{align-items:center}.made-card > div{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-1)}
+.made-card p{margin:0 0 var(--space-2)}.made-card .row-btns{justify-content:flex-start;margin:0}
+@media (max-width:540px){.made-card{flex-direction:column;text-align:center}.made-card > div{align-items:center}.made-card .row-btns{justify-content:center}}
+/* ---- Shared mission introduction (MissionIntroCard) ---- */
+.mi-screen{position:static;max-width:none;padding-bottom:calc(100vw / 3 * .6)}
+.mi-screen{--ch:clamp(110px,min(26vh,22vw),250px)}
+.mi-wrap{width:min(780px,100%);margin:calc(var(--ch) * .62) auto 0;position:relative;z-index:20}
+.mi-card{position:relative;background:var(--cream-hero);border-radius:var(--radius-hero);box-shadow:var(--shadow-hero);
+  padding:calc(var(--ch) * .42 + var(--space-4)) clamp(20px,4vw,44px) clamp(24px,3.5vw,40px);display:flex;flex-direction:column;align-items:center;text-align:center}
+.mi-chars{position:absolute;left:0;right:0;top:0;transform:translateY(-58%);display:flex;justify-content:center;align-items:flex-end;gap:clamp(4px,2vw,24px);pointer-events:none;z-index:2}
+.mi-chars img{display:block;width:auto;max-width:none;user-select:none;-webkit-user-drag:none}
+.mi-diego{height:var(--ch);animation:floatY 6s ease-in-out infinite}
+.mi-guide{height:calc(var(--ch) * var(--gk,.8));margin-bottom:calc(var(--ch) * .04);animation:floatY 5s ease-in-out -1.5s infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.mi-title{font-family:var(--display);font-weight:400;color:var(--ink-hero);font-size:clamp(30px,3.4vw,44px);line-height:1.12;letter-spacing:-.01em;margin:0}
+.mi-kicker{margin:var(--space-2) 0 0;font-size:clamp(18px,2vw,24px);line-height:1.3;color:var(--muted-hero);font-weight:500}
+.mi-kicker b{color:var(--ink-hero);font-weight:700}
+.mi-msg{margin:var(--space-6) 0 0;background:var(--tint-hero);border-radius:24px;padding:clamp(16px,2.2vw,24px) clamp(18px,2.6vw,28px);font-size:clamp(17px,1.7vw,21px);line-height:1.42;color:var(--ink-hero);max-width:60ch}
+.mi-card .speak{margin-top:var(--space-5);min-height:52px;padding:0 28px;border-radius:999px;background:#e0f5fa;color:#147fa3;font-weight:700;font-size:18px;display:inline-flex;align-items:center;gap:10px;box-shadow:0 4px 0 #b2dde7}
+.mi-card .speak:active{transform:translateY(2px);box-shadow:0 2px 0 #b2dde7}
+.mi-card .speak:focus-visible,.mi-actions .btn:focus-visible{outline:4px solid #147fa3;outline-offset:3px}
+.mi-info{margin:var(--space-4) 0 0;font-size:16px;font-weight:600;color:var(--muted-hero)}
+.mi-actions{margin-top:var(--space-6);display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap}
+.mi-actions .btn{min-height:64px;padding:0 clamp(28px,4vw,44px);border-radius:22px;font-size:clamp(20px,2vw,25px);min-width:180px}
+.mi-actions .mi-go{background:#ffc536;color:#103249;box-shadow:0 6px 0 #c78c12}
+.mi-actions .mi-back{background:#e5f6fb;color:#103249;box-shadow:0 5px 0 #b2dde7}
+.mi-actions .btn:active{transform:translateY(3px)}
+@media (max-width:520px){
+  .mi-screen{--ch:clamp(96px,26vw,130px)}
+  .mi-card{border-radius:24px}
+  .mi-actions{flex-direction:column-reverse;width:100%}.mi-actions .btn{width:100%;min-width:0}
+}
+@media (max-height:760px) and (min-width:521px){
+  .mi-screen{--ch:clamp(110px,min(23vh,20vw),230px)}
+  .mi-msg{margin-top:var(--space-4)}.mi-card .speak{margin-top:var(--space-3)}.mi-info{margin-top:var(--space-2)}.mi-actions{margin-top:var(--space-4)}
+  .mi-card{padding-bottom:var(--space-6)}
+}
+/* ---- El Banquete Secreto del Arrecife ---- */
+.bq-card{display:flex;flex-direction:column;gap:var(--space-4)}
+.bq-round{display:flex;flex-direction:column;align-items:center;gap:var(--space-4)}
+.bq-ask{margin:0;font-weight:700;font-size:20px;text-align:center}
+.bq-pool{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--space-3);width:100%}
+.bq-pool.opts{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.bq-food{font:inherit;font-weight:700;font-size:19px;min-height:96px;border-radius:18px;border:3px solid #cfe8ee;background:#fff;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;box-shadow:0 4px 0 #cfe8ee;padding:8px}
+.bq-food .bq-emo{font-size:38px;line-height:1}
+.bq-food.sel{border-color:#ffb300;background:#fff6d6;box-shadow:0 0 0 4px rgba(255,179,0,.35),0 4px 0 #e0a21c;transform:translateY(-2px)}
+.bq-food.done{border-color:#1fa874;background:#e8f8ef}
+.bq-food.wrong{animation:shake .35s}
+.bq-food:disabled{cursor:default}
+.bq-bins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3);width:100%}
+.bq-bin{font:inherit;min-height:140px;border-radius:20px;border:4px solid var(--gc);border-top-width:14px;background:#fff;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-2);cursor:pointer}
+.bq-bin strong{font-size:17px;line-height:1.2}
+.bq-bin.ready{box-shadow:0 0 0 4px rgba(255,179,0,.35)}
+.bq-in{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.bq-mini{font-size:15px;font-weight:700;background:#f3f9fa;border-radius:12px;padding:4px 10px;white-space:nowrap}
+.bq-mini.big{font-size:18px;padding:6px 14px}
+.bq-meal,.bq-plate{box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--space-2);background:#e3f7fa;border-radius:18px;padding:var(--space-3) var(--space-4);min-height:56px;width:100%}
+.bq-meal-h{font-weight:800}
+.bq-score{font-size:20px;font-weight:700;margin:0}
+.bq-entry{background:linear-gradient(90deg,#fff3e6,#fffaf1)}
+.ccard.special:not(.locked){box-shadow:0 0 0 3px #ff8a5c,0 6px 0 rgba(3,30,46,.22)}
+@media (max-width:640px){.bq-bins{grid-template-columns:1fr}.bq-bin{min-height:88px}.bq-food{min-height:84px;font-size:17px}.bq-pool{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* ---- Special creature reward ---- */
+.sr-card{position:relative;z-index:1;align-self:center;width:min(100%,560px);box-sizing:border-box;height:auto;background:var(--cream-hero);border-radius:var(--radius-hero);box-shadow:var(--shadow-hero);
+  padding:clamp(20px,3.5vw,40px);display:flex;flex-direction:column;align-items:center;text-align:center}
+.sr-badge{background:#1f9d55;color:#fff;font-weight:800;font-size:15px;border-radius:999px;padding:6px 16px}
+.sr-title{font-family:var(--display);font-weight:400;color:var(--ink-hero);font-size:clamp(26px,3.2vw,34px);line-height:1.15;margin:var(--space-3) 0 0}
+.sr-score{margin:var(--space-2) 0 0;font-size:16px;font-weight:600;color:var(--muted-hero)}
+.sr-art{height:clamp(150px,26vh,220px);width:100%;margin-top:var(--space-5);display:flex;align-items:center;justify-content:center;overflow:visible}
+.sr-optic{height:100%;display:flex;justify-content:center}
+.sr-art img{height:100%;width:auto;max-width:100%;object-fit:contain;display:block;filter:drop-shadow(0 8px 10px rgba(5,51,76,.18));animation:pop .45s}
+.sr-name{margin:var(--space-4) 0 0;font-family:var(--display);font-size:clamp(22px,2.4vw,26px);color:var(--ink-hero);line-height:1.15}
+.sr-en{margin:2px 0 0;font-style:italic;font-size:17px;color:var(--muted-hero)}
+.sr-fact{margin-top:var(--space-4);background:var(--tint-hero);border-radius:18px;padding:var(--space-4) var(--space-5);text-align:left;width:100%;box-sizing:border-box}
+.sr-fact b{display:block;color:var(--ink-hero);font-size:16px}.sr-fact p{margin:4px 0 0;font-size:17px;line-height:1.4;color:var(--ink-hero)}
+.sr-actions{margin-top:var(--space-5);display:flex;flex-direction:column;gap:var(--space-3);width:100%}
+.sr-actions .btn{width:100%;min-height:60px}
 </style>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
@@ -1217,7 +1453,7 @@ GEN.m_n20 = (L, ctx) => {
   const [one, many] = OBJ_NAMES[ctx.obj];
   if (L === 1) {
     const n = rint(4, 10);
-    return mc(`How many ${many}?`, n, numOpts(n, [n + 1, n - 1, n + 2]), { visual: { k: 'frame', n, obj: ctx.obj }, layout: 'grid big', hint: 'Touch each one as you count. A full frame has 10.', explain: `There are ${n} ${n === 1 ? one : many}.` });
+    return mc(`How many ${many}?`, n, numOpts(n, [n + 1, n - 1, n + 2]), { visual: { k: 'frame', n, obj: ctx.obj }, layout: 'grid big', hint: n === 10 ? 'Look: is every square full? A full frame has 10.' : `Touch each one as you count. ${10 - n} ${10 - n === 1 ? 'square is' : 'squares are'} empty.`, explain: `There are ${n} ${n === 1 ? one : many}.` });
   }
   if (L === 2) {
     if (Math.random() < 0.55) { const n = rint(11, 20); return mc(`How many ${many}?`, n, numOpts(n, [n + 1, n - 1, n + 10 > 20 ? n - 2 : n + 10], 0, 30), { visual: { k: 'frame', n, obj: ctx.obj }, layout: 'grid big', hint: 'The first frame is full: that is 10. Count on from 10.', explain: `10 and ${n - 10} more is ${n}.` }); }
@@ -1794,7 +2030,7 @@ function validateDraw(target, pts) {
 }
 
 /* ================= ENGINE ================= */
-function freshData() { return { v: 3, missionsDone: {}, legacyMissions: {}, lastMission: null, worldMissions: {}, lastPartial: null, topics: {}, words: {}, creatures: [], stars: 0, sessions: 0, pearls: [], ach: [], recent: [], log: [], retryWins: 0, guardian: null, played: {}, theme: null, introSeen: false, totalQ: 0 }; }
+function freshData() { return { v: 3, activeSession: null, missionsDone: {}, legacyMissions: {}, lastMission: null, worldMissions: {}, lastPartial: null, topics: {}, words: {}, creatures: [], stars: 0, sessions: 0, pearls: [], ach: [], recent: [], log: [], retryWins: 0, guardian: null, played: {}, theme: null, introSeen: false, totalQ: 0 }; }
 function tstat(D, id) { return D.topics[id] ? D.topics[id] : { a: 0, fc: 0, lvl: 1, up: 0, miss: 0, rem: false, hist: [], wrong: 0, last: 0 }; }
 function keyOf(topic, q) {
   const parts = [topic, q.type, q.prompt, JSON.stringify(q.answer), JSON.stringify(q.visual || null)];
@@ -1847,7 +2083,7 @@ const WORLD_MISSIONS = {
     { t: 'La gran marea de palabras', topics: ['eng_art'], r: 'all', len: 10 },
   ],
   math: [
-    { t: 'Contando conchas', topics: ['m_n20', 'm_group'], r: [], min: 1 },
+    { t: '¡A contar hasta 20!', topics: ['m_n20', 'm_group'], r: [], min: 1 },
     { t: 'Decenas y unidades', topics: ['m_tens', 'm_pv'], r: [], min: 1 },
     { t: 'Saltos del delfín', topics: ['m_exp', 'm_line'], r: ['m_tens'], min: 2 },
     { t: 'Figuras del fondo del mar', topics: ['m_shapes', 'm_sides'], r: [], min: 2 },
@@ -1888,7 +2124,9 @@ const missionLen = m => m.len || 8;
 const missionsDone = (D, sid) => ((D.missionsDone || {})[sid] || []).filter(n => n >= 1 && n <= MISSIONS_PER_WORLD);
 // Next mission to play in order (missions open one after another); null when all five are done.
 function nextMissionOf(D, sid) { const done = missionsDone(D, sid); for (let n = 1; n <= MISSIONS_PER_WORLD; n++) if (!done.includes(n)) return n; return null; }
-const missionOpen = (D, sid, n) => n === 1 || missionsDone(D, sid).includes(n - 1) || missionsDone(D, sid).includes(n);
+// Worlds whose reward is already earned (including rewards from before there were five missions) keep every mission open.
+const rewardEarned = (D, sid) => SUBJ[sid] && SUBJ[sid].bonus ? (D.ach || []).includes('ocean') : (D.pearls || []).includes(sid);
+const missionOpen = (D, sid, n) => n === 1 || rewardEarned(D, sid) || missionsDone(D, sid).includes(n - 1) || missionsDone(D, sid).includes(n);
 // Topic sequence for a mission: main topics round-robin, about a quarter review, never the same topic twice in a row when avoidable.
 function missionPlan(sid, n) {
   const m = missionDef(sid, n); const len = missionLen(m); const all = TOPICS.filter(t => t.s === sid).map(t => t.id);
@@ -1999,6 +2237,17 @@ const CREATURES = [
   { id: 'toadfish', es: 'Pez sapo espléndido', en: 'Splendid toadfish', rare: true, fact: 'Descubrimiento especial: solo vive en los arrecifes de Cozumel. ¡En ningún otro lugar del mundo!' },
   { id: 'whaleshark', es: 'Tiburón ballena', en: 'Whale shark', rare: true, fact: 'Visitante especial del Caribe mexicano: es el pez más grande del mundo, ¡pero solo come plancton diminuto!' },
 ];
+// Special creatures from El Banquete Secreto del Arrecife (bonus). Kept apart from CREATURES so the
+// 12 mission creatures, their unlock order and the 'collector' badge stay exactly as before.
+const SPECIAL_CREATURES = [
+  { id: 'seastar', es: 'Estrella de mar', en: 'Sea star', ch: 1, fact: 'Algunas estrellas de mar pueden regenerar uno de sus brazos si lo pierden.' },
+  { id: 'puffer', es: 'Pez globo', en: 'Pufferfish', ch: 2, fact: 'Algunos peces globo se inflan con agua para parecer más grandes frente a sus depredadores.' },
+  { id: 'squid', es: 'Calamar', en: 'Squid', ch: 3, fact: 'Los calamares tienen ocho brazos y dos tentáculos más largos que usan para atrapar alimento.' },
+  { id: 'lobster', es: 'Langosta espinosa', en: 'Spiny lobster', ch: 4, fact: 'Las langostas espinosas usan sus largas antenas para explorar y detectar peligros.' },
+  { id: 'barracuda', es: 'Barracuda', en: 'Barracuda', ch: 5, fact: 'Las barracudas son peces veloces que persiguen a sus presas con su cuerpo alargado.' },
+];
+// Banquet progress lives in D.banquet (added later; older saves simply do not have it yet).
+function banquetOf(D) { const b = (D && D.banquet) || {}; return { done: Array.isArray(b.done) ? b.done : [], creatures: Array.isArray(b.creatures) ? b.creatures : [], tries: b.tries || {}, best: b.best || {} }; }
 const ACH = [
   { id: 'first', name: 'Primera misión', desc: 'Termina tu primera misión', test: D => D.sessions >= 1 },
   { id: 'streak5', name: 'Racha de 5', desc: 'Acierta 5 retos seguidos al primer intento', test: (D, S) => S && S.best >= 5 },
@@ -2046,13 +2295,13 @@ function recommendations(D) {
   if (weak.length && D.topics[weak[0]].a >= 3) out.push(`Para mañana: repasar «${TOPIC[weak[0]].name}» con el botón «Practicar lo que más me cuesta».`);
   return out.slice(0, 7);
 }
-if (typeof module !== 'undefined') module.exports = { WORLD_MISSIONS, MISSIONS_PER_WORLD, missionPlan, missionsDone, nextMissionOf, missionOpen, SYM_CASES, MAIN, adventureProgress, nextAdventure, migrateData, ACH, weakTopics, GEN, TOPICS, SPELL, SUBJECTS, makeQuestion, freshData, recordAnswer, createSession, nextQuestion, finishSession, validateDraw, numES, themeCtx, subjectProgress, topicStatus, recommendations, CREATURES, CHLL, SPELL_GROUPS, LESSONS };
+if (typeof module !== 'undefined') module.exports = { SPECIAL_CREATURES, banquetOf, WORLD_MISSIONS, MISSIONS_PER_WORLD, missionPlan, missionsDone, nextMissionOf, missionOpen, SYM_CASES, MAIN, adventureProgress, nextAdventure, migrateData, ACH, weakTopics, GEN, TOPICS, SPELL, SUBJECTS, makeQuestion, freshData, recordAnswer, createSession, nextQuestion, finishSession, validateDraw, numES, themeCtx, subjectProgress, topicStatus, recommendations, CREATURES, CHLL, SPELL_GROUPS, LESSONS };
 
 </script>
 <script>
 /* ================= UI ================= */
 const html = htm.bind(React.createElement);
-const { useState, useEffect, useRef, useMemo } = React;
+const { useState, useEffect, useRef, useMemo, useLayoutEffect } = React;
 
 const CAN_SPEAK = typeof window !== 'undefined' && 'speechSynthesis' in window && typeof window.SpeechSynthesisUtterance === 'function';
 function speak(text, lang) { try { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = lang === 'es' ? 'es-MX' : 'en-US'; u.rate = 0.85; window.speechSynthesis.speak(u); } catch (e) { } }
@@ -2176,11 +2425,15 @@ const CREATURE_ART = {
   seahorse: ['caballito', 255, 420], angelfish: ['pez-angel', 420, 329], parrotfish: ['pez-loro', 420, 322],
   butterfly: ['pez-mariposa', 420, 361], conch: ['caracol', 420, 298], moray: ['morena', 420, 355],
   dolphin: ['delfin', 420, 290], toadfish: ['pez-sapo', 420, 388], whaleshark: ['tiburon', 420, 312, true],
+  // special creatures (banquet): the three guides' official art is reused as the species
+  seastar: ['./assets/characters/estelita.png', 720, 703], puffer: ['./assets/characters/burbujin.png', 720, 533], squid: ['./assets/characters/lumi.png', 719, 720],
+  lobster: ['langosta', 307, 420], barracuda: ['barracuda', 345, 420],
 };
+const creatureSrc = a => a[0].indexOf('/') >= 0 ? a[0] : './assets/creatures/' + a[0] + '.png';
 function CreatureArt({ id, size = 110, locked, swim }) {
   const a = CREATURE_ART[id]; if (!a) return null;
   const tf = swim && a[3] ? 'scaleX(-1)' : undefined; // face the swimming direction in the aquarium
-  return html`<img className=${'creature-img' + (locked ? ' locked' : '')} src=${'./assets/creatures/' + a[0] + '.png'} width=${size} height=${Math.round(size * 0.75)} alt="" draggable="false" style=${{ objectFit: 'contain', transform: tf, width: size + 'px', height: Math.round(size * 0.75) + 'px', maxWidth: '100%' }}/>`;
+  return html`<img className=${'creature-img' + (locked ? ' locked' : '')} src=${creatureSrc(a)} width=${size} height=${Math.round(size * 0.75)} alt="" draggable="false" style=${{ objectFit: 'contain', transform: tf, width: size + 'px', height: Math.round(size * 0.75) + 'px', maxWidth: '100%' }}/>`;
 }
 
 
@@ -2212,6 +2465,26 @@ function NavBtn({ icon = 'back', label, onClick }) {
   return html`<button className="nav-btn" onClick=${onClick} aria-label=${label}><${Icon} n=${icon}/><span>${label}</span></button>`;
 }
 
+/* Focused confirmation: blocks the screen behind it, keeps focus inside, Escape = cancel. */
+function ConfirmDialog({ title, text, cancelLabel, okLabel, onCancel, onOk, okClass = 'lagoon' }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const prev = document.activeElement; const root = document.querySelector('.app > .screen');
+    if (root) { root.setAttribute('inert', ''); root.setAttribute('aria-hidden', 'true'); }
+    const b = ref.current && ref.current.querySelector('button'); b && b.focus();
+    return () => { if (root) { root.removeAttribute('inert'); root.removeAttribute('aria-hidden'); } try { prev && prev.focus && prev.focus(); } catch (e) { } };
+  }, []);
+  const key = e => {
+    if (e.key === 'Escape') { e.preventDefault(); onCancel(); return; }
+    if (e.key !== 'Tab') return; const f = [...ref.current.querySelectorAll('button')]; if (!f.length) return;
+    const i = f.indexOf(document.activeElement); if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); } else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+  };
+  return ReactDOM.createPortal(html`<div className="modal-back app-modal" onClick=${e => { if (e.target === e.currentTarget) onCancel(); }}>
+    <div className="panel modal" role="dialog" aria-modal="true" aria-labelledby="dlg-t" ref=${ref} onKeyDown=${key}>
+      <h3 id="dlg-t">${title}</h3>${text ? html`<p>${text}</p>` : null}
+      <div className="row-btns"><button className="btn go" onClick=${onCancel}>${cancelLabel}</button><button className=${'btn ' + okClass} onClick=${onOk}>${okLabel}</button></div>
+    </div></div>`, document.body);
+}
 /* ---------------- VISUALS ---------------- */
 function Speak({ text, lang }) {
   if (!CAN_SPEAK || !text) return null;
@@ -2347,8 +2620,12 @@ function MatchQ({ q, state, submit, miss }) {
 function GroupQ({ q, state, submit }) {
   const [g, setG] = useState(0); const loose = q.n - g * 10; const can = loose >= 10;
   return html`<div className="group">
-    <div className="bundles">${Array.from({ length: g }, (_, i) => html`<div key=${i} className="bundle"><div className="tenframe">${Array.from({ length: 10 }, (_, j) => html`<div key=${j} className="cell"><${ObjIcon} kind=${q.obj} size=${20}/></div>`)}</div><small>10</small></div>`)}</div>
-    <div className="loose" role="img" aria-label=${loose + ' left'}>${Array.from({ length: loose }, (_, i) => html`<span key=${i}><${ObjIcon} kind=${q.obj} size=${24}/></span>`)}</div>
+    <div className="g-zones">
+      <div className="g-zone gz-tens"><span className="g-h">Tens <b>${g}</b>${g ? html`<small> = ${g * 10}</small>` : null}</span>
+        <div className="bundles">${g ? Array.from({ length: g }, (_, i) => html`<div key=${i} className="bundle"><div className="tenframe">${Array.from({ length: 10 }, (_, j) => html`<div key=${j} className="cell"><${ObjIcon} kind=${q.obj} size=${20}/></div>`)}</div><small>10</small></div>`) : html`<p className="g-empty">Groups of 10 go here.</p>`}</div></div>
+      <div className="g-zone gz-ones"><span className="g-h">${can ? 'Still to group' : 'Ones'} <b>${loose}</b></span>
+        <div className="loose" role="img" aria-label=${loose + (can ? ' still to group' : ' ones')}>${Array.from({ length: loose }, (_, i) => html`<span key=${i}><${ObjIcon} kind=${q.obj} size=${24}/></span>`)}</div></div>
+    </div>
     ${can ? html`<button className="btn go" onClick=${() => setG(g + 1)}>Make a group of 10</button>` : html`<div><p className="ask">${q.ask}</p><${MCQ} q=${q} state=${state} submit=${submit}/></div>`}
   </div>`;
 }
@@ -2408,14 +2685,13 @@ function Question({ q, guide, onFirst, onDone, onMiss, familyOk }) {
   const done = state !== 'open';
   return html`<div className="qwrap">
     ${q.finalMini ? html`<div className="final-banner"><${Starfish} size=${22}/> ${es ? 'Mini reto final' : 'Final mini challenge'} <${Starfish} size=${22}/></div>` : null}
-    <div className="qhead"><div className="qguide"><${Guide} id=${guide} size=${92}/></div><div className="bubble"><p>${q.prompt}</p><${Speak} text=${q.tts || q.prompt} lang=${q.lang}/></div></div>
+    <div className="qhead"><div className="qguide"><${Guide} id=${guide} size=${92}/></div><div className="bubble"><p>${q.prompt}</p><div className="help-row"><${Speak} text=${q.tts || q.prompt} lang=${q.lang}/>${!done && !showHint && q.hint && q.level < 3 ? html`<button className="hint-btn" onClick=${() => { setShowHint(true); setMsg({ kind: 'try', text: es ? '¡Una pista!' : 'Here is a hint!' }); }}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z" fill="#ffc531" stroke="#b07a00" strokeWidth="1.6"/><path d="M9.5 19h5M10.5 21.5h3" stroke="#0d6e86" strokeWidth="2" strokeLinecap="round"/></svg>${es ? 'Pista' : 'Hint'}</button>` : null}</div></div></div>
     <${Visual} v=${q.visual} lang=${q.lang}/>
     <div className="qbody"><${Body} q=${q} state=${state} submit=${submit} miss=${miss}/></div>
     <div className=${'feedback ' + (msg ? msg.kind : '')} aria-live="polite">
       ${msg ? html`<div className="fb-msg">${msg.kind === 'right' && q.chest ? html`<${Chest} open=${true} size=${70}/>` : msg.kind === 'right' ? html`<${Burbujin} size=${72} cls="bounce"/>` : html`<${Guide} id=${guide === 'lumi' ? 'lumi' : helperOf(q.topic)} size=${84}/>`}
         <div><strong>${msg.text}</strong>${msg.sub && msg.kind !== 'try' ? html`<p>${msg.sub}</p>` : null}${msg.kind === 'try' && showHint && q.hint ? html`<p>${q.hint}</p>` : null}</div></div>` : null}
       <div className="fb-btns">
-        ${!done && !showHint && q.hint && q.level < 3 ? html`<button className="btn ghost" onClick=${() => { setShowHint(true); setMsg({ kind: 'try', text: es ? '¡Una pista!' : 'Here is a hint!' }); }}>${es ? 'Pista' : 'Hint'}</button>` : null}
         ${done ? html`<button className="btn go big" autoFocus onClick=${() => { if (doneRef.current) return; doneRef.current = true; onDone({ first: firstRef.current, retry: state === 'right' && firstRef.current === false, family: familyRef.current }); }}>${es ? 'Continuar' : 'Next'} ›</button>` : null}
       </div>
     </div>
@@ -2424,59 +2700,141 @@ function Question({ q, guide, onFirst, onDone, onMiss, familyOk }) {
 
 /* ---------------- SCREENS ---------------- */
 function Bubbles() { return html`<div className="bubbles" aria-hidden="true">${Array.from({ length: 9 }, (_, i) => html`<span key=${i} style=${{ left: (6 + i * 11) + '%', animationDelay: (i * 1.3) + 's', width: 8 + (i % 3) * 6, height: 8 + (i % 3) * 6 }}></span>`)}</div>`; }
-function HeroScene({ pearls }) {
-  const sat = Math.min(1, 0.45 + pearls * 0.11); // the reef regains color with each pearl; Tuga always stays full color
+function HeroScene() {
+  // The approved reef image is shown exactly as delivered: no SVG filter, overlay or blend on it.
   return html`<svg className="hero" viewBox="0 0 400 230" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Arrecife de Cozumel con Tuga nadando">
-    <defs><filter id="hero-sat"><feColorMatrix type="saturate" values=${sat}/></filter></defs>
-    <image href="./assets/backgrounds/arrecife.jpg" x="-30" y="0" width="460" height="230" preserveAspectRatio="xMidYMid slice" filter="url(#hero-sat)"/>
+    <image href="./assets/backgrounds/arrecife.jpg" x="-30" y="0" width="460" height="230" preserveAspectRatio="xMidYMid slice"/>
     <g className="tuga-peek"><g transform="translate(140 80)"><${Tuga} size=${120}/></g></g>
   </svg>`;
 }
-function Aquarium({ data }) {
-  const list = CREATURES.filter(c => data.creatures.includes(c.id));
-  if (!list.length) return html`<p className="aq-empty">Tu acuario está esperando criaturas. ¡Completa misiones para descubrirlas!</p>`;
-  return html`<div className="aquarium" aria-label="Acuario con tus criaturas">${list.map((c, i) => html`<div key=${c.id} className="aq-swim" style=${{ animationDelay: (-i * 3.1) + 's', top: (8 + (i * 23) % 64) + '%', animationDuration: (18 + (i % 4) * 4) + 's' }}><${CreatureArt} swim=${true} id=${c.id} size=${84}/></div>`)}</div>`;
+// Home reef: fixed slots around Diego (never random). Order alternates sides so any count stays balanced.
+// [center x %, top %, scale, depth] — depth 0 = farther (behind Diego), 1 = in front of the sand.
+const SCENE_SLOTS = [
+  [86, 6, 1, 1], [10, 8, .95, 1], [90, 50, .9, 1], [76, 70, .85, 1],
+  [28, 5, .8, 0], [96, 28, .75, 0], [6, 44, .8, 1], [72, 3, .7, 0],
+  [97, 76, .8, 1], [5, 76, .75, 1], [40, 3, .65, 0], [86, 82, .7, 1],
+  [18, 26, .7, 0], [42, 86, .7, 1], [3, 22, .7, 0], [94, 10, .7, 0], [22, 84, .7, 1],
+];
+function SceneCreature({ id, slot, i, many }) {
+  const a = CREATURE_ART[id]; if (!a) return null; const [x, y, k0, d] = slot; const k = many ? k0 * 0.85 : k0;
+  return html`<div className=${'scene-creature' + (d ? ' near' : ' far')} style=${{ '--x': x + '%', '--y': y + '%', '--k': k, '--a': (a[2] / a[1]).toFixed(3), animationDelay: (-i * 0.9) + 's' }}>
+    <img src=${creatureSrc(a)} width=${a[1]} height=${a[2]} alt="" draggable="false"/></div>`;
 }
-function PearlRow({ data, size = 34 }) { return html`<div className="pearl-row" role="img" aria-label=${data.pearls.length + ' de 5 perlas recuperadas'}>${MAIN.map(s => { const got = data.pearls.includes(s.id); return html`<span key=${s.id} title=${s.pearl + (got ? ' · recuperada' : ' · por recuperar')}><${Pearl} p=${got ? 1 : 0} size=${got ? Math.round(size * 1.25) : size}/></span>`; })}</div>`; }
+// Seabed strip cut from corales-overlay.png (sand + low corals). It sits in the layout flow, so it never covers content.
+// Full-screen reef backdrop for reward screens: it fills the whole .app (every pixel of the page, also when it
+// scrolls), while the card keeps its own max width.
+const RewardBackdrop = () => html`<div className="reward-backdrop" aria-hidden="true"></div>`;
+function HomeScene({ data }) {
+  const list = CREATURES.filter(c => data.creatures.includes(c.id)).concat(SPECIAL_CREATURES.filter(c => banquetOf(data).creatures.includes(c.id)));
+  const label = 'Diego nada en el arrecife de Cozumel con Tuga' + (list.length ? `, junto a ${list.length} ${list.length === 1 ? 'criatura descubierta' : 'criaturas descubiertas'}` : '');
+  const D = CHAR_ART.diego, T = CHAR_ART.tuga;
+  return html`<div className="home-scene" role="img" aria-label=${label}>
+    ${list.map((c, i) => html`<${SceneCreature} key=${c.id} id=${c.id} slot=${SCENE_SLOTS[i % SCENE_SLOTS.length]} i=${i} many=${list.length > 12}/>`)}
+    <div className="scene-anchor">
+      <div className="scene-diego"><img src=${D.src} width=${D.w} height=${D.h} alt="" draggable="false"/></div>
+      <div className="scene-tuga"><img src=${T.src} width=${T.w} height=${T.h} alt="" draggable="false"/></div>
+    </div>
+    ${!list.length ? html`<span className="scene-hint">Aquí nadarán las criaturas que descubras</span>` : null}
+  </div>`;
+}
+const pearlShort = s => s.pearl.replace(/^Perla de(l| los| las| la)? /, '').replace(/^./, c => c.toUpperCase());
+function PearlRow({ data, size = 34, labels = false }) { return html`<div className=${'pearl-row' + (labels ? ' labeled' : '')} role="img" aria-label=${data.pearls.length + ' de 5 perlas recuperadas'}>${MAIN.map(s => { const got = data.pearls.includes(s.id); return html`<span key=${s.id} className=${got ? 'got' : ''} title=${s.pearl + (got ? ' · recuperada' : ' · por recuperar')}><${Pearl} p=${got ? 1 : 0} size=${got ? Math.round(size * 1.25) : size}/>${labels ? html`<small aria-hidden="true">${pearlShort(s)}</small>` : null}</span>`; })}</div>`; }
 
+// Clear zone of corales-overlay.png: for every 8px row (source pixels, top to bottom), half the width of the transparent
+// center that is free of coral in that row AND every row above it. Measured from the PNG's alpha channel.
+const CORAL_SRC_W = 2172, CORAL_SRC_H = 724, CORAL_ROW = 8;
+const CORAL_HALF_CLEAR = [1086,1086,908,900,895,894,894,894,894,877,872,870,870,870,870,870,843,835,832,832,799,787,786,786,786,786,786,786,786,786,786,786,786,693,690,655,651,651,651,651,622,620,605,601,601,601,601,601,601,601,601,601,601,588,582,579,579,579,532,524,522,522,522,497,466,459,457,457,447,409,403,401,400,373,365,357,354,354,315,281,256,225,188,150,17,0,0,0,0,0,0];
+// How much of the coral foreground can rise beside the card without touching it; the rest sits below the card.
+function coralPad(coralW, cardW, gap = 24) {
+  const s = coralW / CORAL_SRC_W, need = (cardW / 2 + gap) / s; let yb = 0;
+  for (let i = 0; i < CORAL_HALF_CLEAR.length; i++) { if (CORAL_HALF_CLEAR[i] >= need) yb = i * CORAL_ROW; else break; }
+  return Math.ceil((CORAL_SRC_H - yb) * s + gap);
+}
+// Keeps the coral foreground (anchored to the bottom of the screen) clear of a centered card.
+function useCoralFit(rootRef, cardRef, coralRef) {
+  useLayoutEffect(() => {
+    const fit = () => { const c = cardRef.current, k = coralRef.current, r = rootRef.current; if (!c || !k || !r) return; r.style.paddingBottom = coralPad(k.getBoundingClientRect().width, c.getBoundingClientRect().width) + 'px'; };
+    fit(); window.addEventListener('resize', fit); window.addEventListener('orientationchange', fit);
+    const ro = window.ResizeObserver ? new ResizeObserver(fit) : null; ro && cardRef.current && ro.observe(cardRef.current);
+    return () => { window.removeEventListener('resize', fit); window.removeEventListener('orientationchange', fit); ro && ro.disconnect(); };
+  }, []);
+}
+const CoralForeground = ({ coralRef }) => html`<img className="home-coral-foreground" ref=${coralRef} src="./assets/ui/corales-overlay.png" width="2172" height="724" alt="" aria-hidden="true" draggable="false"/>`;
+// Optical size of each guide next to Diego: height factor so its visible silhouette has ~80% of Diego's
+// visible area (measured from the opaque pixels of each official PNG).
+const GUIDE_OPTICAL = { tuga: 0.674, rayito: 0.735, coralina: 0.676, estelita: 0.92, lumi: 0.839, burbujin: 0.722 };
+// Shared pre-activity screen: reef background, cream card, Diego + the world's guide on the card's top edge.
+function MissionIntroCard({ title, mission, message, audioText, info, guide, onBack, onGo, goLabel = '¡Vamos!', backLabel = 'Volver' }) {
+  const rootRef = useRef(null), cardRef = useRef(null), coralRef = useRef(null);
+  useCoralFit(rootRef, cardRef, coralRef);
+  const D = CHAR_ART.diego, G = CHAR_ART[guide] || CHAR_ART.tuga;
+  return html`<div className="screen mi-screen" ref=${rootRef}>
+    <div className="mi-wrap">
+      <div className="mi-card" ref=${cardRef}>
+        <div className="mi-chars" aria-hidden="true">
+          <img className="mi-diego" src=${D.src} width=${D.w} height=${D.h} alt="" draggable="false"/>
+          <img className=${'mi-guide g-' + guide} src=${G.src} width=${G.w} height=${G.h} alt="" draggable="false" style=${{ '--gk': GUIDE_OPTICAL[guide] || 0.8 }}/>
+        </div>
+        <h1 className="mi-title">${title}</h1>
+        ${mission ? html`<p className="mi-kicker">Misión ${mission.n} de ${mission.total} · <b>${mission.name}</b></p>` : null}
+        <p className="mi-msg">${message}</p>
+        <${Speak} text=${audioText || message} lang="es"/>
+        ${info ? html`<p className="mi-info">${info}</p>` : null}
+        <div className="mi-actions">${onBack ? html`<button className="btn mi-back" onClick=${onBack}>${backLabel}</button>` : null}<button className="btn go mi-go" onClick=${onGo}>${goLabel}</button></div>
+      </div>
+    </div>
+    <${CoralForeground} coralRef=${coralRef}/>
+  </div>`;
+}
 function Home({ data, go, stored, saveFail }) {
-  return html`<div className="screen home">
-    <${HeroScene} pearls=${data.pearls.length}/>
-    <div className="home-card panel">
+  const cardRef = useRef(null), coralRef = useRef(null), rootRef = useRef(null);
+  useCoralFit(rootRef, cardRef, coralRef);
+  const a = data.activeSession, lm = data.lastMission;
+  const where = a ? ['Te quedaste en:', `${activeLabel(a).sub} · reto ${Math.min((a.results || []).length + 1, a.len)} de ${a.len}`]
+    : lm && SUBJ[lm.sid] && WORLD_MISSIONS[lm.sid] && WORLD_MISSIONS[lm.sid][lm.n - 1] ? ['Tu última misión:', `${SUBJ[lm.sid].world} · ${WORLD_MISSIONS[lm.sid][lm.n - 1].t}`] : null;
+  return html`<div className="screen home" ref=${rootRef}>
+   <div className="home-stage">
+    <${HomeScene} data=${data}/>
+    <div className="home-card-wrap">
+    <div className="home-card panel" ref=${cardRef}>
       <p className="eyebrow">Diego y el Misterio de las 5 Perlas de Cozumel</p>
       <h1>${data.guardian ? '¡Diego, Guardián del Arrecife!' : data.pearls.length ? `¡Ya ${data.pearls.length === 1 ? 'brilla' : 'brillan'} ${data.pearls.length} de 5 perlas!` : '¡Diego, el arrecife te necesita!'}</h1>
-      <${PearlRow} data=${data} size=${38}/>
+      ${where ? html`<p className="home-where"><b>${where[0]}</b> ${where[1]}</p>` : null}
       <div className="home-btns">
-        <button className="btn go big" onClick=${() => go(!data.introSeen ? 'intro' : 'map')}>${data.sessions || data.totalQ ? '¡Seguir la aventura!' : '¡Comenzar aventura!'}</button>
+        <button className="btn go big" onClick=${() => go(!data.introSeen ? 'intro' : 'map')}>${data.activeSession ? '¡Seguir donde me quedé!' : data.sessions || data.totalQ ? '¡Seguir la aventura!' : '¡Comenzar aventura!'}</button>
         <button className="btn lagoon" onClick=${() => go('collection')}>Mi colección marina</button>
       </div>
-      <${Aquarium} data=${data}/>
+      <div className="home-pearls"><p className="pearl-cap">Perlas mágicas: <b>${data.pearls.length} de 5</b></p><${PearlRow} data=${data} size=${34} labels=${true}/></div>
       <button className="parent-link" onClick=${() => go('gate')}>Panel de mamá y papá</button>
       ${!stored ? html`<p className="warn">Este navegador no permite guardar el progreso. Puedes jugar, pero se borrará al cerrar.</p>` : null}
       ${saveFail ? html`<p className="warn" role="alert">No se pudo guardar el último avance: este navegador se quedó sin espacio. Pide a mamá o papá que creen una copia de seguridad en el panel y borren pinturas viejas de la galería.</p>` : null}
-    </div>
+    </div></div>
+   </div>
+   <${CoralForeground} coralRef=${coralRef}/>
   </div>`;
 }
 function Intro({ go, setData }) {
-  return html`<div className="screen center">
-    <div className="panel story-card">
-      <${Tuga} size=${190} cls="float"/>
-      <p className="speech">«¡Diego! ¡Qué bueno que llegaste a Cozumel! Nuestro arrecife necesita tu ayuda. Las cinco perlas mágicas se han perdido y solo un verdadero explorador puede recuperarlas. ¿Te unes a la aventura?»</p>
-      <${Speak} text="¡Diego! ¡Qué bueno que llegaste a Cozumel! Nuestro arrecife necesita tu ayuda. Las cinco perlas mágicas se han perdido y solo un verdadero explorador puede recuperarlas. ¿Te unes a la aventura?" lang="es"/>
-      <button className="btn go big" onClick=${() => { setData(d => Object.assign({}, d, { introSeen: true })); go('map'); }}>¡Sí, me uno!</button>
-    </div></div>`;
+  const t = '¡Diego! ¡Qué bueno que llegaste a Cozumel! Nuestro arrecife necesita tu ayuda. Las cinco perlas mágicas se han perdido y solo un verdadero explorador puede recuperarlas. ¿Te unes a la aventura?';
+  return html`<${MissionIntroCard} title="¡Bienvenido a Cozumel!" message=${'«' + t + '»'} audioText=${t} guide="tuga"
+    goLabel="¡Sí, me uno!" onGo=${() => { setData(d => Object.assign({}, d, { introSeen: true })); go('map'); }}/>`;
 }
 function Checkin({ onPick, onBack }) {
   const keys = Object.keys(THEMES);
   return html`<div className="screen center"><div className="panel">
-    <div className="row-head"><${Diego} size=${100}/><div><h2>¿Qué exploraste hoy?</h2><p className="muted">Es opcional: Tuga usará tu día en las historias.</p></div></div>
+    <div className="row-head"><${Diego} size=${100}/><div><h2>¿Qué exploraste hoy?</h2><p className="muted">Cuéntale a Tuga qué hiciste hoy. ¡Lo usará en tus historias! (Es opcional.)</p></div></div>
     <div className="theme-grid">${keys.map(k => html`<button key=${k} className="theme-btn" onClick=${() => onPick(k)}><span className="emo">${THEMES[k].icon}</span><span>${THEMES[k].label}</span></button>`)}</div>
     <button className="btn ghost" onClick=${onBack}>Volver al mapa</button>
   </div></div>`;
 }
 
 function todayKey() { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+function activeLabel(a) {
+  const s = a.cfg.subject ? SUBJ[a.cfg.subject] : null; const n = Math.min((a.results || []).length + 1, a.len);
+  const where = a.cfg.mode === 'mission' ? `${s.world} · misión ${a.cfg.mission}: ${WORLD_MISSIONS[s.id][a.cfg.mission - 1].t}` : a.cfg.mode === 'final' ? 'Reto del Guardián' : s ? s.world : 'Misión sorpresa';
+  return { title: `Te quedaste en el reto ${n} de ${a.len}`, sub: where, guide: s ? s.guide : 'tuga', resume: true };
+}
 function advLabel(data, adv) {
+  if (data.activeSession) return activeLabel(data.activeSession);
   if (adv.kind === 'world') { const s = SUBJ[adv.sid]; const n = adv.mission || 1; const m = WORLD_MISSIONS[adv.sid][n - 1]; return { title: (adv.why === 'resume' ? 'Retoma: ' : '') + s.world, sub: `Misión ${n} de ${MISSIONS_PER_WORLD}: ${m.t}`, guide: s.guide }; }
   if (adv.kind === 'final') return { title: 'Reto del Guardián', sub: '¡Las 5 perlas brillan! Es hora del gran final.', guide: 'tuga' };
   if (adv.kind === 'review') return { title: 'Misión de repaso', sub: 'Practica lo que más te cuesta para que siga brillando.', guide: 'tuga' };
@@ -2503,14 +2861,14 @@ function MapScreen({ data, startWorld, startDaily, startFinal, startContinue, go
   const nat = adventureProgress(data, 'nat'); const natDone = data.ach.includes('ocean');
   return html`<div className="screen">
     <div className="topbar"><${NavBtn} icon="home" label="Inicio" onClick=${() => go('home')}/><h2>Mapa del arrecife</h2><${PearlRow} data=${data} size=${26}/></div>
-    <button className="continue-cta" onClick=${startContinue}><${Guide} id=${L.guide} size=${104}/><div><span className="eyebrow">Continuar mi aventura</span><strong>${L.title}</strong><span>${L.sub}</span></div><span className="go-arrow"><${Icon} n="play" size=${30}/></span></button>
-    <div className="today-chip"><span>¿Qué exploraste hoy?</span>${theme ? html`<${React.Fragment}><span className="emo">${theme.icon}</span><b>${theme.label}</b></${React.Fragment}>` : null}<button onClick=${() => go('checkin')}>${theme ? 'Cambiar el tema de hoy' : 'Elegir (opcional)'}</button></div>
+    <button className="continue-cta" onClick=${startContinue}><${Guide} id=${L.guide} size=${104}/><div><span className="eyebrow">${L.resume ? '¡Seguir jugando!' : 'Mi siguiente misión'}</span><strong>${L.title}</strong><span>${L.sub}</span></div><span className="go-arrow"><${Icon} n="play" size=${30}/></span></button>
+    <div className="today-chip">${theme ? html`<${React.Fragment}><span>Hoy:</span><span className="emo" aria-hidden="true">${theme.icon}</span><b>${theme.label}</b><span className="tc-note">Tuga lo usa en tus historias y retos.</span></${React.Fragment}>` : html`<span><b>¿Qué exploraste hoy?</b> Cuéntale a Tuga qué hiciste hoy. ¡Lo usará en tus historias!</span>`}<button onClick=${() => go('checkin')}>${theme ? 'Cambiar' : 'Contarle a Tuga'}</button></div>
     <h3 className="map-sec">Las 5 perlas mágicas <small>Elige el mundo que quieras</small></h3>
     <div className="worlds">${MAIN.map(s => { const p = adventureProgress(data, s.id); const got = data.pearls.includes(s.id); return html`<button key=${s.id} className=${'world w-' + s.id + (got ? ' got' : '')} onClick=${() => startWorld(s.id)} style=${{ '--wc': s.color }}>
       <div className="w-top"><${Guide} id=${s.guide} size=${92}/><span className="w-pearl"><${Pearl} p=${got ? 1 : 0} size=${got ? 84 : 60}/></span></div>
-      ${got ? html`<span className="pearl-chip got"><${Icon} n="check" size=${18}/> ¡Perla recuperada!</span>` : html`<span className="pearl-chip todo">Perla por recuperar</span>`}
+      ${got ? html`<span className="pearl-chip got"><${Icon} n="check" size=${18}/> ¡Perla recuperada!</span>` : null}
       <strong>${s.world}</strong><span className="subj">${s.name}</span>
-      ${got ? (() => { const m = subjectProgress(data, s.id); return html`<span className="w-meta">${p.missions < p.need ? 'Misiones extra para seguir practicando' : 'Puedes seguir practicando'} · Temas dominados: ${m.done} de ${m.total}</span>`; })() : html`<span className="w-meta">${p.next ? `Sigue: misión ${p.next}` : ''}</span>`}
+      <span className="w-meta">${got ? 'Todas las misiones abiertas para practicar' : p.next ? `Siguiente: ${WORLD_MISSIONS[s.id][p.next - 1].t}` : ''}</span>
       <div className="w-progress"><${MissionSegments} data=${data} sid=${s.id}/></div></button>`; })}</div>
     <button className=${'guardian panel' + (all ? '' : ' locked')} onClick=${() => all && startFinal()} aria-disabled=${!all}>
       <div className="g-pearls">${MAIN.map(s => html`<${Pearl} key=${s.id} p=${data.pearls.includes(s.id) ? 1 : 0} size=${data.pearls.includes(s.id) ? 40 : 32}/>`)}</div>
@@ -2518,7 +2876,8 @@ function MapScreen({ data, startWorld, startDaily, startFinal, startContinue, go
     ${data.guardian ? html`<button className="btn lagoon" onClick=${() => go('certificate')}>Ver mi certificado</button>` : null}
     <button className="btn ghost surprise" onClick=${startDaily}><${Icon} n="dice"/> Misión sorpresa: retos de todos los mundos</button>
     <h3 className="map-sec">Aventuras bonus <small>Para explorar y crear. No hacen falta para las perlas.</small></h3>
-    <button className="studio-entry panel nat-entry" onClick=${() => startWorld('nat')}><${Guide} id=${SUBJ.nat.guide} size=${104}/><div><span className="eyebrow">Nature & Society · Cívica</span><strong>El Faro de los Fit Kids</strong><span>${natDone ? '✓ Insignia Explorador del Océano ganada' : 'Gana la insignia Explorador del Océano'}</span><${MissionSegments} data=${data} sid="nat" compact=${true}/></div><span className="arrow">›</span></button>
+    <button className="studio-entry panel nat-entry" onClick=${() => startWorld('nat')}><${Guide} id=${SUBJ.nat.guide} size=${104}/><div><span className="eyebrow">Nature & Society · Cívica</span><strong>El Faro de los Fit Kids</strong><span>${natDone ? '✓ Insignia Explorador del Océano ganada · misiones abiertas para practicar' : 'Termina las 5 misiones y gana la insignia Explorador del Océano'}</span><${MissionSegments} data=${data} sid="nat" compact=${true}/></div><span className="arrow">›</span></button>
+    <button className="studio-entry panel bq-entry" onClick=${() => go('banquet')}><${Guide} id="tuga" size=${100}/><div><span className="eyebrow">Alimentación · Español</span><strong>El Banquete Secreto del Arrecife</strong><span>¡Prepara un banquete y descubre 5 criaturas especiales!</span><${BqSegments} data=${data} compact=${true}/></div><span className="arrow">›</span></button>
     <button className="studio-entry panel music-entry" onClick=${() => go('music')}><${CaptainRhythm} size=${100}/><div><span className="eyebrow">Music · English</span><strong>The Tropical Orchestra</strong><span>Play, sing, discover, and create!</span></div><span className="arrow">›</span></button>
     <button className="studio-entry panel" onClick=${() => go('art')}><${Pincelin} size=${92}/><div><span className="eyebrow">Arte · Español</span><strong>El Taller Secreto del Artista</strong><span>Los bodegones de Cozumel</span></div><span className="arrow">›</span></button>
   </div>`;
@@ -2534,16 +2893,17 @@ function WorldMissions({ data, sid, onStart, go }) {
       <div className="wm-info"><span className="eyebrow">${s.name}${s.bonus ? ' · aventura bonus' : ''}</span>
         ${p.earned ? html`<span className="pearl-chip got"><${Icon} n="check" size=${18}/> ${s.bonus ? '¡Insignia ganada!' : '¡Perla recuperada!'}</span>` : null}
         <${MissionSegments} data=${data} sid=${sid}/>
-        <span className="muted">${p.earned && p.missions < p.need ? `Tu ${label} ya brilla: estas misiones son aventuras extra para seguir practicando.` : s.bonus ? 'Termina las 5 misiones para ganar la insignia Explorador del Océano.' : `Termina las 5 misiones para recuperar la ${s.pearl}.`}${p.legacy && !p.earned ? ` Antes jugaste ${p.legacy} ${p.legacy === 1 ? 'misión' : 'misiones'} aquí: lo que practicaste te ayuda en estas nuevas.` : ''}</span></div>
+        <span className="muted">${p.earned && p.missions < p.need ? `Tu ${label} ya brilla${p.missions === 0 ? ' desde antes de que hubiera 5 misiones' : ''}. Todas las misiones están abiertas: son aventuras extra para seguir practicando.` : s.bonus ? 'Termina las 5 misiones para ganar la insignia Explorador del Océano.' : `Termina las 5 misiones para recuperar la ${s.pearl}.`}${p.legacy && !p.earned ? ` Antes jugaste ${p.legacy} ${p.legacy === 1 ? 'misión' : 'misiones'} aquí: lo que practicaste te ayuda en estas nuevas.` : ''}</span></div>
       ${s.bonus ? null : html`<span className="w-pearl"><${Pearl} p=${p.earned ? 1 : 0} size=${p.earned ? 84 : 60}/></span>`}
     </div>
     <ol className="mission-list">${WORLD_MISSIONS[sid].map((m, i) => { const n = i + 1; const isDone = done.includes(n); const open = missionOpen(data, sid, n); const isNext = n === next;
-      const state = isDone ? 'done' : isNext ? 'next' : open ? 'open' : 'locked';
+      const act = data.activeSession && data.activeSession.cfg.mode === 'mission' && data.activeSession.cfg.subject === sid && data.activeSession.cfg.mission === n ? data.activeSession : null;
+      const state = act ? 'next' : isDone ? 'done' : isNext ? 'next' : open ? 'open' : 'locked';
       return html`<li key=${n}><button className=${'mission-row ' + state} onClick=${() => open && onStart(n)} aria-disabled=${!open} style=${{ '--wc': s.color }}>
         <span className="mr-num" aria-hidden="true">${isDone ? html`<${Icon} n="check" size=${26}/>` : !open ? html`<svg viewBox="0 0 24 24" width="22" height="22"><path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" strokeWidth="2.4"/><rect x="5" y="10" width="14" height="10" rx="2.5" fill="currentColor"/></svg>` : n}</span>
         <span className="mr-text"><span className="mr-kicker">Misión ${n}${n === MISSIONS_PER_WORLD ? (p.earned ? ' · repaso final' : s.bonus ? ' · gran final del faro' : ' · reto de la perla') : ''}</span><strong>${m.t}</strong>
           <small>${m.topics.length ? m.topics.map(t => TOPIC[t].name.replace(/^Cívica: /, '')).join(' · ') : 'Repaso de todas las lecciones'}${m.r === 'all' && m.topics.length ? ' · repaso de todo' : ''}</small></span>
-        <span className=${'mr-state ' + state}>${isDone ? 'Completada · jugar otra vez' : isNext ? '¡Siguiente!' : open ? 'Jugar' : `Termina la misión ${n - 1}`}</span>
+        <span className=${'mr-state ' + state}>${act ? `Seguir en el reto ${Math.min(act.results.length + 1, act.len)}` : isDone ? 'Completada · jugar otra vez' : isNext ? '¡Siguiente!' : open ? 'Jugar' : `Termina la misión ${n - 1}`}</span>
       </button></li>`; })}</ol>
   </div>`;
 }
@@ -2556,15 +2916,9 @@ function WorldIntro({ sess, ctx, onGo, onBack, data }) {
   const mn = m === 'mission' ? sess.cfg.mission : 0; const md = mn ? WORLD_MISSIONS[s.id][mn - 1] : null;
   const missionLine = !mn ? '' : got && prog.missions < MISSIONS_PER_WORLD ? `Aventura extra: ${s.bonus ? 'tu insignia' : 'tu perla'} ya brilla. ¡Esta misión es para seguir practicando!` : mn === 1 && !prog.missions ? s.intro : mn === MISSIONS_PER_WORLD ? (s.bonus ? '¡Última misión del faro! Al terminarla ganas la insignia Explorador del Océano.' : `¡Última misión! Si la terminas, recuperas la ${s.pearl}.`) : `¡Vamos por la misión ${mn}! Cada misión te acerca a ${s.bonus ? 'la insignia del faro' : 'la ' + s.pearl}.`;
   const line2 = mn ? missionLine : m === 'final' ? 'Las cinco perlas brillan juntas. Solo falta el Reto del Guardián: 10 retos de los cinco mundos.' : m === 'daily' ? 'Hoy la marea mezcló todos los mundos. ¡Habrá retos de todos lados!' : m === 'review' ? 'Hoy practicamos lo que más cuesta. ¡Así se vuelve fácil!' : m === 'diag' ? 'Un recorrido rápido para ver qué sabes. ¡Haz tu mejor intento!' : s ? (got ? (s.bonus ? '¡Ya eres Explorador del Océano! Puedes seguir practicando aquí.' : `¡Ya recuperaste la ${s.pearl}! Practicar aquí la mantiene brillando.`) : prog.missions ? `¡Volviste! Llevas ${prog.missions} de ${prog.need} misiones ${s.bonus ? 'de esta aventura bonus' : 'de la ' + s.pearl}. Vamos por más.` : s.intro) : 'Una misión especial preparada por mamá y papá.';
-  return html`<div className="screen center"><div className="panel story-card">
-    <h2>${m === 'final' ? 'Reto del Guardián' : s ? s.world : 'Misión especial'}</h2>
-    ${md ? html`<p className="mission-tag">Misión ${mn} de ${MISSIONS_PER_WORLD} · <b>${md.t}</b></p>` : null}
-    <div className="duo"><${Diego} size=${140}/><${Guide} id=${guide} size=${130} cls="float"/></div>
-    <p className="speech">${vac}${line2}</p>
-    <${Speak} text=${vac + line2} lang="es"/>
-    <p className="muted">${sess.len} retos · puedes parar cuando quieras</p>
-    <div className="row-btns"><button className="btn ghost" onClick=${onBack}>Volver</button><button className="btn go big" onClick=${onGo}>¡Vamos!</button></div>
-  </div></div>`;
+  return html`<${MissionIntroCard} title=${m === 'final' ? 'Reto del Guardián' : s ? s.world : 'Misión especial'}
+    mission=${md ? { n: mn, total: MISSIONS_PER_WORLD, name: md.t } : null} message=${vac + line2} guide=${guide}
+    info=${sess.len + ' retos · puedes parar cuando quieras'} onBack=${onBack} onGo=${onGo}/>`;
 }
 function LessonCard({ topic, onGo }) {
   const t = TOPIC[topic]; const es = (t.lang || (t.s === 'esp' ? 'es' : 'en')) === 'es'; const [txt, ex] = LESSONS[topic] || ['', ''];
@@ -2572,14 +2926,14 @@ function LessonCard({ topic, onGo }) {
     <p className="lesson-t">${txt}</p>${ex ? html`<p className="lesson-ex">${ex}</p>` : null}<${Speak} text=${txt} lang=${es ? 'es' : 'en'}/>
     <button className="btn go big" onClick=${onGo}>${es ? '¡Ya entendí!' : 'Got it!'}</button></div>`;
 }
-function Play({ sess, cur, onFirst, onDone, onLessonDone, onQuit, familyOk }) {
+function Play({ sess, cur, onFirst, onDone, onLessonDone, onQuit, familyOk, saving }) {
   const q = cur.q; const s = SUBJ[q.s];
   const [confirmQuit, setConfirmQuit] = useState(false);
   return html`<div className="screen play" style=${{ '--wc': s.color }}>
-    <div className="topbar"><${NavBtn} icon="close" label="Salir" onClick=${() => setConfirmQuit(true)}/>
+    <div className="topbar"><${NavBtn} icon="back" label="Mapa" onClick=${() => setConfirmQuit(true)}/>
       <span className="chip-w">${s.world}</span>
-      <div className="dots" role="img" aria-label=${`Reto ${sess.idx + 1} de ${sess.len}`}>${Array.from({ length: sess.len }, (_, i) => html`<i key=${i} className=${i < sess.idx ? (sess.results[i] && sess.results[i].ok ? 'ok' : 'tried') : i === sess.idx ? 'now' : ''}></i>`)}</div></div>
-    ${confirmQuit ? html`<div className="panel quit" role="alertdialog" aria-label="¿Terminar por hoy?" onKeyDown=${e => e.key === 'Escape' && setConfirmQuit(false)}><p>¿Terminar por hoy? Tu progreso ya está guardado.</p><div className="row-btns"><button className="btn ghost" autoFocus onClick=${() => setConfirmQuit(false)}>Seguir jugando</button><button className="btn coral" onClick=${onQuit}>Terminar por hoy</button></div></div>` : null}
+      <span className="step-label">Reto ${Math.min(sess.idx + 1, sess.len)} de ${sess.len}</span><div className="dots" aria-hidden="true">${Array.from({ length: sess.len }, (_, i) => html`<i key=${i} className=${i < sess.idx ? (sess.results[i] && sess.results[i].ok ? 'ok' : 'tried') : i === sess.idx ? 'now' : ''}></i>`)}</div></div>
+    ${confirmQuit ? html`<${ConfirmDialog} title="¿Volvemos al mapa?" text=${saving ? `Tu avance está guardado. Después sigues en el reto ${Math.min(sess.idx + 1, sess.len)} de ${sess.len}.` : 'Este navegador no está guardando. Si sales, este avance se puede perder.'} cancelLabel="Seguir jugando" okLabel="Volver al mapa" onCancel=${() => setConfirmQuit(false)} onOk=${onQuit}/>` : null}
     <div className="panel qcard">${cur.lesson ? html`<${LessonCard} topic=${cur.lesson} onGo=${onLessonDone}/>` : html`<${Question} key=${q.key + sess.idx} q=${q} guide=${s.guide} onFirst=${onFirst} onDone=${onDone} familyOk=${familyOk}/>`}</div>
   </div>`;
 }
@@ -2599,7 +2953,8 @@ function Summary({ sum, data, onContinue, onMap, onHome, onCert, onMissions }) {
     say = (sum.mission ? `¡Terminaste la misión ${sum.mission}: ${mt}! ` : '') + (p.earned && p.missions < p.need ? `Fue una aventura extra: ${s.bonus ? 'tu insignia' : 'tu perla'} ya brilla. Llevas ${p.missions} de ${p.need} misiones.` : s.bonus ? `Llevas ${p.missions} de ${p.need} misiones de la aventura bonus.` : `Llevas ${p.missions} de ${p.need} misiones de la ${s.pearl}.`); }
   else say = 'Practicaste en varios mundos. Cada reto ayuda a que tus perlas brillen.';
   const newAch = sum.newAch.filter(a => !(a === 'ocean' && say.includes('Explorador')) && !(a === 'guardian' && finalDone) && !(a === 'pearl1' && sum.newPearls.length));
-  return html`<div className="screen center"><div className="panel summary">
+  const party = sum.newPearls.length > 0 || finalDone || (sum.complete && !!c);
+  return html`<div className=${'screen center reward-screen' + (party ? ' party' : '')}><${RewardBackdrop}/><div className="panel summary">
     <h2>${!sum.complete ? '¡Pausa en la aventura!' : finalDone ? '¡Guardián del Arrecife!' : sum.newPearls.length ? '¡Una perla vuelve a brillar!' : '¡Misión cumplida!'}</h2>
     <div className=${'m-say' + (sum.newPearls.length ? ' cheer' : '')}><${Guide} id=${guide} size=${104}/><div className="m-bubble"><p>${say}</p></div></div>
     <p className="result-line">${sum.complete ? `Completaste ${sum.answered} retos · ${sum.first} al primer intento` : `Respondiste ${sum.answered} de ${sum.len} retos`}</p>
@@ -2610,7 +2965,7 @@ function Summary({ sum, data, onContinue, onMap, onHome, onCert, onMissions }) {
       <span>Completaste las ${MISSIONS_PER_WORLD} misiones de ${SUBJ[id].world}. Esta perla ya es tuya para siempre. Puedes seguir practicando para dominar cada tema.</span>
       <span className="pw-count">${data.pearls.length} de 5 perlas recuperadas</span></div>`)}
     ${c ? html`<div className="discover">${sum.complete ? html`<${Chest} open=${open} size=${120}/>` : null}${open ? html`<div className="reward-stack pop"><p className="eyebrow">Nueva criatura en tu colección</p><div className="creature-frame"><${CreatureArt} id=${c.id} size=${220}/></div><h3>${c.es}</h3><p className="en">${c.en}${c.rare ? ' · descubrimiento especial' : ''}</p><p className="fact">${c.fact}</p></div>` : null}</div>` : null}
-    ${newAch.length ? html`<div className="achs">${newAch.map(a => { const A = ACH.find(x => x.id === a); return html`<span key=${a} className="ach"><${Starfish} size=${20}/> Insignia: ${A.name}</span>`; })}</div>` : null}
+    ${newAch.length ? html`<div className="achs">${newAch.map(a => { const A = ACH.find(x => x.id === a); return html`<span key=${a} className="ach"><${AchIcon} id=${a} on=${true} size=${26}/> Insignia: ${A.name}</span>`; })}</div>` : null}
     ${s && !finalDone && !sum.newPearls.length ? (() => { const p = adventureProgress(data, s.id); return html`<div className="mini-prog"><div className="mp"><${Pearl} p=${data.pearls.includes(s.id) ? 1 : 0} size=${36}/><span>${s.world}</span><div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%', background: s.color }}></i></div></div></div>`; })() : null}
     <div className="row-btns">
       ${finalDone ? html`<button className="btn go big" onClick=${onCert}>Ver mi certificado</button>` : html`<button className="btn go big" onClick=${onContinue}>Continuar mi aventura</button>`}
@@ -2619,28 +2974,77 @@ function Summary({ sum, data, onContinue, onMap, onHome, onCert, onMissions }) {
   </div></div>`;
 }
 
+// One glyph per adventure badge, so badges are told apart without reading.
+const ACH_GLYPH = {
+  first: html`<g><path d="M14 8v26" stroke="#fff" strokeWidth="3" strokeLinecap="round"/><path d="M15 9h14l-4 5 4 5H15z" fill="#fff"/></g>`,
+  streak5: html`<g><path d="M22 6 12 23h8l-3 13 11-18h-8z" fill="#fff"/></g>`,
+  never: html`<g><path d="M20 33s-11-7-11-15a6 6 0 0 1 11-3 6 6 0 0 1 11 3c0 8-11 15-11 15z" fill="#fff"/></g>`,
+  pearl1: html`<g><circle cx="20" cy="20" r="10" fill="#fff"/><circle cx="16" cy="16" r="3" fill="#e8f4ff"/></g>`,
+  worlds: html`<g><circle cx="20" cy="20" r="11" fill="none" stroke="#fff" strokeWidth="3"/><path d="M20 11l3 9-3 9-3-9z" fill="#fff"/></g>`,
+  ocean: html`<g><path d="M16 12h8l2 18H14z" fill="#fff"/><path d="M15 8h10l-2 4h-6z" fill="#fff"/><path d="M8 32c3-2 5-2 8 0s5 2 8 0 5-2 8 0" stroke="#fff" strokeWidth="2.6" fill="none" strokeLinecap="round"/></g>`,
+  collector: html`<g><path d="M9 20c5-7 13-7 18 0-5 7-13 7-18 0zm18 0 6-5v10z" fill="#fff"/><circle cx="14" cy="19" r="1.6" fill="#ff8a5c"/></g>`,
+  guardian: html`<g><path d="M20 6 31 10v9c0 8-5 13-11 15C14 32 9 27 9 19v-9z" fill="#fff"/><path d="M15 20l4 4 7-8" stroke="#ff8a5c" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/></g>`,
+};
+const ACH_COLOR = { first: '#ff8a5c', streak5: '#f5a300', never: '#ff6f91', pearl1: '#8f6bff', worlds: '#2f8cff', ocean: '#e8524a', collector: '#1fa874', guardian: '#d9a72c' };
+const AchIcon = ({ id, on, size = 56 }) => html`<svg viewBox="0 0 40 40" width=${size} height=${size} aria-hidden="true"><circle cx="20" cy="20" r="19" fill=${on ? ACH_COLOR[id] || '#ff8a5c' : '#b9c9cf'}/>${ACH_GLYPH[id] || null}</svg>`;
 function Collection({ data, go }) {
-  const shells = Math.floor(Object.values(data.topics).reduce((n, s) => n + s.fc, 0) / 5);
-  return html`<div className="screen">
+  const [tab, setTab] = useState(() => { try { return sessionStorage.getItem('perlas-col-tab') || 'creatures'; } catch (e) { return 'creatures'; } });
+  const [open, setOpen] = useState(null);
+  const pick = t => { setTab(t); try { sessionStorage.setItem('perlas-col-tab', t); } catch (e) { } };
+  const found = CREATURES.filter(c => data.creatures.includes(c.id));
+  const spec = banquetOf(data).creatures; const ALL_N = CREATURES.length + SPECIAL_CREATURES.length; const foundAll = found.length + spec.length;
+  const artN = loadGallery().length + SESSION_ART.length, songN = musicOf(data).saved.length;
+  const badgeN = data.ach.length + ((data.art || {}).badges || []).length + musicOf(data).badges.length;
+  const tabs = [['creatures', 'Criaturas', `${foundAll}/${ALL_N}`], ['pearls', 'Perlas', `${data.pearls.length}/5`], ['badges', 'Insignias', String(badgeN)], ['made', 'Mis creaciones', String(artN + songN)]];
+  const openArt = () => { ART_STATE.open = 'gallery'; go('art'); };
+  return html`<div className="screen collection">
     <div className="topbar"><${NavBtn} icon="home" label="Inicio" onClick=${() => go('home')}/><h2>Mi colección marina</h2></div>
-    <div className="panel legend"><p><b>Perlas mágicas:</b> las 5 metas de la aventura. <b>Criaturas:</b> descubrimientos al terminar misiones. <b>Insignias:</b> logros especiales. <b>Obras:</b> lo que tú creas en Arte y Música.</p></div>
-    <div className="panel treasures">
-      <div className="tr-pearls"><span className="tr-h">${data.pearls.length} de 5 perlas mágicas</span>
-        <ul className="pearl-list">${MAIN.map(x => { const got = data.pearls.includes(x.id); return html`<li key=${x.id} className=${got ? 'got' : ''}><${Pearl} p=${got ? 1 : 0} size=${got ? 64 : 52}/><b>${x.pearl}</b>${got ? html`<span className="pearl-chip got sm"><${Icon} n="check" size=${14}/> Recuperada</span>` : html`<span className="pearl-chip todo sm">Por recuperar</span>`}</li>`; })}</ul></div>
-      <div><span className="big-n"><${Starfish} size=${32}/> ${data.stars}</span><span>misiones completadas</span></div>
+    <div className="col-hero"><div className="col-hero-in"><b>${foundAll} de ${ALL_N}</b><span>criaturas descubiertas</span></div><div className="col-hero-in"><b>${data.pearls.length} de 5</b><span>perlas mágicas</span></div></div>
+    <div className="col-tabs" role="tablist" aria-label="Partes de mi colección">${tabs.map(([k, l, n]) => html`<button key=${k} role="tab" id=${'ct-' + k} aria-selected=${tab === k} aria-controls="col-panel" className=${tab === k ? 'on' : ''} onClick=${() => pick(k)}>${l}<small>${n}</small></button>`)}</div>
+    <div id="col-panel" role="tabpanel" aria-labelledby=${'ct-' + tab}>
+    ${tab === 'creatures' ? html`<${React.Fragment}>
+      ${!foundAll ? html`<div className="panel empty-state"><${Diego} size=${120}/><div><h3>¡Tu primera criatura te espera!</h3><p>Cada misión que terminas descubre una criatura nueva del arrecife.</p><button className="btn go" onClick=${() => go('map')}>Ir a mi misión</button></div></div>` : html`<p className="col-intro">Toca una criatura para ver qué descubriste.</p>`}
+      <div className="cards">${CREATURES.map(c => { const has = data.creatures.includes(c.id); return has
+        ? html`<button key=${c.id} className=${'ccard' + (c.rare ? ' rare' : '')} onClick=${() => setOpen(c)} aria-label=${c.es + ': ver detalles'}><${CreatureArt} id=${c.id} size=${110}/><h4>${c.es}</h4><p className="en">${c.en}</p></button>`
+        : html`<div key=${c.id} className=${'ccard locked' + (c.rare ? ' rare' : '')}><${CreatureArt} id=${c.id} size=${90} locked=${true}/><h4>???</h4><p>${c.rare ? 'Criatura especial' : 'Por descubrir'}</p></div>`; })}</div>
+      <h3 className="map-sec">Criaturas especiales <small>El Banquete Secreto del Arrecife</small></h3>
+      <div className="cards">${SPECIAL_CREATURES.map(c => { const has = spec.includes(c.id); return has
+        ? html`<button key=${c.id} className="ccard special" onClick=${() => setOpen(c)} aria-label=${c.es + ': ver detalles'}><${CreatureArt} id=${c.id} size=${110}/><h4>${c.es}</h4><p className="en">${c.en}</p></button>`
+        : html`<div key=${c.id} className="ccard locked special"><${CreatureArt} id=${c.id} size=${90} locked=${true}/><h4>???</h4><p>Reto ${c.ch} del banquete</p></div>`; })}</div></${React.Fragment}>` : null}
+    ${tab === 'pearls' ? html`<div className="col-pearls">
+      <div className="panel cp-intro">
+        <div><h3>Las 5 perlas mágicas</h3><p>Son la meta de la aventura. Cada mundo entrega su perla al terminar sus 5 misiones.</p></div>
+        <div className="cp-stats"><span><b>${data.pearls.length} de 5</b> perlas recuperadas</span><span><b>${data.stars}</b> ${data.stars === 1 ? 'misión completada' : 'misiones completadas'} en total</span></div>
+      </div>
+      <ul className="cp-grid">${MAIN.map(x => { const got = data.pearls.includes(x.id); return html`<li key=${x.id} className=${'cp-card' + (got ? ' got' : '')}>
+        <span className="cp-pearl"><${Pearl} p=${got ? 1 : 0} size=${72}/></span>
+        <div className="cp-text"><b>${x.pearl}</b><small>${x.world}</small></div>
+        <${MissionSegments} data=${data} sid=${x.id} compact=${true}/>
+        ${got ? html`<span className="pearl-chip got sm"><${Icon} n="check" size=${14}/> ¡Recuperada!</span>` : html`<span className="cp-todo">Por recuperar</span>`}
+      </li>`; })}</ul></div>` : null}
+    ${tab === 'badges' ? html`<${React.Fragment}>
+      <h3 className="map-sec">Insignias de la aventura</h3>
+      <div className="medals cm-adv">${ACH.map(a => { const on = data.ach.includes(a.id); return html`<div key=${a.id} className=${'medal' + (on ? '' : ' off')}><${AchIcon} id=${a.id} on=${on}/><span>${a.name}</span><small>${on ? '✓ Ganada · ' : ''}${a.desc}</small></div>`; })}</div>
+      <h3 className="map-sec">Insignias del Taller del Artista</h3>
+      <div className="medals cm-6">${ART_BADGES.map(b => { const on = ((data.art || {}).badges || []).includes(b.id); return html`<div key=${b.id} className=${'medal' + (on ? '' : ' off')}><${Medal} id=${b.id} on=${on}/><span>${b.name}</span></div>`; })}</div>
+      <h3 className="map-sec">Insignias de música <small>The Tropical Orchestra</small></h3>
+      <div className="medals cm-6">${M_BADGES.map(b => { const on = musicOf(data).badges.includes(b.id); return html`<div key=${b.id} className=${'medal' + (on ? '' : ' off')}><${NoteBadge} id=${b.id} on=${on}/><span>${b.name}</span></div>`; })}</div></${React.Fragment}>` : null}
+    ${tab === 'made' ? html`<div className="made-grid">
+      <div className="panel made-card"><${CharImg} id="pincelin" size=${96}/><div><h3>Mis obras de arte</h3><p>${artN ? `${artN} ${artN === 1 ? 'obra' : 'obras'} en tu galería.` : 'Aquí vivirán tus obras de arte.'}</p>
+        <div className="row-btns wrap">${artN ? html`<button className="btn lagoon" onClick=${openArt}>Ver mi galería</button>` : null}<button className=${'btn ' + (artN ? 'ghost' : 'go')} onClick=${() => { ART_STATE.open = 'paint'; go('art'); }}>${artN ? 'Pintar otra' : 'Pintar mi primera obra'}</button></div></div></div>
+      <div className="panel made-card"><${CharImg} id="captain-rhythm" size=${96}/><div><h3>Mis canciones</h3><p>${songN ? `${songN} ${songN === 1 ? 'canción guardada' : 'canciones guardadas'}.` : 'Todavía no hay canciones. ¡Crea la primera!'}</p>
+        <div className="row-btns wrap"><button className=${'btn ' + (songN ? 'lagoon' : 'go')} onClick=${() => go('music:studio')}>${songN ? 'Ir a mi estudio' : 'Crear una canción'}</button></div></div></div></div>` : null}
     </div>
-    <h3 className="map-sec">Insignias de la aventura</h3>
-    <div className="medals">${ACH.map(a => { const on = data.ach.includes(a.id); return html`<div key=${a.id} className=${'medal' + (on ? '' : ' off')}><span className="ach-medal" style=${{ background: on ? '#ff8a5c' : '#b9c9cf' }}><${Starfish} size=${30}/></span><span>${a.name}</span><small>${on ? '✓ Ganado · ' : ''}${a.desc}</small></div>`; })}</div>
-    <h3 className="map-sec">Insignias del Taller del Artista</h3>
-    <div className="medals">${ART_BADGES.map(b => { const on = ((data.art || {}).badges || []).includes(b.id); return html`<div key=${b.id} className=${'medal' + (on ? '' : ' off')}><${Medal} id=${b.id} on=${on}/><span>${b.name}</span></div>`; })}</div>
-    <h3 className="map-sec">Insignias de música <small>The Tropical Orchestra</small></h3>
-    <div className="medals">${M_BADGES.map(b => { const on = musicOf(data).badges.includes(b.id); return html`<div key=${b.id} className=${'medal' + (on ? '' : ' off')}><${NoteBadge} id=${b.id} on=${on}/><span>${b.name}</span></div>`; })}</div>
-    <h3 className="map-sec">Criaturas marinas</h3>
-    <div className="cards">${CREATURES.map(c => { const has = data.creatures.includes(c.id); return html`<div key=${c.id} className=${'ccard' + (has ? '' : ' locked') + (c.rare ? ' rare' : '')}>
-      <${CreatureArt} id=${c.id} size=${120} locked=${!has}/>
-      ${has ? html`<${React.Fragment}><h4>${c.es}</h4><p className="en">${c.en}</p><p>${c.fact}</p></${React.Fragment}>` : html`<${React.Fragment}><h4>???</h4><p>${c.rare ? 'Criatura especial. ¡Sigue explorando!' : 'Completa una misión para descubrirla.'}</p></${React.Fragment}>`}
-      <span className="status">${has ? 'Descubierta' : 'Por descubrir'}</span></div>`; })}</div>
+    ${open ? html`<${CreatureDetail} c=${open} onClose=${() => setOpen(null)}/>` : null}
   </div>`;
+}
+function CreatureDetail({ c, onClose }) {
+  const ref = useRef(null);
+  useEffect(() => { const sc = document.querySelector('.app > .screen'); sc && sc.setAttribute('inert', ''); ref.current && ref.current.focus(); const k = e => { if (e.key === 'Escape') onClose(); }; document.addEventListener('keydown', k); return () => { sc && sc.removeAttribute('inert'); document.removeEventListener('keydown', k); }; }, []);
+  return ReactDOM.createPortal(html`<div className="modal-back app-modal" onClick=${e => e.target === e.currentTarget && onClose()}><div className="panel modal creature-modal" role="dialog" aria-modal="true" aria-labelledby="cd-t">
+    <${CreatureArt} id=${c.id} size=${180}/><h3 id="cd-t">${c.es}</h3><p className="en">${c.en}</p><p>${c.fact}</p>
+    <${Speak} text=${c.es + '. ' + c.fact} lang="es"/>
+    <button ref=${ref} className="btn go" onClick=${onClose}>Cerrar</button></div></div>`, document.body);
 }
 function Gate({ go }) {
   const [p, setP] = useState(0); const timer = useRef(null);
@@ -2656,11 +3060,13 @@ function Gate({ go }) {
 }
 function Parent({ data, setData, go, startCfg, stored, saveFail }) {
   const [subj, setSubj] = useState('math'); const [sel, setSel] = useState([]); const [len, setLen] = useState(8);
-  const [confirm, setConfirm] = useState(0); const [report, setReport] = useState(''); const [copied, setCopied] = useState('');
+  const [confirm, setConfirm] = useState(0); const [resetTxt, setResetTxt] = useState(''); const [report, setReport] = useState(''); const [copied, setCopied] = useState('');
   const all = TOPICS.map(t => ({ t, s: data.topics[t.id] }));
   const att = all.reduce((n, x) => n + (x.s ? x.s.a : 0), 0), fc = all.reduce((n, x) => n + (x.s ? x.s.fc : 0), 0);
   const missed = all.filter(x => x.s && x.s.wrong > 0).sort((a, b) => b.s.wrong - a.s.wrong).slice(0, 5);
   const weak = weakTopics(data, 5);
+  const mAll = SUBJECTS.length * MISSIONS_PER_WORLD, mDone = SUBJECTS.reduce((n, s) => n + Math.min(MISSIONS_PER_WORLD, missionsDone(data, s.id).length), 0);
+  const tPlayed = all.filter(x => x.s && x.s.a > 0).length, tMast = all.filter(x => topicStatus(x.s) === 'mastered').length;
   const recs = recommendations(data);
   const last = data.log.length ? new Date(data.log[data.log.length - 1].t).toLocaleString('es-MX', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
   const subTopics = TOPICS.filter(t => t.s === subj);
@@ -2676,9 +3082,13 @@ function Parent({ data, setData, go, startCfg, stored, saveFail }) {
     <div className="topbar"><${NavBtn} icon="home" label="Inicio" onClick=${() => go('home')}/><h2>Panel de mamá y papá</h2></div>
     ${saveFail ? html`<p className="warn" role="alert">No se pudo guardar el último avance: este navegador se quedó sin espacio. Creen una copia de seguridad abajo y borren pinturas viejas de la galería para liberar espacio.</p>` : null}
     <p className=${'store ' + (stored ? 'ok' : 'no')}>${stored ? 'El progreso se guarda en este navegador y dispositivo. No se sincroniza con otros dispositivos.' : 'Este navegador no permite guardar: el progreso se pierde al cerrar.'}</p>
-    <section className="panel"><h3>Resumen</h3><div className="kpis">
-      <div><b>${att}</b><span>retos intentados</span></div><div><b>${fc}</b><span>correctos al primer intento</span></div>
-      <div><b>${att ? Math.round(fc / att * 100) + '%' : '—'}</b><span>precisión</span></div><div><b>${data.sessions}</b><span>misiones completas</span></div></div>
+    <section className="panel"><h3>Resumen</h3>
+      <div className="kpi-groups">
+        <div className="kpi-g"><h4>Aventura</h4><p className="kpi-big">${mDone}<small> de ${mAll} misiones</small></p><p className="muted">${data.pearls.length} de 5 perlas · ${data.creatures.length} de ${CREATURES.length} criaturas. Avance del juego, no mide aciertos.</p></div>
+        <div className="kpi-g"><h4>Temas practicados</h4><p className="kpi-big">${tPlayed}<small> de ${TOPICS.length} temas</small></p><p className="muted">Temas con al menos un reto contestado.</p></div>
+        <div className="kpi-g"><h4>Dominio</h4><p className="kpi-big">${tMast}<small> de ${TOPICS.length} temas</small></p><p className="muted">Temas en «Dominado»: nivel 3 y 80% de aciertos recientes.</p></div>
+        <div className="kpi-g"><h4>Primer intento</h4><p className="kpi-big">${att ? Math.round(fc / att * 100) + '%' : '—'}</p><p className="muted">${fc} de ${att} retos bien a la primera. Cada reto cuenta una vez, aunque se reintente.</p></div>
+      </div>
       <p className="muted">Última actividad: ${last}</p></section>
     <section className="panel"><h3>Recomendaciones</h3>${recs.length ? html`<ul className="recs">${recs.map((r, i) => html`<li key=${i}>${r}</li>`)}</ul>` : html`<p className="muted">Sin recomendaciones todavía.</p>`}
       <button className="btn go" disabled=${!weak.length} onClick=${() => startCfg({ mode: 'review', topics: weak, len: 8 })}>Practicar lo que más me cuesta</button>
@@ -2693,48 +3103,111 @@ function Parent({ data, setData, go, startCfg, stored, saveFail }) {
       </details>`; })}</section>
     <section className="panel"><h3>Crear una práctica</h3>
       <div className="seg">${SUBJECTS.map(s => html`<button key=${s.id} className=${subj === s.id ? 'on' : ''} onClick=${() => { setSubj(s.id); setSel([]); }}>${s.name}</button>`)}</div>
-      <div className="topic-checks">${subTopics.map(t => html`<label key=${t.id} htmlFor=${'tc-' + t.id}><input type="checkbox" id=${'tc-' + t.id} checked=${sel.includes(t.id)} onChange=${() => toggle(t.id)}/> ${t.name}</label>`)}</div>
+      <div className="topic-checks"><label htmlFor="tc-all" className="tc-all"><input type="checkbox" id="tc-all" checked=${!sel.length} onChange=${() => setSel([])}/> <b>Todos los temas de ${SUBJ[subj].name}</b></label>${subTopics.map(t => html`<label key=${t.id} htmlFor=${'tc-' + t.id}><input type="checkbox" id=${'tc-' + t.id} checked=${sel.includes(t.id)} onChange=${() => toggle(t.id)}/> ${t.name}</label>`)}</div>
       <div className="seg small"><span>Retos:</span>${[5, 8, 12].map(n => html`<button key=${n} className=${len === n ? 'on' : ''} onClick=${() => setLen(n)}>${n}</button>`)}</div>
       <div className="row-btns wrap">
         <button className="btn go" onClick=${() => startCfg({ mode: 'custom', subject: subj, topics: sel.length ? sel : subTopics.map(t => t.id), len })}>Empezar práctica</button>
         <button className="btn lagoon" onClick=${() => startCfg({ mode: 'diag', topics: sel.length ? sel : subTopics.map(t => t.id), levelMin: 2, subject: subj })}>Diagnóstico de ${SUBJ[subj].name}</button>
         <button className="btn lagoon" onClick=${() => startCfg({ mode: 'daily', len })}>Repaso mezclado</button>
       </div>
-      <p className="muted">Sin temas marcados se usan todos los temas de la materia. El diagnóstico hace un reto por tema en nivel Explorar.</p></section>
+      <p className="muted">${sel.length ? `Práctica con ${sel.length} ${sel.length === 1 ? 'tema elegido' : 'temas elegidos'}.` : `Práctica con todos los temas de ${SUBJ[subj].name}.`} El diagnóstico hace un reto por tema en nivel Explorar.</p></section>
     <section className="panel"><h3>Arte · El Taller Secreto del Artista</h3>
       <p className="muted">Módulo creativo en español. No califica la belleza de las obras; solo registra misiones completadas.</p>
       <div className="kpis"><div><b>${((data.art || {}).badges || []).length}/6</b><span>insignias de arte</span></div><div><b>${loadGallery().length + SESSION_ART.length}</b><span>pinturas en la galería</span></div></div></section>
+    <section className="panel"><h3>El Banquete Secreto del Arrecife</h3>
+      <p className="muted">Aventura bonus en español sobre el Plato del Bien Comer (3 grupos). No da perlas. Cada reto superado rescata una criatura especial.</p>
+      <div className="kpis"><div><b>${banquetOf(data).done.length}/5</b><span>retos superados</span></div><div><b>${banquetOf(data).creatures.length}/5</b><span>criaturas especiales</span></div><div><b>${Object.values(banquetOf(data).tries).reduce((n, x) => n + x, 0)}</b><span>intentos en total</span></div></div></section>
     <${MusicParent} data=${data} go=${go}/>
     <section className="panel"><h3>Reporte para papás</h3><button className="btn lagoon" onClick=${makeReport}>Generar reporte</button>
       ${report ? html`<div><textarea id="rep" readOnly value=${report} rows="10"></textarea><button className="btn ghost" onClick=${copy}>Copiar texto</button> <span className="muted">${copied}</span></div>` : null}</section>
     <${Backup} data=${data} setData=${setData}/>
     <section className="panel danger"><h3>Reiniciar progreso</h3><p className="muted">Borra perlas, criaturas, estadísticas e insignias de arte y música de este dispositivo. Las pinturas de la galería no se borran (se quitan una por una desde la galería).</p>
-      ${confirm === 0 ? html`<button className="btn ghost" onClick=${() => setConfirm(1)}>Reiniciar progreso…</button>` : html`<div className="row-btns"><button className="btn ghost" onClick=${() => setConfirm(0)}>Cancelar</button><button className="btn coral" onClick=${() => { setData(freshData()); setConfirm(0); setReport(''); }}>Sí, borrar todo</button></div>`}</section>
+      ${confirm === 0 ? html`<button className="btn ghost" onClick=${() => { setConfirm(1); setResetTxt(''); }}>Reiniciar progreso…</button>` : html`<div className="reset-box"><p><b>Esto no se puede deshacer.</b> Antes, descarga una copia de seguridad. Para confirmar, escribe <b>BORRAR</b>.</p>
+        <input type="text" value=${resetTxt} onInput=${e => setResetTxt(e.target.value)} aria-label="Escribe BORRAR para confirmar" autoComplete="off" autoCapitalize="characters"/>
+        <div className="row-btns"><button className="btn go" onClick=${() => setConfirm(0)}>Cancelar</button><button className="btn coral" disabled=${resetTxt.trim().toUpperCase() !== 'BORRAR'} onClick=${() => { setData(freshData()); setConfirm(0); setReport(''); }}>Borrar el progreso</button></div></div>`}</section>
   </div>`;
 }
+// Combines a backup with what this device already has. Nothing is removed: lists are joined, counters keep the larger value.
+function mergeProgress(cur, bk) {
+  const a = migrateData(clone(cur)), b = migrateData(clone(bk)), n = clone(a);
+  const uni = (x, y) => Array.from(new Set([].concat(x || [], y || [])));
+  ['pearls', 'creatures', 'ach'].forEach(k => { n[k] = uni(a[k], b[k]); });
+  ['stars', 'sessions', 'totalQ', 'retryWins'].forEach(k => { n[k] = Math.max(a[k] || 0, b[k] || 0); });
+  n.missionsDone = Object.assign({}, a.missionsDone);
+  Object.keys(b.missionsDone || {}).forEach(s => { n.missionsDone[s] = uni(a.missionsDone[s], b.missionsDone[s]).sort((x, y) => x - y); });
+  ['legacyMissions', 'worldMissions'].forEach(k => { n[k] = Object.assign({}, a[k]); Object.keys(b[k] || {}).forEach(s => { n[k][s] = Math.max(n[k][s] || 0, b[k][s] || 0); }); });
+  n.topics = Object.assign({}, a.topics); Object.keys(b.topics || {}).forEach(t => { if (!n.topics[t] || (b.topics[t].a || 0) > (n.topics[t].a || 0)) n.topics[t] = b.topics[t]; });
+  n.words = Object.assign({}, a.words); Object.keys(b.words || {}).forEach(w => { n.words[w] = Math.max(n.words[w] || 0, b.words[w] || 0); });
+  n.played = Object.assign({}, b.played, a.played);
+  n.log = (b.log || []).length > (a.log || []).length ? b.log : a.log;
+  n.guardian = a.guardian || b.guardian; n.introSeen = a.introSeen || b.introSeen; n.lastMission = a.lastMission || b.lastMission;
+  const qa = banquetOf(a), qb = banquetOf(b);
+  n.banquet = { done: uni(qa.done, qb.done).sort((x, y) => x - y), creatures: uni(qa.creatures, qb.creatures), tries: Object.assign({}, qb.tries, qa.tries), best: Object.assign({}, qb.best, qa.best) };
+  const ar = a.art || {}, br = b.art || {}; n.art = Object.assign({}, br, ar, { badges: uni(ar.badges, br.badges) });
+  if (a.music || b.music) {
+    const am = musicOf(a), bm = musicOf(b), base = clone((bm.compositions || 0) > (am.compositions || 0) ? bm : am);
+    const ids = new Set(am.saved.map(x => x.id));
+    base.saved = am.saved.concat(bm.saved.filter(x => !ids.has(x.id))).sort((x, y) => String(y.date).localeCompare(String(x.date)));
+    base.badges = uni(am.badges, bm.badges); base.explored = uni(am.explored, bm.explored); base.drafts = am.drafts || {};
+    base.missions = Object.assign({}, bm.missions, am.missions); base.concert = am.concert || bm.concert; base.seen = am.seen || bm.seen;
+    n.music = base;
+  }
+  return n;
+}
+const backupName = () => { const d = new Date(); const p = x => String(x).padStart(2, '0'); return `perlas-diego-${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}.json`; };
+function parseBackup(text) {
+  const j = JSON.parse(String(text).trim()); const d = j && j.data ? j.data : j;
+  if (!d || typeof d !== 'object' || !('topics' in d) || !Array.isArray(d.pearls)) throw new Error('x');
+  return { data: migrateData(d), gallery: Array.isArray(j.gallery) ? j.gallery : null };
+}
 function Backup({ data, setData }) {
-  const [out, setOut] = useState(''); const [inp, setInp] = useState(''); const [msg, setMsg] = useState(null); const [ask, setAsk] = useState(null);
-  const make = () => { setOut(JSON.stringify({ app: 'perlas-cozumel', exported: new Date().toISOString(), data })); setMsg(null); };
-  const copy = () => { const ta = document.getElementById('bk-out'); try { navigator.clipboard.writeText(out).then(() => setMsg(['ok', 'Copiado. Pégalo en una nota o un correo para guardarlo.']), () => { ta && ta.select(); setMsg(['warn', 'Selecciona el texto y cópialo.']); }); } catch (e) { ta && ta.select(); setMsg(['warn', 'Selecciona el texto y cópialo.']); } };
-  const check = () => {
-    try { const j = JSON.parse(inp.trim()); const d = j && j.data ? j.data : j; if (!d || typeof d !== 'object' || !('topics' in d) || !Array.isArray(d.pearls)) throw new Error('x'); const m = migrateData(d); setAsk(m); setMsg(null); }
-    catch (e) { setAsk(null); setMsg(['warn', 'Ese texto no es una copia de seguridad válida del juego. Revisa que esté completo.']); }
+  const [busy, setBusy] = useState(false); const [msg, setMsg] = useState(null); const [ask, setAsk] = useState(null);
+  const [out, setOut] = useState(''); const [inp, setInp] = useState('');
+  const songs = musicOf(data).saved.length;
+  const download = async () => {
+    setBusy(true); setMsg(null);
+    try {
+      const gallery = await exportArt();
+      const json = JSON.stringify({ app: 'perlas-cozumel', format: 2, exported: new Date().toISOString(), data, gallery });
+      const url = URL.createObjectURL(new Blob([json], { type: 'application/json' })); const a = document.createElement('a');
+      a.href = url; a.download = backupName(); document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 5000);
+      setMsg(['ok', `Archivo «${a.download}» listo: progreso, ${songs} ${songs === 1 ? 'canción' : 'canciones'} y ${gallery.length} ${gallery.length === 1 ? 'obra' : 'obras'}. Revisa que aparezca en Descargas (en iPad: app Archivos) y guárdalo fuera de este navegador.`]);
+    } catch (e) { setMsg(['warn', 'No se pudo preparar el archivo. Prueba la opción de texto de abajo (solo progreso y canciones).']); }
+    setBusy(false);
   };
-  const restore = () => { setData(ask); setAsk(null); setInp(''); setMsg(['ok', 'Progreso restaurado.']); };
+  const review = (text, from) => {
+    try { const r = parseBackup(text); const have = new Set(loadGallery().map(x => x.id)); const g = r.gallery || [];
+      r.newArt = g.filter(x => x && x.id && !have.has(x.id)).length; r.dupArt = g.length - r.newArt; r.from = from; setAsk(r); setMsg(null);
+    } catch (e) { setAsk(null); setMsg(['warn', 'Ese archivo o texto no es una copia de seguridad válida del juego. Revisa que esté completo.']); }
+  };
+  const pick = e => { const f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return; const rd = new FileReader(); rd.onload = () => review(rd.result, 'file'); rd.onerror = () => setMsg(['warn', 'No se pudo leer el archivo.']); rd.readAsText(f); };
+  const restore = async () => {
+    const r = ask; setAsk(null); setBusy(true);
+    const merged = mergeProgress(data, r.data); setData(merged);
+    let res = { added: 0, skipped: 0, failed: 0 }; if (r.gallery) res = await importArt(r.gallery);
+    const okP = saveData(merged);
+    const parts = [okP ? 'Progreso combinado y guardado en este dispositivo.' : '⚠ El progreso se combinó, pero este navegador no lo dejó guardar.'];
+    if (r.gallery) parts.push(`${res.added} ${res.added === 1 ? 'obra agregada' : 'obras agregadas'}${res.skipped ? `, ${res.skipped} ya estaban` : ''}${res.failed ? `; ⚠ ${res.failed} no cupieron o venían dañadas` : ''}.`);
+    setMsg([okP && !res.failed ? 'ok' : 'warn', parts.join(' ')]); setInp(''); setBusy(false);
+  };
   return html`<section className="panel"><h3>Copia de seguridad</h3>
-    <p className="muted">El progreso vive solo en este navegador. Para pasarlo a otro dispositivo o a otra dirección (por ejemplo, la versión en GitHub Pages), copia el texto aquí y pégalo allá en «Restaurar». No incluye las pinturas de la galería.</p>
-    <div className="row-btns wrap"><button className="btn lagoon" onClick=${make}>Crear copia de seguridad</button></div>
-    ${out ? html`<div><textarea id="bk-out" readOnly value=${out} rows="4" aria-label="Texto de la copia de seguridad"></textarea><button className="btn ghost" onClick=${copy}>Copiar texto</button></div>` : null}
-    <label htmlFor="bk-in"><b>Restaurar</b>: pega aquí una copia de seguridad</label>
-    <textarea id="bk-in" rows="3" value=${inp} onInput=${e => { setInp(e.target.value); setAsk(null); }}></textarea>
-    <div className="row-btns wrap"><button className="btn ghost" disabled=${!inp.trim()} onClick=${check}>Revisar copia</button></div>
-    ${ask ? html`<div className="panel quit" role="alertdialog" aria-label="Restaurar copia" onKeyDown=${e => e.key === 'Escape' && setAsk(null)}><p>Esta copia tiene ${ask.pearls.length} de 5 perlas, ${ask.creatures.length} criaturas y ${ask.sessions} misiones completas. Reemplazará el progreso actual de este dispositivo.</p><div className="row-btns"><button className="btn ghost" autoFocus onClick=${() => setAsk(null)}>Cancelar</button><button className="btn coral" onClick=${restore}>Sí, restaurar</button></div></div>` : null}
-    ${msg ? html`<p className=${'store ' + (msg[0] === 'ok' ? 'ok' : 'no')}>${msg[1]}</p>` : null}
+    <p className="muted">Todo vive solo en este navegador: si se borran los datos del sitio, se pierde. El archivo incluye progreso, misiones, insignias, canciones y las obras de la galería con sus capas (para seguir pintándolas). Sirve para pasar todo a otro dispositivo o a otra dirección del juego.</p>
+    <div className="row-btns wrap"><button className="btn lagoon" disabled=${busy} onClick=${download}>${busy ? 'Preparando…' : 'Descargar copia de seguridad'}</button>
+      <label className="btn ghost file-btn">Restaurar desde archivo<input type="file" accept=".json,application/json,text/plain" onChange=${pick} disabled=${busy}/></label></div>
+    <p className="muted small">Restaurar combina la copia con lo que ya hay aquí: no borra nada y no duplica obras que ya estén en la galería.</p>
+    <details className="bk-text"><summary>Otra forma: copiar como texto (sin obras de arte)</summary>
+      <div className="row-btns wrap"><button className="btn ghost" onClick=${() => setOut(JSON.stringify({ app: 'perlas-cozumel', exported: new Date().toISOString(), data }))}>Crear texto</button></div>
+      ${out ? html`<textarea id="bk-out" readOnly value=${out} rows="4" aria-label="Texto de la copia de seguridad" onFocus=${e => e.target.select()}></textarea>` : null}
+      <label htmlFor="bk-in">Pega aquí un texto de copia de seguridad</label>
+      <textarea id="bk-in" rows="3" value=${inp} onInput=${e => { setInp(e.target.value); setAsk(null); }}></textarea>
+      <div className="row-btns wrap"><button className="btn ghost" disabled=${!inp.trim()} onClick=${() => review(inp, 'text')}>Revisar texto</button></div></details>
+    ${ask ? html`<${ConfirmDialog} title="¿Restaurar esta copia?" text=${`La copia tiene ${ask.data.pearls.length} de 5 perlas, ${ask.data.creatures.length} criaturas y ${musicOf(ask.data).saved.length} canciones${ask.gallery ? `, y ${ask.gallery.length} obras (${ask.newArt} nuevas para este dispositivo${ask.dupArt ? `, ${ask.dupArt} ya están` : ''})` : ''}. Se combinará con lo que hay aquí; no se borra nada.`} cancelLabel="Cancelar" okLabel="Sí, restaurar" onCancel=${() => setAsk(null)} onOk=${restore}/>` : null}
+    ${msg ? html`<p className=${'store ' + (msg[0] === 'ok' ? 'ok' : 'no')} role="status">${msg[1]}</p>` : null}
   </section>`;
 }
 function Certificate({ data, go }) {
   const d = new Date(data.guardian || Date.now()).toLocaleDateString('es-MX', { dateStyle: 'long' });
-  return html`<div className="screen center"><div className="cert">
+  return html`<div className="screen center reward-screen"><${RewardBackdrop}/><div className="cert">
     <div className="cert-in">
       <div className="cert-chars"><${Coralina} size=${84}/><${Tuga} size=${140}/><${Rayito} size=${110}/></div>
       <p className="eyebrow">Certificado oficial del arrecife</p>
@@ -2760,31 +3233,45 @@ function App() {
   const [saveFail, setSaveFail] = useState(false);
   useEffect(() => { dataRef.current = data; const ok = saveData(data); if (stored) setSaveFail(!ok); }, [data]);
   useEffect(() => { try { window.scrollTo(0, 0); } catch (e) { } }, [screen]);
-  const [musicView, setMusicView] = useState('start'); const [wmSid, setWmSid] = useState(null);
+  const [musicView, setMusicView] = useState('start'); const [bqView, setBqView] = useState('hub'); const [wmSid, setWmSid] = useState(null);
   const openMissions = sid => { setWmSid(sid); setScreen('missions'); };
-  const startMission = (sid, n) => prepare({ mode: 'mission', subject: sid, mission: n });
-  const go = s => { if (s.startsWith('music')) { setMusicView(s.split(':')[1] || 'start'); setScreen('music'); } else setScreen(s); };
+  const startMission = (sid, n) => { const cfg = { mode: 'mission', subject: sid, mission: n }; if (sameAsActive(cfg)) resumeSession(); else prepare(cfg); };
+  const go = s => { if (s.startsWith('music')) { setMusicView(s.split(':')[1] || 'start'); setScreen('music'); } else if (s.startsWith('banquet')) { setBqView(s.split(':').slice(1).join(':') || 'hub'); setScreen('banquet'); } else setScreen(s); };
   const prepare = cfg => { const s = createSession(cfg, dataRef.current); sessRef.current = s; setPending(s); setScreen('worldintro'); };
-  const startFromIntro = () => { const s = sessRef.current; const D = clone(dataRef.current); const n = nextQuestion(D, s, ctx); setCur(n); setScreen('play'); };
+  // The open session (its challenges, position and answers) is saved with the progress, so leaving or
+  // reloading never loses it. Answers are only counted once: results[idx] exists = already counted.
+  const snap = (s, c) => clone({ cfg: s.cfg, fixed: s.fixed || null, pool: s.pool, idx: s.idx, len: s.len, used: s.used, subjUsed: s.subjUsed, results: s.results, streak: s.streak, best: s.best, retryWins: s.retryWins, familyUsed: s.familyUsed, levelMin: s.levelMin || 0, lessoned: s.lessoned || null, cur: c, at: Date.now() });
+  const keepSession = (s, c, extra) => setData(d => { const n = extra ? extra(clone(d)) : clone(d); n.activeSession = snap(s, c); dataRef.current = n; return n; });
+  const startFromIntro = () => { const s = sessRef.current; const D = clone(dataRef.current); const n = nextQuestion(D, s, ctx); setCur(n); keepSession(s, n); setScreen('play'); };
+  const resumeSession = () => {
+    const a = dataRef.current.activeSession; if (!a) return;
+    const s = Object.assign(createSession(a.cfg, dataRef.current), a); delete s.cur; delete s.at; if (!s.fixed) delete s.fixed;
+    sessRef.current = s;
+    if (s.results.length > s.idx) { s.idx = s.results.length; if (s.idx >= s.len) { finish(true); return; } const n = nextQuestion(dataRef.current, s, ctx); setCur(n); keepSession(s, n); }
+    else setCur(a.cur);
+    setScreen('play');
+  };
   const onFirst = ok => {
     const s = sessRef.current; const q = cur.q;
+    if (s.results.length > s.idx) return; // already counted (e.g. after resuming on this challenge)
     s.results.push({ ok, s: q.s, topic: q.topic });
     if (ok) { s.streak++; s.best = Math.max(s.best, s.streak); } else s.streak = 0;
-    setData(d => { const n = clone(d); recordAnswer(n, q, ok); return n; });
+    keepSession(s, cur, n => { recordAnswer(n, q, ok); return n; });
   };
   const finish = complete => {
-    const s = sessRef.current; const n = clone(dataRef.current); const summary = finishSession(n, s, complete);
+    const s = sessRef.current; const n = clone(dataRef.current); const summary = finishSession(n, s, complete); n.activeSession = null;
     dataRef.current = n; setData(n); setSum(summary); setScreen('summary');
   };
   const onDone = info => {
     const s = sessRef.current; if (info.retry) s.retryWins++;
     s.idx++;
     if (s.idx >= s.len) { finish(true); return; }
-    const n = nextQuestion(dataRef.current, s, ctx); setCur(n);
+    const n = nextQuestion(dataRef.current, s, ctx); setCur(n); keepSession(s, n);
   };
-  const onQuit = () => { const s = sessRef.current; if (s && s.results.length) finish(false); else setScreen('home'); };
+  const onQuit = () => { const s = sessRef.current; if (s && s.cfg.mode === 'mission') openMissions(s.cfg.subject); else go('map'); };
+  const sameAsActive = cfg => { const a = dataRef.current.activeSession; return a && a.cfg.mode === cfg.mode && a.cfg.subject === cfg.subject && a.cfg.mission === cfg.mission && (cfg.mode === 'mission' || cfg.mode === 'final'); };
   const familyOk = () => { const s = sessRef.current; if (s.familyUsed || Math.random() > 0.6) return false; s.familyUsed = true; return true; };
-  const startContinue = () => { const D = dataRef.current; const a = nextAdventure(D); if (a.kind === 'world') startMission(a.sid, a.mission || nextMissionOf(D, a.sid) || 1); else if (a.kind === 'final') prepare({ mode: 'final' }); else if (a.kind === 'review') prepare({ mode: 'review', topics: weakTopics(D, 5), len: 8 }); else prepare({ mode: 'daily', len: 8 }); };
+  const startContinue = () => { const D = dataRef.current; if (D.activeSession) { resumeSession(); return; } const a = nextAdventure(D); if (a.kind === 'world') startMission(a.sid, a.mission || nextMissionOf(D, a.sid) || 1); else if (a.kind === 'final') prepare({ mode: 'final' }); else if (a.kind === 'review') prepare({ mode: 'review', topics: weakTopics(D, 5), len: 8 }); else prepare({ mode: 'daily', len: 8 }); };
   const pickTheme = k => { const c = themeCtx(k || data.theme); setCtx(c); setData(d => Object.assign({}, d, k ? { theme: k, themeDay: todayKey() } : { themeDay: todayKey() })); setScreen('map'); };
   let body;
   if (screen === 'home') body = html`<${Home} data=${data} go=${go} stored=${stored} saveFail=${saveFail}/>`;
@@ -2793,16 +3280,23 @@ function App() {
   else if (screen === 'map') body = html`<${MapScreen} data=${data} go=${go} startWorld=${openMissions} startDaily=${() => prepare({ mode: 'daily', len: 8 })} startFinal=${() => prepare({ mode: 'final' })} startContinue=${startContinue}/>`;
   else if (screen === 'worldintro' && pending) body = html`<${WorldIntro} sess=${pending} ctx=${ctx} data=${data} onGo=${startFromIntro} onBack=${() => pending.cfg.mode === 'mission' ? openMissions(pending.cfg.subject) : go(pending.cfg.mode === 'custom' || pending.cfg.mode === 'diag' || pending.cfg.mode === 'review' ? 'parent' : 'map')}/>`;
   else if (screen === 'missions' && wmSid) body = html`<${WorldMissions} data=${data} sid=${wmSid} onStart=${n => startMission(wmSid, n)} go=${go}/>`;
-  else if (screen === 'play' && cur) body = html`<${Play} sess=${sessRef.current} cur=${cur} onFirst=${onFirst} onDone=${onDone} onQuit=${onQuit} familyOk=${familyOk} onLessonDone=${() => setCur(Object.assign({}, cur, { lesson: null }))}/>`;
+  else if (screen === 'play' && cur) body = html`<${Play} sess=${sessRef.current} cur=${cur} onFirst=${onFirst} onDone=${onDone} onQuit=${onQuit} familyOk=${familyOk} saving=${stored && !saveFail} onLessonDone=${() => { const c = Object.assign({}, cur, { lesson: null }); setCur(c); keepSession(sessRef.current, c); }}/>`;
   else if (screen === 'summary' && sum) body = html`<${Summary} sum=${sum} data=${data} onContinue=${startContinue} onMap=${() => go('map')} onHome=${() => go('home')} onCert=${() => go('certificate')} onMissions=${() => openMissions(sum.subject)}/>`;
   else if (screen === 'collection') body = html`<${Collection} data=${data} go=${go}/>`;
   else if (screen === 'gate') body = html`<${Gate} go=${go}/>`;
   else if (screen === 'parent') body = html`<${Parent} data=${data} setData=${setData} go=${go} startCfg=${prepare} stored=${stored} saveFail=${saveFail}/>`;
   else if (screen === 'music') body = html`<${MusicWorld} key=${musicView} data=${data} setData=${setData} go=${go} startView=${musicView}/>`;
+  else if (screen === 'banquet') body = html`<${BanquetWorld} key=${bqView} view=${bqView} data=${data} setData=${setData} go=${go}/>`;
   else if (screen === 'art') body = html`<${ArtStudio} data=${data} setData=${setData} go=${go}/>`;
   else if (screen === 'certificate') body = html`<${Certificate} data=${data} go=${go}/>`;
   else body = html`<${Home} data=${data} go=${go} stored=${stored} saveFail=${saveFail}/>`;
-  return html`<div className="app" style=${{ '--sat': 0.6 + data.pearls.length * 0.08 }}><${Bubbles}/>${body}</div>`;
+  // Background by purpose. 'scenic' (story, intros, rewards): the reef image. 'gameplay' (answering challenges):
+  // the original striped ocean with rising bubbles. 'studio' (painting / music tools): striped ocean, no bubbles.
+  // Reward screens (summary, certificate, banquet result) paint the reef with their own RewardBackdrop.
+  const scenic = screen === 'home' || screen === 'intro' || (screen === 'worldintro' && pending) || (screen === 'banquet' && bqView.startsWith('intro'));
+  const studio = screen === 'art' || screen === 'music';
+  const variant = scenic ? 'scenic' : studio ? 'studio' : 'gameplay';
+  return html`<div className=${'app bg-' + variant + (studio ? ' focus' : '') + (scenic ? ' home-app' : '')} style=${{ '--sat': 0.6 + data.pearls.length * 0.08 }}>${variant === 'gameplay' ? html`<${Bubbles}/>` : null}${body}</div>`;
 }
 
 /* ================= EL TALLER SECRETO DEL ARTISTA ================= */
@@ -2818,13 +3312,51 @@ const GALLERY_MAX_CHARS = 3000000;
 // Editable paint layers (transparent PNG of the strokes) live in IndexedDB, keyed by artwork id, so the
 // localStorage gallery keeps its exact shape and size. Older artworks have no layer: they reopen from
 // their flattened picture and can be painted over.
-const LAYER_DB = 'perlas-arte-v1', LAYER_STORE = 'layers';
-const SESSION_LAYERS = {};
-function layerDB() { return new Promise((res, rej) => { try { const r = indexedDB.open(LAYER_DB, 1); r.onupgradeneeded = () => r.result.createObjectStore(LAYER_STORE); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); } catch (e) { rej(e); } }); }
-function layerOp(mode, fn) { return layerDB().then(db => new Promise((res, rej) => { const tx = db.transaction(LAYER_STORE, mode); const st = tx.objectStore(LAYER_STORE); const req = fn(st); tx.oncomplete = () => res(req && req.result); tx.onerror = () => rej(tx.error); tx.onabort = () => rej(tx.error); })); }
+const LAYER_DB = 'perlas-arte-v1', LAYER_STORE = 'layers', IMG_STORE = 'images';
+const SESSION_LAYERS = {}; const SESSION_IMGS = {};
+// Version 2 adds an "images" store: new paintings keep their picture there (much more room than the
+// browser's small local storage, which is what forced "solo en esta sesión" before). Version 1 data stays.
+function layerDB() { return new Promise((res, rej) => { try { const r = indexedDB.open(LAYER_DB, 2); r.onupgradeneeded = () => { const db = r.result; if (!db.objectStoreNames.contains(LAYER_STORE)) db.createObjectStore(LAYER_STORE); if (!db.objectStoreNames.contains(IMG_STORE)) db.createObjectStore(IMG_STORE); }; r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error('blocked')); } catch (e) { rej(e); } }); }
+function idbOp(store, mode, fn) { return layerDB().then(db => new Promise((res, rej) => { const tx = db.transaction(store, mode); const st = tx.objectStore(store); const req = fn(st); tx.oncomplete = () => res(req && req.result); tx.onerror = () => rej(tx.error); tx.onabort = () => rej(tx.error); })); }
+const layerOp = (mode, fn) => idbOp(LAYER_STORE, mode, fn);
 const layerGet = id => SESSION_LAYERS[id] ? Promise.resolve(SESSION_LAYERS[id]) : layerOp('readonly', st => st.get(id)).catch(() => null);
 const layerPut = (id, png) => layerOp('readwrite', st => st.put(png, id)).then(() => true, () => { SESSION_LAYERS[id] = png; return false; });
 const layerDel = id => { delete SESSION_LAYERS[id]; return layerOp('readwrite', st => st.delete(id)).catch(() => null); };
+const imgGet = id => SESSION_IMGS[id] ? Promise.resolve(SESSION_IMGS[id]) : idbOp(IMG_STORE, 'readonly', st => st.get(id)).catch(() => null);
+const imgPut = (id, src) => idbOp(IMG_STORE, 'readwrite', st => st.put(src, id)).then(() => true, () => false);
+const imgDel = id => idbOp(IMG_STORE, 'readwrite', st => st.delete(id)).catch(() => null);
+const DRAFT_ID = '__draft__';
+// The picture of an artwork: inline (older paintings) or in IndexedDB (new ones).
+const artImg = item => item.img ? Promise.resolve(item.img) : imgGet(item.id);
+// Saves an artwork entry: picture in IndexedDB, small record in the gallery list. Falls back to the old
+// inline storage, and only then to this session. Returns 'idb' | 'inline' | false.
+async function storeArtwork(item, replaceId) {
+  const list = loadGallery(); const k = replaceId ? list.findIndex(x => x.id === replaceId) : -1;
+  const place = rec => { const nl = list.slice(); if (k >= 0) nl[k] = rec; else nl.unshift(rec); return saveGallery(nl); };
+  if (await imgPut(item.id, item.img)) { const rec = Object.assign({}, item, { img: null, stored: 'idb' }); if (place(rec)) return 'idb'; imgDel(item.id); }
+  const rec = Object.assign({}, item); delete rec.stored; if (place(rec)) return 'inline';
+  return false;
+}
+// Backup helpers: every artwork with its picture and editable layer, and the way back in (no duplicates by id).
+async function exportArt() {
+  const items = loadGallery().concat(SESSION_ART.filter(s => !loadGallery().some(x => x.id === s.id)));
+  const out = [];
+  for (const it of items) { const r = Object.assign({}, it); r.img = await artImg(it) || null; r.layer = await layerGet(it.id) || null; delete r.stored; delete r.persisted; out.push(r); }
+  return out;
+}
+async function importArt(items) {
+  const have = new Set(loadGallery().map(x => x.id)); const res = { added: 0, skipped: 0, failed: 0 };
+  for (const it of (items || []).slice().reverse()) {
+    if (!it || !it.id || typeof it.img !== 'string' || !it.img.startsWith('data:image/')) { res.failed++; continue; }
+    if (have.has(it.id)) { res.skipped++; continue; }
+    const rec = Object.assign({}, it); const layer = rec.layer; delete rec.layer; delete rec.stored; delete rec.persisted;
+    if (!await storeArtwork(rec)) { res.failed++; continue; }
+    if (typeof layer === 'string' && layer.startsWith('data:image/')) await layerPut(rec.id, layer);
+    const k = SESSION_ART.findIndex(x => x.id === rec.id); if (k >= 0) SESSION_ART.splice(k, 1);
+    have.add(rec.id); res.added++;
+  }
+  return res;
+}
 const loadImage = src => new Promise(res => { if (!src) return res(null); const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; });
 function saveGallery(list) { try { const s = JSON.stringify(list); if (s.length > GALLERY_MAX_CHARS) return false; localStorage.setItem(GALLERY_KEY, s); return true; } catch (e) { return false; } }
 
@@ -3015,12 +3547,13 @@ function mixName(n) {
   if (p.length && n.w) base += ' claro'; if (p.length && n.k) base += ' oscuro';
   return base;
 }
+// First guided steps (the recipe is shown), then two tries on his own (the recipe stays hidden unless he asks).
 const COLOR_CH = [
-  { t: 'Haz NARANJA', h: 'Mezcla rojo y amarillo.', ok: n => n.r && n.y && !n.b && !n.k },
-  { t: 'Haz VERDE', h: 'Mezcla amarillo y azul.', ok: n => n.y && n.b && !n.r && !n.k },
-  { t: 'Haz MORADO', h: 'Mezcla rojo y azul.', ok: n => n.r && n.b && !n.y && !n.k },
-  { t: 'Haz un azul CLARO', h: 'Al azul agrégale blanco.', ok: n => n.b && n.w && !n.r && !n.y && !n.k },
-  { t: 'Haz un rojo OSCURO', h: 'Al rojo agrégale un poquito de negro.', ok: n => n.r && n.k && !n.y && !n.b },
+  { t: 'Haz NARANJA', h: 'Mezcla rojo y amarillo.', ok: n => n.r && n.y && !n.b && !n.k, guide: true, sec: true },
+  { t: 'Haz un azul CLARO', h: 'Al azul agrégale blanco.', ok: n => n.b && n.w && !n.r && !n.y && !n.k, guide: true },
+  { t: 'Haz un rojo OSCURO', h: 'Al rojo agrégale un poquito de negro.', ok: n => n.r && n.k && !n.y && !n.b, guide: true },
+  { t: 'Haz VERDE', h: 'Mezcla amarillo y azul.', ok: n => n.y && n.b && !n.r && !n.k, sec: true },
+  { t: 'Haz MORADO', h: 'Mezcla rojo y azul.', ok: n => n.r && n.b && !n.y && !n.k, sec: true },
 ];
 const WARMCOOL = [['rojo', '#e53935', 'c'], ['naranja', '#fb8c00', 'c'], ['amarillo', '#fdd835', 'c'], ['azul', '#1e5fc4', 'f'], ['verde', '#2e9e4f', 'f'], ['morado', '#7b3fb0', 'f']];
 let MY_MIX = null;
@@ -3028,14 +3561,15 @@ function MoodScene({ warm }) {
   return html`<svg viewBox="0 0 120 80" className="mood" aria-hidden="true"><rect width="120" height="80" fill=${warm ? '#ffb36b' : '#8ec5e8'}/><circle cx="90" cy="22" r="11" fill=${warm ? '#ff5a3c' : '#e6f4ff'}/><rect y="46" width="120" height="16" fill=${warm ? '#ff7a3c' : '#2f6fb8'}/><path d="M0 62 Q60 54 120 62 V80 H0Z" fill=${warm ? '#ffd27a' : '#5b8fc0'}/></svg>`;
 }
 function Mission3({ onDone, has }) {
-  const [drops, setDrops] = useState([]); const [ci, setCi] = useState(0); const [hit, setHit] = useState(false);
+  const [drops, setDrops] = useState([]); const [ci, setCi] = useState(0); const [hit, setHit] = useState(false); const [peek, setPeek] = useState(false);
   const [phase, setPhase] = useState('mix'); const [sortSel, setSortSel] = useState(null); const [placed, setPlaced] = useState({}); const [bad, setBad] = useState(null); const [mood, setMood] = useState(null);
   const mix = mixDrops(drops); const name = mixName(mix.n);
   const addDrop = d => { if (drops.length >= 8 || hit) return; const nd = drops.concat(d); setDrops(nd); const ch = COLOR_CH[ci]; if (ch && ch.ok(mixDrops(nd).n)) setHit(true); };
   useEffect(() => { if (drops.length) MY_MIX = mix.css; }, [mix.css]);
-  const nextCh = () => { setHit(false); setDrops([]); if (ci + 1 >= COLOR_CH.length) setPhase('sort'); setCi(ci + 1); };
+  const nextCh = () => { setHit(false); setDrops([]); setPeek(false); if (ci + 1 >= COLOR_CH.length) setPhase('sort'); setCi(ci + 1); };
   if (phase === 'mix') return html`<div className="m-color">
-    <div className="challenge"><strong>${COLOR_CH[ci].t}</strong> <span className="tip">(${ci + 1} de ${COLOR_CH.length})</span><br/><span className="soft">${COLOR_CH[ci].h}</span></div>
+    <div className=${'challenge ' + (COLOR_CH[ci].guide ? 'guided' : 'solo')}><span className="ch-mode">${COLOR_CH[ci].guide ? `Paso guiado ${ci + 1} de 3` : `¡Ahora tú solo! ${ci - 2} de 2`}</span><strong>${COLOR_CH[ci].t}</strong><br/>
+      ${COLOR_CH[ci].guide || peek ? html`<span className="soft">${COLOR_CH[ci].h}</span>` : html`<button className="hint-btn" onClick=${() => setPeek(true)}>Ver la receta</button>`}</div>
     <div className="lab">
       <div className="pots">${[['r', 'Rojo'], ['y', 'Amarillo'], ['b', 'Azul']].map(([k, l]) => html`<button key=${k} className="pot" onClick=${() => addDrop(k)}><span className="paint" style=${{ background: RYB[k] }}></span>${l}<small>primario</small></button>`)}
         <button className="pot" onClick=${() => addDrop('w')}><span className="paint" style=${{ background: '#fff', border: '2px solid #ddd' }}></span>Blanco<small>aclara</small></button>
@@ -3045,7 +3579,7 @@ function Mission3({ onDone, has }) {
         <p className="mix-name">${drops.length ? name : 'Toca un bote para poner una gota'}</p>
         <button className="btn ghost" onClick=${() => { setDrops([]); setHit(false); }} disabled=${!drops.length}>Limpiar la paleta</button></div>
     </div>
-    ${hit ? html`<div className="yay"><strong>¡Lo hiciste: ${name}!</strong>${ci < 3 ? ' Rojo, amarillo y azul son primarios. Naranja, verde y morado son secundarios: nacen de mezclar dos primarios.' : ' El blanco aclara y el negro oscurece. ¡Así se hacen variaciones!'}<button className="btn go" onClick=${nextCh}>Siguiente</button></div>` : null}
+    ${hit ? html`<div className="yay"><strong>¡Lo hiciste: ${name}!</strong>${COLOR_CH[ci].sec ? ' Rojo, amarillo y azul son primarios. Naranja, verde y morado son secundarios: nacen de mezclar dos primarios.' : ' El blanco aclara y el negro oscurece. ¡Así se hacen variaciones!'}${ci === 2 ? ' Ahora vas a mezclar tú solo.' : ''}<button className="btn go" onClick=${nextCh}>Siguiente</button></div>` : null}
   </div>`;
   if (phase === 'sort') {
     const all = Object.keys(placed).length === WARMCOOL.length;
@@ -3155,6 +3689,7 @@ const BGS = [
   { id: 'atardecer', name: 'Atardecer', draw: (c, W, H) => { const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#ffd59e'); g.addColorStop(1, '#ff9e7a'); c.fillStyle = g; c.fillRect(0, 0, W, H); }, css: 'linear-gradient(#ffd59e,#ff9e7a)' },
   { id: 'blanco', name: 'Blanco', draw: (c, W, H) => { c.fillStyle = '#ffffff'; c.fillRect(0, 0, W, H); }, css: '#fff' },
 ];
+const COLOR_NAMES = { '#e53935': 'Rojo', '#fb8c00': 'Naranja', '#fdd835': 'Amarillo', '#7cb342': 'Verde claro', '#2e9e4f': 'Verde', '#1cc6c4': 'Turquesa', '#1e5fc4': 'Azul', '#7b3fb0': 'Morado', '#ff6f91': 'Rosa', '#8d5a2b': 'Café', '#5b3a1e': 'Café oscuro', '#f1c19a': 'Durazno', '#ffffff': 'Blanco', '#9e9e9e': 'Gris', '#222222': 'Negro' };
 const PAINT_COLORS = ['#e53935', '#fb8c00', '#fdd835', '#7cb342', '#2e9e4f', '#1cc6c4', '#1e5fc4', '#7b3fb0', '#ff6f91', '#8d5a2b', '#5b3a1e', '#f1c19a', '#ffffff', '#9e9e9e', '#222222'];
 const BRUSHES = [['lapiz', 'Lápiz'], ['pincel', 'Pincel'], ['acuarela', 'Acuarela'], ['oleo', 'Óleo'], ['puntos', 'Puntitos'], ['borrador', 'Borrador']];
 const CW = 960, CH = 720;
@@ -3170,16 +3705,17 @@ function BlankPreview() {
 function SketchLayer({ tmpl, colored }) {
   return html`<svg viewBox=${`0 0 ${CW} ${CH}`} width=${CW} height=${CH} preserveAspectRatio="xMidYMid meet" className=${colored ? 'ref-svg' : 'sketch-svg'} aria-hidden="true">${tmpl.objs.map((o, i) => placeG(o, i))}</svg>`;
 }
-function Painter({ onSaved, onExit, resume }) {
+function Painter({ onSaved, onExit, resume: resumeProp }) {
+  const [resume, setResume] = useState(resumeProp || null);
   // resume = a gallery artwork to keep painting (same editor, same tools)
-  const startTmpl = resume ? (TEMPLATES.find(t => t.id === resume.tmplId) || TEMPLATES.find(t => t.name === resume.tmpl) || TEMPLATES[TEMPLATES.length - 1]) : TEMPLATES[0];
-  const startBg = resume ? (BGS.find(b => b.id === resume.bgId) || BGS[0]) : BGS[0];
-  const [step, setStep] = useState(resume ? 'paint' : 'choose'); const [tmpl, setTmpl] = useState(startTmpl); const [bg, setBg] = useState(startBg);
-  const [loading, setLoading] = useState(!!resume);
-  const [tool, setTool] = useState('pincel'); const [color, setColor] = useState(resume ? '#5b3a1e' : '#e53935'); const [size, setSize] = useState(18);
-  const [sketch, setSketch] = useState(!resume); const [showRef, setShowRef] = useState(true);
+  const startTmpl = resumeProp ? (TEMPLATES.find(t => t.id === resumeProp.tmplId) || TEMPLATES.find(t => t.name === resumeProp.tmpl) || TEMPLATES[TEMPLATES.length - 1]) : TEMPLATES[0];
+  const startBg = resumeProp ? (BGS.find(b => b.id === resumeProp.bgId) || BGS[0]) : BGS[0];
+  const [step, setStep] = useState(resumeProp ? 'paint' : 'choose'); const [tmpl, setTmpl] = useState(startTmpl); const [bg, setBg] = useState(startBg);
+  const [loading, setLoading] = useState(!!resumeProp); const [offer, setOffer] = useState(null); const [fromDraft, setFromDraft] = useState(null); const [blankNote, setBlankNote] = useState(false); const [draftOk, setDraftOk] = useState(null); const touched = useRef(false); const draftTimer = useRef(null);
+  const [tool, setTool] = useState('pincel'); const [color, setColor] = useState(resumeProp ? '#5b3a1e' : '#e53935'); const [size, setSize] = useState(18);
+  const [sketch, setSketch] = useState(!resumeProp); const [showRef, setShowRef] = useState(true);
   const [undoN, setUndoN] = useState(0); const [redoN, setRedoN] = useState(0); const [confirmClear, setConfirmClear] = useState(false);
-  const [saving, setSaving] = useState(false); const [title, setTitle] = useState(resume ? resume.title : ''); const [saved, setSaved] = useState(null);
+  const [saving, setSaving] = useState(false); const [title, setTitle] = useState(resumeProp ? resumeProp.title : ''); const [saved, setSaved] = useState(null);
   const cv = useRef(null); const bgc = useRef(null); const undo = useRef([]); const redo = useRef([]); const last = useRef(null); const drawing = useRef(false);
   useEffect(() => { if (step !== 'paint' || !bgc.current) return; const c = bgc.current.getContext('2d'); bg.draw(c, CW, CH); }, [step, bg]);
   const ctx = () => cv.current.getContext('2d');
@@ -3202,16 +3738,34 @@ function Painter({ onSaved, onExit, resume }) {
     const vv = window.visualViewport; vv && vv.addEventListener('resize', fit);
     return () => { clearTimeout(t); window.removeEventListener('resize', fit); window.removeEventListener('orientationchange', fit); vv && vv.removeEventListener('resize', fit); };
   }, [step, saving]);
+  // Draft = the unsaved painting kept automatically after each stroke (IndexedDB). It comes back next time.
+  const saveDraft = () => { if (!cv.current || !touched.current) return Promise.resolve(true); let png; try { png = cv.current.toDataURL('image/png'); } catch (e) { return Promise.resolve(false); }
+    return layerPut(DRAFT_ID, { png, tmplId: tmpl.id, bgId: bg.id, resumeId: resume ? resume.id : null, title, at: Date.now() }).then(ok => { if (ok) ART_STATE.dirty = false; setDraftOk(ok); return ok; }); };
+  const queueDraft = () => { clearTimeout(draftTimer.current); draftTimer.current = setTimeout(saveDraft, 500); };
+  useEffect(() => { ART_STATE.flush = () => { clearTimeout(draftTimer.current); return saveDraft(); }; return () => { ART_STATE.flush = null; clearTimeout(draftTimer.current); }; });
   useEffect(() => {
-    if (!resume) return; let alive = true;
-    layerGet(resume.id).then(png => loadImage(png).then(im => im || loadImage(resume.img))).then(im => {
-      if (!alive || !cv.current) return;
-      if (im) { const c = ctx(); c.clearRect(0, 0, CW, CH); c.drawImage(im, 0, 0, CW, CH); }
-      ART_STATE.dirty = false; setLoading(false);
-    });
+    let alive = true;
+    if (resumeProp) {
+      // keep painting a gallery artwork: unsaved changes from last time win over the saved picture
+      layerGet(DRAFT_ID).then(d => {
+        const useDraft = d && d.resumeId === resumeProp.id;
+        return (useDraft ? loadImage(d.png) : layerGet(resumeProp.id).then(png => loadImage(png))).then(im => im || artImg(resumeProp).then(loadImage)).then(im => ({ im, useDraft }));
+      }).then(({ im, useDraft }) => {
+        if (!alive || !cv.current) return;
+        if (im) { const c = ctx(); c.clearRect(0, 0, CW, CH); c.drawImage(im, 0, 0, CW, CH); }
+        if (useDraft) { setFromDraft('edit'); touched.current = true; }
+        ART_STATE.dirty = false; setLoading(false);
+      });
+    } else layerGet(DRAFT_ID).then(d => { if (alive && d && d.png) setOffer(d); });
     return () => { alive = false; };
   }, []);
-  const snapshot = () => { ART_STATE.dirty = true; try { undo.current.push(ctx().getImageData(0, 0, CW, CH)); if (undo.current.length > 12) undo.current.shift(); redo.current = []; setUndoN(undo.current.length); setRedoN(0); } catch (e) { } };
+  const continueDraft = () => {
+    const d = offer; const t = TEMPLATES.find(x => x.id === d.tmplId) || TEMPLATES[TEMPLATES.length - 1]; const b = BGS.find(x => x.id === d.bgId) || BGS[0];
+    const gal = d.resumeId ? loadGallery().concat(SESSION_ART).find(x => x.id === d.resumeId) : null;
+    setTmpl(t); setBg(b); if (gal) setResume(gal); if (d.title) setTitle(d.title); setSketch(false); setOffer(null); setLoading(true); setStep('paint');
+    loadImage(d.png).then(im => { const go2 = () => { if (!cv.current) { setTimeout(go2, 30); return; } if (im) ctx().drawImage(im, 0, 0, CW, CH); touched.current = true; setFromDraft('new'); ART_STATE.dirty = false; setLoading(false); }; go2(); });
+  };
+  const snapshot = () => { ART_STATE.dirty = true; touched.current = true; setBlankNote(false); try { undo.current.push(ctx().getImageData(0, 0, CW, CH)); if (undo.current.length > 12) undo.current.shift(); redo.current = []; setUndoN(undo.current.length); setRedoN(0); } catch (e) { } };
   const pos = e => { const r = cv.current.getBoundingClientRect(); return [(e.clientX - r.left) * CW / r.width, (e.clientY - r.top) * CH / r.height]; };
   const stamp = (x0, y0, x1, y1) => {
     const c = ctx(); c.save(); c.lineCap = 'round'; c.lineJoin = 'round';
@@ -3225,46 +3779,49 @@ function Painter({ onSaved, onExit, resume }) {
   };
   const down = e => { e.preventDefault(); snapshot(); drawing.current = true; const p = pos(e); last.current = p; stamp(p[0], p[1], p[0] + 0.1, p[1] + 0.1); try { cv.current.setPointerCapture(e.pointerId); } catch (er) { } };
   const move = e => { if (!drawing.current) return; e.preventDefault(); const evs = e.nativeEvent && e.nativeEvent.getCoalescedEvents ? e.nativeEvent.getCoalescedEvents() : [e]; (evs.length ? evs : [e]).forEach(ev => { const p = pos(ev); const l = last.current; if (tool === 'puntos' && Math.hypot(p[0] - l[0], p[1] - l[1]) < size * 0.5) return; stamp(l[0], l[1], p[0], p[1]); last.current = p; }); };
-  const up = () => { drawing.current = false; };
-  const doUndo = () => { if (!undo.current.length) return; redo.current.push(ctx().getImageData(0, 0, CW, CH)); ctx().putImageData(undo.current.pop(), 0, 0); setUndoN(undo.current.length); setRedoN(redo.current.length); };
-  const doRedo = () => { if (!redo.current.length) return; undo.current.push(ctx().getImageData(0, 0, CW, CH)); ctx().putImageData(redo.current.pop(), 0, 0); setUndoN(undo.current.length); setRedoN(redo.current.length); };
-  const clearAll = () => { snapshot(); ctx().clearRect(0, 0, CW, CH); setConfirmClear(false); };
-  const doSave = mode => {
+  const up = () => { if (drawing.current) queueDraft(); drawing.current = false; };
+  const doUndo = () => { if (!undo.current.length) return; queueDraft(); redo.current.push(ctx().getImageData(0, 0, CW, CH)); ctx().putImageData(undo.current.pop(), 0, 0); setUndoN(undo.current.length); setRedoN(redo.current.length); };
+  const doRedo = () => { if (!redo.current.length) return; queueDraft(); undo.current.push(ctx().getImageData(0, 0, CW, CH)); ctx().putImageData(redo.current.pop(), 0, 0); setUndoN(undo.current.length); setRedoN(redo.current.length); };
+  const clearAll = () => { snapshot(); ctx().clearRect(0, 0, CW, CH); setConfirmClear(false); queueDraft(); };
+  const doSave = async mode => {
     if (loading) return;
     const off = document.createElement('canvas'); off.width = CW; off.height = CH; const c = off.getContext('2d'); bg.draw(c, CW, CH); c.drawImage(cv.current, 0, 0);
     let img, layer; try { img = off.toDataURL('image/jpeg', 0.85); layer = cv.current.toDataURL('image/png'); } catch (e) { img = null; }
     if (!img) return;
     const now = new Date().toISOString(); const nm = title.trim();
     const base = { objs: uniq(tmpl.objs.map(o => OBJ_LABEL[o.id])), tmpl: tmpl.name, tmplId: tmpl.id, bgId: bg.id, img };
-    let item, ok;
-    if (mode === 'update' && resume) {
-      // same artwork: keep id and original creation date, refresh picture + editable layer
-      item = Object.assign({}, resume, base, { title: nm || resume.title, edited: now }); delete item.persisted;
-      const list = loadGallery(); const k = list.findIndex(x => x.id === resume.id);
-      if (k >= 0) { const nl = list.slice(); nl[k] = item; ok = saveGallery(nl); }
-      else { const s = SESSION_ART.findIndex(x => x.id === resume.id); ok = false; if (s >= 0) SESSION_ART[s] = item; else SESSION_ART.unshift(item); }
-      if (!ok && k >= 0) { item = Object.assign({}, item, { id: resume.id + '-s' + Date.now() }); SESSION_ART.unshift(item); } // no space: original stays untouched
-    } else {
-      item = Object.assign({ id: 'a' + Date.now(), title: nm || (resume ? resume.title + ' 2' : 'Mi bodegón'), date: now }, base);
-      const list = loadGallery(); ok = saveGallery([item].concat(list));
-      if (!ok) SESSION_ART.unshift(item);
-    }
-    if (ok) layerPut(item.id, layer); else SESSION_LAYERS[item.id] = layer;
-    ART_STATE.dirty = false; setSaved({ item, ok, mode: mode === 'update' && resume ? 'update' : 'new' }); setSaving(false); onSaved(item, ok);
+    const upd = mode === 'update' && resume;
+    let item = upd ? Object.assign({}, resume, base, { title: nm || resume.title, edited: now }) : Object.assign({ id: 'a' + Date.now(), title: nm || (resume ? resume.title + ' 2' : 'Mi bodegón'), date: now }, base);
+    delete item.persisted; delete item.stored;
+    const inList = upd && loadGallery().some(x => x.id === resume.id);
+    let where = upd && !inList ? false : await storeArtwork(item, upd ? resume.id : null);
+    if (!where) {
+      // no room: keep it for this visit, and never overwrite the stored original
+      if (upd && inList) item = Object.assign({}, item, { id: resume.id + '-s' + Date.now() });
+      const k = SESSION_ART.findIndex(x => x.id === item.id); if (k >= 0) SESSION_ART[k] = item; else SESSION_ART.unshift(item);
+      SESSION_LAYERS[item.id] = layer;
+    } else layerPut(item.id, layer);
+    const ok = !!where;
+    if (ok) layerDel(DRAFT_ID);
+    ART_STATE.dirty = !ok; setSaved({ item, ok, mode: upd ? 'update' : 'new' }); setSaving(false); onSaved(item, ok);
   };
+  const askSave = () => { if (!touched.current && !resume) { setBlankNote(true); return; } setSaving(true); };
   if (step === 'choose') return html`<div className="m-paint">
+    ${offer ? html`<div className="draft-offer" role="status"><div><strong>Tu dibujo sigue aquí. ¡Vamos a terminarlo!</strong><span>Lo dejaste sin guardar${offer.at ? ' el ' + new Date(offer.at).toLocaleDateString('es-MX', { day: 'numeric', month: 'long' }) : ''}.</span></div>
+      <div className="row-btns"><button className="btn go" onClick=${continueDraft}>Seguir mi dibujo</button><button className="btn ghost" onClick=${() => setOffer(null)}>Empezar uno nuevo</button></div></div>` : null}
     <h3>1. Elige tu bodegón</h3>
     <div className="tmpl-grid">${TEMPLATES.map(t => html`<button key=${t.id} className=${'tmpl' + (tmpl.id === t.id ? ' on' : '')} onClick=${() => setTmpl(t)}><div className="tmpl-pic" style=${{ background: bg.css }}>${t.objs.length ? html`<${SketchLayer} tmpl=${t} colored=${true}/>` : html`<${BlankPreview}/>`}</div><span>${t.name}</span></button>`)}</div>
     <h3>2. Elige el fondo</h3>
     <div className="bg-row">${BGS.map(b => html`<button key=${b.id} className=${'bg-btn' + (bg.id === b.id ? ' on' : '')} onClick=${() => setBg(b)}><i style=${{ background: b.css }}></i>${b.name}</button>`)}</div>
     <button className="btn go big" onClick=${() => { setStep('paint'); setTool(tmpl.objs.length ? 'lapiz' : 'pincel'); setColor(tmpl.objs.length ? '#5b3a1e' : '#e53935'); }}>¡A pintar!</button></div>`;
   if (saved) return html`<div className="m-paint saved-view"><h3>${saved.mode === 'update' ? '¡Cambios guardados!' : '¡Obra terminada!'}</h3><img src=${saved.item.img} alt=${saved.item.title} className="saved-img"/>
-    <p className=${'store ' + (saved.ok ? 'ok' : 'no')}>${saved.ok ? (saved.mode === 'update' ? 'Tu obra se actualizó en la galería.' : 'Guardada en la galería de este dispositivo.') : 'No hubo espacio para guardarla de forma permanente: se verá en la galería solo mientras esta página siga abierta.'}</p>
-    <p className="tip">Para guardarla en tus fotos, mantén presionada la imagen (funciona en la mayoría de los iPad y teléfonos).</p>
+    <p className=${'store ' + (saved.ok ? 'ok' : 'no')} role="status">${saved.ok ? (saved.mode === 'update' ? '✓ Tu obra se actualizó en tu galería.' : '✓ Tu obra está en tu galería, en este dispositivo.') : '⚠ No pudimos guardarla en este dispositivo: ya no hay espacio. Se verá solo mientras no cierres el juego. Mantén presionada la imagen para guardarla en tus fotos.'}</p>
+    ${saved.ok ? html`<p className="tip">¿La quieres en tus fotos? Mantén presionada la imagen.</p>` : null}
     <div className="row-btns"><button className="btn lagoon" onClick=${() => onExit('gallery')}>Ver mi galería</button><button className="btn go" onClick=${() => onExit('hub')}>Volver al taller</button></div></div>`;
   return html`<div className="m-paint">
-    <div className="paint-top">${tmpl.objs.length ? html`<button className=${'chip-t' + (showRef ? ' on' : '')} onClick=${() => setShowRef(!showRef)}>Modelo</button><button className=${'chip-t' + (sketch ? ' on' : '')} onClick=${() => setSketch(!sketch)}>Boceto guía</button>` : null}
-      <span className="tip">${tmpl.objs.length ? 'Observa el modelo, dibuja con lápiz y luego pinta.' : '¡Pinta lo que tú quieras!'}</span></div>
+    <div className="paint-top">${tmpl.objs.length ? html`<button className=${'chip-t toggle' + (showRef ? ' on' : '')} aria-pressed=${showRef} onClick=${() => setShowRef(!showRef)}><span className="tg" aria-hidden="true">${showRef ? '✓' : ''}</span>Ver modelo</button><button className=${'chip-t toggle' + (sketch ? ' on' : '')} aria-pressed=${sketch} onClick=${() => setSketch(!sketch)}><span className="tg" aria-hidden="true">${sketch ? '✓' : ''}</span>Ver boceto</button>` : null}
+      <span className="tip">${tmpl.objs.length ? 'Mira el modelo, dibuja con lápiz y luego pinta.' : '¡Pinta lo que tú quieras!'}</span></div>
+    ${fromDraft ? html`<p className="draft-note" role="status">Tu dibujo sigue aquí. ¡Vamos a terminarlo!</p>` : null}
     <div className="paint-ws" ref=${wsRef}>
     <div className="canvas-wrap">
       ${showRef && tmpl.objs.length ? html`<div className="ref-card" aria-label="Modelo del bodegón"><div style=${{ background: bg.css }}><${SketchLayer} tmpl=${tmpl} colored=${true}/></div><small>Modelo</small></div>` : null}
@@ -3274,12 +3831,15 @@ function Painter({ onSaved, onExit, resume }) {
     </div>
     <div className="toolbar" ref=${tbRef}>
       <div className="brushes" role="group" aria-label="Pinceles">${BRUSHES.map(([k, l]) => html`<button key=${k} className=${tool === k ? 'on' : ''} onClick=${() => setTool(k)} aria-pressed=${tool === k}><${BrushIcon} k=${k}/>${l}</button>`)}</div>
-      <div className="colors" role="group" aria-label="Colores">${PAINT_COLORS.concat(MY_MIX ? [rgbToHex(MY_MIX)] : []).map((c, i) => html`<button key=${c + i} className=${'cdot' + (color === c ? ' on' : '')} style=${{ background: c }} onClick=${() => { setColor(c); if (tool === 'borrador') setTool('pincel'); }} aria-label=${i === PAINT_COLORS.length ? 'Mi mezcla del laboratorio' : 'color ' + c}>${i === PAINT_COLORS.length ? html`<small>mía</small>` : null}</button>`)}</div>
+      <div className="colors" role="group" aria-label="Colores">${PAINT_COLORS.concat(MY_MIX ? [rgbToHex(MY_MIX)] : []).map((c, i) => html`<button key=${c + i} className=${'cdot' + (color === c ? ' on' : '')} style=${{ background: c }} onClick=${() => { setColor(c); if (tool === 'borrador') setTool('pincel'); }} aria-label=${i === PAINT_COLORS.length ? 'Mi mezcla del laboratorio' : (COLOR_NAMES[c] || 'color')} aria-pressed=${color === c}>${i === PAINT_COLORS.length ? html`<small>mía</small>` : null}</button>`)}</div>
       <div className="size-row"><label htmlFor="bsize">Tamaño</label><input id="bsize" type="range" min="4" max="60" value=${size} onInput=${e => setSize(+e.target.value)}/><span className="size-dot" style=${{ width: Math.max(4, size * 0.6), height: Math.max(4, size * 0.6), background: tool === 'borrador' ? '#ccc' : color }}></span></div>
-      ${saving ? null : html`<div className="row-btns">
-        <button className="btn ghost" onClick=${doUndo} disabled=${!undoN}><${Icon} n="back"/> Deshacer</button><button className="btn ghost" onClick=${doRedo} disabled=${!redoN}>Rehacer <${Icon} n="faster" size=${18}/></button>
-        ${confirmClear ? html`<button className="btn coral" onClick=${clearAll}>Sí, borrar todo</button><button className="btn ghost" onClick=${() => setConfirmClear(false)}>No</button>` : html`<button className="btn ghost" onClick=${() => setConfirmClear(true)}>Empezar de nuevo</button>`}
-        <button className="btn go" disabled=${loading} onClick=${() => setSaving(true)}>${resume ? 'Guardar' : 'Terminé mi obra'}</button></div>`}
+      ${saving ? null : html`<div className="undo-row"><button className="btn ghost" onClick=${doUndo} disabled=${!undoN}><${Icon} n="back"/> Deshacer</button><button className="btn ghost" onClick=${doRedo} disabled=${!redoN}>Rehacer <${Icon} n="faster" size=${18}/></button></div>
+      <div className="row-btns finish-row">
+        <button className="btn go" disabled=${loading} onClick=${askSave}>${resume ? 'Guardar' : 'Terminé mi obra'}</button>
+        <button className="btn ghost restart" onClick=${() => { if (!touched.current) { clearAll(); return; } setConfirmClear(true); }}>Empezar de nuevo</button></div>`}
+      ${confirmClear ? html`<${ConfirmDialog} title="¿Borrar todo el dibujo?" text="Se borra todo lo que pintaste en este lienzo. Puedes usar Deshacer justo después." cancelLabel="No, seguir pintando" okLabel="Sí, borrar todo" okClass="coral" onCancel=${() => setConfirmClear(false)} onOk=${clearAll}/>` : null}
+      ${blankNote ? html`<p className="draft-note warn-note" role="status">Tu lienzo está en blanco. Pinta algo primero.</p>` : null}
+      ${draftOk === false ? html`<p className="draft-note warn-note" role="status">⚠ No se pudo guardar el borrador. Usa «${resume ? 'Guardar' : 'Terminé mi obra'}» para no perder tu dibujo.</p>` : null}
     ${saving ? html`<div className="save-box" ref=${el => { if (el) try { el.scrollIntoView({ block: 'nearest' }); } catch (e) { } }}><label htmlFor="art-title"><b>¿Cómo se llama tu obra?</b></label><input id="art-title" type="text" maxLength="40" value=${title} placeholder="Mi bodegón" onInput=${e => setTitle(e.target.value)}/>
       ${resume ? html`<div className="row-btns save-opts"><button className="btn go big" onClick=${() => doSave('update')}>Guardar cambios</button><button className="btn lagoon" onClick=${() => doSave('new')}>Guardar como nueva</button><button className="btn ghost" onClick=${() => setSaving(false)}>Seguir pintando</button></div>
       <p className="tip">«Guardar cambios» actualiza esta obra. «Guardar como nueva» deja la original como estaba.</p>` : html`<div className="row-btns"><button className="btn ghost" onClick=${() => setSaving(false)}>Seguir pintando</button><button className="btn go" onClick=${() => doSave('new')}>Guardar en mi galería</button></div>`}</div>` : null}
@@ -3293,20 +3853,23 @@ function BrushIcon({ k }) {
 }
 
 /* ---------- Galería ---------- */
-function Gallery({ onBack, onContinue }) {
+function Gallery({ onBack, onContinue, onNew }) {
   const [list, setList] = useState(() => loadGallery().map(a => Object.assign({ persisted: true }, a)).concat(SESSION_ART.map(a => Object.assign({ persisted: false }, a))));
+  const [imgs, setImgs] = useState({});
+  useEffect(() => { let alive = true; list.filter(a => !a.img).forEach(a => imgGet(a.id).then(src => { if (alive && src) setImgs(m => Object.assign({}, m, { [a.id]: src })); })); return () => { alive = false; }; }, []);
   const [edit, setEdit] = useState(null); const [name, setName] = useState(''); const [del, setDel] = useState(null);
   const persist = l => { const ok = saveGallery(l.filter(a => a.persisted).map(a => { const c = Object.assign({}, a); delete c.persisted; return c; })); return ok; };
   const rename = a => { const l = list.map(x => x.id === a.id ? Object.assign({}, x, { title: name.trim() || x.title }) : x); if (!a.persisted) { const s = SESSION_ART.find(x => x.id === a.id); if (s) s.title = name.trim() || s.title; } persist(l); setList(l); setEdit(null); };
-  const remove = a => { layerDel(a.id); const l = list.filter(x => x.id !== a.id); const i = SESSION_ART.findIndex(x => x.id === a.id); if (i >= 0) SESSION_ART.splice(i, 1); persist(l); setList(l); setDel(null); };
+  const remove = a => { layerDel(a.id); imgDel(a.id); const l = list.filter(x => x.id !== a.id); const i = SESSION_ART.findIndex(x => x.id === a.id); if (i >= 0) SESSION_ART.splice(i, 1); persist(l); setList(l); setDel(null); };
   return html`<div className="gallery">
-    <div className="gal-head"><h2>La Galería de Diego Aceves</h2><p className="tip light">Las obras con sello verde están guardadas en este dispositivo. Las de sello amarillo solo duran mientras la página siga abierta.</p></div>
-    ${!list.length ? html`<div className="panel empty-gal"><${Pincelin} size=${110}/><p>Tu galería está esperando su primera obra. ¡Pinta un bodegón en la Misión 6!</p></div>` : null}
-    <div className="frames">${list.map(a => html`<figure key=${a.id} className="frame"><div className="frame-wood"><img src=${a.img} alt=${a.title}/></div>
+    <div className="gal-head"><h2>La Galería de Diego Aceves</h2>${list.length ? html`<button className="btn go" onClick=${onNew}><${BrushIcon} k="pincel"/> Pintar una obra nueva</button>` : null}</div>
+    ${list.some(a => !a.persisted) ? html`<p className="panel warn-panel" role="status">⚠ Algunas obras no caben en este dispositivo y se borrarán al cerrar el juego. Mantén presionada su imagen para guardarla en tus fotos, o pide a mamá o papá una copia de seguridad.</p>` : null}
+    ${!list.length ? html`<div className="panel empty-gal"><${Pincelin} size=${110}/><p>Aquí vivirán tus obras de arte.</p><button className="btn go big" onClick=${onNew}><${BrushIcon} k="pincel"/> Pintar mi primera obra</button></div>` : null}
+    <div className="frames">${list.map(a => html`<figure key=${a.id} className="frame"><div className="frame-wood">${a.img || imgs[a.id] ? html`<img src=${a.img || imgs[a.id]} alt=${a.title}/>` : html`<div className="img-wait" role="img" aria-label=${a.title}></div>`}</div>
       <figcaption>${edit === a.id ? html`<div className="rename"><input type="text" id=${'rn-' + a.id} maxLength="40" value=${name} onInput=${e => setName(e.target.value)} aria-label="Nuevo nombre"/><button className="btn go" onClick=${() => rename(a)}>Listo</button></div>` : html`<strong>${a.title}</strong>`}
         <span>${new Date(a.date).toLocaleDateString('es-MX', { dateStyle: 'long' })}</span><span className="objs">${a.objs && a.objs.length ? a.objs.join(', ') : 'Creación libre'}</span>
-        <span className=${'seal ' + (a.persisted ? 'ok' : 'tmp')}>${a.persisted ? 'Guardada' : 'Solo en esta sesión'}</span>${a.edited ? html`<span className="edited">Retocada el ${new Date(a.edited).toLocaleDateString('es-MX', { dateStyle: 'medium' })}</span>` : null}
-        <button className="btn go continue-paint" onClick=${() => onContinue(a)}><${BrushIcon} k="pincel"/> Seguir pintando</button>
+        <span className=${'seal ' + (a.persisted ? 'ok' : 'tmp')}>${a.persisted ? '✓ Guardada en este dispositivo' : '⚠ Se borra al cerrar'}</span>${a.edited ? html`<span className="edited">Retocada el ${new Date(a.edited).toLocaleDateString('es-MX', { dateStyle: 'medium' })}</span>` : null}
+        <button className="btn go continue-paint" onClick=${() => onContinue(Object.assign({}, a, { img: a.img || imgs[a.id] || null }))}><${BrushIcon} k="pincel"/> Seguir pintando</button>
         <div className="frame-btns">${edit === a.id ? null : html`<button onClick=${() => { setEdit(a.id); setName(a.title); }}>Cambiar nombre</button>`}
           ${del === a.id ? html`<button className="danger-t" onClick=${() => remove(a)}>Sí, quitarla</button><button onClick=${() => setDel(null)}>No</button>` : html`<button onClick=${() => setDel(a.id)}>Quitar</button>`}</div></figcaption></figure>`)}</div>
     <button className="btn go" onClick=${onBack}>Volver al taller</button></div>`;
@@ -3319,12 +3882,19 @@ const MISSIONS = [
 ];
 function ArtStudio({ data, setData, go }) {
   const [art, award] = useArt(data, setData);
-  const [view, setView] = useState(art.seen ? 'hub' : 'story'); const [won, setWon] = useState(null); const [leaveAsk, setLeaveAsk] = useState(null); const [resume, setResume] = useState(null);
+  const [view, setView] = useState(() => { const o = ART_STATE.open; ART_STATE.open = null; return o === 'gallery' ? 'gallery' : o === 'paint' ? 'm6' : art.seen ? 'hub' : 'story'; }); const [won, setWon] = useState(null); const [leaveAsk, setLeaveAsk] = useState(null); const [resume, setResume] = useState(null);
   useEffect(() => { ART_STATE.dirty = false; }, [view]);
   useEffect(() => { try { window.scrollTo(0, 0); } catch (e) { } }, [view]);
   const has = id => art.badges.includes(id);
   const finish = (badge, showWin) => { if (badge && typeof badge === 'string') { const isNew = !has(badge); award(badge); if (isNew && showWin) { setWon(badge); return; } } setView('hub'); };
   const all = ART_BADGES.every(b => has(b.id));
+  const exitTo = dest => { if (dest === 'map') go('map'); else { setResume(null); setView(dest); } };
+  // Leaving the painter keeps the drawing as a draft; only if that fails do we ask first.
+  const leave = async () => {
+    const dest = view === 'hub' || view === 'story' ? 'map' : view === 'm6' && resume ? 'gallery' : 'hub';
+    if (view === 'm6') { if (ART_STATE.flush) await ART_STATE.flush(); if (ART_STATE.dirty) { setLeaveAsk(dest); return; } }
+    exitTo(dest);
+  };
   const titles = { m1: '¿Qué es un bodegón?', m2: 'El arte de componer', m3: 'El laboratorio del color', m4: 'La luz y la sombra', m5: 'Técnicas de artista', m6: 'Pinta tu propio bodegón', gallery: 'Galería' };
   let body;
   if (won) body = html`<div className="panel"><${BadgeWin} id=${won} onBack=${() => { setWon(null); setView('hub'); }}/></div>`;
@@ -3334,20 +3904,22 @@ function ArtStudio({ data, setData, go }) {
     <button className="btn go big" onClick=${() => { setData(d => Object.assign({}, d, { art: Object.assign({ badges: [] }, d.art || {}, { seen: true }) })); setView('hub'); }}>¡Claro que sí!</button></div>`;
   else if (view === 'hub') body = html`<div className="studio-hub">
     <div className="panel studio-head"><${Pincelin} size=${96}/><div><p className="eyebrow">Los bodegones de Cozumel</p><h2>El Taller Secreto del Artista</h2>
-      <p>${all ? '¡Eres Artista del Arrecife de Cozumel!' : `Insignias: ${art.badges.length} de ${ART_BADGES.length}. Gánalas todas para ser Maestro del Bodegón Tropical.`}</p></div></div>
+      <p>${all ? '¡Eres Artista del Arrecife de Cozumel!' : `Tienes ${art.badges.length} de ${ART_BADGES.length} insignias de artista.`}</p></div></div>
+    <div className="quick-row"><button className="btn go big" onClick=${() => { setResume(null); setView('m6'); }}><${BrushIcon} k="pincel"/> Pintar ahora</button><button className="btn lagoon big" onClick=${() => setView('gallery')}>Mi galería</button></div>
+    <h3 className="hub-h">¡Elige por dónde empezar! <small>Las misiones se pueden hacer en el orden que quieras.</small></h3>
     ${all ? html`<div className="artist-title pop"><${Pincelin} size=${70}/><div><p className="eyebrow">Título de artista</p><strong>Artista del Arrecife de Cozumel</strong><span>Maestro del Bodegón Tropical</span></div></div>` : null}
     <div className="medals">${ART_BADGES.map(b => html`<div key=${b.id} className=${'medal' + (has(b.id) ? '' : ' off')}><${Medal} id=${b.id} on=${has(b.id)}/><span>${b.name}</span></div>`)}</div>
     <div className="mission-grid">${MISSIONS.map(m => html`<button key=${m.n} className=${'mission' + (m.n === 6 ? ' star' : '')} onClick=${() => { setResume(null); setView('m' + m.n); }}><span className="m-num">Misión ${m.n}</span><strong>${m.t}</strong>${has(m.b) ? html`<span className="m-done">✓ Insignia ganada</span>` : null}</button>`)}</div>
-    <button className="btn lagoon big" onClick=${() => setView('gallery')}>La Galería de Diego Aceves</button></div>`;
-  else if (view === 'gallery') body = html`<${Gallery} onBack=${() => setView('hub')} onContinue=${a => { setResume(a); setView('m6'); }}/>`;
+    </div>`;
+  else if (view === 'gallery') body = html`<${Gallery} onBack=${() => setView('hub')} onContinue=${a => { setResume(a); setView('m6'); }} onNew=${() => { setResume(null); setView('m6'); }}/>`;
   else {
     const M = { m1: Mission1, m2: Mission2, m3: Mission3, m4: Mission4, m5: Mission5 }[view];
     body = html`<div className="panel mission-panel">
       ${view === 'm6' ? html`<${Painter} key=${resume ? resume.id : 'new'} resume=${resume} onSaved=${() => award('pintor')} onExit=${t => { setResume(null); setView(t === 'gallery' ? 'gallery' : 'hub'); }}/>` : html`<${M} onDone=${finish} has=${has(MISSIONS.find(x => 'm' + x.n === view).b)}/>`}</div>`;
   }
   return html`<div className="screen studio">
-    <div className="topbar"><${NavBtn} label=${view === 'hub' || view === 'story' ? 'Mapa' : view === 'm6' && resume ? 'Galería' : 'Taller'} onClick=${() => { const dest = view === 'hub' || view === 'story' ? 'map' : view === 'm6' && resume ? 'gallery' : 'hub'; if (view === 'm6' && ART_STATE.dirty) { setLeaveAsk(dest); return; } if (dest === 'map') go('map'); else { setResume(null); setView(dest); } }}/><h2>${view === 'hub' || view === 'story' ? 'Taller del Artista' : view === 'm6' && resume ? 'Seguir pintando' : titles[view] || 'Taller'}</h2></div>
-    ${leaveAsk ? html`<div className="panel quit" role="alertdialog" aria-label="¿Salir sin guardar?" onKeyDown=${e => e.key === 'Escape' && setLeaveAsk(null)}><p>${resume ? '¿Salir sin guardar los cambios? Tu obra de la galería se queda como estaba.' : '¿Salir sin guardar tu pintura? Se va a borrar.'}</p><div className="row-btns"><button className="btn go" autoFocus onClick=${() => setLeaveAsk(null)}>Seguir pintando</button><button className="btn coral" onClick=${() => { const d = leaveAsk; setLeaveAsk(null); ART_STATE.dirty = false; if (d === 'map') go('map'); else { setResume(null); setView(d); } }}>Salir sin guardar</button></div></div>` : null}
+    <div className="topbar"><${NavBtn} label=${view === 'hub' || view === 'story' ? 'Mapa' : view === 'm6' && resume ? 'Galería' : 'Taller'} onClick=${leave}/><h2>${view === 'hub' || view === 'story' ? 'Taller del Artista' : view === 'm6' && resume ? 'Seguir pintando' : titles[view] || 'Taller'}</h2></div>
+    ${leaveAsk ? html`<${ConfirmDialog} title="¿Salir sin guardar?" text=${resume ? 'No pudimos guardar tus cambios como borrador. Si sales, tu obra de la galería se queda como estaba.' : 'No pudimos guardar tu dibujo como borrador. Si sales, se va a borrar.'} cancelLabel="Seguir pintando" okLabel="Salir sin guardar" okClass="ghost" onCancel=${() => setLeaveAsk(null)} onOk=${() => { const d = leaveAsk; setLeaveAsk(null); ART_STATE.dirty = false; exitTo(d); }}/>` : null}
     ${body}</div>`;
 }
 
@@ -3513,8 +4085,9 @@ const M_NAMES = { captain: 'Captain Rhythm', melody: 'Melody', burbujin: 'Burbuj
 function Say({ who, children, size = 80 }) { const C = M_CHARS[who]; return html`<div className="m-say"><${C} size=${size}/><div className="m-bubble"><b>${M_NAMES[who]}</b><p>${children}</p></div></div>`; }
 
 /* ---------- Music data ---------- */
+const NOSAVE_EN = "This browser can't keep songs. Your song will be gone when you close the game.";
 function musicOf(d) {
-  return Object.assign({ badges: [], missions: {}, food: {}, fam: { wind: [0, 0], string: [0, 0], perc: [0, 0] }, listen: [0, 0], rhythm: { clap: 0, follow: 0, create: 0 }, explored: [], saved: [], compositions: 0, concert: false, seen: false }, d.music || {});
+  return Object.assign({ badges: [], missions: {}, food: {}, fam: { wind: [0, 0], string: [0, 0], perc: [0, 0] }, listen: [0, 0], rhythm: { clap: 0, follow: 0, create: 0 }, explored: [], saved: [], drafts: {}, compositions: 0, concert: false, seen: false }, d.music || {});
 }
 const M_BADGES = [
   { id: 'food', name: 'Food Group Explorer', c: '#ff6f61' }, { id: 'rhythm', name: 'Rhythm Rookie', c: '#f5a300' }, { id: 'orchestra', name: 'Orchestra Builder', c: '#8f6bff' },
@@ -3787,7 +4360,6 @@ function Mission4M({ mus, upd, award }) {
   useEffect(() => { if (mus.listen[0] >= 6 && !mus.badges.includes('detective')) { award('detective'); } }, [mus.listen[0]]);
   if (!AudioEng.supported) return html`<div className="mm"><${Say} who="melody">This device can't play sounds, so we can't play the listening game here. Try the Reef Orchestra mission to explore instruments with pictures!<//></div>`;
   if (i < 0) return html`<div className="mm"><${Say} who="melody">Let's train your ears! First, tap each instrument to learn its sound.<//>
-    <p className="note">These are simplified, computer-made instrument sounds, not recordings of real instruments. Each one is made to sound different so you can tell them apart.</p>
     <div className="inst-pool">${['flute', 'trumpet', 'violin', 'guitar', 'drum', 'maracas', 'xylophone'].map(id => html`<button key=${id} className="inst-card" onClick=${() => { playPhrase(id); upd(m => { if (!m.explored.includes(id)) m.explored.push(id); }); }}><${InstSvg} id=${id} size=${70}/><span><${Icon} n="speaker" size=${16}/> ${INST_BY[id].name}</span></button>`)}</div>
     <button className="btn go big" onClick=${() => setI(0)}>I'm ready to guess!</button></div>`;
   if (i >= sets.length) return html`<div className="mm"><div className="yay-big">${mus.badges.includes('detective') ? html`<${NoteBadge} id="detective" on=${true} size=${90}/>` : html`<${MelodyFish} size=${90}/>`}<div><strong>${score} of ${sets.length} on the first try!</strong><p>${mus.badges.includes('detective') ? 'You are an Instrument Detective!' : `Keep listening! You need ${Math.max(0, 6 - mus.listen[0])} more first-try answers for the Instrument Detective badge.`}</p></div>
@@ -3808,8 +4380,14 @@ function randomGrid() {
   return { fruit: [0, 1, 0, 1, 0, 1, 0, 1].map(v => v || r(0.25)), vegetables: [1, 0, 0, 0, 1, 0, 0, 0].map(v => v || r(0.2)), grains: [0, 1, 2, 3, 4, 5, 6, 7].map(() => r(0.4)), protein: [1, 0, 0, 0, 1, 0, 0, 0].map(v => v || r(0.15)), dairy: [0, 1, 2, 3, 4, 5, 6, 7].map(() => r(0.2)) };
 }
 function playCell(g, step, t) { const inst = FG_BY[g].inst; AudioEng.play(inst, t, ROW_NOTES[g] ? ROW_NOTES[g][step] : undefined, g === 'dairy' ? 0.35 : undefined); }
-function Sequencer({ init, onPlay, onSave, compact }) {
-  const [grid, setGrid] = useState(() => init ? clone(init.g) : emptyGrid()); const [bpm, setBpm] = useState(init ? init.bpm : 104);
+const SPEEDS = [60, 72, 84, 96, 104, 116, 128, 140, 152, 168];
+function Sequencer({ init, onPlay, onSave, compact, draft, onDraft, saveLabel, onSaveCopy }) {
+  // draft = the unsaved song from last time (kept automatically); it comes back when Diego returns
+  const hasDraft = !init && draft && draft.g && FOOD_GROUPS.some(x => (draft.g[x.id] || []).some(Boolean));
+  const [grid, setGrid] = useState(() => init ? clone(init.g) : hasDraft ? clone(draft.g) : emptyGrid()); const [bpm, setBpm] = useState(init ? init.bpm : hasDraft ? draft.bpm || 104 : 104);
+  const [restored] = useState(hasDraft);
+  const first = useRef(true);
+  useEffect(() => { if (first.current) { first.current = false; return; } if (onDraft) { const t = setTimeout(() => onDraft({ g: clone(grid), bpm }), 250); return () => clearTimeout(t); } }, [grid, bpm]);
   const [step, setStep] = useState(-1); const [playing, setPlaying] = useState(false); const gridRef = useRef(grid); const bpmRef = useRef(bpm); const played = useRef(0);
   gridRef.current = grid; bpmRef.current = bpm;
   useEffect(() => () => Transport.stop(), []);
@@ -3818,17 +4396,20 @@ function Sequencer({ init, onPlay, onSave, compact }) {
   const toggle = (g, s) => { const n = clone(grid); n[g][s] = n[g][s] ? 0 : 1; setGrid(n); if (n[g][s] && !playing) playCell(g, s); };
   const load = name => { const p = PRESETS[name]; setGrid(clone(p.g)); setBpm(p.bpm); };
   const notes = FOOD_GROUPS.reduce((n, g) => n + grid[g.id].reduce((a, b) => a + b, 0), 0);
+  const speed = SPEEDS.reduce((k, v, i) => (Math.abs(v - bpm) < Math.abs(SPEEDS[k] - bpm) ? i : k), 0);
   return html`<div className="seq">
-    ${!compact ? html`<div className="presets"><span>Presets:</span>${Object.keys(PRESETS).map(n => html`<button key=${n} onClick=${() => load(n)}>${n}</button>`)}<button onClick=${() => setGrid(emptyGrid())}>Empty grid</button></div>` : null}
+    ${restored ? html`<p className="draft-note" role="status">Your song is still here. Let's keep going!</p>` : !compact && !notes ? html`<p className="draft-note">Tap some squares, then press Play.</p>` : null}
+    ${!compact ? html`<div className="presets"><span>Try a song:</span>${Object.keys(PRESETS).map(n => html`<button key=${n} onClick=${() => load(n)}>${n}</button>`)}</div>` : null}
     <div className="grid-wrap"><div className="seq-grid">${FOOD_GROUPS.map(g => html`<div key=${g.id} className="seq-row" style=${{ '--rc': g.color }}>
-      <div className="row-lab"><strong>${g.label}</strong><small>${g.instName}</small></div>
+      <div className="row-lab"><span className="row-ico" aria-hidden="true"><${InstSvg} id=${g.inst} size=${30}/></span><span><strong>${g.label}</strong><small>${g.instName}</small></span></div>
       ${grid[g.id].map((v, s) => html`<button key=${s} className=${'cell' + (v ? ' on' : '') + (step === s ? ' now' : '') + (s % 4 === 0 ? ' down' : '')} onClick=${() => toggle(g.id, s)} aria-pressed=${!!v} aria-label=${`${g.label} beat ${s + 1}`}></button>`)}</div>`)}
       <div className="seq-row steps"><div className="row-lab"></div>${[1, 2, 3, 4, 5, 6, 7, 8].map(n => html`<span key=${n} className=${step === n - 1 ? 'now' : ''}>${n}</span>`)}</div></div></div>
     <div className="seq-ctrl">
       ${playing ? html`<button className="btn coral" onClick=${stop}><${Icon} n="stop"/> Stop</button>` : html`<button className="btn go big" onClick=${play} disabled=${!notes}><${Icon} n="play"/> Play</button>`}
-      <button className="btn ghost" onClick=${() => setBpm(b => Math.max(60, b - 12))}><${Icon} n="slower"/> Slower</button><span className="bpm">${bpm} beats per minute</span><button className="btn ghost" onClick=${() => setBpm(b => Math.min(168, b + 12))}><${Icon} n="faster"/> Faster</button>
+      <button className="btn ghost" onClick=${() => setBpm(b => Math.max(60, b - 12))}><${Icon} n="slower"/> Slower</button><span className="bpm" role="img" aria-label=${`Speed ${speed + 1} of ${SPEEDS.length}`}>Speed <span className="speed-dots">${SPEEDS.map((_, i) => html`<i key=${i} className=${i <= speed ? 'on' : ''}></i>`)}</span></span><button className="btn ghost" onClick=${() => setBpm(b => Math.min(168, b + 12))}><${Icon} n="faster"/> Faster</button>
       <button className="btn ghost" onClick=${() => setGrid(emptyGrid())}>Clear</button><button className="btn ghost" onClick=${() => setGrid(randomGrid())}><${Icon} n="dice"/> Surprise me</button>
-      ${onSave ? html`<button className="btn lagoon" disabled=${!notes} onClick=${() => onSave({ g: clone(grid), bpm })}><${Icon} n="save"/> Save to My Music Studio</button>` : null}
+      ${onSave ? html`<button className="btn lagoon" disabled=${!notes} onClick=${() => onSave({ g: clone(grid), bpm })}><${Icon} n="save"/> ${saveLabel || 'Save to My Music Studio'}</button>` : null}
+      ${onSaveCopy ? html`<button className="btn ghost" disabled=${!notes} onClick=${() => onSaveCopy({ g: clone(grid), bpm })}><${Icon} n="save"/> Save as new</button>` : null}
     </div>
     ${!AudioEng.supported ? html`<p className="soft">Sound is not available on this device. The glowing beat still shows your song!</p>` : null}
   </div>`;
@@ -3836,10 +4417,10 @@ function Sequencer({ init, onPlay, onSave, compact }) {
 function Mission5M({ mus, upd, award }) {
   const [savedMsg, setSavedMsg] = useState(null);
   const onPlay = g => { const n = FOOD_GROUPS.reduce((a, x) => a + g[x.id].reduce((p, q) => p + q, 0), 0); if (n >= 4) { upd(m => { m.compositions++; m.missions[5] = true; }); if (!mus.badges.includes('composer')) award('composer'); } };
-  const onSave = song => { upd(m => { m.saved = [{ id: 's' + Date.now(), name: 'Food Song ' + (m.saved.length + 1), date: new Date().toISOString(), song }].concat(m.saved).slice(0, 20); }); setSavedMsg('Saved! Find it in My Music Studio.'); };
+  const onSave = song => { upd(m => { m.saved = [{ id: 's' + Date.now(), name: 'Food Song ' + (m.saved.length + 1), date: new Date().toISOString(), song }].concat(m.saved).slice(0, 60); }); setSavedMsg((storageOK() ? 'Your song is saved in My Music Studio.' : NOSAVE_EN)); };
   return html`<div className="mm"><${Say} who="captain">You're the composer! Tap the squares, then press Play.<//>
-    <p className="tip">Fruit = maracas, vegetables = drums, grains = xylophone, protein = guitar, dairy = flute. These are just fun music matches, not science! There are no wrong songs.</p>
-    <${Sequencer} onPlay=${onPlay} onSave=${onSave}/>
+    <p className="tip">Each food row plays one instrument. There are no wrong songs!</p>
+    <${Sequencer} onPlay=${onPlay} onSave=${onSave} draft=${(mus.drafts || {}).m5} onDraft=${d => upd(x => { x.drafts = Object.assign({}, x.drafts, { m5: d }); })}/>
     ${savedMsg ? html`<div className="yay"><strong>${savedMsg}</strong></div>` : null}</div>`;
 }
 
@@ -3892,7 +4473,7 @@ function MusicStudio({ mus, upd }) {
   const stopRec = () => { setRecording(false); setRec(recRef.current.slice(0, 200)); };
   const [speed, setSpeed] = useState(1);
   const playRec = r => { const c = AudioEng.ensure(); if (!c || !r) return; Transport.stop(); const base = c.currentTime + 0.1; r.forEach(([ms, inst, m]) => AudioEng.play(inst, base + ms / 1000 / speed, m)); };
-  const saveRec = () => { upd(m => { m.saved = [{ id: 'r' + Date.now(), name: 'My jam ' + (m.saved.length + 1), date: new Date().toISOString(), rec }].concat(m.saved).slice(0, 20); }); setMsg('Saved in your song list!'); };
+  const saveRec = () => { upd(m => { m.saved = [{ id: 'r' + Date.now(), name: 'My jam ' + (m.saved.length + 1), date: new Date().toISOString(), rec }].concat(m.saved).slice(0, 60); }); setMsg((storageOK() ? 'Saved in your song list!' : NOSAVE_EN)); };
   const tabs = [['pads', 'Drum Pad'], ['xylo', 'Xylophone'], ['maracas', 'Maracas'], ['seq', 'Song Maker'], ['songs', 'My Songs']];
   return html`<div className="mm studio-m">
     <${Say} who="captain">This is your studio. Play, record, and save your music!<//>
@@ -3904,7 +4485,11 @@ function MusicStudio({ mus, upd }) {
     ${['pads', 'xylo', 'maracas'].includes(tab) ? html`<div className="recbar">${recording ? html`<button className="btn coral" onClick=${stopRec}><${Icon} n="stop"/> Stop recording</button><span className="rec-dot">● Recording</span>` : html`<button className="btn ghost" onClick=${startRec}><${Icon} n="rec"/> Record a pattern</button>`}
       ${rec && rec.length ? html`<button className="btn go" onClick=${() => playRec(rec)}><${Icon} n="play"/> Play it back</button><label className="speedsel" htmlFor="spd">Speed <select id="spd" value=${speed} onChange=${e => setSpeed(+e.target.value)}><option value="0.75">Slow</option><option value="1">Normal</option><option value="1.25">Fast</option></select></label><button className="btn lagoon" onClick=${saveRec}><${Icon} n="save"/> Save</button>` : null}
       ${rec && !rec.length ? html`<span className="tip">Nothing recorded yet. Press Record, then play!</span>` : null}</div>` : null}
-    ${tab === 'seq' ? html`<${Sequencer} key=${loadSong ? loadSong.id : 'new'} init=${loadSong ? loadSong.song : null} onPlay=${g => upd(m => { m.compositions++; })} onSave=${song => { upd(m => { m.saved = [{ id: 's' + Date.now(), name: 'Food Song ' + (m.saved.length + 1), date: new Date().toISOString(), song }].concat(m.saved).slice(0, 20); }); setMsg('Saved in your song list!'); }}/>` : null}
+    ${tab === 'seq' ? html`<${Sequencer} key=${loadSong ? loadSong.id : 'new'} init=${loadSong ? loadSong.song : null} onPlay=${g => upd(m => { m.compositions++; })}
+      draft=${loadSong ? null : (mus.drafts || {}).studio} onDraft=${loadSong ? null : d => upd(x => { x.drafts = Object.assign({}, x.drafts, { studio: d }); })}
+      saveLabel=${loadSong ? 'Save changes' : null}
+      onSave=${song => { if (loadSong) { upd(m => { m.saved = m.saved.map(s => s.id === loadSong.id ? Object.assign({}, s, { song, edited: new Date().toISOString() }) : s); }); setMsg((storageOK() ? `"${loadSong.name}" is updated.` : NOSAVE_EN)); } else { upd(m => { m.saved = [{ id: 's' + Date.now(), name: 'Food Song ' + (m.saved.length + 1), date: new Date().toISOString(), song }].concat(m.saved).slice(0, 60); }); setMsg((storageOK() ? 'Your song is saved in My Songs.' : NOSAVE_EN)); } }}
+      onSaveCopy=${loadSong ? song => { upd(m => { m.saved = [{ id: 's' + Date.now(), name: loadSong.name + ' (copy)', date: new Date().toISOString(), song }].concat(m.saved).slice(0, 60); }); setMsg((storageOK() ? 'A new copy is saved in My Songs.' : NOSAVE_EN)); } : null}/>` : null}
     ${tab === 'songs' ? html`<div className="songs">${!mus.saved.length ? html`<p className="tip">No songs yet. Save one from the Song Maker or record a pattern!</p>` : null}
       ${mus.saved.map(s => html`<div key=${s.id} className="song-item"><span className="emo">${s.song ? '🎼' : '🥁'}</span><div><strong>${s.name}</strong><small>${new Date(s.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} · ${s.song ? 'Song Maker' : 'Recorded pattern'}</small></div>
         ${s.song ? html`<button className="btn go" onClick=${() => { setLoadSong(s); setTab('seq'); }}>Open</button>` : html`<button className="btn go" onClick=${() => playRec(s.rec)}><${Icon} n="play"/> Play</button>`}
@@ -3970,6 +4555,7 @@ function MusicParent({ data, go }) {
   const famTot = FAMILIES.reduce((a, f) => [a[0] + m.fam[f.id][0], a[1] + m.fam[f.id][1]], [0, 0]);
   return html`<section className="panel"><h3>Música · The Tropical Orchestra</h3>
     <p className="muted">Módulo en inglés. Combina el objetivo de Música (familias de instrumentos: viento, cuerda y percusión) con el vocabulario de Reading Lección 4. Sus insignias van aparte de las perlas.</p>
+    <p className="muted">Los sonidos de los instrumentos son simplificados y generados por la computadora, no grabaciones reales. Sirven para distinguir un instrumento de otro, no para aprender cómo suena exactamente cada uno. La relación entre grupos de alimentos e instrumentos es solo un juego para componer.</p>
     <div className="kpis">
       <div><b>${pct(famTot)}</b><span>clasificación de familias</span></div>
       <div><b>${pct(m.listen)}</b><span>identificación por sonido (1er intento)</span></div>
@@ -3984,6 +4570,210 @@ function MusicParent({ data, go }) {
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(html`<${App}/>`);
+
+/* ================= El Banquete Secreto del Arrecife (bonus, Spanish) =================
+   Plato del Bien Comer: three groups. One configurable challenge engine drives the five challenges. */
+const BQ_GROUPS = [
+  { id: 'vf', name: 'Verduras y frutas', con: 'con las verduras y frutas', es: 'es de las verduras y frutas', color: '#2fae6d' },
+  { id: 'c', name: 'Cereales', con: 'con los cereales', es: 'es de los cereales', color: '#f5a300' },
+  { id: 'la', name: 'Leguminosas y alimentos de origen animal', con: 'con las leguminosas y alimentos de origen animal', es: 'es de las leguminosas y alimentos de origen animal', color: '#e8524a' },
+];
+const BQ_G = Object.fromEntries(BQ_GROUPS.map(g => [g.id, g]));
+// [id, label, article form, plural, emoji (same icon style as the rest of the game), group]
+const BQ_FOODS = [
+  ['manzana', 'Manzana', 'La manzana', 0, '🍎', 'vf'], ['zanahoria', 'Zanahoria', 'La zanahoria', 0, '🥕', 'vf'], ['platano', 'Plátano', 'El plátano', 0, '🍌', 'vf'],
+  ['brocoli', 'Brócoli', 'El brócoli', 0, '🥦', 'vf'], ['mango', 'Mango', 'El mango', 0, '🥭', 'vf'], ['jitomate', 'Jitomate', 'El jitomate', 0, '🍅', 'vf'],
+  ['sandia', 'Sandía', 'La sandía', 0, '🍉', 'vf'], ['naranja', 'Naranja', 'La naranja', 0, '🍊', 'vf'], ['lechuga', 'Lechuga', 'La lechuga', 0, '🥬', 'vf'],
+  ['tortilla', 'Tortilla', 'La tortilla', 0, '🫓', 'c'], ['arroz', 'Arroz', 'El arroz', 0, '🍚', 'c'], ['pan', 'Pan', 'El pan', 0, '🍞', 'c'],
+  ['avena', 'Avena', 'La avena', 0, '🥣', 'c'], ['pasta', 'Pasta', 'La pasta', 0, '🍝', 'c'],
+  ['frijoles', 'Frijoles', 'Los frijoles', 1, '🫘', 'la'], ['huevo', 'Huevo', 'El huevo', 0, '🥚', 'la'], ['pescado', 'Pescado', 'El pescado', 0, '🐟', 'la'],
+  ['pollo', 'Pollo', 'El pollo', 0, '🍗', 'la'], ['leche', 'Leche', 'La leche', 0, '🥛', 'la'], ['queso', 'Queso', 'El queso', 0, '🧀', 'la'],
+].map(([id, n, art, pl, e, g]) => ({ id, n, art, pl, e, g }));
+const bqOf = g => BQ_FOODS.filter(f => f.g === g);
+const bqVa = f => f.pl ? 'van' : 'va';
+const bqEs = f => f.pl ? BQ_G[f.g].es.replace(/^es /, 'son ') : BQ_G[f.g].es;
+const BQ_LOWER = s => s.charAt(0).toLowerCase() + s.slice(1);
+
+/* ---- Round generators. A round has `units`: how many points it is worth. ---- */
+function bqClassify(n) { // n foods, spread over the three groups
+  const per = [0, 0, 0]; for (let i = 0; i < n; i++) per[i % 3]++;
+  const foods = shuffle(BQ_GROUPS.flatMap((g, i) => sample(bqOf(g.id), per[i])));
+  return { type: 'classify', foods, units: foods.length };
+}
+function bqOdd() {
+  const [main, other] = sample(BQ_GROUPS, 2); const odd = pick(bqOf(other.id));
+  return { type: 'odd', main: main.id, odd, opts: shuffle(sample(bqOf(main.id), 3).concat([odd])), units: 1 };
+}
+function bqPlate() { return { type: 'plate', opts: shuffle(BQ_GROUPS.flatMap(g => sample(bqOf(g.id), 2))), units: 1 }; }
+function bqMissing() {
+  const miss = pick(BQ_GROUPS); const have = BQ_GROUPS.filter(g => g !== miss);
+  const meal = have.map(g => pick(bqOf(g.id)));
+  const right = pick(bqOf(miss.id)); const wrong = have.map(g => pick(bqOf(g.id).filter(f => !meal.includes(f))));
+  return { type: 'missing', miss: miss.id, meal, right, opts: shuffle([right].concat(wrong)), units: 1 };
+}
+const BQ_CHALLENGES = [
+  { n: 1, t: '¿Dónde va cada alimento?', reward: 'seastar', need: 5, make: () => [bqClassify(6)],
+    intro: 'Hay seis alimentos en la mesa del banquete. Toca uno y luego toca su grupo del Plato del Bien Comer.', info: '6 alimentos · rescatas la criatura con 5 bien al primer intento' },
+  { n: 2, t: 'Detectives de alimentos', reward: 'puffer', need: 4, make: () => [bqOdd(), bqOdd(), bqOdd(), bqOdd(), bqOdd()],
+    intro: 'En cada grupo de alimentos hay uno que es de otro grupo. ¿Lo encuentras?', info: '5 pistas · rescatas la criatura con 4 bien al primer intento' },
+  { n: 3, t: 'Un plato variado', reward: 'squid', need: 3, plate: true, make: () => [bqPlate(), bqPlate(), bqPlate()],
+    intro: 'Arma tres platos variados. Cada plato lleva un alimento de cada grupo.', info: '3 platos · termina los tres para rescatar la criatura' },
+  { n: 4, t: 'El menú misterioso', reward: 'lobster', need: 4, make: () => [bqMissing(), bqMissing(), bqMissing(), bqMissing(), bqMissing()],
+    intro: 'A estos menús les falta un grupo. ¿Qué le agregas para que tengan los tres?', info: '5 menús · rescatas la criatura con 4 bien al primer intento' },
+  { n: 5, t: '¡El gran banquete del arrecife!', reward: 'barracuda', need: 8, make: () => shuffle([bqOdd(), bqOdd(), bqPlate(), bqPlate(), bqMissing(), bqMissing(), bqMissing()]).concat([bqClassify(3)]),
+    intro: 'El gran repaso: clasifica, busca al diferente, arma platos y completa menús.', info: '10 retos · rescatas la criatura con 8 bien al primer intento' },
+];
+
+/* ---- One food tile ---- */
+const BqFood = ({ f, sel, done, wrong, onClick, disabled }) => html`<button className=${'bq-food' + (sel ? ' sel' : '') + (done ? ' done' : '') + (wrong ? ' wrong' : '')} onClick=${onClick} disabled=${disabled} aria-pressed=${sel ? 'true' : undefined}>
+  <span className="bq-emo" aria-hidden="true">${f.e}</span><span>${f.n}</span></button>`;
+
+/* ---- Round views. Each calls onPoint(firstTry) once per unit, and onDone() when the round is finished. ---- */
+function BqClassify({ r, onPoint, onDone, say }) {
+  const [sel, setSel] = useState(null); const [placed, setPlaced] = useState({}); const [missed, setMissed] = useState({}); const [bad, setBad] = useState(null);
+  const left = r.foods.filter(f => !placed[f.id]);
+  const drop = g => {
+    if (!sel) { say('try', 'Primero toca un alimento.'); return; }
+    if (sel.g === g) {
+      const np = Object.assign({}, placed, { [sel.id]: g }); setPlaced(np); onPoint(!missed[sel.id]); setBad(null);
+      say('ok', `¡Eso es! ${sel.art} ${bqVa(sel)} ${BQ_G[g].con}.`); setSel(null);
+      if (Object.keys(np).length === r.foods.length) onDone();
+    } else { setMissed(Object.assign({}, missed, { [sel.id]: true })); setBad(sel.id); say('try', '¡Casi! Inténtalo otra vez.'); }
+  };
+  return html`<div className="bq-round">
+    <div className="bq-pool">${left.length ? left.map(f => html`<${BqFood} key=${f.id} f=${f} sel=${sel === f} wrong=${bad === f.id} onClick=${() => { setSel(f); setBad(null); }}/>`) : null}</div>
+    <div className="bq-bins">${BQ_GROUPS.map(g => html`<button key=${g.id} className=${'bq-bin' + (sel ? ' ready' : '')} style=${{ '--gc': g.color }} onClick=${() => drop(g.id)}>
+      <strong>${g.name}</strong><span className="bq-in">${r.foods.filter(f => placed[f.id] === g.id).map(f => html`<span key=${f.id} className="bq-mini"><span aria-hidden="true">${f.e}</span> ${f.n}</span>`)}</span></button>`)}</div>
+  </div>`;
+}
+function BqPick({ r, onPoint, onDone, say }) { // odd one out / missing group: choose one food
+  const [tries, setTries] = useState(0); const [wrong, setWrong] = useState([]); const [ok, setOk] = useState(null);
+  const odd = r.type === 'odd';
+  const choose = f => {
+    if (ok) return; const right = odd ? f === r.odd : f.g === r.miss;
+    if (right) { setOk(f); onPoint(tries === 0);
+      say('ok', odd ? `¡Eso es! ${f.art} ${bqEs(f)}. Los demás son de ${BQ_LOWER(BQ_G[r.main].name)}.` : `¡Eso es! Con ${BQ_LOWER(f.art)} el menú ya tiene los tres grupos.`);
+      setTimeout(onDone, 1300);
+    } else { setTries(tries + 1); setWrong(wrong.concat(f.id)); say('try', '¡Casi! Inténtalo otra vez.'); }
+  };
+  return html`<div className="bq-round">
+    ${odd ? null : html`<div className="bq-meal"><span className="bq-meal-h">El menú tiene:</span>${r.meal.map(f => html`<span key=${f.id} className="bq-mini big"><span aria-hidden="true">${f.e}</span> ${f.n}</span>`)}</div>
+      <p className="bq-ask">¿Qué le agregas para que tenga los tres grupos?</p>`}
+    <div className="bq-pool opts">${r.opts.map(f => html`<${BqFood} key=${f.id} f=${f} sel=${ok === f} done=${ok === f} wrong=${wrong.includes(f.id)} disabled=${!!ok} onClick=${() => choose(f)}/>`)}</div>
+  </div>`;
+}
+function BqPlate({ r, onPoint, onDone, say }) {
+  const [plate, setPlate] = useState([]); const [tries, setTries] = useState(0); const [ok, setOk] = useState(false);
+  const toggle = f => { if (ok) return; setPlate(plate.includes(f) ? plate.filter(x => x !== f) : plate.length < 3 ? plate.concat(f) : plate); };
+  const check = () => {
+    const gs = new Set(plate.map(f => f.g));
+    if (gs.size === 3) { setOk(true); onPoint(tries === 0); say('ok', `¡Qué plato tan variado! ${plate.map(f => f.n).join(', ')}: un alimento de cada grupo.`); setTimeout(onDone, 1500); }
+    else { setTries(tries + 1); say('try', '¡Casi! Tu plato tiene dos alimentos del mismo grupo. Cambia uno.'); }
+  };
+  return html`<div className="bq-round">
+    <div className="bq-pool">${r.opts.map(f => html`<${BqFood} key=${f.id} f=${f} sel=${plate.includes(f)} done=${ok && plate.includes(f)} disabled=${ok} onClick=${() => toggle(f)}/>`)}</div>
+    <div className="bq-plate" aria-live="polite"><span className="bq-meal-h">Mi plato (${plate.length} de 3):</span>${plate.map(f => html`<span key=${f.id} className="bq-mini big"><span aria-hidden="true">${f.e}</span> ${f.n}</span>`)}</div>
+    <button className="btn go big" disabled=${plate.length < 3 || ok} onClick=${check}>¡Listo!</button>
+  </div>`;
+}
+
+/* ---- Challenge runner: rounds from the challenge config, first-try scoring, result + reward ---- */
+function BanquetPlay({ ch, data, setData, onExit, onNext, onCollection }) {
+  const [rounds, setRounds] = useState(() => ch.make()); const [ri, setRi] = useState(0);
+  const [score, setScore] = useState(0); const [units, setUnits] = useState(0); const [msg, setMsg] = useState(null); const [end, setEnd] = useState(null);
+  const total = rounds.reduce((n, r) => n + r.units, 0);
+  const scoreRef = useRef(0);
+  const onPoint = first => { setUnits(u => u + 1); if (first) { scoreRef.current += 1; setScore(scoreRef.current); } };
+  const say = (kind, text) => setMsg({ kind, text });
+  const onDone = () => {
+    if (ri + 1 < rounds.length) { setRi(ri + 1); setMsg(null); return; }
+    finish(scoreRef.current);
+  };
+  const finish = sc => {
+    const pass = ch.plate ? true : sc >= ch.need; let isNew = false;
+    setData(d => { const b = banquetOf(d); const n = Object.assign({}, b, { tries: Object.assign({}, b.tries, { [ch.n]: (b.tries[ch.n] || 0) + 1 }), best: Object.assign({}, b.best, { [ch.n]: Math.max(b.best[ch.n] || 0, sc) }) });
+      if (pass) { if (!n.done.includes(ch.n)) n.done = n.done.concat(ch.n); if (!n.creatures.includes(ch.reward)) { n.creatures = n.creatures.concat(ch.reward); isNew = true; } }
+      return Object.assign({}, d, { banquet: n }); });
+    setEnd({ pass, sc, isNew: pass && !banquetOf(data).creatures.includes(ch.reward) });
+  };
+  const retry = () => { scoreRef.current = 0; setRounds(ch.make()); setRi(0); setScore(0); setUnits(0); setMsg(null); setEnd(null); };
+  const crit = SPECIAL_CREATURES.find(c => c.id === ch.reward);
+  if (end && end.pass) return html`<${SpecialReward} creature=${crit} isNew=${end.isNew} score=${end.sc} total=${total} plate=${!!ch.plate}
+    nextLabel=${ch.n < 5 ? '¡Siguiente reto!' : '¡Ver mi colección!'} onNext=${ch.n < 5 ? onNext : onCollection} onBack=${onExit}/>`;
+  if (end) return html`<div className="screen center reward-screen"><${RewardBackdrop}/><div className="panel summary bq-result">
+      <h2>¡Muy buen intento!</h2>
+      <p className="bq-score">Lograste ${end.sc} de ${total} al primer intento. Para rescatar ${['seastar', 'lobster', 'barracuda'].includes(crit.id) ? 'a la' : 'al'} ${BQ_LOWER(crit.es)} necesitas ${ch.need}.</p>
+      <p>Cada intento trae alimentos nuevos. ¡Tú puedes!</p>
+      <div className="row-btns"><button className="btn go big" onClick=${retry}>Intentar otra vez</button><button className="btn lagoon" onClick=${onExit}>Volver al banquete</button></div>
+  </div></div>`;
+  const r = rounds[ri]; const View = r.type === 'classify' ? BqClassify : r.type === 'plate' ? BqPlate : BqPick;
+  return html`<div className="screen play bq-play" style=${{ '--wc': '#ff8a5c' }}>
+    <div className="topbar"><${NavBtn} icon="back" label="Banquete" onClick=${onExit}/><span className="chip-w">${ch.t}</span><span className="step-label">Reto ${Math.min(units + 1, total)} de ${total}</span></div>
+    <div className="panel bq-card">
+      <div className="qhead"><div className="qguide"><${Guide} id="tuga" size=${84}/></div><div className="bubble"><p>${r.type === 'classify' ? 'Toca un alimento y luego toca su grupo.' : r.type === 'odd' ? '¿Cuál alimento es de otro grupo?' : r.type === 'plate' ? 'Arma un plato con un alimento de cada grupo.' : '¿Qué grupo le falta a este menú?'}</p>
+        <div className="help-row"><${Speak} text=${r.type === 'classify' ? 'Toca un alimento y luego toca su grupo.' : r.type === 'odd' ? 'Cuál alimento es de otro grupo' : r.type === 'plate' ? 'Arma un plato con un alimento de cada grupo.' : 'El menú tiene ' + r.meal.map(f => f.n).join(' y ') + '. Qué le agregas para que tenga los tres grupos'} lang="es"/></div></div></div>
+      <${View} key=${ri} r=${r} onPoint=${onPoint} onDone=${onDone} say=${say}/>
+      <div className=${'feedback ' + (msg ? (msg.kind === 'ok' ? 'right' : 'try') : '')} aria-live="polite">${msg ? html`<div className="fb-msg"><div><strong>${msg.text}</strong></div></div>` : null}</div>
+    </div>
+  </div>`;
+}
+
+/* ---- Special creature reward (shared by the five rescues): the creature is the protagonist ---- */
+const SR_ART = { seastar: 'una estrella de mar', puffer: 'un pez globo', squid: 'un calamar', lobster: 'una langosta espinosa', barracuda: 'una barracuda' };
+// optical centering: horizontal offset of each PNG's visible mass from its box center (measured from the alpha channel)
+const SR_OPTIC = { seastar: [-0.016, 0.021], puffer: [0.009, 0.019], squid: [-0.01, 0], lobster: [0.006, 0.062], barracuda: [-0.068, -0.108] };
+function SpecialReward({ creature, isNew, score, total, plate, nextLabel, onNext, onBack }) {
+  const a = CREATURE_ART[creature.id]; const o = SR_OPTIC[creature.id] || [0, 0];
+  const perfect = score === total;
+  return html`<div className="screen center reward-screen"><${RewardBackdrop}/>
+    <div className="sr-card" role="status">
+      <span className="sr-badge">${isNew ? '¡Rescate completado!' : '¡Reto superado otra vez!'}</span>
+      <h2 className="sr-title">${isNew ? `¡Conseguiste ${SR_ART[creature.id]}!` : `${creature.es} ya vive en tu arrecife`}</h2>
+      <p className="sr-score">${plate ? '¡Armaste tres platos variados!' : perfect ? `¡${score} de ${total} retos al primer intento!` : `${score} de ${total} retos al primer intento`}</p>
+      <div className="sr-art"><span className="sr-optic" style=${{ transform: `translateX(${(-o[0] * 100).toFixed(1)}%)` }}><img src=${creatureSrc(a)} width=${a[1]} height=${a[2]} alt=${creature.es} draggable="false"/></span></div>
+      <p className="sr-name">${creature.es}</p>
+      <p className="sr-en">${creature.en}</p>
+      <div className="sr-fact"><b>¿Sabías que…?</b><p>${creature.fact}</p></div>
+      <div className="sr-actions"><button className="btn go big" onClick=${onNext}>${nextLabel}</button><button className="btn lagoon" onClick=${onBack}>Volver al banquete</button></div>
+    </div></div>`;
+}
+
+/* ---- Hub: five challenges in order, like a world's mission list ---- */
+function BanquetHub({ data, onStart, go }) {
+  const b = banquetOf(data);
+  return html`<div className="screen">
+    <div className="topbar"><${NavBtn} icon="back" label="Mapa" onClick=${() => go('map')}/><h2>El Banquete Secreto del Arrecife</h2></div>
+    <div className="panel wm-head" style=${{ '--wc': '#ff8a5c' }}>
+      <${Guide} id="tuga" size=${104}/>
+      <div className="wm-info"><span className="eyebrow">Alimentación · Español · aventura bonus</span>
+        <${BqSegments} data=${data}/>
+        <span className="muted">Prepara un banquete con el Plato del Bien Comer. Cada reto que superas rescata una criatura especial. No da perlas: es una aventura extra.</span></div>
+    </div>
+    <ol className="mission-list">${BQ_CHALLENGES.map(ch => { const done = b.done.includes(ch.n); const open = ch.n === 1 || b.done.includes(ch.n - 1) || done; const next = open && !done;
+      const state = done ? 'done' : next ? 'next' : 'locked'; const cr = SPECIAL_CREATURES.find(c => c.id === ch.reward);
+      return html`<li key=${ch.n}><button className=${'mission-row ' + state} onClick=${() => open && onStart(ch.n)} aria-disabled=${!open} style=${{ '--wc': '#ff8a5c' }}>
+        <span className="mr-num" aria-hidden="true">${done ? html`<${Icon} n="check" size=${26}/>` : !open ? html`<svg viewBox="0 0 24 24" width="22" height="22"><path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" strokeWidth="2.4"/><rect x="5" y="10" width="14" height="10" rx="2.5" fill="currentColor"/></svg>` : ch.n}</span>
+        <span className="mr-text"><span className="mr-kicker">Reto ${ch.n}${ch.n === 5 ? ' · gran final' : ''}</span><strong>${ch.t}</strong>
+          <small>Premio: ${done ? cr.es : 'una criatura especial'}</small></span>
+        <span className=${'mr-state ' + state}>${done ? 'Completado · jugar otra vez' : next ? '¡Siguiente!' : `Termina el reto ${ch.n - 1}`}</span>
+      </button></li>`; })}</ol>
+  </div>`;
+}
+function BqSegments({ data, compact }) {
+  const done = banquetOf(data).done;
+  return html`<div className=${'mseg' + (compact ? ' compact' : '')}>
+    <div className="mseg-track" role="img" aria-label=${`${done.length} de 5 retos completados`}>${[1, 2, 3, 4, 5].map(n => html`<span key=${n} className=${'mseg-s' + (done.includes(n) ? ' on' : '')}></span>`)}</div>
+    <span className="mseg-label"><b>${done.length}</b> de 5 retos completados</span></div>`;
+}
+function BanquetWorld({ data, setData, go, view }) {
+  useEffect(() => { try { window.scrollTo(0, 0); } catch (e) { } }, [view]);
+  const m = /^(intro|play):([1-5])$/.exec(view || ''); const ch = m ? BQ_CHALLENGES[+m[2] - 1] : null;
+  const open = ch && (ch.n === 1 || banquetOf(data).done.includes(ch.n - 1) || banquetOf(data).done.includes(ch.n));
+  if (m && open && m[1] === 'intro') return html`<${MissionIntroCard} title="El Banquete Secreto del Arrecife" mission=${{ n: ch.n, total: 5, name: ch.t }}
+    message=${ch.intro} guide="tuga" info=${ch.info} onBack=${() => go('banquet')} onGo=${() => go('banquet:play:' + ch.n)}/>`;
+  if (m && open && m[1] === 'play') return html`<${BanquetPlay} ch=${ch} data=${data} setData=${setData} onExit=${() => go('banquet')} onNext=${() => go('banquet:intro:' + (ch.n + 1))} onCollection=${() => { try { sessionStorage.setItem('perlas-col-tab', 'creatures'); } catch (e) { } go('collection'); }}/>`;
+  return html`<${BanquetHub} data=${data} onStart=${n => go('banquet:intro:' + n)} go=${go}/>`;
+}
 
 </script>
 </body>
