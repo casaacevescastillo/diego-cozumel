@@ -28,7 +28,7 @@
       content="https://casaacevescastillo.github.io/diego-cozumel/thumbnail.png">
 <meta name="mobile-web-app-capable" content="yes">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Diego y el Misterio de las 5 Perlas de Cozumel</title>
+<title>Diego y la aventura de las 5 perlas de Cozumel</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -984,7 +984,7 @@ button.pbeat{cursor:pointer}
 .scene-creature{--w:calc(clamp(56px,8vw,100px) * var(--k,1));position:absolute;width:var(--w);left:clamp(4px,calc(var(--x) - var(--w) / 2),calc(100% - var(--w) - 4px));top:clamp(6px,var(--y),calc(100% - var(--w) * var(--a) - 10px));animation:bob 4.5s ease-in-out infinite}
 .scene-creature.far{z-index:1}.scene-creature.near{z-index:4}
 .scene-creature img{filter:drop-shadow(0 4px 4px rgba(3,30,46,.18))}
-.scene-hint{position:absolute;left:12px;bottom:12px;z-index:5;background:rgba(255,250,241,.92);color:#0d2b3e;font-weight:700;font-size:14px;padding:6px 12px;border-radius:12px}
+.scene-hint{position:absolute;right:12px;bottom:12px;z-index:5;background:rgba(255,250,241,.92);color:#0d2b3e;font-weight:700;font-size:14px;padding:6px 12px;border-radius:12px}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes floatD{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes floatT{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-2deg)}}
@@ -1121,6 +1121,22 @@ button.pbeat{cursor:pointer}
 .sr-fact b{display:block;color:var(--ink-hero);font-size:16px}.sr-fact p{margin:4px 0 0;font-size:17px;line-height:1.4;color:var(--ink-hero)}
 .sr-actions{margin-top:var(--space-5);display:flex;flex-direction:column;gap:var(--space-3);width:100%}
 .sr-actions .btn{width:100%;min-height:60px}
+/* ---- Story touches ---- */
+.scene-name{position:absolute;left:12px;bottom:12px;z-index:5;background:rgba(255,250,241,.92);color:#0d2b3e;font-family:var(--display);font-size:16px;padding:4px 12px;border-radius:12px}
+.scene-light{position:absolute;top:0;width:18%;height:70%;transform:translateX(-50%);z-index:0;pointer-events:none;
+  background:radial-gradient(closest-side at 50% 6%,rgba(255,255,255,.95),color-mix(in srgb,var(--lc) 55%,transparent) 30%,transparent 72%),
+  linear-gradient(180deg,color-mix(in srgb,var(--lc) 35%,transparent),transparent 85%);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);animation:glowP 4s ease-in-out infinite}
+@supports not (background:color-mix(in srgb,red 50%,transparent)){.scene-light{background:radial-gradient(closest-side at 50% 6%,rgba(255,255,255,.95),rgba(255,236,170,.55) 30%,transparent 72%),linear-gradient(180deg,rgba(255,240,190,.4),transparent 85%)}}
+@keyframes glowP{0%,100%{opacity:.85}50%{opacity:1}}
+.final-lights{display:inline-flex;gap:4px;align-items:center;background:rgba(255,250,241,.9);border-radius:999px;padding:2px 10px}
+.final-cast{display:flex;align-items:flex-end;justify-content:center;gap:var(--space-2);flex-wrap:nowrap;max-width:100%}
+.fc-side{display:flex;align-items:flex-end;gap:2px;flex-wrap:wrap;justify-content:center}
+.fc-diego{flex:none}
+.reward-stack .swims{font-weight:700;color:#1f7a4d;margin:4px 0 0}
+@media (max-width:520px){.fc-diego svg{width:110px;height:auto}.fc-host svg{width:44px;height:auto}}
+.sr-swims{margin:var(--space-2) 0 0;font-weight:700;color:#1f7a4d;font-size:17px}
+.scene-lamp{position:absolute;top:6px;transform:translateX(-50%);z-index:1;pointer-events:none;filter:drop-shadow(0 0 10px rgba(255,255,255,.95))}
+.scene-light{clip-path:polygon(42% 0,58% 0,100% 100%,0 100%)}
 </style>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
@@ -1160,12 +1176,12 @@ const SUBJECTS = [
     intro: 'Rayito está contando conchas en la Bahía de los Números. ¿Le ayudas?' },
   { id: 'read', name: 'Reading', world: 'La Cueva de las Historias', pearl: 'Perla de las Historias', guide: 'tuga', color: '#8f6bff', lang: 'en',
     intro: 'En la Cueva de las Historias, Tuga guarda cuentos que brillan en la oscuridad.' },
-  { id: 'esp', name: 'Español', world: 'La Isla de las Letras', pearl: 'Perla de la Sabiduría', guide: 'estelita', color: '#1fa874', lang: 'es',
+  { id: 'esp', name: 'Español', world: 'La Isla de las Letras', pearl: 'Perla de las Letras', guide: 'estelita', color: '#1fa874', lang: 'es',
     intro: 'En la Isla de las Letras, Estelita escribe mensajes secretos en la arena. ¡Le encanta descubrir letras y sonidos nuevos contigo!' },
   { id: 'spell', name: 'Spelling', world: 'El Tesoro de los Sonidos', pearl: 'Perla de los Sonidos', guide: 'burbujin', color: '#f5a300', lang: 'en',
     intro: 'Burbujín encontró un cofre en el Tesoro de los Sonidos. ¡Solo se abre deletreando!' },
-  { id: 'nat', name: 'Nature & Society · Cívica', world: 'El Faro de los Fit Kids', pearl: 'insignia Explorador del Océano', guide: 'lumi', color: '#e8524a', lang: 'en', bonus: true,
-    intro: 'Aventura bonus: en el faro de Punta Sur te espera Lumi, una amiga calamar muy curiosa que brilla como la luz del faro. ¡Juntos van a descubrir cómo eres, cómo cuidar tu cuerpo y cómo convivir con los demás! Al terminarla ganas la insignia Explorador del Océano.' },
+  { id: 'nat', name: 'Nature & Society · Cívica', world: 'El Faro de los Exploradores', pearl: 'insignia Explorador del Océano', guide: 'lumi', color: '#e8524a', lang: 'en', bonus: true,
+    intro: 'En el faro de Punta Sur te espera Lumi, una amiga calamar muy curiosa que brilla como la luz del faro. ¡Juntos van a descubrir cómo eres, cómo cuidarte y cómo convivir con los demás!' },
 ];
 const SUBJ = Object.fromEntries(SUBJECTS.map(s => [s.id, s]));
 const MAIN = SUBJECTS.filter(s => !s.bonus); // the five magical pearls
@@ -1229,12 +1245,12 @@ const OBJ_NAMES = {
   ring: ['pool float', 'pool floats'], coconut: ['coconut', 'coconuts'], star: ['starfish', 'starfish'], crab: ['crab', 'crabs'],
 };
 const THEMES = {
-  ocean: { icon: '🐠', label: 'Exploré el océano', obj: 'fish', story: 'ocean', line: '¡Nadaste entre peces de colores! Tuga vio un destello entre los corales.' },
-  beach: { icon: '🏖️', label: 'Jugué en la playa', obj: 'crab', story: 'beach', line: '¡Qué día de playa! Un cangrejo vio algo brillar junto a tu castillo de arena.' },
-  pool: { icon: '🏊', label: 'Nadé en la alberca', obj: 'ring', story: 'pool', line: '¡Splash! Burbujín encontró un mapa flotando junto a la alberca.' },
-  shells: { icon: '🐚', label: 'Encontré conchas', obj: 'shell', story: 'shells', line: '¡Buscador de conchas! Una concha susurra: «La perla está cerca».' },
-  island: { icon: '🌴', label: 'Exploré la isla', obj: 'coconut', story: 'island', line: '¡Recorriste la isla! Desde el faro de Punta Sur se ve una luz en el mar.' },
-  family: { icon: '☀️', label: 'Descansé con mi familia', obj: 'star', story: 'family', line: '¡Un día tranquilo en familia! Papá pintó una ballena con alas y en el cuadro apareció un mapa.' },
+  ocean: { icon: '🐠', label: 'Exploré el océano', obj: 'fish', story: 'ocean', line: '¡Hoy exploraste el océano! Imaginemos que, entre los corales, Tuga vio un destello.' },
+  beach: { icon: '🏖️', label: 'Jugué en la playa', obj: 'crab', story: 'beach', line: '¡Qué día de playa! Imaginemos que un cangrejo vio algo brillar en la arena.' },
+  pool: { icon: '🏊', label: 'Nadé en la alberca', obj: 'ring', story: 'pool', line: '¡Splash! Imaginemos que Burbujín encontró un mapa flotando en el agua.' },
+  shells: { icon: '🐚', label: 'Encontré conchas', obj: 'shell', story: 'shells', line: '¡Buscador de conchas! Imaginemos que una concha susurra: «La perla está cerca».' },
+  island: { icon: '🌴', label: 'Exploré la isla', obj: 'coconut', story: 'island', line: '¡Hoy exploraste la isla! Imaginemos que desde el faro se ve una luz en el mar.' },
+  family: { icon: '☀️', label: 'Descansé con mi familia', obj: 'star', story: 'family', line: '¡Un día tranquilo en familia! Imaginemos que una ballena con alas pasó nadando y dejó un mapa.' },
   surprise: { icon: '🎮', label: '¡Sorpréndeme!' },
 };
 function themeCtx(id) {
@@ -2254,9 +2270,9 @@ const ACH = [
   { id: 'never', name: 'Nunca se rinde', desc: 'Logra 5 retos en el segundo intento', test: D => D.retryWins >= 5 },
   { id: 'pearl1', name: 'Primera perla', desc: 'Recupera una perla mágica', test: D => D.pearls.length >= 1 },
   { id: 'worlds', name: 'Explorador de los 5 mundos', desc: 'Juega en los cinco mundos de las perlas', test: D => MAIN.every(s => D.played[s.id]) },
-  { id: 'ocean', name: 'Explorador del Océano', desc: 'Completa la aventura bonus del Faro de los Fit Kids', test: D => adventureProgress(D, 'nat').done },
+  { id: 'ocean', name: 'Explorador del Océano', desc: 'Completa las misiones del Faro de los Exploradores', test: D => adventureProgress(D, 'nat').done },
   { id: 'collector', name: 'Coleccionista marino', desc: 'Descubre 6 criaturas', test: D => D.creatures.length >= 6 },
-  { id: 'guardian', name: 'Guardián del Arrecife', desc: 'Supera el Reto del Guardián', test: D => !!D.guardian },
+  { id: 'guardian', name: 'Guardián del Arrecife', desc: 'Enciende la luz de las 5 perlas', test: D => !!D.guardian },
 ];
 function finishSession(D, sess, complete) {
   const sum = { answered: sess.results.length, first: sess.results.filter(r => r.ok).length, len: sess.len, complete, newCreature: null, newPearls: [], newAch: [], subjects: uniq(sess.results.map(r => r.s)), mode: sess.cfg.mode, subject: sess.cfg.subject || null, best: sess.best, missionFor: [] };
@@ -2277,7 +2293,7 @@ function finishSession(D, sess, complete) {
   else if (sess.cfg.mode === 'mission' && sess.results.length) { D.lastMission = { sid: sess.cfg.subject, n: sess.cfg.mission }; sum.mission = sess.cfg.mission; }
   D.retryWins = (D.retryWins || 0) + sess.retryWins;
   MAIN.forEach(s => { if (!D.pearls.includes(s.id) && adventureProgress(D, s.id).done) { D.pearls.push(s.id); sum.newPearls.push(s.id); } });
-  if (complete && sess.cfg.mode === 'final' && !D.guardian) { D.guardian = Date.now(); }
+  if (complete && sess.cfg.mode === 'final' && !D.guardian) { D.guardian = Date.now(); sum.guardianNew = true; }
   ACH.forEach(a => { if (!D.ach.includes(a.id) && a.test(D, sess)) { D.ach.push(a.id); sum.newAch.push(a.id); } });
   return sum;
 }
@@ -2299,6 +2315,118 @@ if (typeof module !== 'undefined') module.exports = { SPECIAL_CREATURES, banquet
 
 </script>
 <script>
+/* =================== STORY: all narrative text in one place ===================
+   Diego y la aventura de las 5 perlas de Cozumel. Five pearls light the paths of a magical (imaginary) reef.
+   A playful current scattered them and mixed up letters, clues and sounds. Diego finds them with his friends. */
+const STORY = {
+  title: 'Diego y la aventura de las 5 perlas de Cozumel',
+  welcome: { title: '¡Bienvenido a Cozumel!', text: '¡Diego, llegaste! Una corriente traviesa escondió nuestras cinco perlas y apagó las luces de los caminos. Nuestros amigos encontraron algunas pistas. ¿Nos ayudas a buscarlas?', go: '¡Vamos a buscarlas!' },
+  reefName: 'Tu arrecife',
+  hostName: { tuga: 'Tuga', coralina: 'Coralina', rayito: 'Rayito', estelita: 'Estelita', burbujin: 'Burbujín', lumi: 'Lumi' },
+  // One short arc per world: what the host needs, then one intro + one closure per mission.
+  worlds: {
+    eng: {
+      arc: 'Coralina encontró un mensaje en una botella que dice dónde está la Perla del Lenguaje, pero la corriente lo revolvió.',
+      m: [
+        ['La corriente borró las mayúsculas del mensaje de Coralina. ¡Ayúdala a recuperar las letras!', '¡Las letras volvieron a su lugar! El mensaje ya se ve, pero sus conchas están revueltas.'],
+        ['Cada concha guarda una letra del mensaje. Ponlas en orden del abecedario.', '¡Conchas en orden! Ahora hay que armar las oraciones del mensaje.'],
+        ['Coralina tiene palabras sueltas. Ordénalas y ponles su punto final.', '¡El mensaje ya se lee! Dice: «Busca los nombres del arrecife». ¿Qué nombres serán?'],
+        ['El mensaje habla de nombres: personas, lugares y cosas del arrecife. ¡Encuéntralos con Coralina!', '¡Encontraste los nombres! Solo falta la última pista.'],
+        ['Coralina armó la última pista con todo lo que aprendiste. Resuélvela para llegar a la perla.', '¡La pista llevaba a una cueva de coral y ahí estaba la Perla del Lenguaje! Su luz ya ilumina un camino del arrecife.'],
+      ],
+    },
+    math: {
+      arc: 'Rayito encontró un camino de conchas y figuras que lleva a la Perla de los Números.',
+      m: [
+        ['Rayito encontró un camino lleno de señales. Cuéntalas con él para saber hacia dónde ir.', '¡Contaste todas las señales! Más adelante, las conchas están en grupos.'],
+        ['Para avanzar, Rayito necesita las conchas en grupos de diez. ¡Organízalas!', '¡Grupos listos! Ahora el camino sigue a saltos.'],
+        ['Un delfín salta por la recta numérica. Sigue sus saltos para cruzar la bahía.', '¡Cruzaron la bahía! Del otro lado hay figuras en las rocas.'],
+        ['Las rocas tienen figuras. Reconócelas para abrir el paso.', '¡Paso abierto! Solo queda un patrón: el espejo de Rayito.'],
+        ['El espejo de Rayito guarda la perla. Resuelve el patrón final para abrirlo.', '¡El espejo se abrió y ahí estaba la Perla de los Números! Su luz ya ilumina otro camino del arrecife.'],
+      ],
+    },
+    read: {
+      arc: 'Tuga encontró el diario de un explorador con las páginas revueltas. El diario lleva a la Perla de las Historias.',
+      m: [
+        ['Tuga encontró un diario con las páginas revueltas. En el primer capítulo, el explorador descubre cómo su cerebro le ayuda a aprender. Ordena lo que pasó.', '¡Primer capítulo listo! El explorador siguió su viaje usando sus sentidos.'],
+        ['En este capítulo, el explorador conoce el arrecife con sus cinco sentidos. Descubre quién aparece y dónde pasa la historia.', '¡Capítulo dos recuperado! El diario sigue con los hábitos del explorador.'],
+        ['Para seguir explorando, el explorador cuida su cuerpo todos los días. Lee con Tuga cómo lo hace.', '¡Ya van tres capítulos! El explorador llega al mercado de Cozumel.'],
+        ['El explorador visita el mercado y elige qué comer. Lee y descubre qué encontró.', '¡Capítulo cuatro listo! Solo falta el último: la biblioteca brillante.'],
+        ['El último capítulo dice dónde guardó el explorador la perla. ¡Léelo con Tuga!', '¡El diario estaba completo y la perla estaba en la biblioteca! La Perla de las Historias ya ilumina su camino.'],
+      ],
+    },
+    esp: {
+      arc: 'Estelita escribe una guía de la isla, pero la corriente se llevó sus páginas. La guía dice dónde está la Perla de las Letras.',
+      m: [
+        ['La corriente se llevó los cuentos y carteles de la guía de Estelita. ¡Ayúdala a leerlos de nuevo!', '¡Cuentos y carteles recuperados! Pero se borraron algunas letras especiales.'],
+        ['A la guía le faltan letras: la ch, la ll y el abecedario. Encuéntralas con Estelita.', '¡Las letras regresaron! Ahora faltan los nombres de los lugares.'],
+        ['En la guía van nombres de personas y lugares. Recuerda: ¡empiezan con mayúscula!', '¡Nombres en su lugar! Faltan los puntos para que la guía se entienda.'],
+        ['Estelita escribió oraciones en la arena, pero sin punto. ¿Dónde termina cada una?', '¡Las oraciones ya tienen punto! Solo falta escribir los números de la guía.'],
+        ['La última página tiene números escritos con letras. Complétala y la guía mostrará dónde está la perla.', '¡La guía está completa y la Perla de las Letras brilló en la playa! Su luz ya ilumina un camino de la isla.'],
+      ],
+    },
+    spell: {
+      arc: 'Burbujín encontró un cofre con cinco cerraduras musicales. Dentro está la Perla de los Sonidos.',
+      m: [
+        ['Burbujín encontró un cofre con cinco cerraduras musicales. La primera se abre con los sonidos de las letras.', '¡Clic! La primera cerradura se encendió. Quedan cuatro.'],
+        ['La segunda cerradura suena con la c y la g. ¡A veces suenan suave!', '¡Clic! Dos cerraduras encendidas. Quedan tres.'],
+        ['Esta cerradura se abre con palabras de vocales largas, como «rain» y «feet».', '¡Clic! Tres cerraduras encendidas. Quedan dos.'],
+        ['La cuarta cerradura canta con palabras como «night» y «boat».', '¡Clic! Cuatro cerraduras encendidas. ¡Solo falta una!'],
+        ['La última cerradura mezcla palabras de toda tu lista: son 10 retos. ¡Ábrela con Burbujín!', '¡Las cinco cerraduras brillaron y el cofre se abrió! Adentro estaba la Perla de los Sonidos.'],
+      ],
+    },
+    nat: {
+      arc: 'Lumi prepara a Diego en el faro para conocerse, cuidarse y colaborar.',
+      m: [
+        ['Lumi te espera en el faro. Un gran explorador primero se conoce a sí mismo. ¿Cómo eres tú?', '¡Lumi ya te conoce mejor! Ahora descubramos en qué nos parecemos y en qué somos diferentes.'],
+        ['Todos somos distintos y eso está bien. Descubre con Lumi en qué nos parecemos.', '¡Muy bien! Ahora vamos a conocer el cuerpo y los sentidos.'],
+        ['Tu cuerpo te ayuda a explorar. Conoce sus partes y cómo cuidarlo.', '¡Cuerpo listo para explorar! Ahora toca saber qué comer para tener energía.'],
+        ['Un explorador necesita energía. Lumi te enseña el plato del bien comer.', '¡Ya sabes armar un buen plato! Falta la última misión del faro.'],
+        ['Última misión del faro: movernos, decidir bien y cuidarnos entre todos.', '¡Lumi encendió el faro para ti! Ganaste la insignia Explorador del Océano.'],
+      ],
+    },
+  },
+  // Mission titles: adventure first; the academic topics stay as secondary info on the mission list.
+  titles: {
+    eng: ['Las letras perdidas', 'Conchas en orden ABC', 'El mensaje en la botella', 'Nombres del arrecife', 'La última pista de Coralina'],
+    math: ['Las señales del camino', 'Grupos de diez conchas', 'Saltos del delfín', 'Figuras en las rocas', 'El espejo de Rayito'],
+    read: ['Capítulo 1: El cerebro explorador', 'Capítulo 2: Los cinco sentidos', 'Capítulo 3: Hábitos de explorador', 'Capítulo 4: El mercado de Cozumel', 'Capítulo 5: La biblioteca brillante'],
+    esp: ['Cuentos y carteles', 'Letras especiales', 'Nombres con mayúscula', 'Puntos en la arena', 'La última página de la guía'],
+    spell: ['Cerradura 1: Sonidos del alfabeto', 'Cerradura 2: La c y la g mágicas', 'Cerradura 3: Lluvia y pies', 'Cerradura 4: Noche y barco', 'Cerradura 5: ¡A abrir el cofre!'],
+    nat: ['¿Quién soy?', 'Parecidos y diferentes', 'Mi cuerpo y mis sentidos', 'El plato del bien comer', 'Cuerpo y mente activos'],
+  },
+  replay: 'Ya terminaste esta misión. ¡Vamos a jugarla otra vez por diversión!',
+  replayDone: '¡Otra vez lo lograste! Esta misión ya estaba completa: fue para jugar y practicar.',
+  returnTo: '¡Volviste! ',
+  extraEarned: label => `Tu ${label} ya brilla, así que esta misión es una aventura extra para seguir practicando.`,
+  afterEnd: 'Las cinco perlas ya brillan. Esta misión es para jugar y practicar cuando quieras.',
+  pearlFound: '¡Encontraste una perla!',
+  allFound: '¡Encontraste las cinco! Ahora falta encenderlas juntas para iluminar los caminos del arrecife.',
+  newFriend: '¡Conociste a un nuevo amigo!',
+  swimsWithYou: '¡Ahora nada contigo en tu arrecife!',
+  final: {
+    name: 'La luz de las 5 perlas',
+    intro: '¡Encontraste las cinco! Ahora falta encenderlas juntas para iluminar los caminos del arrecife. Son 10 retos de los cinco mundos y cada amigo te acompaña en el suyo.',
+    introAgain: 'Las cinco perlas ya brillan juntas. ¿Quieres encenderlas otra vez? Son 10 retos de repaso con tus amigos.',
+    locked: n => `Se abre cuando encuentres las 5 perlas. Llevas ${n} de 5.`,
+    ready: '¡Ya tienes las 5 perlas! Enciéndelas juntas.',
+    doneMap: 'Las 5 perlas brillan juntas. Puedes jugarlo otra vez.',
+    closing: '¡Lo hiciste, Diego! Las cinco perlas brillan juntas y los caminos vuelven a iluminarse. Exploraste, aprendiste y ayudaste a tus amigos. ¡Eres Guardián del Arrecife!',
+    again: 'Volviste a encender las cinco perlas. ¡Qué buen repaso, Guardián!',
+  },
+  bonus: { title: 'Más aventuras con tus amigos', text: 'Crea, juega y conoce nuevos amigos. Puedes visitarlos cuando quieras.' },
+  certificate: 'Por encontrar las cinco perlas y encenderlas juntas para iluminar los caminos del arrecife. Exploraste, aprendiste y ayudaste a tus amigos.',
+  banquet: {
+    entry: '¡Estamos preparando un banquete! Ayuda a organizar la comida y conoce a cinco nuevos amigos del arrecife.',
+    card: '¡Prepara un banquete y conoce a 5 nuevos amigos!',
+  },
+};
+// The world's host presents, gives hints, explains and celebrates.
+const hostOfTopic = topicId => { const t = TOPIC[topicId]; return t && SUBJ[t.s] ? SUBJ[t.s].guide : 'tuga'; };
+const hostName = id => STORY.hostName[id] || 'Tuga';
+// Apply the adventure titles to the mission data (the academic topics stay as they are).
+Object.keys(STORY.titles).forEach(sid => STORY.titles[sid].forEach((t, i) => { if (WORLD_MISSIONS[sid] && WORLD_MISSIONS[sid][i]) WORLD_MISSIONS[sid][i].t = t; }));
+
 /* ================= UI ================= */
 const html = htm.bind(React.createElement);
 const { useState, useEffect, useRef, useMemo, useLayoutEffect } = React;
@@ -2657,11 +2785,10 @@ function LineQ({ q, state, submit }) {
 /* ---------------- QUESTION SHELL ---------------- */
 const PRAISE_EN = ['Great thinking, explorer!', 'You got it!', 'Super splash!', 'Fantastic!', 'Awesome work!', 'Brilliant!'];
 const PRAISE_ES = ['¡Excelente, explorador!', '¡Muy bien!', '¡Lo lograste!', '¡Increíble!', '¡Bravo!'];
-const TRY = ['¡Casi lo tienes!', "Let's try another way!", '¡Tuga tiene una pista para ti!'];
-// El Faro de los Fit Kids is guided by Lumi; every other world keeps Tuga as the helper.
+// Each world's host gives hints, explains and celebrates (Tuga in Reading, Lumi in the lighthouse...).
 const isLighthouse = topicId => !!(TOPIC[topicId] && TOPIC[topicId].s === 'nat');
-const helperOf = topicId => isLighthouse(topicId) ? 'lumi' : 'tuga';
-const tryMsg = topicId => { const t = pick(TRY); return isLighthouse(topicId) ? t.replace('¡Tuga tiene una pista para ti!', '¡Lumi encendió su luz: aquí va una pista!') : t; };
+const helperOf = topicId => hostOfTopic(topicId);
+const tryMsg = (topicId, lang) => { const n = hostName(hostOfTopic(topicId)); return lang === 'es' ? pick(['¡Casi lo tienes!', `¡${n} tiene una pista para ti!`, '¡Inténtalo de otra forma!']) : pick(['Almost there!', "Let's try another way!", `${n} has a hint for you!`]); };
 function Question({ q, guide, onFirst, onDone, onMiss, familyOk }) {
   const [tries, setTries] = useState(0); const [state, setState] = useState('open'); const [showHint, setShowHint] = useState(false); const [msg, setMsg] = useState(null);
   const firstRef = useRef(null); const familyRef = useRef(false); const stateRef = useRef('open'); const triesRef = useRef(0); const doneRef = useRef(false);
@@ -2677,10 +2804,10 @@ function Question({ q, guide, onFirst, onDone, onMiss, familyOk }) {
     } else {
       const t = triesRef.current + 1; triesRef.current = t; setTries(t);
       if (t >= 2) { stateRef.current = 'reveal'; setState('reveal'); setMsg({ kind: 'reveal', text: es ? 'Mira, así es:' : "Let's look together:", sub: q.explain }); }
-      else { setShowHint(true); setMsg({ kind: 'try', text: tryMsg(q.topic) }); }
+      else { setShowHint(true); setMsg({ kind: 'try', text: tryMsg(q.topic, q.lang) }); }
     }
   };
-  const miss = () => { if (firstRef.current === null) { firstRef.current = false; onFirst(false); } setShowHint(true); setMsg({ kind: 'try', text: tryMsg(q.topic) }); onMiss && onMiss(); };
+  const miss = () => { if (firstRef.current === null) { firstRef.current = false; onFirst(false); } setShowHint(true); setMsg({ kind: 'try', text: tryMsg(q.topic, q.lang) }); onMiss && onMiss(); };
   const Body = { mc: MCQ, order: OrderQ, sort: SortQ, build: BuildQ, match: MatchQ, group: GroupQ, draw: DrawQ, line: LineQ }[q.type];
   const done = state !== 'open';
   return html`<div className="qwrap">
@@ -2689,7 +2816,7 @@ function Question({ q, guide, onFirst, onDone, onMiss, familyOk }) {
     <${Visual} v=${q.visual} lang=${q.lang}/>
     <div className="qbody"><${Body} q=${q} state=${state} submit=${submit} miss=${miss}/></div>
     <div className=${'feedback ' + (msg ? msg.kind : '')} aria-live="polite">
-      ${msg ? html`<div className="fb-msg">${msg.kind === 'right' && q.chest ? html`<${Chest} open=${true} size=${70}/>` : msg.kind === 'right' ? html`<${Burbujin} size=${72} cls="bounce"/>` : html`<${Guide} id=${guide === 'lumi' ? 'lumi' : helperOf(q.topic)} size=${84}/>`}
+      ${msg ? html`<div className="fb-msg">${msg.kind === 'right' && q.chest ? html`<${Chest} open=${true} size=${70}/>` : msg.kind === 'right' ? html`<${Guide} id=${helperOf(q.topic)} size=${84} cls="bounce"/>` : html`<${Guide} id=${helperOf(q.topic)} size=${84}/>`}
         <div><strong>${msg.text}</strong>${msg.sub && msg.kind !== 'try' ? html`<p>${msg.sub}</p>` : null}${msg.kind === 'try' && showHint && q.hint ? html`<p>${q.hint}</p>` : null}</div></div>` : null}
       <div className="fb-btns">
         ${done ? html`<button className="btn go big" autoFocus onClick=${() => { if (doneRef.current) return; doneRef.current = true; onDone({ first: firstRef.current, retry: state === 'right' && firstRef.current === false, family: familyRef.current }); }}>${es ? 'Continuar' : 'Next'} ›</button>` : null}
@@ -2726,9 +2853,12 @@ function SceneCreature({ id, slot, i, many }) {
 const RewardBackdrop = () => html`<div className="reward-backdrop" aria-hidden="true"></div>`;
 function HomeScene({ data }) {
   const list = CREATURES.filter(c => data.creatures.includes(c.id)).concat(SPECIAL_CREATURES.filter(c => banquetOf(data).creatures.includes(c.id)));
-  const label = 'Diego nada en el arrecife de Cozumel con Tuga' + (list.length ? `, junto a ${list.length} ${list.length === 1 ? 'criatura descubierta' : 'criaturas descubiertas'}` : '');
+  const label = 'Tu arrecife: Diego nada con Tuga' + (list.length ? `, junto a ${list.length} ${list.length === 1 ? 'criatura descubierta' : 'criaturas descubiertas'}` : '');
   const D = CHAR_ART.diego, T = CHAR_ART.tuga;
-  return html`<div className="home-scene" role="img" aria-label=${label}>
+  const lit = MAIN.filter(s => data.pearls.includes(s.id));
+  return html`<div className="home-scene" role="img" aria-label=${label + (lit.length ? `. ${lit.length === 1 ? 'Brilla 1 perla' : `Brillan ${lit.length} perlas`} sobre el arrecife` : '')}>
+    <span className="scene-name">${STORY.reefName}</span>
+    ${MAIN.map((s, i) => data.pearls.includes(s.id) ? html`<${React.Fragment} key=${s.id}><span className="scene-light" style=${{ left: (10 + i * 20) + '%', '--lc': s.color }} aria-hidden="true"></span><span className="scene-lamp" style=${{ left: (10 + i * 20) + '%' }} aria-hidden="true"><${Pearl} p=${1} size=${30}/></span></${React.Fragment}>` : null)}
     ${list.map((c, i) => html`<${SceneCreature} key=${c.id} id=${c.id} slot=${SCENE_SLOTS[i % SCENE_SLOTS.length]} i=${i} many=${list.length > 12}/>`)}
     <div className="scene-anchor">
       <div className="scene-diego"><img src=${D.src} width=${D.w} height=${D.h} alt="" draggable="false"/></div>
@@ -2797,7 +2927,7 @@ function Home({ data, go, stored, saveFail }) {
     <${HomeScene} data=${data}/>
     <div className="home-card-wrap">
     <div className="home-card panel" ref=${cardRef}>
-      <p className="eyebrow">Diego y el Misterio de las 5 Perlas de Cozumel</p>
+      <p className="eyebrow">${STORY.title}</p>
       <h1>${data.guardian ? '¡Diego, Guardián del Arrecife!' : data.pearls.length ? `¡Ya ${data.pearls.length === 1 ? 'brilla' : 'brillan'} ${data.pearls.length} de 5 perlas!` : '¡Diego, el arrecife te necesita!'}</h1>
       ${where ? html`<p className="home-where"><b>${where[0]}</b> ${where[1]}</p>` : null}
       <div className="home-btns">
@@ -2814,9 +2944,9 @@ function Home({ data, go, stored, saveFail }) {
   </div>`;
 }
 function Intro({ go, setData }) {
-  const t = '¡Diego! ¡Qué bueno que llegaste a Cozumel! Nuestro arrecife necesita tu ayuda. Las cinco perlas mágicas se han perdido y solo un verdadero explorador puede recuperarlas. ¿Te unes a la aventura?';
-  return html`<${MissionIntroCard} title="¡Bienvenido a Cozumel!" message=${'«' + t + '»'} audioText=${t} guide="tuga"
-    goLabel="¡Sí, me uno!" onGo=${() => { setData(d => Object.assign({}, d, { introSeen: true })); go('map'); }}/>`;
+  const W = STORY.welcome;
+  return html`<${MissionIntroCard} title=${W.title} message=${W.text} guide="tuga" goLabel=${W.go}
+    onGo=${() => { setData(d => Object.assign({}, d, { introSeen: true })); go('map'); }}/>`;
 }
 function Checkin({ onPick, onBack }) {
   const keys = Object.keys(THEMES);
@@ -2830,13 +2960,13 @@ function Checkin({ onPick, onBack }) {
 function todayKey() { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
 function activeLabel(a) {
   const s = a.cfg.subject ? SUBJ[a.cfg.subject] : null; const n = Math.min((a.results || []).length + 1, a.len);
-  const where = a.cfg.mode === 'mission' ? `${s.world} · misión ${a.cfg.mission}: ${WORLD_MISSIONS[s.id][a.cfg.mission - 1].t}` : a.cfg.mode === 'final' ? 'Reto del Guardián' : s ? s.world : 'Misión sorpresa';
+  const where = a.cfg.mode === 'mission' ? `${s.world} · misión ${a.cfg.mission}: ${WORLD_MISSIONS[s.id][a.cfg.mission - 1].t}` : a.cfg.mode === 'final' ? STORY.final.name : s ? s.world : 'Misión sorpresa';
   return { title: `Te quedaste en el reto ${n} de ${a.len}`, sub: where, guide: s ? s.guide : 'tuga', resume: true };
 }
 function advLabel(data, adv) {
   if (data.activeSession) return activeLabel(data.activeSession);
   if (adv.kind === 'world') { const s = SUBJ[adv.sid]; const n = adv.mission || 1; const m = WORLD_MISSIONS[adv.sid][n - 1]; return { title: (adv.why === 'resume' ? 'Retoma: ' : '') + s.world, sub: `Misión ${n} de ${MISSIONS_PER_WORLD}: ${m.t}`, guide: s.guide }; }
-  if (adv.kind === 'final') return { title: 'Reto del Guardián', sub: '¡Las 5 perlas brillan! Es hora del gran final.', guide: 'tuga' };
+  if (adv.kind === 'final') return { title: STORY.final.name, sub: STORY.final.ready, guide: 'tuga' };
   if (adv.kind === 'review') return { title: 'Misión de repaso', sub: 'Practica lo que más te cuesta para que siga brillando.', guide: 'tuga' };
   return { title: 'Misión sorpresa', sub: 'Retos de todos los mundos.', guide: 'tuga' };
 }
@@ -2872,12 +3002,12 @@ function MapScreen({ data, startWorld, startDaily, startFinal, startContinue, go
       <div className="w-progress"><${MissionSegments} data=${data} sid=${s.id}/></div></button>`; })}</div>
     <button className=${'guardian panel' + (all ? '' : ' locked')} onClick=${() => all && startFinal()} aria-disabled=${!all}>
       <div className="g-pearls">${MAIN.map(s => html`<${Pearl} key=${s.id} p=${data.pearls.includes(s.id) ? 1 : 0} size=${data.pearls.includes(s.id) ? 40 : 32}/>`)}</div>
-      <div><span className="eyebrow">Gran final</span><strong>Reto del Guardián</strong><span>${all ? (data.guardian ? '¡Ya eres Guardián! Puedes jugarlo otra vez.' : '¡Las 5 perlas brillan! Es tu momento.') : `Se abre con las 5 perlas mágicas. Llevas ${data.pearls.length} de 5.`}</span></div></button>
+      <div><span className="eyebrow">Gran final</span><strong>${STORY.final.name}</strong><span>${all ? (data.guardian ? STORY.final.doneMap : STORY.final.ready) : STORY.final.locked(data.pearls.length)}</span></div></button>
     ${data.guardian ? html`<button className="btn lagoon" onClick=${() => go('certificate')}>Ver mi certificado</button>` : null}
     <button className="btn ghost surprise" onClick=${startDaily}><${Icon} n="dice"/> Misión sorpresa: retos de todos los mundos</button>
-    <h3 className="map-sec">Aventuras bonus <small>Para explorar y crear. No hacen falta para las perlas.</small></h3>
-    <button className="studio-entry panel nat-entry" onClick=${() => startWorld('nat')}><${Guide} id=${SUBJ.nat.guide} size=${104}/><div><span className="eyebrow">Nature & Society · Cívica</span><strong>El Faro de los Fit Kids</strong><span>${natDone ? '✓ Insignia Explorador del Océano ganada · misiones abiertas para practicar' : 'Termina las 5 misiones y gana la insignia Explorador del Océano'}</span><${MissionSegments} data=${data} sid="nat" compact=${true}/></div><span className="arrow">›</span></button>
-    <button className="studio-entry panel bq-entry" onClick=${() => go('banquet')}><${Guide} id="tuga" size=${100}/><div><span className="eyebrow">Alimentación · Español</span><strong>El Banquete Secreto del Arrecife</strong><span>¡Prepara un banquete y descubre 5 criaturas especiales!</span><${BqSegments} data=${data} compact=${true}/></div><span className="arrow">›</span></button>
+    <h3 className="map-sec">${STORY.bonus.title} <small>${STORY.bonus.text}</small></h3>
+    <button className="studio-entry panel nat-entry" onClick=${() => startWorld('nat')}><${Guide} id=${SUBJ.nat.guide} size=${104}/><div><span className="eyebrow">Nature & Society · Cívica</span><strong>${SUBJ.nat.world}</strong><span>${natDone ? '✓ Insignia Explorador del Océano ganada · misiones abiertas para practicar' : 'Termina las 5 misiones y gana la insignia Explorador del Océano'}</span><${MissionSegments} data=${data} sid="nat" compact=${true}/></div><span className="arrow">›</span></button>
+    <button className="studio-entry panel bq-entry" onClick=${() => go('banquet')}><${Guide} id="tuga" size=${100}/><div><span className="eyebrow">Alimentación · Español</span><strong>El Banquete Secreto del Arrecife</strong><span>${STORY.banquet.card}</span><${BqSegments} data=${data} compact=${true}/></div><span className="arrow">›</span></button>
     <button className="studio-entry panel music-entry" onClick=${() => go('music')}><${CaptainRhythm} size=${100}/><div><span className="eyebrow">Music · English</span><strong>The Tropical Orchestra</strong><span>Play, sing, discover, and create!</span></div><span className="arrow">›</span></button>
     <button className="studio-entry panel" onClick=${() => go('art')}><${Pincelin} size=${92}/><div><span className="eyebrow">Arte · Español</span><strong>El Taller Secreto del Artista</strong><span>Los bodegones de Cozumel</span></div><span className="arrow">›</span></button>
   </div>`;
@@ -2890,7 +3020,7 @@ function WorldMissions({ data, sid, onStart, go }) {
     <div className="topbar"><${NavBtn} icon="back" label="Mapa" onClick=${() => go('map')}/><h2>${s.world}</h2></div>
     <div className=${'panel wm-head' + (p.earned ? ' got' : '')} style=${{ '--wc': s.color }}>
       <${Guide} id=${s.guide} size=${104}/>
-      <div className="wm-info"><span className="eyebrow">${s.name}${s.bonus ? ' · aventura bonus' : ''}</span>
+      <div className="wm-info"><span className="eyebrow">${s.name}${s.bonus ? ' · más aventuras' : ''}</span>
         ${p.earned ? html`<span className="pearl-chip got"><${Icon} n="check" size=${18}/> ${s.bonus ? '¡Insignia ganada!' : '¡Perla recuperada!'}</span>` : null}
         <${MissionSegments} data=${data} sid=${sid}/>
         <span className="muted">${p.earned && p.missions < p.need ? `Tu ${label} ya brilla${p.missions === 0 ? ' desde antes de que hubiera 5 misiones' : ''}. Todas las misiones están abiertas: son aventuras extra para seguir practicando.` : s.bonus ? 'Termina las 5 misiones para ganar la insignia Explorador del Océano.' : `Termina las 5 misiones para recuperar la ${s.pearl}.`}${p.legacy && !p.earned ? ` Antes jugaste ${p.legacy} ${p.legacy === 1 ? 'misión' : 'misiones'} aquí: lo que practicaste te ayuda en estas nuevas.` : ''}</span></div>
@@ -2914,15 +3044,24 @@ function WorldIntro({ sess, ctx, onGo, onBack, data }) {
   const firstToday = !data.log.length || new Date(data.log[data.log.length - 1].t).toDateString() !== new Date().toDateString();
   const vac = firstToday && data.themeDay === todayKey() && ctx && ctx.line ? ctx.line + ' ' : '';
   const mn = m === 'mission' ? sess.cfg.mission : 0; const md = mn ? WORLD_MISSIONS[s.id][mn - 1] : null;
-  const missionLine = !mn ? '' : got && prog.missions < MISSIONS_PER_WORLD ? `Aventura extra: ${s.bonus ? 'tu insignia' : 'tu perla'} ya brilla. ¡Esta misión es para seguir practicando!` : mn === 1 && !prog.missions ? s.intro : mn === MISSIONS_PER_WORLD ? (s.bonus ? '¡Última misión del faro! Al terminarla ganas la insignia Explorador del Océano.' : `¡Última misión! Si la terminas, recuperas la ${s.pearl}.`) : `¡Vamos por la misión ${mn}! Cada misión te acerca a ${s.bonus ? 'la insignia del faro' : 'la ' + s.pearl}.`;
-  const line2 = mn ? missionLine : m === 'final' ? 'Las cinco perlas brillan juntas. Solo falta el Reto del Guardián: 10 retos de los cinco mundos.' : m === 'daily' ? 'Hoy la marea mezcló todos los mundos. ¡Habrá retos de todos lados!' : m === 'review' ? 'Hoy practicamos lo que más cuesta. ¡Así se vuelve fácil!' : m === 'diag' ? 'Un recorrido rápido para ver qué sabes. ¡Haz tu mejor intento!' : s ? (got ? (s.bonus ? '¡Ya eres Explorador del Océano! Puedes seguir practicando aquí.' : `¡Ya recuperaste la ${s.pearl}! Practicar aquí la mantiene brillando.`) : prog.missions ? `¡Volviste! Llevas ${prog.missions} de ${prog.need} misiones ${s.bonus ? 'de esta aventura bonus' : 'de la ' + s.pearl}. Vamos por más.` : s.intro) : 'Una misión especial preparada por mamá y papá.';
-  return html`<${MissionIntroCard} title=${m === 'final' ? 'Reto del Guardián' : s ? s.world : 'Misión especial'}
+  // States: first visit, returning to an unfinished mission, replay for fun, extra mission of an earned world, after the end.
+  let missionLine = '';
+  if (mn) {
+    const done = missionsDone(data, s.id).includes(mn); const story = STORY.worlds[s.id].m[mn - 1][0];
+    const back = data.lastMission && data.lastMission.sid === s.id && data.lastMission.n === mn;
+    if (done) missionLine = (data.guardian ? STORY.afterEnd : STORY.replay) + ' ' + story;
+    else if (got) missionLine = STORY.extraEarned(s.bonus ? 'insignia' : 'perla') + ' ' + story;
+    else missionLine = (back ? STORY.returnTo : mn === 1 && !prog.missions ? STORY.worlds[s.id].arc + ' ' : '') + story;
+  }
+  const line2 = mn ? missionLine : m === 'final' ? (data.guardian ? STORY.final.introAgain : STORY.final.intro) : m === 'daily' ? 'Hoy la marea mezcló todos los mundos. ¡Habrá retos de todos lados!' : m === 'review' ? 'Hoy practicamos lo que más cuesta. ¡Así se vuelve fácil!' : m === 'diag' ? 'Un recorrido rápido para ver qué sabes. ¡Haz tu mejor intento!' : s ? STORY.worlds[s.id].arc : 'Una misión especial preparada por mamá y papá.';
+  const acad = md && md.topics.length ? md.topics.map(t => TOPIC[t].name.replace(/^Cívica: /, '')).join(' · ') + ' · ' : md ? 'Repaso de todo · ' : '';
+  return html`<${MissionIntroCard} title=${m === 'final' ? STORY.final.name : s ? s.world : 'Misión especial'}
     mission=${md ? { n: mn, total: MISSIONS_PER_WORLD, name: md.t } : null} message=${vac + line2} guide=${guide}
-    info=${sess.len + ' retos · puedes parar cuando quieras'} onBack=${onBack} onGo=${onGo}/>`;
+    info=${acad + sess.len + ' retos · puedes parar cuando quieras'} onBack=${onBack} onGo=${onGo}/>`;
 }
 function LessonCard({ topic, onGo }) {
   const t = TOPIC[topic]; const es = (t.lang || (t.s === 'esp' ? 'es' : 'en')) === 'es'; const [txt, ex] = LESSONS[topic] || ['', ''];
-  return html`<div className="panel lesson"><div className="row-head"><${Guide} id=${helperOf(topic)} size=${120}/><h3>${isLighthouse(topic) ? (es ? 'Lumi te lo explica' : 'Lumi explains') : es ? 'Tuga te explica' : 'Tuga explains'}</h3></div>
+  return html`<div className="panel lesson"><div className="row-head"><${Guide} id=${helperOf(topic)} size=${120}/><h3>${es ? `${hostName(helperOf(topic))} te lo explica` : `${hostName(helperOf(topic))} explains`}</h3></div>
     <p className="lesson-t">${txt}</p>${ex ? html`<p className="lesson-ex">${ex}</p>` : null}<${Speak} text=${txt} lang=${es ? 'es' : 'en'}/>
     <button className="btn go big" onClick=${onGo}>${es ? '¡Ya entendí!' : 'Got it!'}</button></div>`;
 }
@@ -2931,11 +3070,19 @@ function Play({ sess, cur, onFirst, onDone, onLessonDone, onQuit, familyOk, savi
   const [confirmQuit, setConfirmQuit] = useState(false);
   return html`<div className="screen play" style=${{ '--wc': s.color }}>
     <div className="topbar"><${NavBtn} icon="back" label="Mapa" onClick=${() => setConfirmQuit(true)}/>
-      <span className="chip-w">${s.world}</span>
+      <span className="chip-w">${sess.cfg.mode === 'final' ? STORY.final.name : s.world}</span>
+      ${sess.cfg.mode === 'final' ? html`<span className="final-lights" role="img" aria-label=${`${Math.min(5, Math.floor(sess.results.length / 2))} de 5 perlas encendidas`}>${MAIN.map((x, i) => html`<${Pearl} key=${x.id} p=${i < Math.floor(sess.results.length / 2) ? 1 : 0} size=${26}/>`)}</span>` : null}
       <span className="step-label">Reto ${Math.min(sess.idx + 1, sess.len)} de ${sess.len}</span><div className="dots" aria-hidden="true">${Array.from({ length: sess.len }, (_, i) => html`<i key=${i} className=${i < sess.idx ? (sess.results[i] && sess.results[i].ok ? 'ok' : 'tried') : i === sess.idx ? 'now' : ''}></i>`)}</div></div>
     ${confirmQuit ? html`<${ConfirmDialog} title="¿Volvemos al mapa?" text=${saving ? `Tu avance está guardado. Después sigues en el reto ${Math.min(sess.idx + 1, sess.len)} de ${sess.len}.` : 'Este navegador no está guardando. Si sales, este avance se puede perder.'} cancelLabel="Seguir jugando" okLabel="Volver al mapa" onCancel=${() => setConfirmQuit(false)} onOk=${onQuit}/>` : null}
-    <div className="panel qcard">${cur.lesson ? html`<${LessonCard} topic=${cur.lesson} onGo=${onLessonDone}/>` : html`<${Question} key=${q.key + sess.idx} q=${q} guide=${s.guide} onFirst=${onFirst} onDone=${onDone} familyOk=${familyOk}/>`}</div>
+    <div className="panel qcard">${cur.lesson ? html`<${LessonCard} topic=${cur.lesson} onGo=${onLessonDone}/>` : html`<${Question} key=${q.key + sess.idx} q=${q} guide=${helperOf(q.topic)} onFirst=${onFirst} onDone=${onDone} familyOk=${familyOk}/>`}</div>
   </div>`;
+}
+// Final scene: Diego in the center with the five pearl hosts, plus optional friends he already met.
+function FinalCast({ data }) {
+  const extra = [(data.ach || []).includes('ocean') || (data.played || {}).nat ? 'lumi' : null, (data.art || {}).seen ? 'pincelin' : null, musicOf(data).seen ? 'captain-rhythm' : null].filter(Boolean);
+  const left = ['coralina', 'rayito', 'tuga'], right = ['estelita', 'burbujin'].concat(extra);
+  const one = id => html`<span key=${id} className="fc-host"><${CharImg} id=${id} size=${64}/></span>`;
+  return html`<div className="final-cast" aria-label="Diego con sus amigos"><div className="fc-side">${left.map(one)}</div><span className="fc-diego"><${Diego} size=${150}/></span><div className="fc-side">${right.map(one)}</div></div>`;
 }
 function Summary({ sum, data, onContinue, onMap, onHome, onCert, onMissions }) {
   const [open, setOpen] = useState(false);
@@ -2945,26 +3092,29 @@ function Summary({ sum, data, onContinue, onMap, onHome, onCert, onMissions }) {
   const finalDone = sum.mode === 'final' && sum.complete;
   const allPearls = MAIN.every(x => data.pearls.includes(x.id));
   let say;
-  if (!sum.complete) say = `¡Buen trabajo! ${sum.answered === 1 ? 'Guardé tu respuesta' : `Guardé tus ${sum.answered} respuestas`}. Cuando regreses, retomamos ${s ? 'este mundo' : 'la aventura'}.`;
-  else if (finalDone) say = '¡Lo lograste! Las cinco perlas vuelven a brillar y el arrecife recuperó sus colores. ¡Eres Guardián del Arrecife!';
-  else if (sum.newPearls.length) say = `¡Mira cómo brilla, Diego! ¡Lo lograste! ${allPearls ? 'Ya tienes las 5: el Reto del Guardián te espera.' : 'El arrecife ya recupera un poco más de color.'}`;
-  else if (sum.newAch.includes('ocean')) say = '¡Lo lograste! Lumi encendió el faro para celebrarte: ganaste la insignia Explorador del Océano.';
-  else if (s) { const p = adventureProgress(data, s.id); const mt = sum.mission ? WORLD_MISSIONS[s.id][sum.mission - 1].t : '';
-    say = (sum.mission ? `¡Terminaste la misión ${sum.mission}: ${mt}! ` : '') + (p.earned && p.missions < p.need ? `Fue una aventura extra: ${s.bonus ? 'tu insignia' : 'tu perla'} ya brilla. Llevas ${p.missions} de ${p.need} misiones.` : s.bonus ? `Llevas ${p.missions} de ${p.need} misiones de la aventura bonus.` : `Llevas ${p.missions} de ${p.need} misiones de la ${s.pearl}.`); }
-  else say = 'Practicaste en varios mundos. Cada reto ayuda a que tus perlas brillen.';
+  // What Diego achieved in the story comes first; numbers come after.
+  if (!sum.complete) say = `¡Buen trabajo! ${sum.answered === 1 ? 'Guardé tu respuesta' : `Guardé tus ${sum.answered} respuestas`}. Cuando regreses, seguimos ${s ? 'en este mundo' : 'la aventura'}.`;
+  else if (finalDone) say = sum.guardianNew ? STORY.final.closing : STORY.final.again;
+  else if (s && sum.mission) {
+    say = sum.missionNew ? STORY.worlds[s.id].m[sum.mission - 1][1] : STORY.replayDone;
+    if (sum.newPearls.length && allPearls) say += ' ' + STORY.allFound;
+  }
+  else if (sum.newPearls.length) say = allPearls ? STORY.allFound : '¡Encontraste una perla! Su luz ya ilumina un camino del arrecife.';
+  else say = 'Practicaste en varios mundos. ¡Cada reto te hace mejor explorador!';
   const newAch = sum.newAch.filter(a => !(a === 'ocean' && say.includes('Explorador')) && !(a === 'guardian' && finalDone) && !(a === 'pearl1' && sum.newPearls.length));
   const party = sum.newPearls.length > 0 || finalDone || (sum.complete && !!c);
   return html`<div className=${'screen center reward-screen' + (party ? ' party' : '')}><${RewardBackdrop}/><div className="panel summary">
-    <h2>${!sum.complete ? '¡Pausa en la aventura!' : finalDone ? '¡Guardián del Arrecife!' : sum.newPearls.length ? '¡Una perla vuelve a brillar!' : '¡Misión cumplida!'}</h2>
-    <div className=${'m-say' + (sum.newPearls.length ? ' cheer' : '')}><${Guide} id=${guide} size=${104}/><div className="m-bubble"><p>${say}</p></div></div>
+    <h2>${!sum.complete ? '¡Pausa en la aventura!' : finalDone ? (sum.guardianNew ? '¡Guardián del Arrecife!' : '¡Las perlas siguen brillando!') : sum.newPearls.length ? STORY.pearlFound : '¡Misión cumplida!'}</h2>
+    ${finalDone ? html`<${FinalCast} data=${data}/>` : null}
+    <div className=${'m-say' + (sum.newPearls.length ? ' cheer' : '')}>${finalDone ? null : html`<${Guide} id=${guide} size=${104}/>`}<div className="m-bubble"><p>${say}</p></div></div>
     <p className="result-line">${sum.complete ? `Completaste ${sum.answered} retos · ${sum.first} al primer intento` : `Respondiste ${sum.answered} de ${sum.len} retos`}</p>
     ${sum.newPearls.map(id => html`<div key=${id} className="pearl-win" role="status">
       <span className="pw-art"><${Pearl} p=${1} size=${128}/></span>
       <span className="pearl-chip got"><${Icon} n="check" size=${18}/> ¡Perla recuperada!</span>
       <strong>${SUBJ[id].pearl}</strong>
-      <span>Completaste las ${MISSIONS_PER_WORLD} misiones de ${SUBJ[id].world}. Esta perla ya es tuya para siempre. Puedes seguir practicando para dominar cada tema.</span>
-      <span className="pw-count">${data.pearls.length} de 5 perlas recuperadas</span></div>`)}
-    ${c ? html`<div className="discover">${sum.complete ? html`<${Chest} open=${open} size=${120}/>` : null}${open ? html`<div className="reward-stack pop"><p className="eyebrow">Nueva criatura en tu colección</p><div className="creature-frame"><${CreatureArt} id=${c.id} size=${220}/></div><h3>${c.es}</h3><p className="en">${c.en}${c.rare ? ' · descubrimiento especial' : ''}</p><p className="fact">${c.fact}</p></div>` : null}</div>` : null}
+      <span>Completaste las ${MISSIONS_PER_WORLD} misiones de ${SUBJ[id].world}. Su luz ya ilumina un camino de tu arrecife y es tuya para siempre.</span>
+      <span className="pw-count">${data.pearls.length} de 5 perlas encontradas</span></div>`)}
+    ${c ? html`<div className="discover">${sum.complete ? html`<${Chest} open=${open} size=${120}/>` : null}${open ? html`<div className="reward-stack pop"><p className="eyebrow">${STORY.newFriend}</p><div className="creature-frame"><${CreatureArt} id=${c.id} size=${220}/></div><h3>${c.es}</h3><p className="en">${c.en}${c.rare ? ' · descubrimiento especial' : ''}</p><p className="fact">${c.fact}</p><p className="swims">${STORY.swimsWithYou}</p></div>` : null}</div>` : null}
     ${newAch.length ? html`<div className="achs">${newAch.map(a => { const A = ACH.find(x => x.id === a); return html`<span key=${a} className="ach"><${AchIcon} id=${a} on=${true} size=${26}/> Insignia: ${A.name}</span>`; })}</div>` : null}
     ${s && !finalDone && !sum.newPearls.length ? (() => { const p = adventureProgress(data, s.id); return html`<div className="mini-prog"><div className="mp"><${Pearl} p=${data.pearls.includes(s.id) ? 1 : 0} size=${36}/><span>${s.world}</span><div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%', background: s.color }}></i></div></div></div>`; })() : null}
     <div className="row-btns">
@@ -3115,7 +3265,7 @@ function Parent({ data, setData, go, startCfg, stored, saveFail }) {
       <p className="muted">Módulo creativo en español. No califica la belleza de las obras; solo registra misiones completadas.</p>
       <div className="kpis"><div><b>${((data.art || {}).badges || []).length}/6</b><span>insignias de arte</span></div><div><b>${loadGallery().length + SESSION_ART.length}</b><span>pinturas en la galería</span></div></div></section>
     <section className="panel"><h3>El Banquete Secreto del Arrecife</h3>
-      <p className="muted">Aventura bonus en español sobre el Plato del Bien Comer (3 grupos). No da perlas. Cada reto superado rescata una criatura especial.</p>
+      <p className="muted">Aventura opcional en español sobre el Plato del Bien Comer (3 grupos). No da perlas. Cada reto completado presenta a un nuevo amigo del arrecife; el porcentaje al primer intento queda en «intentos».</p>
       <div className="kpis"><div><b>${banquetOf(data).done.length}/5</b><span>retos superados</span></div><div><b>${banquetOf(data).creatures.length}/5</b><span>criaturas especiales</span></div><div><b>${Object.values(banquetOf(data).tries).reduce((n, x) => n + x, 0)}</b><span>intentos en total</span></div></div></section>
     <${MusicParent} data=${data} go=${go}/>
     <section className="panel"><h3>Reporte para papás</h3><button className="btn lagoon" onClick=${makeReport}>Generar reporte</button>
@@ -3209,10 +3359,10 @@ function Certificate({ data, go }) {
   const d = new Date(data.guardian || Date.now()).toLocaleDateString('es-MX', { dateStyle: 'long' });
   return html`<div className="screen center reward-screen"><${RewardBackdrop}/><div className="cert">
     <div className="cert-in">
-      <div className="cert-chars"><${Coralina} size=${84}/><${Tuga} size=${140}/><${Rayito} size=${110}/></div>
+      <${FinalCast} data=${data}/>
       <p className="eyebrow">Certificado oficial del arrecife</p>
       <h1>Diego Aceves</h1><h2>Guardián del Arrecife de Cozumel</h2>
-      <p>Por recuperar las cinco perlas mágicas y demostrar valor, curiosidad y mucho aprendizaje.</p>
+      <p>${STORY.certificate}</p>
       <div className="g-pearls">${MAIN.map(s => html`<div key=${s.id}><${Pearl} p=${1} size=${60}/><small>${s.pearl}</small></div>`)}</div>
       <div className="sign"><span>Tuga<br/><small>Tortuga mayor del arrecife</small></span><span>${d}<br/><small>Cozumel, Quintana Roo</small></span></div>
     </div>
@@ -3900,14 +4050,14 @@ function ArtStudio({ data, setData, go }) {
   if (won) body = html`<div className="panel"><${BadgeWin} id=${won} onBack=${() => { setWon(null); setView('hub'); }}/></div>`;
   else if (view === 'story') body = html`<div className="panel story-card"><${Pincelin} size=${170} cls="float"/>
     <p className="speech">Cerca de la playa, Diego encontró un viejo taller escondido entre palmeras. Adentro, un pulpo con boina pintaba con sus ocho brazos.</p>
-    <p className="speech">«¡Hola, Diego! Soy Pincelín. Estoy preparando una exposición de bodegones, ¡pero mis cuadros están sin terminar! ¿Me ayudas a descubrir los secretos de los artistas? Si lo logras, serás <b>Maestro del Bodegón Tropical</b>.»</p>
+    <p className="speech">«¡Hola, Diego! Soy Pincelín. Estoy preparando una exposición de bodegones, ¡pero mis cuadros están sin terminar! Tus pinturas serán parte de la exposición. ¿Me ayudas a descubrir los secretos de los artistas? Así te convertirás en <b>Artista del Arrecife</b>, con especialidad en bodegón tropical.»</p>
     <button className="btn go big" onClick=${() => { setData(d => Object.assign({}, d, { art: Object.assign({ badges: [] }, d.art || {}, { seen: true }) })); setView('hub'); }}>¡Claro que sí!</button></div>`;
   else if (view === 'hub') body = html`<div className="studio-hub">
     <div className="panel studio-head"><${Pincelin} size=${96}/><div><p className="eyebrow">Los bodegones de Cozumel</p><h2>El Taller Secreto del Artista</h2>
-      <p>${all ? '¡Eres Artista del Arrecife de Cozumel!' : `Tienes ${art.badges.length} de ${ART_BADGES.length} insignias de artista.`}</p></div></div>
+      <p>${all ? '¡Eres Artista del Arrecife! Tus obras ya están en la exposición de Pincelín.' : `Cada misión prepara la exposición de Pincelín: llevas ${art.badges.length} de ${ART_BADGES.length}.`}</p></div></div>
     <div className="quick-row"><button className="btn go big" onClick=${() => { setResume(null); setView('m6'); }}><${BrushIcon} k="pincel"/> Pintar ahora</button><button className="btn lagoon big" onClick=${() => setView('gallery')}>Mi galería</button></div>
     <h3 className="hub-h">¡Elige por dónde empezar! <small>Las misiones se pueden hacer en el orden que quieras.</small></h3>
-    ${all ? html`<div className="artist-title pop"><${Pincelin} size=${70}/><div><p className="eyebrow">Título de artista</p><strong>Artista del Arrecife de Cozumel</strong><span>Maestro del Bodegón Tropical</span></div></div>` : null}
+    ${all ? html`<div className="artist-title pop"><${Pincelin} size=${70}/><div><p className="eyebrow">Reconocimiento de la exposición</p><strong>Artista del Arrecife</strong><span>Especialidad: Maestro del Bodegón Tropical</span></div></div>` : null}
     <div className="medals">${ART_BADGES.map(b => html`<div key=${b.id} className=${'medal' + (has(b.id) ? '' : ' off')}><${Medal} id=${b.id} on=${has(b.id)}/><span>${b.name}</span></div>`)}</div>
     <div className="mission-grid">${MISSIONS.map(m => html`<button key=${m.n} className=${'mission' + (m.n === 6 ? ' star' : '')} onClick=${() => { setResume(null); setView('m' + m.n); }}><span className="m-num">Misión ${m.n}</span><strong>${m.t}</strong>${has(m.b) ? html`<span className="m-done">✓ Insignia ganada</span>` : null}</button>`)}</div>
     </div>`;
@@ -4170,6 +4320,7 @@ function Mission1M({ mus, upd, award, back }) {
   const [phase, setPhase] = useState(mus.missions[1] ? 'song' : 'sort');
   const rec = (g, ok) => upd(m => { const f = m.food[g] || [0, 0]; f[1]++; if (ok) f[0]++; m.food[g] = f; });
   return html`<div className="mm">
+    ${phase === 'sort' ? html`<${Say} who="captain">This is the song we picked for the big concert! Sort the foods to unlock it, then we'll learn it together.<//>` : null}
     ${phase === 'sort' ? html`<${FoodSort} rec=${rec} onComplete=${() => { upd(m => { m.missions[1] = true; }); award('food'); setPhase('won'); }}/>` : null}
     ${phase === 'won' ? html`<div className="yay-big"><${NoteBadge} id="food" on=${true} size=${90}/><div><p className="eyebrow">Badge unlocked</p><strong>Food Group Explorer</strong><p>You unlocked <b>The Tropical Food Song</b>!</p></div><button className="btn go big" onClick=${() => setPhase('song')}>Open the song</button></div>` : null}
     ${phase === 'song' ? html`<${SongPlayer} rec=${() => { }}/><div className="row-btns"><button className="btn ghost" onClick=${() => setPhase('sort')}>Sort foods again</button></div>` : null}
@@ -4357,12 +4508,13 @@ function Mission4M({ mus, upd, award }) {
     setScore(s => s + (good ? 1 : 0));
     upd(m => { m.listen[1]++; if (good) m.listen[0]++; if (!m.explored.includes(ans)) m.explored.push(ans); });
   };
-  useEffect(() => { if (mus.listen[0] >= 6 && !mus.badges.includes('detective')) { award('detective'); } }, [mus.listen[0]]);
+  // The badge comes from finishing the listening round (help and second tries count); first-try score stays as a stat.
+  useEffect(() => { if (i >= sets.length && sets.length && !mus.badges.includes('detective')) { award('detective'); } }, [i]);
   if (!AudioEng.supported) return html`<div className="mm"><${Say} who="melody">This device can't play sounds, so we can't play the listening game here. Try the Reef Orchestra mission to explore instruments with pictures!<//></div>`;
   if (i < 0) return html`<div className="mm"><${Say} who="melody">Let's train your ears! First, tap each instrument to learn its sound.<//>
     <div className="inst-pool">${['flute', 'trumpet', 'violin', 'guitar', 'drum', 'maracas', 'xylophone'].map(id => html`<button key=${id} className="inst-card" onClick=${() => { playPhrase(id); upd(m => { if (!m.explored.includes(id)) m.explored.push(id); }); }}><${InstSvg} id=${id} size=${70}/><span><${Icon} n="speaker" size=${16}/> ${INST_BY[id].name}</span></button>`)}</div>
     <button className="btn go big" onClick=${() => setI(0)}>I'm ready to guess!</button></div>`;
-  if (i >= sets.length) return html`<div className="mm"><div className="yay-big">${mus.badges.includes('detective') ? html`<${NoteBadge} id="detective" on=${true} size=${90}/>` : html`<${MelodyFish} size=${90}/>`}<div><strong>${score} of ${sets.length} on the first try!</strong><p>${mus.badges.includes('detective') ? 'You are an Instrument Detective!' : `Keep listening! You need ${Math.max(0, 6 - mus.listen[0])} more first-try answers for the Instrument Detective badge.`}</p></div>
+  if (i >= sets.length) return html`<div className="mm"><div className="yay-big">${mus.badges.includes('detective') ? html`<${NoteBadge} id="detective" on=${true} size=${90}/>` : html`<${MelodyFish} size=${90}/>`}<div><strong>${score === sets.length ? `All ${score} on the first try!` : `You found all ${sets.length} instruments!`}</strong><p>You are an Instrument Detective! Your ears are ready for the concert.</p></div>
     <button className="btn go" onClick=${() => { setI(-1); setScore(0); }}>Play again</button></div></div>`;
   return html`<div className="mm"><${Say} who="melody" size=${64}>Which instrument do you hear?<//><p className="tip">Sound ${i + 1} of ${sets.length}</p><${ListenQ} key=${i} set=${sets[i]} onResult=${onResult}/></div>`;
 }
@@ -4533,7 +4685,7 @@ function MusicWorld({ data, setData, go, startView }) {
     <${Say} who="captain" size=${100}>${mus.seen ? 'Hey Diego! Ready to make some music?' : "Hey, Diego! Welcome to the Tropical Orchestra! Our biggest concert is coming, but we need a conductor. Can you help us find our instruments, learn the food song, and make some amazing music?"}<//>
     <div className="home-btns"><button className="btn go big" onClick=${() => { AudioEng.ensure(); AudioEng.play('chime'); upd(m => { m.seen = true; }); setView('hub'); }}>LET'S PLAY MUSIC!</button><button className="btn lagoon" onClick=${() => { AudioEng.ensure(); upd(m => { m.seen = true; }); setView('studio'); }}>MY MUSIC STUDIO</button></div></div>`;
   else if (view === 'hub') body = html`<div className="m-hub">
-    <div className="panel"><${ConcertStage} mus=${mus}/><p className="center-t">${mus.badges.includes('master') ? 'You are the Tropical Music Master! Play any mission again.' : 'Every mission adds something to the stage. Pick any mission!'}</p></div>
+    <div className="panel"><${ConcertStage} mus=${mus}/><p className="center-t">${mus.badges.includes('master') ? 'You are the Tropical Music Master! Play any mission again.' : 'Every mission gets us ready for the big concert. Pick any mission!'}</p></div>
     <div className="medals">${M_BADGES.map(b => html`<div key=${b.id} className=${'medal' + (mus.badges.includes(b.id) ? '' : ' off')}><${NoteBadge} id=${b.id} on=${mus.badges.includes(b.id)}/><span>${b.name}</span></div>`)}</div>
     <div className="mission-grid">${M_MISSIONS.map(([n, t, b]) => html`<button key=${n} className=${'mission music' + (n === 6 ? ' star' : '')} onClick=${() => setView('m' + n)}><span className="m-num">Mission ${n}</span><strong>${t}</strong>${mus.badges.includes(b) ? html`<span className="m-done">✓ Badge earned</span>` : null}</button>`)}</div>
     <button className="btn lagoon big" onClick=${() => setView('studio')}><${Icon} n="music"/> My Music Studio</button></div>`;
@@ -4612,16 +4764,16 @@ function bqMissing() {
   return { type: 'missing', miss: miss.id, meal, right, opts: shuffle([right].concat(wrong)), units: 1 };
 }
 const BQ_CHALLENGES = [
-  { n: 1, t: '¿Dónde va cada alimento?', reward: 'seastar', need: 5, make: () => [bqClassify(6)],
-    intro: 'Hay seis alimentos en la mesa del banquete. Toca uno y luego toca su grupo del Plato del Bien Comer.', info: '6 alimentos · rescatas la criatura con 5 bien al primer intento' },
-  { n: 2, t: 'Detectives de alimentos', reward: 'puffer', need: 4, make: () => [bqOdd(), bqOdd(), bqOdd(), bqOdd(), bqOdd()],
-    intro: 'En cada grupo de alimentos hay uno que es de otro grupo. ¿Lo encuentras?', info: '5 pistas · rescatas la criatura con 4 bien al primer intento' },
-  { n: 3, t: 'Un plato variado', reward: 'squid', need: 3, plate: true, make: () => [bqPlate(), bqPlate(), bqPlate()],
-    intro: 'Arma tres platos variados. Cada plato lleva un alimento de cada grupo.', info: '3 platos · termina los tres para rescatar la criatura' },
-  { n: 4, t: 'El menú misterioso', reward: 'lobster', need: 4, make: () => [bqMissing(), bqMissing(), bqMissing(), bqMissing(), bqMissing()],
-    intro: 'A estos menús les falta un grupo. ¿Qué le agregas para que tengan los tres?', info: '5 menús · rescatas la criatura con 4 bien al primer intento' },
-  { n: 5, t: '¡El gran banquete del arrecife!', reward: 'barracuda', need: 8, make: () => shuffle([bqOdd(), bqOdd(), bqPlate(), bqPlate(), bqMissing(), bqMissing(), bqMissing()]).concat([bqClassify(3)]),
-    intro: 'El gran repaso: clasifica, busca al diferente, arma platos y completa menús.', info: '10 retos · rescatas la criatura con 8 bien al primer intento' },
+  { n: 1, t: '¿Dónde va cada alimento?', reward: 'seastar', make: () => [bqClassify(6)],
+    intro: 'Hay seis alimentos en la mesa del banquete. Toca uno y luego toca su grupo del Plato del Bien Comer.', info: '6 alimentos · conoces a un nuevo amigo al terminar' },
+  { n: 2, t: 'Detectives de alimentos', reward: 'puffer', make: () => [bqOdd(), bqOdd(), bqOdd(), bqOdd(), bqOdd()],
+    intro: 'En cada grupo de alimentos hay uno que es de otro grupo. ¿Lo encuentras?', info: '5 grupos de alimentos · conoces a un nuevo amigo al terminar' },
+  { n: 3, t: 'Un plato variado', reward: 'squid', plate: true, make: () => [bqPlate(), bqPlate(), bqPlate()],
+    intro: 'Arma tres platos variados. Cada plato lleva un alimento de cada grupo.', info: '3 platos · conoces a un nuevo amigo al terminar' },
+  { n: 4, t: 'El menú misterioso', reward: 'lobster', make: () => [bqMissing(), bqMissing(), bqMissing(), bqMissing(), bqMissing()],
+    intro: 'A estos menús les falta un grupo. ¿Qué le agregas para que tengan los tres?', info: '5 menús · conoces a un nuevo amigo al terminar' },
+  { n: 5, t: '¡El gran banquete del arrecife!', reward: 'barracuda', make: () => shuffle([bqOdd(), bqOdd(), bqPlate(), bqPlate(), bqMissing(), bqMissing(), bqMissing()]).concat([bqClassify(3)]),
+    intro: 'El gran repaso: clasifica, busca al diferente, arma platos y completa menús.', info: '10 retos · conoces a un nuevo amigo al terminar' },
 ];
 
 /* ---- One food tile ---- */
@@ -4690,7 +4842,7 @@ function BanquetPlay({ ch, data, setData, onExit, onNext, onCollection }) {
     finish(scoreRef.current);
   };
   const finish = sc => {
-    const pass = ch.plate ? true : sc >= ch.need; let isNew = false;
+    const pass = true; // every challenge is finished only with correct answers (help and retries included) let isNew = false;
     setData(d => { const b = banquetOf(d); const n = Object.assign({}, b, { tries: Object.assign({}, b.tries, { [ch.n]: (b.tries[ch.n] || 0) + 1 }), best: Object.assign({}, b.best, { [ch.n]: Math.max(b.best[ch.n] || 0, sc) }) });
       if (pass) { if (!n.done.includes(ch.n)) n.done = n.done.concat(ch.n); if (!n.creatures.includes(ch.reward)) { n.creatures = n.creatures.concat(ch.reward); isNew = true; } }
       return Object.assign({}, d, { banquet: n }); });
@@ -4700,12 +4852,6 @@ function BanquetPlay({ ch, data, setData, onExit, onNext, onCollection }) {
   const crit = SPECIAL_CREATURES.find(c => c.id === ch.reward);
   if (end && end.pass) return html`<${SpecialReward} creature=${crit} isNew=${end.isNew} score=${end.sc} total=${total} plate=${!!ch.plate}
     nextLabel=${ch.n < 5 ? '¡Siguiente reto!' : '¡Ver mi colección!'} onNext=${ch.n < 5 ? onNext : onCollection} onBack=${onExit}/>`;
-  if (end) return html`<div className="screen center reward-screen"><${RewardBackdrop}/><div className="panel summary bq-result">
-      <h2>¡Muy buen intento!</h2>
-      <p className="bq-score">Lograste ${end.sc} de ${total} al primer intento. Para rescatar ${['seastar', 'lobster', 'barracuda'].includes(crit.id) ? 'a la' : 'al'} ${BQ_LOWER(crit.es)} necesitas ${ch.need}.</p>
-      <p>Cada intento trae alimentos nuevos. ¡Tú puedes!</p>
-      <div className="row-btns"><button className="btn go big" onClick=${retry}>Intentar otra vez</button><button className="btn lagoon" onClick=${onExit}>Volver al banquete</button></div>
-  </div></div>`;
   const r = rounds[ri]; const View = r.type === 'classify' ? BqClassify : r.type === 'plate' ? BqPlate : BqPick;
   return html`<div className="screen play bq-play" style=${{ '--wc': '#ff8a5c' }}>
     <div className="topbar"><${NavBtn} icon="back" label="Banquete" onClick=${onExit}/><span className="chip-w">${ch.t}</span><span className="step-label">Reto ${Math.min(units + 1, total)} de ${total}</span></div>
@@ -4718,8 +4864,7 @@ function BanquetPlay({ ch, data, setData, onExit, onNext, onCollection }) {
   </div>`;
 }
 
-/* ---- Special creature reward (shared by the five rescues): the creature is the protagonist ---- */
-const SR_ART = { seastar: 'una estrella de mar', puffer: 'un pez globo', squid: 'un calamar', lobster: 'una langosta espinosa', barracuda: 'una barracuda' };
+/* ---- New friend screen (shared by the five banquet challenges): the creature is the protagonist ---- */
 // optical centering: horizontal offset of each PNG's visible mass from its box center (measured from the alpha channel)
 const SR_OPTIC = { seastar: [-0.016, 0.021], puffer: [0.009, 0.019], squid: [-0.01, 0], lobster: [0.006, 0.062], barracuda: [-0.068, -0.108] };
 function SpecialReward({ creature, isNew, score, total, plate, nextLabel, onNext, onBack }) {
@@ -4727,12 +4872,13 @@ function SpecialReward({ creature, isNew, score, total, plate, nextLabel, onNext
   const perfect = score === total;
   return html`<div className="screen center reward-screen"><${RewardBackdrop}/>
     <div className="sr-card" role="status">
-      <span className="sr-badge">${isNew ? '¡Rescate completado!' : '¡Reto superado otra vez!'}</span>
-      <h2 className="sr-title">${isNew ? `¡Conseguiste ${SR_ART[creature.id]}!` : `${creature.es} ya vive en tu arrecife`}</h2>
-      <p className="sr-score">${plate ? '¡Armaste tres platos variados!' : perfect ? `¡${score} de ${total} retos al primer intento!` : `${score} de ${total} retos al primer intento`}</p>
+      <span className="sr-badge">${isNew ? '¡Reto completado!' : '¡Reto completado otra vez!'}</span>
+      <h2 className="sr-title">${isNew ? STORY.newFriend : `${creature.es} ya nada contigo`}</h2>
+      <p className="sr-score">${plate ? '¡Armaste tres platos variados!' : perfect ? `¡Todos a la primera! ${score} de ${total}` : `Completaste los ${total} retos`}</p>
       <div className="sr-art"><span className="sr-optic" style=${{ transform: `translateX(${(-o[0] * 100).toFixed(1)}%)` }}><img src=${creatureSrc(a)} width=${a[1]} height=${a[2]} alt=${creature.es} draggable="false"/></span></div>
       <p className="sr-name">${creature.es}</p>
       <p className="sr-en">${creature.en}</p>
+      ${isNew ? html`<p className="sr-swims">${STORY.swimsWithYou}</p>` : null}
       <div className="sr-fact"><b>¿Sabías que…?</b><p>${creature.fact}</p></div>
       <div className="sr-actions"><button className="btn go big" onClick=${onNext}>${nextLabel}</button><button className="btn lagoon" onClick=${onBack}>Volver al banquete</button></div>
     </div></div>`;
@@ -4745,16 +4891,16 @@ function BanquetHub({ data, onStart, go }) {
     <div className="topbar"><${NavBtn} icon="back" label="Mapa" onClick=${() => go('map')}/><h2>El Banquete Secreto del Arrecife</h2></div>
     <div className="panel wm-head" style=${{ '--wc': '#ff8a5c' }}>
       <${Guide} id="tuga" size=${104}/>
-      <div className="wm-info"><span className="eyebrow">Alimentación · Español · aventura bonus</span>
+      <div className="wm-info"><span className="eyebrow">Alimentación · Español · más aventuras</span>
         <${BqSegments} data=${data}/>
-        <span className="muted">Prepara un banquete con el Plato del Bien Comer. Cada reto que superas rescata una criatura especial. No da perlas: es una aventura extra.</span></div>
+        <span className="muted">${STORY.banquet.entry} Aprende con el Plato del Bien Comer. Es una aventura extra: no hace falta para las perlas.</span></div>
     </div>
     <ol className="mission-list">${BQ_CHALLENGES.map(ch => { const done = b.done.includes(ch.n); const open = ch.n === 1 || b.done.includes(ch.n - 1) || done; const next = open && !done;
       const state = done ? 'done' : next ? 'next' : 'locked'; const cr = SPECIAL_CREATURES.find(c => c.id === ch.reward);
       return html`<li key=${ch.n}><button className=${'mission-row ' + state} onClick=${() => open && onStart(ch.n)} aria-disabled=${!open} style=${{ '--wc': '#ff8a5c' }}>
         <span className="mr-num" aria-hidden="true">${done ? html`<${Icon} n="check" size=${26}/>` : !open ? html`<svg viewBox="0 0 24 24" width="22" height="22"><path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" strokeWidth="2.4"/><rect x="5" y="10" width="14" height="10" rx="2.5" fill="currentColor"/></svg>` : ch.n}</span>
         <span className="mr-text"><span className="mr-kicker">Reto ${ch.n}${ch.n === 5 ? ' · gran final' : ''}</span><strong>${ch.t}</strong>
-          <small>Premio: ${done ? cr.es : 'una criatura especial'}</small></span>
+          <small>${done ? 'Amigo: ' + cr.es : 'Un nuevo amigo te espera'}</small></span>
         <span className=${'mr-state ' + state}>${done ? 'Completado · jugar otra vez' : next ? '¡Siguiente!' : `Termina el reto ${ch.n - 1}`}</span>
       </button></li>`; })}</ol>
   </div>`;
@@ -4770,7 +4916,7 @@ function BanquetWorld({ data, setData, go, view }) {
   const m = /^(intro|play):([1-5])$/.exec(view || ''); const ch = m ? BQ_CHALLENGES[+m[2] - 1] : null;
   const open = ch && (ch.n === 1 || banquetOf(data).done.includes(ch.n - 1) || banquetOf(data).done.includes(ch.n));
   if (m && open && m[1] === 'intro') return html`<${MissionIntroCard} title="El Banquete Secreto del Arrecife" mission=${{ n: ch.n, total: 5, name: ch.t }}
-    message=${ch.intro} guide="tuga" info=${ch.info} onBack=${() => go('banquet')} onGo=${() => go('banquet:play:' + ch.n)}/>`;
+    message=${(ch.n === 1 && !banquetOf(data).done.includes(1) ? STORY.banquet.entry + ' ' : '') + ch.intro} guide="tuga" info=${ch.info} onBack=${() => go('banquet')} onGo=${() => go('banquet:play:' + ch.n)}/>`;
   if (m && open && m[1] === 'play') return html`<${BanquetPlay} ch=${ch} data=${data} setData=${setData} onExit=${() => go('banquet')} onNext=${() => go('banquet:intro:' + (ch.n + 1))} onCollection=${() => { try { sessionStorage.setItem('perlas-col-tab', 'creatures'); } catch (e) { } go('collection'); }}/>`;
   return html`<${BanquetHub} data=${data} onStart=${n => go('banquet:intro:' + n)} go=${go}/>`;
 }
