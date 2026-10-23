@@ -1122,7 +1122,6 @@ button.pbeat{cursor:pointer}
 .sr-actions{margin-top:var(--space-5);display:flex;flex-direction:column;gap:var(--space-3);width:100%}
 .sr-actions .btn{width:100%;min-height:60px}
 /* ---- Story touches ---- */
-.scene-name{position:absolute;left:12px;bottom:12px;z-index:5;background:rgba(255,250,241,.92);color:#0d2b3e;font-family:var(--display);font-size:16px;padding:4px 12px;border-radius:12px}
 .scene-light{position:absolute;top:0;width:18%;height:70%;transform:translateX(-50%);z-index:0;pointer-events:none;
   background:radial-gradient(closest-side at 50% 6%,rgba(255,255,255,.95),color-mix(in srgb,var(--lc) 55%,transparent) 30%,transparent 72%),
   linear-gradient(180deg,color-mix(in srgb,var(--lc) 35%,transparent),transparent 85%);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);animation:glowP 4s ease-in-out infinite}
@@ -1137,6 +1136,9 @@ button.pbeat{cursor:pointer}
 .sr-swims{margin:var(--space-2) 0 0;font-weight:700;color:#1f7a4d;font-size:17px}
 .scene-lamp{position:absolute;top:6px;transform:translateX(-50%);z-index:1;pointer-events:none;filter:drop-shadow(0 0 10px rgba(255,255,255,.95))}
 .scene-light{clip-path:polygon(42% 0,58% 0,100% 100%,0 100%)}
+.scene-creature.arrive{animation:arriveIn 1.6s cubic-bezier(.2,.8,.3,1) both,bob 4.5s ease-in-out 1.6s infinite}
+.scene-creature.arrive img{filter:drop-shadow(0 0 14px rgba(255,255,255,.95))}
+@keyframes arriveIn{0%{transform:translateY(40px) scale(.4);opacity:0}60%{transform:translateY(-10px) scale(1.15);opacity:1}100%{transform:translateY(0) scale(1)}}
 </style>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
@@ -2403,6 +2405,9 @@ const STORY = {
   pearlFound: '¡Encontraste una perla!',
   allFound: '¡Encontraste las cinco! Ahora falta encenderlas juntas para iluminar los caminos del arrecife.',
   newFriend: '¡Conociste a un nuevo amigo!',
+  discovered: '¡Descubriste a un nuevo amigo!',
+  // Headline after a mission, in the language of the world's adventure (not a generic "¡Misión cumplida!").
+  win: { eng: '¡El mensaje de Coralina avanza!', math: '¡Ahora sabemos qué camino seguir!', read: '¡Otro capítulo del diario!', esp: '¡La guía de Estelita crece!', spell: '¡Clic! Una cerradura más', nat: '¡El faro de Lumi brilla más!' },
   swimsWithYou: '¡Ahora nada contigo en tu arrecife!',
   final: {
     name: 'La luz de las 5 perlas',
@@ -2421,6 +2426,22 @@ const STORY = {
     card: '¡Prepara un banquete y conoce a 5 nuevos amigos!',
   },
 };
+// Each host's own voice when Diego gets it right ('ok') or needs a hint ('hint'), in the exercise's language.
+STORY.voice = {
+  coralina: { en: { ok: ['Another word for my message!', 'The bottle message is getting clearer!', 'You cracked it! My shells are dancing!'], hint: ['Hmm, that word got tangled. Look again!', 'Let me untangle it with you. Try another one!'] },
+              es: { ok: ['¡Otra palabra para mi mensaje!', '¡El mensaje de la botella ya se entiende mejor!'], hint: ['Esa palabra se enredó. ¡Mírala otra vez!'] } },
+  rayito: { en: { ok: ['Splash! The path just got longer!', 'Counted! That deserves a happy flip!', 'Yes! Now I know which way to swim!'], hint: ['Oops! A shell slipped out of my count. Let\'s count again!', 'Hmm, that path goes in circles. Try another way!'] },
+            es: { ok: ['¡Splash! ¡El camino creció!', '¡Contado! ¡Eso merece una voltereta!'], hint: ['¡Ups! Una conchita se escapó de mi cuenta. ¡Contemos otra vez!'] } },
+  tuga: { en: { ok: ['Another page of the diary is back!', 'Yes! Now the story makes sense!', 'You found it, explorer!'], hint: ['Let\'s read that part slowly together.', 'The diary has a clue. Look again!'] },
+          es: { ok: ['¡Otra página del diario regresó!', '¡Ahora la historia tiene sentido!', '¡Lo encontraste, explorador!'], hint: ['Leamos esa parte despacito.', 'El diario tiene una pista. ¡Mira otra vez!'] } },
+  estelita: { es: { ok: ['¡Otra palabra brilla en la arena!', '¡La guía de la isla ya se lee mejor!', '¡Qué bonito escribes, Diego!'], hint: ['La ola borró una parte. ¡Léela otra vez!', 'Mmm, esa letra se escondió. ¡Búscala de nuevo!'] },
+              en: { ok: ['Another word shines in the sand!'], hint: ['A wave erased part of it. Look again!'] } },
+  burbujin: { en: { ok: ['Bloop, bloop! The chest heard that!', 'Click! That sound fits the lock!', 'Bubbles everywhere! You spelled it!'], hint: ['Bloop? The lock didn\'t hear it. Listen again!', 'Say it slowly, sound by sound!'] },
+              es: { ok: ['¡Bloop, bloop! ¡El cofre lo escuchó!'], hint: ['¿Bloop? La cerradura no lo oyó. ¡Escucha otra vez!'] } },
+  lumi: { en: { ok: ['An idea just lit up!', 'My light is shining brighter!', 'That\'s a true explorer answer!'], hint: ['Let me shine a little light on it. Try again!', 'Think about your own body and friends.'] },
+          es: { ok: ['¡Se me acaba de encender una idea!', '¡Mi luz brilla más!'], hint: ['Déjame alumbrar un poquito. ¡Inténtalo otra vez!'] } },
+};
+const voiceOf = (host, lang, kind) => { const v = STORY.voice[host] || STORY.voice.tuga; const l = v[lang] || v.en || v.es; return pick(l[kind]); };
 // The world's host presents, gives hints, explains and celebrates.
 const hostOfTopic = topicId => { const t = TOPIC[topicId]; return t && SUBJ[t.s] ? SUBJ[t.s].guide : 'tuga'; };
 const hostName = id => STORY.hostName[id] || 'Tuga';
@@ -2783,12 +2804,10 @@ function LineQ({ q, state, submit }) {
 }
 
 /* ---------------- QUESTION SHELL ---------------- */
-const PRAISE_EN = ['Great thinking, explorer!', 'You got it!', 'Super splash!', 'Fantastic!', 'Awesome work!', 'Brilliant!'];
-const PRAISE_ES = ['¡Excelente, explorador!', '¡Muy bien!', '¡Lo lograste!', '¡Increíble!', '¡Bravo!'];
 // Each world's host gives hints, explains and celebrates (Tuga in Reading, Lumi in the lighthouse...).
 const isLighthouse = topicId => !!(TOPIC[topicId] && TOPIC[topicId].s === 'nat');
 const helperOf = topicId => hostOfTopic(topicId);
-const tryMsg = (topicId, lang) => { const n = hostName(hostOfTopic(topicId)); return lang === 'es' ? pick(['¡Casi lo tienes!', `¡${n} tiene una pista para ti!`, '¡Inténtalo de otra forma!']) : pick(['Almost there!', "Let's try another way!", `${n} has a hint for you!`]); };
+const tryMsg = (topicId, lang) => voiceOf(hostOfTopic(topicId), lang === 'es' ? 'es' : 'en', 'hint');
 function Question({ q, guide, onFirst, onDone, onMiss, familyOk }) {
   const [tries, setTries] = useState(0); const [state, setState] = useState('open'); const [showHint, setShowHint] = useState(false); const [msg, setMsg] = useState(null);
   const firstRef = useRef(null); const familyRef = useRef(false); const stateRef = useRef('open'); const triesRef = useRef(0); const doneRef = useRef(false);
@@ -2798,7 +2817,7 @@ function Question({ q, guide, onFirst, onDone, onMiss, familyOk }) {
     if (firstRef.current === null) { firstRef.current = ok; onFirst(ok); }
     if (ok) {
       stateRef.current = 'right'; setState('right');
-      let text = pick(es ? PRAISE_ES : PRAISE_EN);
+      let text = voiceOf(helperOf(q.topic), es ? 'es' : 'en', 'ok');
       if (firstRef.current === false && familyOk()) { text = '¡Los Aceves nunca se rinden!'; familyRef.current = true; }
       setMsg({ kind: 'right', text, sub: q.explain });
     } else {
@@ -2842,9 +2861,9 @@ const SCENE_SLOTS = [
   [97, 76, .8, 1], [5, 76, .75, 1], [40, 3, .65, 0], [86, 82, .7, 1],
   [18, 26, .7, 0], [42, 86, .7, 1], [3, 22, .7, 0], [94, 10, .7, 0], [22, 84, .7, 1],
 ];
-function SceneCreature({ id, slot, i, many }) {
+function SceneCreature({ id, slot, i, many, arrive }) {
   const a = CREATURE_ART[id]; if (!a) return null; const [x, y, k0, d] = slot; const k = many ? k0 * 0.85 : k0;
-  return html`<div className=${'scene-creature' + (d ? ' near' : ' far')} style=${{ '--x': x + '%', '--y': y + '%', '--k': k, '--a': (a[2] / a[1]).toFixed(3), animationDelay: (-i * 0.9) + 's' }}>
+  return html`<div className=${'scene-creature' + (d ? ' near' : ' far') + (arrive ? ' arrive' : '')} style=${{ '--x': x + '%', '--y': y + '%', '--k': k, '--a': (a[2] / a[1]).toFixed(3), animationDelay: (-i * 0.9) + 's' }}>
     <img src=${creatureSrc(a)} width=${a[1]} height=${a[2]} alt="" draggable="false"/></div>`;
 }
 // Seabed strip cut from corales-overlay.png (sand + low corals). It sits in the layout flow, so it never covers content.
@@ -2853,18 +2872,19 @@ function SceneCreature({ id, slot, i, many }) {
 const RewardBackdrop = () => html`<div className="reward-backdrop" aria-hidden="true"></div>`;
 function HomeScene({ data }) {
   const list = CREATURES.filter(c => data.creatures.includes(c.id)).concat(SPECIAL_CREATURES.filter(c => banquetOf(data).creatures.includes(c.id)));
-  const label = 'Tu arrecife: Diego nada con Tuga' + (list.length ? `, junto a ${list.length} ${list.length === 1 ? 'criatura descubierta' : 'criaturas descubiertas'}` : '');
-  const D = CHAR_ART.diego, T = CHAR_ART.tuga;
+  // Diego starts alone; only creatures he has discovered swim with him. Narrative characters (Tuga and the other
+  // hosts) are not collectibles, so they do not appear here.
+  const label = 'Diego nada en el arrecife de Cozumel' + (list.length ? ` con ${list.length} ${list.length === 1 ? 'amigo que descubrió' : 'amigos que descubrió'}` : '');
+  const D = CHAR_ART.diego;
+  // A friend that joined since the last visit arrives with a short swim-in, once (remembered in data.reefSeen).
+  const seen = data.reefSeen; const arrived = Array.isArray(seen) ? list.filter(c => !seen.includes(c.id)).map(c => c.id) : [];
   const lit = MAIN.filter(s => data.pearls.includes(s.id));
   return html`<div className="home-scene" role="img" aria-label=${label + (lit.length ? `. ${lit.length === 1 ? 'Brilla 1 perla' : `Brillan ${lit.length} perlas`} sobre el arrecife` : '')}>
-    <span className="scene-name">${STORY.reefName}</span>
     ${MAIN.map((s, i) => data.pearls.includes(s.id) ? html`<${React.Fragment} key=${s.id}><span className="scene-light" style=${{ left: (10 + i * 20) + '%', '--lc': s.color }} aria-hidden="true"></span><span className="scene-lamp" style=${{ left: (10 + i * 20) + '%' }} aria-hidden="true"><${Pearl} p=${1} size=${30}/></span></${React.Fragment}>` : null)}
-    ${list.map((c, i) => html`<${SceneCreature} key=${c.id} id=${c.id} slot=${SCENE_SLOTS[i % SCENE_SLOTS.length]} i=${i} many=${list.length > 12}/>`)}
+    ${list.map((c, i) => html`<${SceneCreature} key=${c.id} id=${c.id} slot=${SCENE_SLOTS[i % SCENE_SLOTS.length]} i=${i} many=${list.length > 12} arrive=${arrived.includes(c.id)}/>`)}
     <div className="scene-anchor">
       <div className="scene-diego"><img src=${D.src} width=${D.w} height=${D.h} alt="" draggable="false"/></div>
-      <div className="scene-tuga"><img src=${T.src} width=${T.w} height=${T.h} alt="" draggable="false"/></div>
     </div>
-    ${!list.length ? html`<span className="scene-hint">Aquí nadarán las criaturas que descubras</span>` : null}
   </div>`;
 }
 const pearlShort = s => s.pearl.replace(/^Perla de(l| los| las| la)? /, '').replace(/^./, c => c.toUpperCase());
@@ -2903,7 +2923,7 @@ function MissionIntroCard({ title, mission, message, audioText, info, guide, onB
       <div className="mi-card" ref=${cardRef}>
         <div className="mi-chars" aria-hidden="true">
           <img className="mi-diego" src=${D.src} width=${D.w} height=${D.h} alt="" draggable="false"/>
-          <img className=${'mi-guide g-' + guide} src=${G.src} width=${G.w} height=${G.h} alt="" draggable="false" style=${{ '--gk': GUIDE_OPTICAL[guide] || 0.8 }}/>
+          ${guide ? html`<img className=${'mi-guide g-' + guide} src=${G.src} width=${G.w} height=${G.h} alt="" draggable="false" style=${{ '--gk': GUIDE_OPTICAL[guide] || 0.8 }}/>` : null}
         </div>
         <h1 className="mi-title">${title}</h1>
         ${mission ? html`<p className="mi-kicker">Misión ${mission.n} de ${mission.total} · <b>${mission.name}</b></p>` : null}
@@ -2916,7 +2936,13 @@ function MissionIntroCard({ title, mission, message, audioText, info, guide, onB
     <${CoralForeground} coralRef=${coralRef}/>
   </div>`;
 }
-function Home({ data, go, stored, saveFail }) {
+function Home({ data, go, stored, saveFail, setData }) {
+  useEffect(() => {
+    const ids = data.creatures.concat(banquetOf(data).creatures);
+    if (!setData) return;
+    if (!Array.isArray(data.reefSeen)) { setData(d => Object.assign({}, d, { reefSeen: ids })); return; }
+    if (ids.some(id => !data.reefSeen.includes(id))) { const t = setTimeout(() => setData(d => Object.assign({}, d, { reefSeen: d.creatures.concat(banquetOf(d).creatures) })), 2600); return () => clearTimeout(t); }
+  }, []);
   const cardRef = useRef(null), coralRef = useRef(null), rootRef = useRef(null);
   useCoralFit(rootRef, cardRef, coralRef);
   const a = data.activeSession, lm = data.lastMission;
@@ -3007,7 +3033,7 @@ function MapScreen({ data, startWorld, startDaily, startFinal, startContinue, go
     <button className="btn ghost surprise" onClick=${startDaily}><${Icon} n="dice"/> Misión sorpresa: retos de todos los mundos</button>
     <h3 className="map-sec">${STORY.bonus.title} <small>${STORY.bonus.text}</small></h3>
     <button className="studio-entry panel nat-entry" onClick=${() => startWorld('nat')}><${Guide} id=${SUBJ.nat.guide} size=${104}/><div><span className="eyebrow">Nature & Society · Cívica</span><strong>${SUBJ.nat.world}</strong><span>${natDone ? '✓ Insignia Explorador del Océano ganada · misiones abiertas para practicar' : 'Termina las 5 misiones y gana la insignia Explorador del Océano'}</span><${MissionSegments} data=${data} sid="nat" compact=${true}/></div><span className="arrow">›</span></button>
-    <button className="studio-entry panel bq-entry" onClick=${() => go('banquet')}><${Guide} id="tuga" size=${100}/><div><span className="eyebrow">Alimentación · Español</span><strong>El Banquete Secreto del Arrecife</strong><span>${STORY.banquet.card}</span><${BqSegments} data=${data} compact=${true}/></div><span className="arrow">›</span></button>
+    <button className="studio-entry panel bq-entry" onClick=${() => go('banquet')}><${Diego} size=${100}/><div><span className="eyebrow">Alimentación · Español</span><strong>El Banquete Secreto del Arrecife</strong><span>${STORY.banquet.card}</span><${BqSegments} data=${data} compact=${true}/></div><span className="arrow">›</span></button>
     <button className="studio-entry panel music-entry" onClick=${() => go('music')}><${CaptainRhythm} size=${100}/><div><span className="eyebrow">Music · English</span><strong>The Tropical Orchestra</strong><span>Play, sing, discover, and create!</span></div><span className="arrow">›</span></button>
     <button className="studio-entry panel" onClick=${() => go('art')}><${Pincelin} size=${92}/><div><span className="eyebrow">Arte · Español</span><strong>El Taller Secreto del Artista</strong><span>Los bodegones de Cozumel</span></div><span className="arrow">›</span></button>
   </div>`;
@@ -3088,7 +3114,7 @@ function Summary({ sum, data, onContinue, onMap, onHome, onCert, onMissions }) {
   const [open, setOpen] = useState(false);
   useEffect(() => { const t = setTimeout(() => setOpen(true), 350); return () => clearTimeout(t); }, []);
   const c = sum.newCreature; const s = sum.subject ? SUBJ[sum.subject] : null;
-  const guide = s ? s.guide : sum.mode === 'final' ? 'tuga' : 'burbujin';
+  const guide = s ? s.guide : 'tuga';
   const finalDone = sum.mode === 'final' && sum.complete;
   const allPearls = MAIN.every(x => data.pearls.includes(x.id));
   let say;
@@ -3104,7 +3130,7 @@ function Summary({ sum, data, onContinue, onMap, onHome, onCert, onMissions }) {
   const newAch = sum.newAch.filter(a => !(a === 'ocean' && say.includes('Explorador')) && !(a === 'guardian' && finalDone) && !(a === 'pearl1' && sum.newPearls.length));
   const party = sum.newPearls.length > 0 || finalDone || (sum.complete && !!c);
   return html`<div className=${'screen center reward-screen' + (party ? ' party' : '')}><${RewardBackdrop}/><div className="panel summary">
-    <h2>${!sum.complete ? '¡Pausa en la aventura!' : finalDone ? (sum.guardianNew ? '¡Guardián del Arrecife!' : '¡Las perlas siguen brillando!') : sum.newPearls.length ? STORY.pearlFound : '¡Misión cumplida!'}</h2>
+    <h2>${!sum.complete ? '¡Pausa en la aventura!' : finalDone ? (sum.guardianNew ? '¡Guardián del Arrecife!' : '¡Las perlas siguen brillando!') : sum.newPearls.length ? STORY.pearlFound : s && sum.mission && !sum.missionNew ? '¡Lo lograste otra vez!' : s && sum.missionNew && STORY.win[s.id] ? STORY.win[s.id] : '¡Lo lograste, Diego!'}</h2>
     ${finalDone ? html`<${FinalCast} data=${data}/>` : null}
     <div className=${'m-say' + (sum.newPearls.length ? ' cheer' : '')}>${finalDone ? null : html`<${Guide} id=${guide} size=${104}/>`}<div className="m-bubble"><p>${say}</p></div></div>
     <p className="result-line">${sum.complete ? `Completaste ${sum.answered} retos · ${sum.first} al primer intento` : `Respondiste ${sum.answered} de ${sum.len} retos`}</p>
@@ -3114,7 +3140,7 @@ function Summary({ sum, data, onContinue, onMap, onHome, onCert, onMissions }) {
       <strong>${SUBJ[id].pearl}</strong>
       <span>Completaste las ${MISSIONS_PER_WORLD} misiones de ${SUBJ[id].world}. Su luz ya ilumina un camino de tu arrecife y es tuya para siempre.</span>
       <span className="pw-count">${data.pearls.length} de 5 perlas encontradas</span></div>`)}
-    ${c ? html`<div className="discover">${sum.complete ? html`<${Chest} open=${open} size=${120}/>` : null}${open ? html`<div className="reward-stack pop"><p className="eyebrow">${STORY.newFriend}</p><div className="creature-frame"><${CreatureArt} id=${c.id} size=${220}/></div><h3>${c.es}</h3><p className="en">${c.en}${c.rare ? ' · descubrimiento especial' : ''}</p><p className="fact">${c.fact}</p><p className="swims">${STORY.swimsWithYou}</p></div>` : null}</div>` : null}
+    ${c ? html`<div className="discover">${sum.complete ? html`<${Chest} open=${open} size=${120}/>` : null}${open ? html`<div className="reward-stack pop"><p className="eyebrow">${STORY.discovered}</p><div className="creature-frame"><${CreatureArt} id=${c.id} size=${220}/></div><h3>${c.es}</h3><p className="en">${c.en}${c.rare ? ' · descubrimiento especial' : ''}</p><p className="fact">${c.fact}</p><p className="swims">${STORY.swimsWithYou}</p></div>` : null}</div>` : null}
     ${newAch.length ? html`<div className="achs">${newAch.map(a => { const A = ACH.find(x => x.id === a); return html`<span key=${a} className="ach"><${AchIcon} id=${a} on=${true} size=${26}/> Insignia: ${A.name}</span>`; })}</div>` : null}
     ${s && !finalDone && !sum.newPearls.length ? (() => { const p = adventureProgress(data, s.id); return html`<div className="mini-prog"><div className="mp"><${Pearl} p=${data.pearls.includes(s.id) ? 1 : 0} size=${36}/><span>${s.world}</span><div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%', background: s.color }}></i></div></div></div>`; })() : null}
     <div className="row-btns">
@@ -3424,7 +3450,7 @@ function App() {
   const startContinue = () => { const D = dataRef.current; if (D.activeSession) { resumeSession(); return; } const a = nextAdventure(D); if (a.kind === 'world') startMission(a.sid, a.mission || nextMissionOf(D, a.sid) || 1); else if (a.kind === 'final') prepare({ mode: 'final' }); else if (a.kind === 'review') prepare({ mode: 'review', topics: weakTopics(D, 5), len: 8 }); else prepare({ mode: 'daily', len: 8 }); };
   const pickTheme = k => { const c = themeCtx(k || data.theme); setCtx(c); setData(d => Object.assign({}, d, k ? { theme: k, themeDay: todayKey() } : { themeDay: todayKey() })); setScreen('map'); };
   let body;
-  if (screen === 'home') body = html`<${Home} data=${data} go=${go} stored=${stored} saveFail=${saveFail}/>`;
+  if (screen === 'home') body = html`<${Home} data=${data} go=${go} stored=${stored} saveFail=${saveFail} setData=${setData}/>`;
   else if (screen === 'intro') body = html`<${Intro} go=${go} setData=${setData}/>`;
   else if (screen === 'checkin') body = html`<${Checkin} onPick=${pickTheme} onBack=${() => go('map')}/>`;
   else if (screen === 'map') body = html`<${MapScreen} data=${data} go=${go} startWorld=${openMissions} startDaily=${() => prepare({ mode: 'daily', len: 8 })} startFinal=${() => prepare({ mode: 'final' })} startContinue=${startContinue}/>`;
@@ -3439,7 +3465,7 @@ function App() {
   else if (screen === 'banquet') body = html`<${BanquetWorld} key=${bqView} view=${bqView} data=${data} setData=${setData} go=${go}/>`;
   else if (screen === 'art') body = html`<${ArtStudio} data=${data} setData=${setData} go=${go}/>`;
   else if (screen === 'certificate') body = html`<${Certificate} data=${data} go=${go}/>`;
-  else body = html`<${Home} data=${data} go=${go} stored=${stored} saveFail=${saveFail}/>`;
+  else body = html`<${Home} data=${data} go=${go} stored=${stored} saveFail=${saveFail} setData=${setData}/>`;
   // Background by purpose. 'scenic' (story, intros, rewards): the reef image. 'gameplay' (answering challenges):
   // the original striped ocean with rising bubbles. 'studio' (painting / music tools): striped ocean, no bubbles.
   // Reward screens (summary, certificate, banquet result) paint the reef with their own RewardBackdrop.
@@ -4856,7 +4882,7 @@ function BanquetPlay({ ch, data, setData, onExit, onNext, onCollection }) {
   return html`<div className="screen play bq-play" style=${{ '--wc': '#ff8a5c' }}>
     <div className="topbar"><${NavBtn} icon="back" label="Banquete" onClick=${onExit}/><span className="chip-w">${ch.t}</span><span className="step-label">Reto ${Math.min(units + 1, total)} de ${total}</span></div>
     <div className="panel bq-card">
-      <div className="qhead"><div className="qguide"><${Guide} id="tuga" size=${84}/></div><div className="bubble"><p>${r.type === 'classify' ? 'Toca un alimento y luego toca su grupo.' : r.type === 'odd' ? '¿Cuál alimento es de otro grupo?' : r.type === 'plate' ? 'Arma un plato con un alimento de cada grupo.' : '¿Qué grupo le falta a este menú?'}</p>
+      <div className="qhead"><div className="qguide"><${Diego} size=${84}/></div><div className="bubble"><p>${r.type === 'classify' ? 'Toca un alimento y luego toca su grupo.' : r.type === 'odd' ? '¿Cuál alimento es de otro grupo?' : r.type === 'plate' ? 'Arma un plato con un alimento de cada grupo.' : '¿Qué grupo le falta a este menú?'}</p>
         <div className="help-row"><${Speak} text=${r.type === 'classify' ? 'Toca un alimento y luego toca su grupo.' : r.type === 'odd' ? 'Cuál alimento es de otro grupo' : r.type === 'plate' ? 'Arma un plato con un alimento de cada grupo.' : 'El menú tiene ' + r.meal.map(f => f.n).join(' y ') + '. Qué le agregas para que tenga los tres grupos'} lang="es"/></div></div></div>
       <${View} key=${ri} r=${r} onPoint=${onPoint} onDone=${onDone} say=${say}/>
       <div className=${'feedback ' + (msg ? (msg.kind === 'ok' ? 'right' : 'try') : '')} aria-live="polite">${msg ? html`<div className="fb-msg"><div><strong>${msg.text}</strong></div></div>` : null}</div>
@@ -4890,7 +4916,7 @@ function BanquetHub({ data, onStart, go }) {
   return html`<div className="screen">
     <div className="topbar"><${NavBtn} icon="back" label="Mapa" onClick=${() => go('map')}/><h2>El Banquete Secreto del Arrecife</h2></div>
     <div className="panel wm-head" style=${{ '--wc': '#ff8a5c' }}>
-      <${Guide} id="tuga" size=${104}/>
+      <${Diego} size=${104}/>
       <div className="wm-info"><span className="eyebrow">Alimentación · Español · más aventuras</span>
         <${BqSegments} data=${data}/>
         <span className="muted">${STORY.banquet.entry} Aprende con el Plato del Bien Comer. Es una aventura extra: no hace falta para las perlas.</span></div>
@@ -4916,7 +4942,7 @@ function BanquetWorld({ data, setData, go, view }) {
   const m = /^(intro|play):([1-5])$/.exec(view || ''); const ch = m ? BQ_CHALLENGES[+m[2] - 1] : null;
   const open = ch && (ch.n === 1 || banquetOf(data).done.includes(ch.n - 1) || banquetOf(data).done.includes(ch.n));
   if (m && open && m[1] === 'intro') return html`<${MissionIntroCard} title="El Banquete Secreto del Arrecife" mission=${{ n: ch.n, total: 5, name: ch.t }}
-    message=${(ch.n === 1 && !banquetOf(data).done.includes(1) ? STORY.banquet.entry + ' ' : '') + ch.intro} guide="tuga" info=${ch.info} onBack=${() => go('banquet')} onGo=${() => go('banquet:play:' + ch.n)}/>`;
+    message=${(ch.n === 1 && !banquetOf(data).done.includes(1) ? STORY.banquet.entry + ' ' : '') + ch.intro} guide=${null} info=${ch.info} onBack=${() => go('banquet')} onGo=${() => go('banquet:play:' + ch.n)}/>`;
   if (m && open && m[1] === 'play') return html`<${BanquetPlay} ch=${ch} data=${data} setData=${setData} onExit=${() => go('banquet')} onNext=${() => go('banquet:intro:' + (ch.n + 1))} onCollection=${() => { try { sessionStorage.setItem('perlas-col-tab', 'creatures'); } catch (e) { } go('collection'); }}/>`;
   return html`<${BanquetHub} data=${data} onStart=${n => go('banquet:intro:' + n)} go=${go}/>`;
 }
