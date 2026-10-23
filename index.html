@@ -1215,6 +1215,54 @@ button.pbeat{cursor:pointer}
   .sp-path{--rw:62px;padding-top:30px}.sp-seg{height:26px}
 }
 @media (prefers-reduced-motion:reduce){.sp-ray{transition:none}.sp-ray.moving img,.sp-wave,.sp-piece.swept{animation:none}.sp-piece.swept{opacity:0}}
+/* «El mensaje en la botella» (English mission 3 only) */
+.bt-card{display:flex;flex-direction:column;gap:var(--space-3);overflow:hidden}
+.bt-ask{display:flex;gap:var(--space-3);align-items:center}
+.bt-ask > :first-child{flex:none}
+.bt-ask strong{font-family:var(--display);font-weight:400;font-size:var(--fs-prompt);line-height:1.2;display:block;margin-bottom:var(--space-2)}
+.bt-paper{background:#fffdf6;border:3px solid #f0dcae;border-radius:18px;box-shadow:inset 0 0 0 6px #fff7e4;padding:var(--space-3) var(--space-3);display:flex;flex-direction:column;gap:var(--space-2);
+  background-image:repeating-linear-gradient(#fffdf6 0 54px,#f3e6c6 54px 56px)}
+.bt-line{margin:0;min-height:48px;display:flex;align-items:center}
+.bt-line.ink{font-family:var(--display);font-size:clamp(22px,4.6vw,30px);color:#14506b;justify-content:center;text-align:center}
+.bt-line.ink.fresh{animation:bt-ink .9s ease-out both}
+.bt-end .bt-paper{animation:bt-glowpaper 1.6s ease-out}
+@keyframes bt-glowpaper{0%{box-shadow:inset 0 0 0 6px #fff7e4,0 0 0 0 rgba(255,211,110,.9)}100%{box-shadow:inset 0 0 0 6px #fff7e4,0 0 0 18px rgba(255,211,110,0)}}
+@keyframes bt-ink{from{opacity:0;filter:blur(6px);letter-spacing:.12em}to{opacity:1;filter:none;letter-spacing:normal}}
+.bt-line.blur{gap:10px;justify-content:center;opacity:.55}
+.bt-line.blur span{height:14px;border-radius:8px;background:#e8d9b6;flex:0 1 70px}.bt-line.blur span:nth-child(2){flex-basis:110px}
+.bt-line.active{display:block;padding:var(--space-2) 0;border-radius:14px;background:rgba(255,255,255,.85);box-shadow:0 0 0 3px #ffd36e}
+.bt-build{margin:0}.bt-build .bslots{gap:var(--space-2)}
+.bt-build .bslot{min-width:72px;height:56px;padding:0 10px}
+.bt-tray{margin:0}.bt-tray .tiles{gap:var(--space-2) var(--space-3)}
+.bt-tray .tile{min-height:56px;height:auto;padding:6px 16px;text-transform:none}
+.bt-glow{animation:bt-glow 1.2s ease-in-out infinite;outline:4px solid #fff;outline-offset:2px}
+@keyframes bt-glow{50%{box-shadow:0 5px 0 #c58b00,0 0 0 8px rgba(255,197,49,.5)}}
+.bt-here{box-shadow:0 0 0 4px var(--coral)!important}
+.bt-fix{display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;align-items:center}
+.bt-word{font:inherit;font-family:var(--display);font-size:clamp(22px,4.6vw,28px);color:var(--ink);background:#fff;border:3px solid var(--line);border-radius:14px;min-height:56px;min-width:56px;padding:0 14px;cursor:pointer;box-shadow:0 4px 0 var(--line);touch-action:manipulation}
+.bt-word.up{border-color:var(--lagoon);background:var(--foam)}
+.bt-word:active{transform:translateY(2px)}
+.bt-mark{font:inherit;font-family:var(--display);font-size:34px;width:56px;height:56px;border-radius:14px;border:3px dashed #e0a540;background:#fff8e6;color:var(--ink);cursor:pointer;line-height:1}
+.bt-mark.on{border-style:solid;border-color:var(--lagoon);background:var(--foam)}
+.bt-marks{display:flex;gap:var(--space-3);align-items:center;justify-content:center;flex-wrap:wrap}
+.bt-mlabel{font-weight:800;font-size:18px}
+.bt-mtile{min-width:72px;font-size:36px}
+.bt-actions{display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;justify-content:center}
+.bt-actions .speak:disabled{opacity:.45}
+.bt-check{min-width:180px;margin:0}
+.bt-hint{margin:0;background:#fff6d6;color:#6b4a00;border-radius:16px;padding:var(--space-2) var(--space-3);font-size:18px}
+.bt-es{margin:0;text-align:center;font-weight:800;font-size:20px;color:var(--sea)}
+.feedback.bt-info .fb-msg{background:#eef7fb}
+.bt-end{display:flex;flex-direction:column;gap:var(--space-3);animation:pop .35s}
+.bt-say{display:flex;gap:var(--space-3);align-items:center}.bt-say > :first-child{flex:none}
+@media (max-width:640px){
+  .bt-ask > :first-child{display:none}
+  .bt-paper{padding:var(--space-2);background-image:none}
+  .bt-build .bslot{min-width:64px}
+  .bt-actions .bt-check{flex:1 1 100%}
+  .bt-say{flex-direction:column;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){.bt-line.ink.fresh,.bt-glow,.bt-end .bt-paper{animation:none}}
 </style>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
@@ -2408,7 +2456,7 @@ const STORY = {
       m: [
         ['La corriente borró las mayúsculas del mensaje de Coralina. ¡Ayúdala a recuperar las letras!', '¡Las letras volvieron a su lugar! El mensaje ya se ve, pero sus conchas están revueltas.'],
         ['Cada concha guarda una letra del mensaje. Ponlas en orden del abecedario.', '¡Conchas en orden! Ahora hay que armar las oraciones del mensaje.'],
-        ['Coralina tiene palabras sueltas. Ordénalas y ponles su punto final.', '¡El mensaje ya se lee! Dice: «Busca los nombres del arrecife». ¿Qué nombres serán?'],
+        ['¡Diego, mira! La botella del mensaje quedó atrapada entre los corales y adentro las palabras están revueltas. ¿Descubrimos qué dice?', '¡El mensaje ya se lee! La perla está a salvo y la pista dice: «Busca los nombres del arrecife». ¿Qué nombres serán?'],
         ['El mensaje habla de nombres: personas, lugares y cosas del arrecife. ¡Encuéntralos con Coralina!', '¡Encontraste los nombres! Solo falta la última pista.'],
         ['Coralina armó la última pista con todo lo que aprendiste. Resuélvela para llegar a la perla.', '¡La pista llevaba a una cueva de coral y ahí estaba la Perla del Lenguaje! Su luz ya ilumina un camino del arrecife.'],
       ],
@@ -3496,7 +3544,7 @@ function App() {
   const [musicView, setMusicView] = useState('start'); const [bqView, setBqView] = useState('hub'); const [wmSid, setWmSid] = useState(null);
   const openMissions = sid => { setWmSid(sid); setScreen('missions'); };
   // Pilot: Bahía de los Números mission 2 is the «El camino de las conchas» adventure (shellpath.js), not a challenge list.
-  const startMission = (sid, n) => { if (isShellPath(sid, n)) { setScreen('shellintro'); return; } const cfg = { mode: 'mission', subject: sid, mission: n }; if (sameAsActive(cfg)) resumeSession(); else prepare(cfg); };
+  const startMission = (sid, n) => { if (isShellPath(sid, n)) { setScreen('shellintro'); return; } if (isBottle(sid, n)) { setScreen('bottleintro'); return; } const cfg = { mode: 'mission', subject: sid, mission: n }; if (sameAsActive(cfg)) resumeSession(); else prepare(cfg); };
   const finishShellPath = res => {
     const n = clone(dataRef.current); const cfg = { mode: 'mission', subject: 'math', mission: 2 };
     res.forEach((r, k) => recordAnswer(n, { topic: 'm_tens', s: 'math', key: 'shellpath-' + k }, r.ok));
@@ -3516,11 +3564,22 @@ function App() {
   const resumeSession = () => {
     const a = dataRef.current.activeSession; if (!a) return;
     if (a.cfg && a.cfg.mode === 'mission' && isShellPath(a.cfg.subject, a.cfg.mission)) { setScreen('shellintro'); return; }
+    if (a.cfg && a.cfg.mode === 'mission' && isBottle(a.cfg.subject, a.cfg.mission)) { setScreen('bottleintro'); return; }
     const s = Object.assign(createSession(a.cfg, dataRef.current), a); delete s.cur; delete s.at; if (!s.fixed) delete s.fixed;
     sessRef.current = s;
     if (s.results.length > s.idx) { s.idx = s.results.length; if (s.idx >= s.len) { finish(true); return; } const n = nextQuestion(dataRef.current, s, ctx); setCur(n); keepSession(s, n); }
     else setCur(a.cur);
     setScreen('play');
+  };
+  // «El mensaje en la botella» (bottle.js): 3 parts; part 3 records both skills, so 4 answers count for the parents' report.
+  const finishBottle = recs => {
+    const n = clone(dataRef.current); const cfg = { mode: 'mission', subject: 'eng', mission: 3 };
+    recs.forEach((r, k) => recordAnswer(n, { topic: r.topic, s: 'eng', key: 'bottle-' + k }, r.ok));
+    const res = recs.length >= 4 ? [recs[0], recs[1], { ok: recs[2].ok && recs[3].ok, s: 'eng', topic: 'eng_sentence' }] : recs;
+    let best = 0, run = 0; res.forEach(r => { run = r.ok ? run + 1 : 0; best = Math.max(best, run); });
+    const summary = finishSession(n, { cfg, results: res, len: 3, best, retryWins: res.filter(r => !r.ok).length }, recs.length >= 4);
+    const a = n.activeSession; if (a && a.cfg && a.cfg.mode === 'mission' && isBottle(a.cfg.subject, a.cfg.mission)) n.activeSession = null;
+    dataRef.current = n; setData(n); setSum(summary); setScreen('summary');
   };
   const onFirst = ok => {
     const s = sessRef.current; const q = cur.q;
@@ -3554,6 +3613,8 @@ function App() {
   else if (screen === 'play' && cur) body = html`<${Play} sess=${sessRef.current} cur=${cur} onFirst=${onFirst} onDone=${onDone} onQuit=${onQuit} familyOk=${familyOk} saving=${stored && !saveFail} onLessonDone=${() => { const c = Object.assign({}, cur, { lesson: null }); setCur(c); keepSession(sessRef.current, c); }}/>`;
   else if (screen === 'shellintro') body = html`<${ShellPathIntro} onBack=${() => openMissions('math')} onGo=${() => setScreen('shellpath')}/>`;
   else if (screen === 'shellpath') body = html`<${ShellPathMission} data=${data} onFinish=${finishShellPath} onExit=${() => openMissions('math')}/>`;
+  else if (screen === 'bottleintro') body = html`<${BottleIntro} onBack=${() => openMissions('eng')} onGo=${() => setScreen('bottle')}/>`;
+  else if (screen === 'bottle') body = html`<${BottleMission} onFinish=${finishBottle} onExit=${() => openMissions('eng')}/>`;
   else if (screen === 'summary' && sum) body = html`<${Summary} sum=${sum} data=${data} onContinue=${startContinue} onMap=${() => go('map')} onHome=${() => go('home')} onCert=${() => go('certificate')} onMissions=${() => openMissions(sum.subject)}/>`;
   else if (screen === 'collection') body = html`<${Collection} data=${data} go=${go}/>`;
   else if (screen === 'gate') body = html`<${Gate} go=${go}/>`;
@@ -3566,7 +3627,7 @@ function App() {
   // Background by purpose. 'scenic' (story, intros, rewards): the reef image. 'gameplay' (answering challenges):
   // the original striped ocean with rising bubbles. 'studio' (painting / music tools): striped ocean, no bubbles.
   // Reward screens (summary, certificate, banquet result) paint the reef with their own RewardBackdrop.
-  const scenic = screen === 'home' || screen === 'intro' || (screen === 'worldintro' && pending) || screen === 'shellintro' || (screen === 'banquet' && bqView.startsWith('intro'));
+  const scenic = screen === 'home' || screen === 'intro' || (screen === 'worldintro' && pending) || screen === 'shellintro' || screen === 'bottleintro' || (screen === 'banquet' && bqView.startsWith('intro'));
   const studio = screen === 'art' || screen === 'music';
   const variant = scenic ? 'scenic' : studio ? 'studio' : 'gameplay';
   return html`<div className=${'app bg-' + variant + (studio ? ' focus' : '') + (scenic ? ' home-app' : '')} style=${{ '--sat': 0.6 + data.pearls.length * 0.08 }}>${variant === 'gameplay' ? html`<${Bubbles}/>` : null}${body}</div>`;
@@ -5154,6 +5215,156 @@ const isShellPath = (sid, n) => sid === SHELLPATH.sid && n === SHELLPATH.n;
 function ShellPathIntro({ onBack, onGo }) {
   return html`<${MissionIntroCard} title=${SUBJ.math.world} mission=${{ n: 2, total: MISSIONS_PER_WORLD, name: WORLD_MISSIONS.math[1].t }}
     message=${STORY.worlds.math.m[1][0]} guide="rayito" info="Decenas y unidades · 3 tramos del camino · puedes parar cuando quieras" goLabel="¡Vamos, Rayito!" backLabel="Volver" onBack=${onBack} onGo=${onGo}/>`;
+}
+
+/* ============ Arrecife de las Palabras, misión 3: «El mensaje en la botella» ============
+   Three parts of one message. Part 1: put the words in order. Part 2: find and fix the capital letters and the
+   end mark. Part 3: both (order the lowercase words, then fix them). Each solved part is written on the message. */
+const BT_LINES = ['The pearl is safe.', 'It waits for Diego.', 'Find the names of the reef.'];
+const BT_ES = ['¡La perla está a salvo!', '¡Te espera a ti, Diego!', 'Busca los nombres del arrecife.'];
+const BT_P1 = { tiles: ['safe.', 'The', 'is', 'pearl'], answer: ['The', 'pearl', 'is', 'safe.'] };
+const BT_P2 = { words: ['it', 'waits', 'for', 'diego'], caps: [true, false, false, true], names: [3], mark: '.' };
+const BT_P3 = { tiles: ['reef', 'the', 'find', 'of', 'names', 'the'], answer: ['find', 'the', 'names', 'of', 'the', 'reef'],
+  fix: { words: ['find', 'the', 'names', 'of', 'the', 'reef'], caps: [true, false, false, false, false, false], names: [], mark: '.' } };
+const btCap = (w, on) => on ? w.charAt(0).toUpperCase() + w.slice(1) : w.charAt(0).toLowerCase() + w.slice(1);
+const btSay = (t, lang) => { try { speak(t, lang); } catch (e) { } };
+
+function BtListen({ text, label }) {
+  if (!CAN_SPEAK) return null;
+  return html`<button className="speak" onClick=${() => btSay(text, 'en')} disabled=${!text}><${Icon} n="speaker"/><span>${label}</span></button>`;
+}
+// The message itself: solved lines in ink, the line being solved holds the activity, later lines are still blurry.
+function BtPaper({ done, children, label, fresh = -1 }) {
+  return html`<div className="bt-paper" aria-label=${label}>
+    ${BT_LINES.map((l, i) => i < done ? html`<p key=${i} className=${'bt-line ink' + (i === fresh ? ' fresh' : '')} lang="en">${l}</p>`
+      : i === done && children ? html`<div key=${i} className="bt-line active">${children}</div>`
+      : html`<p key=${i} className="bt-line blur" aria-hidden="true"><span></span><span></span><span></span></p>`)}
+  </div>`;
+}
+
+// Word order: tap a word to put it in the next space; tap a placed word to take it back.
+function BtOrder({ part, set, onDone, onMiss, say }) {
+  const n = set.answer.length;
+  const [slots, setSlots] = useState(() => Array(n).fill(null)); const [tries, setTries] = useState(0);
+  const used = slots.filter(s => s !== null);
+  const put = ti => { const k = slots.indexOf(null); if (k < 0 || used.includes(ti)) return; const ns = slots.slice(); ns[k] = ti; setSlots(ns); say(null); };
+  const back = k => { if (slots[k] === null) return; const ns = slots.slice(); ns[k] = null; setSlots(ns); say(null); };
+  const words = slots.map(ti => ti === null ? null : set.tiles[ti]);
+  const full = words.every(Boolean);
+  const check = () => {
+    if (words.join(' ') === set.answer.join(' ')) { onDone(tries === 0); return; }
+    setTries(tries + 1); onMiss();
+    const first = words[0] !== set.answer[0], last = words[n - 1] !== set.answer[n - 1];
+    if (part === 1) say(first ? 'Mmm… ¿qué palabra tiene mayúscula? Esa va primero.' : last ? '¡Casi! La palabra con punto va al final.' : 'Escúchalo. ¿Suena bien? Cambia las palabras del medio.', 'try');
+    else say(first ? 'El mensaje nos pide hacer algo. ¿Qué palabra es lo que hay que hacer? Esa va primero.' : 'Escúchalo. ¿Tiene sentido? Mueve las palabras que no encajan.', 'try');
+  };
+  // Help: after 2 tries a tip; after 3, the right word for the first wrong space glows. Diego still places it.
+  const tip = tries >= 2 ? (part === 1 ? 'La palabra con mayúscula va primero y la del punto va al final.' : 'El mensaje empieza con «find». ¿Qué hay que encontrar?') : null;
+  const wrongAt = words.findIndex((w, k) => w !== set.answer[k]);
+  const glowTi = tries >= 3 && wrongAt >= 0 ? set.tiles.findIndex((t, ti) => t === set.answer[wrongAt] && !used.includes(ti)) : -1;
+  return html`<${React.Fragment}>
+    <${BtPaper} done=${part - 1} label="Mensaje de la botella"><div className="build tk-word bt-build"><div className="bslots">${words.map((w, k) => html`<button key=${k} className=${'bslot' + (w ? ' filled' : '') + (tries >= 3 && k === wrongAt ? ' bt-here' : '')} onClick=${() => back(k)} aria-label=${w ? 'Quitar ' + w : 'Espacio vacío'} lang="en"><span>${w || ''}</span></button>`)}</div></div><//>
+    <div className="build tk-word bt-tray"><div className="tiles">${set.tiles.map((t, ti) => used.includes(ti) ? html`<span key=${ti} className="tile ghost"></span>`
+      : html`<button key=${ti} className=${'tile' + (ti === glowTi ? ' bt-glow' : '')} onClick=${() => put(ti)} lang="en">${t}</button>`)}</div></div>
+    <div className="bt-actions"><${BtListen} text=${words.filter(Boolean).join(' ')} label="Escucha tu mensaje"/>
+      <button className="btn ghost" onClick=${() => { setSlots(Array(n).fill(null)); say(null); }} disabled=${!used.length}>Borrar</button>
+      <button className="btn go big bt-check" disabled=${!full} onClick=${check}>¡Listo!</button></div>
+    ${tip ? html`<p className="bt-hint"><b>Pista de Coralina:</b> ${tip}</p>` : null}
+  <//>`;
+}
+
+// Fix the sentence: tap a word to switch its first letter (big / small); tap a mark to end the sentence.
+function BtFix({ part, set, onDone, onMiss, say }) {
+  const [caps, setCaps] = useState(() => set.words.map(() => false)); const [mark, setMark] = useState(''); const [tries, setTries] = useState(0);
+  const toggle = k => {
+    const on = !caps[k]; const nc = caps.slice(); nc[k] = on; setCaps(nc);
+    const w = btCap(set.words[k], true), isName = set.names.includes(k);
+    say(k === 0 ? (on ? '¡Sí! Una oración empieza con mayúscula.' : 'Mmm… ¿con qué letra empieza una oración?')
+      : isName ? (on ? `¡Claro! ${w} es un nombre, lleva mayúscula.` : '¡Ups! Los nombres llevan mayúscula.')
+      : (on ? `Mmm… «${set.words[k]}» no es un nombre. ¿Lleva mayúscula?` : 'Bien, esa palabra va en minúscula.'), on === set.caps[k] ? 'tip' : 'info');
+  };
+  const putMark = m => { setMark(m); say(m === '.' ? '¡Un punto! Así termina un mensaje que nos cuenta o nos pide algo.' : '¿Una pregunta? Mmm… ¿el mensaje está preguntando algo?', m === set.mark ? 'tip' : 'info'); };
+  const wrong = set.words.map((_, k) => caps[k] !== set.caps[k] ? k : -1).filter(k => k >= 0);
+  const markOk = mark === set.mark;
+  const check = () => {
+    if (!wrong.length && markOk) { onDone(tries === 0); return; }
+    setTries(tries + 1); onMiss();
+    const left = wrong.length + (markOk ? 0 : 1);
+    const where = wrong.includes(0) ? 'Mira cómo empieza.' : wrong.some(k => set.names.includes(k)) ? 'Busca los nombres.' : wrong.length ? 'Alguna palabra no necesita mayúscula.' : !mark ? '¿Cómo termina el mensaje?' : '¿Pregunta algo el mensaje?';
+    say(`${left === 1 ? 'Falta 1 cosa por arreglar' : `Faltan ${left} cosas por arreglar`}. ${where}`, 'try');
+  };
+  const tip = tries >= 2 ? (set.names.length ? 'Revisa tres lugares: el principio, los nombres y el final.' : 'Revisa dos lugares: el principio y el final.') : null;
+  const glow = tries >= 3;
+  const text = set.words.map((w, k) => btCap(w, caps[k])).join(' ') + mark;
+  return html`<${React.Fragment}>
+    <${BtPaper} done=${part - 1} label="Mensaje de la botella"><div className="bt-fix" lang="en">
+      ${set.words.map((w, k) => html`<button key=${k} className=${'bt-word' + (caps[k] ? ' up' : '') + (glow && wrong.includes(k) ? ' bt-here' : '')} onClick=${() => toggle(k)} aria-label=${'Cambiar mayúscula de ' + w} aria-pressed=${caps[k]}>${btCap(w, caps[k])}</button>`)}
+      <button className=${'bt-mark' + (mark ? ' on' : '') + (glow && !markOk ? ' bt-here' : '')} onClick=${() => mark && setMark('')} aria-label=${mark ? 'Quitar el signo' : 'Aquí va el signo final'}>${mark || ''}</button>
+    </div><//>
+    <div className="bt-marks"><span className="bt-mlabel">Termina con:</span>
+      <button className="tile bt-mtile" onClick=${() => putMark('.')} aria-label="Punto">.</button>
+      <button className="tile bt-mtile" onClick=${() => putMark('?')} aria-label="Signo de pregunta">?</button></div>
+    <div className="bt-actions"><${BtListen} text=${text} label="Escucha tu mensaje"/>
+      <button className="btn go big bt-check" onClick=${check}>¡Listo!</button></div>
+    ${tip ? html`<p className="bt-hint"><b>Pista de Coralina:</b> ${tip}</p>` : null}
+  <//>`;
+}
+
+const BT_ASK = {
+  1: '¡Las palabras salieron volando de la botella! Ponlas en orden.',
+  2: 'Este pedazo está escrito raro… ¡algo no está bien! Toca las palabras y ponle su final.',
+  '3a': 'El último pedazo está muy revuelto. Primero, ordena las palabras.',
+  '3b': '¡Ya tiene sentido! Pero le faltan detalles. ¿Los arreglas?',
+};
+const BT_WIN = {
+  1: '¡Mira! Las palabras se quedaron en el papel: «The pearl is safe». ¡La perla está a salvo!',
+  2: '¡Ahora sí se lee! «It waits for Diego». ¡Diego, el mensaje dice tu nombre!',
+  '3a': '¡Bien ordenado! Ahora revisa cómo empieza y cómo termina.',
+  3: '¡Perfecto! «Find the names of the reef». ¡Es una pista!',
+};
+
+function BottleMission({ onFinish, onExit }) {
+  const [part, setPart] = useState(1); const [step, setStep] = useState('a'); const [done, setDone] = useState(0);
+  const [msg, setMsg] = useState(null); const [end, setEnd] = useState(false); const [busy, setBusy] = useState(false); const [quit, setQuit] = useState(false);
+  const recs = useRef([]); const missed = useRef(false);
+  const fbRef = useRef(null);
+  useEffect(() => { if (msg && fbRef.current && fbRef.current.scrollIntoView) { try { fbRef.current.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (e) { } } }, [msg]);
+  const say = (t, k) => setMsg(t ? { t, k: k || 'info' } : null);
+  const rec = (topic, first) => { recs.current = recs.current.concat({ ok: first && !missed.current, s: 'eng', topic }); missed.current = false; };
+  const solved = (topic, first, winMsg) => {
+    rec(topic, first); setBusy(true); setDone(d => d + 1); say(winMsg, 'ok');
+    setTimeout(() => { setBusy(false); say(null); if (part < 3) { setPart(part + 1); setStep('a'); } else setEnd(true); }, 2600);
+  };
+  const key = part + step;
+  let body = null;
+  if (!end && !busy) {
+    if (part === 1) body = html`<${BtOrder} key=${key} part=${1} set=${BT_P1} say=${say} onMiss=${() => { missed.current = true; }} onDone=${f => solved('eng_sentence', f, BT_WIN[1])}/>`;
+    else if (part === 2) body = html`<${BtFix} key=${key} part=${2} set=${BT_P2} say=${say} onMiss=${() => { missed.current = true; }} onDone=${f => solved('eng_punct', f, BT_WIN[2])}/>`;
+    else if (step === 'a') body = html`<${BtOrder} key=${key} part=${3} set=${BT_P3} say=${say} onMiss=${() => { missed.current = true; }} onDone=${f => { rec('eng_sentence', f); say(BT_WIN['3a'], 'ok'); setStep('b'); }}/>`;
+    else body = html`<${BtFix} key=${key} part=${3} set=${BT_P3.fix} say=${say} onMiss=${() => { missed.current = true; }} onDone=${f => solved('eng_punct', f, BT_WIN[3])}/>`;
+  }
+  const ask = part === 3 ? BT_ASK['3' + step] : BT_ASK[part];
+  const finish = () => onFinish(recs.current);
+  return html`<div className="screen play bt-screen" style=${{ '--wc': SUBJ.eng.color }}>
+    <div className="topbar"><${NavBtn} icon="back" label="Mapa" onClick=${() => end ? finish() : setQuit(true)}/><span className="chip-w">El mensaje en la botella</span><span className="step-label">${end ? '¡Mensaje completo!' : `Parte ${Math.min(done + 1, 3)} de 3`}</span></div>
+    ${quit ? html`<${ConfirmDialog} title="¿Volvemos al mapa?" text="Si sales ahora, el mensaje se revuelve otra vez y la próxima vez empiezas desde el principio." cancelLabel="Seguir jugando" okLabel="Volver al mapa" onCancel=${() => setQuit(false)} onOk=${onExit}/>` : null}
+    <div className="panel qcard bt-card">
+      ${end ? html`<div className="bt-end" role="status">
+          <${BtPaper} done=${3} label="Mensaje completo"/>
+          <div className="bt-say"><${Guide} id="coralina" size=${96} cls="bounce"/><p className="m-bubble">¡Lo descubrimos! La perla está a salvo y te espera a ti, Diego. Y la pista dice: busca los nombres del arrecife.</p></div>
+          <div className="bt-actions"><${BtListen} text=${BT_LINES.join(' ')} label="Escucha el mensaje"/><button className="btn go big" onClick=${finish}>¡A seguir la pista!</button></div>
+        </div>`
+      : html`<${React.Fragment}><div className="bt-ask"><${Guide} id="coralina" size=${64}/><div><strong>${busy ? 'El mensaje se está escribiendo…' : ask}</strong>${busy ? null : html`<div className="help-row"><${Speak} text=${ask} lang="es"/></div>`}</div></div>
+        ${busy ? html`<${React.Fragment}><${BtPaper} done=${done} fresh=${done - 1} label="Mensaje de la botella"/>${done ? html`<p className="bt-es">${BT_ES[done - 1]}</p>` : null}<//>` : body}<//>`}
+      ${end ? null : html`<div ref=${fbRef} className=${'feedback ' + (msg ? (msg.k === 'ok' ? 'right' : msg.k === 'try' ? 'try' : 'bt-info') : '')} aria-live="polite">${msg ? html`<div className="fb-msg"><${Guide} id="coralina" size=${56}/><div><strong>${msg.t}</strong></div></div>` : null}</div>`}
+    </div></div>`;
+}
+
+const BOTTLE = { sid: 'eng', n: 3 };
+const isBottle = (sid, n) => sid === BOTTLE.sid && n === BOTTLE.n;
+function BottleIntro({ onBack, onGo }) {
+  return html`<${MissionIntroCard} title=${SUBJ.eng.world} mission=${{ n: 3, total: MISSIONS_PER_WORLD, name: WORLD_MISSIONS.eng[2].t }}
+    message=${STORY.worlds.eng.m[2][0]} guide="coralina" info="Oraciones · mayúsculas y punto · 3 pedazos del mensaje · puedes parar cuando quieras" goLabel="¡Abramos la botella!" backLabel="Volver" onBack=${onBack} onGo=${onGo}/>`;
 }
 
 </script>
