@@ -1107,10 +1107,10 @@ button.pbeat{cursor:pointer}
 .ccard.special:not(.locked){box-shadow:0 0 0 3px #ff8a5c,0 6px 0 rgba(3,30,46,.22)}
 @media (max-width:640px){.bq-bins{grid-template-columns:1fr}.bq-bin{min-height:88px}.bq-food{min-height:84px;font-size:17px}.bq-pool{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* ---- Special creature reward ---- */
-.sr-card{position:relative;z-index:1;align-self:center;width:min(100%,560px);box-sizing:border-box;height:auto;background:var(--cream-hero);border-radius:var(--radius-hero);box-shadow:var(--shadow-hero);
+.sr-card{position:relative;z-index:1;align-self:center;width:min(100%,640px);box-sizing:border-box;height:auto;background:var(--cream-hero);border-radius:var(--radius-hero);box-shadow:var(--shadow-hero);
   padding:clamp(20px,3.5vw,40px);display:flex;flex-direction:column;align-items:center;text-align:center}
 .sr-badge{background:#1f9d55;color:#fff;font-weight:800;font-size:15px;border-radius:999px;padding:6px 16px}
-.sr-title{font-family:var(--display);font-weight:400;color:var(--ink-hero);font-size:clamp(26px,3.2vw,34px);line-height:1.15;margin:var(--space-3) 0 0}
+.sr-title{font-family:var(--display);font-weight:400;color:var(--ink-hero);font-size:clamp(28px,3vw,36px);line-height:1.15;margin:var(--space-3) 0 0}
 .sr-score{margin:var(--space-2) 0 0;font-size:16px;font-weight:600;color:var(--muted-hero)}
 .sr-art{height:clamp(150px,26vh,220px);width:100%;margin-top:var(--space-5);display:flex;align-items:center;justify-content:center;overflow:visible}
 .sr-optic{height:100%;display:flex;justify-content:center}
@@ -1139,6 +1139,38 @@ button.pbeat{cursor:pointer}
 .scene-creature.arrive{animation:arriveIn 1.6s cubic-bezier(.2,.8,.3,1) both,bob 4.5s ease-in-out 1.6s infinite}
 .scene-creature.arrive img{filter:drop-shadow(0 0 14px rgba(255,255,255,.95))}
 @keyframes arriveIn{0%{transform:translateY(40px) scale(.4);opacity:0}60%{transform:translateY(-10px) scale(1.15);opacity:1}100%{transform:translateY(0) scale(1)}}
+/* ---- Shared result screen (Summary) ---- */
+.reward-screen > .panel.summary.rs-card{width:min(100%,640px);padding:clamp(20px,3.2vw,36px);gap:0;text-align:center}
+.rs-title{font-family:var(--display);font-weight:400;font-size:clamp(28px,3vw,36px);line-height:1.12;color:var(--ink-hero);margin:0}
+.rs-card .final-cast{margin-top:var(--space-4)}
+.rs-say{display:flex;align-items:center;gap:var(--space-3);margin-top:var(--space-4);text-align:left;width:100%}
+.rs-host{flex:none;display:flex}
+.rs-say .m-bubble{margin:0;flex:1;font-size:16px;line-height:1.45;background:var(--tint-hero);border-radius:18px;padding:var(--space-3) var(--space-4);color:var(--ink-hero)}
+.rs-main{margin-top:var(--space-6);width:100%;box-sizing:border-box;border-radius:22px;padding:var(--space-5) var(--space-5) var(--space-4);display:flex;flex-direction:column;align-items:center;gap:var(--space-2)}
+.rs-main.reward-stack{background:linear-gradient(180deg,#e9f9fb,#f7f1fb)}
+.rs-main.pearl-win{background:#fffaea;border:3px solid #e0a21c}
+.rs-main.rs-badge{background:#fff3e8}
+.rs-kicker{margin:0;font-weight:800;font-size:16px;color:#147fa3}
+.rs-name{font-family:var(--display);font-weight:400;font-size:clamp(22px,2.4vw,26px);line-height:1.15;color:var(--ink-hero);margin-top:var(--space-1)}
+.rs-main .en{margin:0;font-style:italic;font-size:16px;color:var(--muted-hero)}
+.rs-desc{margin:0;font-size:15px;line-height:1.45;color:var(--ink-hero);max-width:42ch}
+.rs-main .swims{margin:var(--space-1) 0 0;font-weight:700;font-size:15px;color:#1f7a4d}
+.rs-main .creature-frame{margin:var(--space-1) 0}
+.rs-stats{margin:var(--space-6) 0 0;width:100%;display:flex;flex-direction:column;gap:var(--space-2);text-align:left}
+.rs-stats > div{display:grid;grid-template-columns:minmax(110px,34%) 1fr;align-items:center;gap:var(--space-3);background:#f6f9fa;border-radius:14px;padding:var(--space-2) var(--space-4);min-height:44px}
+.rs-stats dt{font-size:14px;font-weight:700;color:var(--muted-hero)}
+.rs-stats dd{margin:0;font-size:14px;color:var(--ink-hero);font-weight:600}
+.rs-stats .mseg{margin:0}.rs-stats .mseg-label{font-size:13px}
+.rs-friend{display:flex;align-items:center;gap:var(--space-2)}.rs-friend img{width:44px!important;height:auto!important}
+.rs-achs{display:flex;flex-wrap:wrap;gap:var(--space-2)}.rs-achs .ach{font-size:13px}
+.rs-actions{margin-top:var(--space-6);width:100%;justify-content:center;gap:var(--space-3)}
+.rs-actions .btn{min-height:56px;font-size:18px;flex:0 1 auto}
+.rs-end{margin-top:var(--space-4);font-size:14px}
+@media (max-width:520px){.rs-actions{flex-direction:column}.rs-actions .btn{width:100%;flex:none;height:auto;min-height:56px;padding-top:12px;padding-bottom:12px}.rs-stats > div{grid-template-columns:1fr;gap:4px}.rs-say{flex-direction:column;text-align:center}}
+.badge-win,.yay-big{border-radius:22px;padding:var(--space-5)}
+.badge-win strong,.yay-big strong{font-size:clamp(22px,2.4vw,26px);line-height:1.15;color:var(--ink-hero)}
+.badge-win .eyebrow,.yay-big .eyebrow{font-size:16px;letter-spacing:0;text-transform:none;font-weight:800;color:#147fa3;margin:0 0 4px}
+.badge-win .btn,.yay-big .btn{min-height:56px;font-size:18px}
 </style>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
@@ -3110,43 +3142,51 @@ function FinalCast({ data }) {
   const one = id => html`<span key=${id} className="fc-host"><${CharImg} id=${id} size=${64}/></span>`;
   return html`<div className="final-cast" aria-label="Diego con sus amigos"><div className="fc-side">${left.map(one)}</div><span className="fc-diego"><${Diego} size=${150}/></span><div className="fc-side">${right.map(one)}</div></div>`;
 }
+// Shared result screen. Order: 1 result · 2 story consequence (host) · 3 one main reward · 4 secondary results/progress · 5 actions.
 function Summary({ sum, data, onContinue, onMap, onHome, onCert, onMissions }) {
-  const [open, setOpen] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setOpen(true), 350); return () => clearTimeout(t); }, []);
   const c = sum.newCreature; const s = sum.subject ? SUBJ[sum.subject] : null;
   const guide = s ? s.guide : 'tuga';
   const finalDone = sum.mode === 'final' && sum.complete;
   const allPearls = MAIN.every(x => data.pearls.includes(x.id));
+  const pearlId = sum.newPearls[0] || null;
   let say;
-  // What Diego achieved in the story comes first; numbers come after.
-  if (!sum.complete) say = `¡Buen trabajo! ${sum.answered === 1 ? 'Guardé tu respuesta' : `Guardé tus ${sum.answered} respuestas`}. Cuando regreses, seguimos ${s ? 'en este mundo' : 'la aventura'}.`;
+  if (!sum.complete) say = `${sum.answered === 1 ? 'Guardé tu respuesta' : `Guardé tus ${sum.answered} respuestas`}. Cuando regreses, seguimos ${s ? 'en este mundo' : 'la aventura'}.`;
   else if (finalDone) say = sum.guardianNew ? STORY.final.closing : STORY.final.again;
-  else if (s && sum.mission) {
-    say = sum.missionNew ? STORY.worlds[s.id].m[sum.mission - 1][1] : STORY.replayDone;
-    if (sum.newPearls.length && allPearls) say += ' ' + STORY.allFound;
-  }
-  else if (sum.newPearls.length) say = allPearls ? STORY.allFound : '¡Encontraste una perla! Su luz ya ilumina un camino del arrecife.';
+  else if (s && sum.mission) say = sum.missionNew ? STORY.worlds[s.id].m[sum.mission - 1][1] : STORY.replayDone;
+  else if (pearlId) say = 'Su luz ya ilumina un camino del arrecife.';
   else say = 'Practicaste en varios mundos. ¡Cada reto te hace mejor explorador!';
-  const newAch = sum.newAch.filter(a => !(a === 'ocean' && say.includes('Explorador')) && !(a === 'guardian' && finalDone) && !(a === 'pearl1' && sum.newPearls.length));
-  const party = sum.newPearls.length > 0 || finalDone || (sum.complete && !!c);
-  return html`<div className=${'screen center reward-screen' + (party ? ' party' : '')}><${RewardBackdrop}/><div className="panel summary">
-    <h2>${!sum.complete ? '¡Pausa en la aventura!' : finalDone ? (sum.guardianNew ? '¡Guardián del Arrecife!' : '¡Las perlas siguen brillando!') : sum.newPearls.length ? STORY.pearlFound : s && sum.mission && !sum.missionNew ? '¡Lo lograste otra vez!' : s && sum.missionNew && STORY.win[s.id] ? STORY.win[s.id] : '¡Lo lograste, Diego!'}</h2>
+  const title = !sum.complete ? '¡Pausa en la aventura!' : finalDone ? (sum.guardianNew ? '¡Guardián del Arrecife!' : '¡Las perlas siguen brillando!')
+    : pearlId ? '¡Recuperaste una perla!' : s && sum.mission && !sum.missionNew ? '¡Lo lograste otra vez!' : '¡Misión cumplida!';
+  const achs = sum.newAch.filter(a => !(a === 'guardian' && finalDone) && !(a === 'pearl1' && pearlId)).map(a => ACH.find(x => x.id === a)).filter(Boolean);
+  // The single main reward: pearl > new friend > badge. Everything else goes to the secondary row.
+  const main = !sum.complete ? null : pearlId ? 'pearl' : c ? 'creature' : achs.length ? 'badge' : null;
+  const mainBadge = main === 'badge' ? (achs.find(a => a.id === 'ocean') || achs[0]) : null;
+  const sideAchs = achs.filter(a => a !== mainBadge);
+  const prog = s && !finalDone ? adventureProgress(data, s.id) : null;
+  return html`<div className=${'screen center reward-screen' + (main ? ' party' : '')}><${RewardBackdrop}/><div className="panel summary rs-card">
+    <h2 className="rs-title">${title}</h2>
     ${finalDone ? html`<${FinalCast} data=${data}/>` : null}
-    <div className=${'m-say' + (sum.newPearls.length ? ' cheer' : '')}>${finalDone ? null : html`<${Guide} id=${guide} size=${104}/>`}<div className="m-bubble"><p>${say}</p></div></div>
-    <p className="result-line">${sum.complete ? `Completaste ${sum.answered} retos · ${sum.first} al primer intento` : `Respondiste ${sum.answered} de ${sum.len} retos`}</p>
-    ${sum.newPearls.map(id => html`<div key=${id} className="pearl-win" role="status">
-      <span className="pw-art"><${Pearl} p=${1} size=${128}/></span>
-      <span className="pearl-chip got"><${Icon} n="check" size=${18}/> ¡Perla recuperada!</span>
-      <strong>${SUBJ[id].pearl}</strong>
-      <span>Completaste las ${MISSIONS_PER_WORLD} misiones de ${SUBJ[id].world}. Su luz ya ilumina un camino de tu arrecife y es tuya para siempre.</span>
-      <span className="pw-count">${data.pearls.length} de 5 perlas encontradas</span></div>`)}
-    ${c ? html`<div className="discover">${sum.complete ? html`<${Chest} open=${open} size=${120}/>` : null}${open ? html`<div className="reward-stack pop"><p className="eyebrow">${STORY.discovered}</p><div className="creature-frame"><${CreatureArt} id=${c.id} size=${220}/></div><h3>${c.es}</h3><p className="en">${c.en}${c.rare ? ' · descubrimiento especial' : ''}</p><p className="fact">${c.fact}</p><p className="swims">${STORY.swimsWithYou}</p></div>` : null}</div>` : null}
-    ${newAch.length ? html`<div className="achs">${newAch.map(a => { const A = ACH.find(x => x.id === a); return html`<span key=${a} className="ach"><${AchIcon} id=${a} on=${true} size=${26}/> Insignia: ${A.name}</span>`; })}</div>` : null}
-    ${s && !finalDone && !sum.newPearls.length ? (() => { const p = adventureProgress(data, s.id); return html`<div className="mini-prog"><div className="mp"><${Pearl} p=${data.pearls.includes(s.id) ? 1 : 0} size=${36}/><span>${s.world}</span><div className="bar"><i style=${{ width: Math.round(p.p * 100) + '%', background: s.color }}></i></div></div></div>`; })() : null}
-    <div className="row-btns">
+    <div className="rs-say">${finalDone ? null : html`<span className="rs-host"><${Guide} id=${guide} size=${84}/></span>`}<p className="m-bubble">${say}</p></div>
+    ${main === 'pearl' ? html`<div className="rs-main pearl-win" role="status">
+      <span className="pw-art"><${Pearl} p=${1} size=${112}/></span>
+      <strong className="rs-name">${SUBJ[pearlId].pearl}</strong>
+      <p className="rs-desc">Completaste las ${MISSIONS_PER_WORLD} misiones de ${SUBJ[pearlId].world}. ${allPearls ? STORY.allFound : `Ya tienes ${data.pearls.length} de 5 perlas para la luz de las 5 perlas.`}</p></div>` : null}
+    ${main === 'creature' ? html`<div className="rs-main reward-stack pop" role="status"><p className="rs-kicker">${STORY.newFriend}</p>
+      <div className="creature-frame"><${CreatureArt} id=${c.id} size=${200}/></div>
+      <strong className="rs-name">${c.es}</strong><p className="en">${c.en}${c.rare ? ' · descubrimiento especial' : ''}</p>
+      <p className="rs-desc">${c.fact}</p><p className="swims">${STORY.swimsWithYou}</p></div>` : null}
+    ${main === 'badge' ? html`<div className="rs-main rs-badge" role="status"><p className="rs-kicker">¡Insignia nueva!</p><${AchIcon} id=${mainBadge.id} on=${true} size=${96}/>
+      <strong className="rs-name">${mainBadge.name}</strong><p className="rs-desc">${mainBadge.desc}</p></div>` : null}
+    <dl className="rs-stats">
+      <div><dt>Retos</dt><dd>${sum.complete ? `${sum.answered} completados · ${sum.first} al primer intento` : `${sum.answered} de ${sum.len} respondidos`}</dd></div>
+      ${main === 'pearl' && c ? html`<div><dt>Nuevo amigo</dt><dd className="rs-friend"><${CreatureArt} id=${c.id} size=${44}/> ${c.es}</dd></div>` : null}
+      ${sideAchs.length ? html`<div><dt>${sideAchs.length === 1 ? 'Insignia' : 'Insignias'}</dt><dd className="rs-achs">${sideAchs.map(a => html`<span key=${a.id} className="ach"><${AchIcon} id=${a.id} on=${true} size=${24}/> ${a.name}</span>`)}</dd></div>` : null}
+      ${prog ? html`<div><dt>${s.world}</dt><dd><${MissionSegments} data=${data} sid=${s.id} compact=${true}/></dd></div>` : null}
+    </dl>
+    <div className="row-btns rs-actions">
       ${finalDone ? html`<button className="btn go big" onClick=${onCert}>Ver mi certificado</button>` : html`<button className="btn go big" onClick=${onContinue}>Continuar mi aventura</button>`}
-      <button className="btn lagoon" onClick=${sum.mission && s ? onMissions : onMap}>${sum.mission && s ? 'Ver las misiones' : 'Ir al mapa'}</button></div>
-    <button className="parent-link" onClick=${onHome}>Terminar por hoy</button>
+      <button className="btn lagoon big" onClick=${sum.mission && s ? onMissions : onMap}>${sum.mission && s ? 'Ver las misiones' : 'Ir al mapa'}</button></div>
+    <button className="parent-link rs-end" onClick=${onHome}>Terminar por hoy</button>
   </div></div>`;
 }
 
