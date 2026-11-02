@@ -1263,6 +1263,73 @@ button.pbeat{cursor:pointer}
   .bt-say{flex-direction:column;text-align:center}
 }
 @media (prefers-reduced-motion:reduce){.bt-line.ink.fresh,.bt-glow,.bt-end .bt-paper{animation:none}}
+/* ===== Brain Academy (reuses .panel .btn .opt .bslot .tile .feedback .kpis .tbl .pill) ===== */
+.ba .ba-head,.ba-review .ba-head{display:flex;gap:var(--space-4);align-items:center}
+.ba-head>div{min-width:0;display:flex;flex-direction:column;gap:var(--space-2)}
+.ba-h{font-family:var(--display);font-weight:400;font-size:28px;margin:0}
+.ba-lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-4)}
+.ba-lesson{display:flex;flex-direction:column;gap:var(--space-2);align-items:flex-start;text-align:left;border:0;cursor:pointer;color:var(--ink);border-top:10px solid #8f6bff}
+.ba-lesson strong{font-family:var(--display);font-weight:400;font-size:26px}
+.ba-acts{display:flex;flex-direction:column;gap:var(--space-3)}
+.ba-act-n{flex:none;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#8f6bff;color:#fff;font-family:var(--display);font-size:26px}
+.ba .studio-entry>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ba-exam{background:linear-gradient(120deg,#fff3c4,#ffe0ef)}
+.ba-plink{align-self:center}
+.ba-lline{font-weight:700;color:var(--muted)}
+.ba-lline.fix{color:#c0442b}
+.ba-wl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-2)}
+.ba-wr{display:flex;align-items:center;gap:var(--space-3);background:#fff;border:3px solid var(--line);border-radius:18px;padding:var(--space-2) var(--space-3)}
+.ba-wr-ic{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:22px;background:#eef3f5;color:var(--muted)}
+.ba-wr-txt{flex:1;min-width:0;display:flex;flex-direction:column}
+.ba-wr-txt b{font-size:22px;letter-spacing:.02em}
+.ba-wr-txt span{font-size:15px;color:var(--muted);font-weight:700}
+.ba-wr.fix{border-color:#ffb3a6;background:#fff5f2}.ba-wr.fix .ba-wr-ic{background:var(--coral);color:#fff}.ba-wr.fix .ba-wr-txt span{color:#b23b22}
+.ba-wr.done{border-color:#b6e8cc;background:#f2fcf6}.ba-wr.done .ba-wr-ic{background:var(--kelp);color:#fff}.ba-wr.done .ba-wr-txt span{color:#137a4e}
+.ba-wr.grow .ba-wr-ic{background:#ffe4a6}
+.ba-steps{flex:none;display:flex;gap:4px;align-items:center}
+.ba-steps i{width:14px;height:14px;border-radius:4px;background:#e3e9ec}
+.ba-steps i.on{background:var(--kelp)}
+.ba-steps em{font-style:normal;font-size:18px;color:#c3ccd1;margin-left:2px}
+.ba-steps em.on{color:var(--kelp)}
+.ba-fix{margin-top:var(--space-3);width:100%}
+.ba-fixbox{border-top:10px solid var(--coral)}
+.ba-q{display:flex;flex-direction:column;align-items:center;gap:var(--space-4);text-align:center}
+.ba-ask{font-family:var(--display);font-size:26px;margin:0}
+.ba-def{background:#efe9ff;border-radius:20px;padding:var(--space-4) var(--space-5);font-size:24px;font-weight:700;max-width:30ch;line-height:1.3}
+.ba-hear{display:inline-flex;flex-direction:column;align-items:center;gap:4px;border:0;cursor:pointer;background:var(--lagoon);color:#05313d;border-radius:28px;padding:var(--space-4) var(--space-6);box-shadow:0 6px 0 #0c8b8a;font-family:var(--display);font-size:18px;min-width:140px}
+.ba-hear:active{transform:translateY(3px);box-shadow:0 3px 0 #0c8b8a}
+.ba-hear.on{animation:baPulse .8s ease-in-out infinite}
+@keyframes baPulse{50%{box-shadow:0 6px 0 #0c8b8a,0 0 0 12px rgba(28,198,196,.25)}}
+.ba-opts{width:100%;max-width:560px}
+.opts.grid.ba-opts{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ba-opts .opt{font-size:24px;min-width:0;overflow-wrap:anywhere;padding-inline:var(--space-2)}
+@media (max-width:420px){.ba-opts .opt{font-size:21px}}
+.opt.picked{border-color:var(--sea);background:#e3f2fb}
+.ba-slots-wrap{display:flex;gap:var(--space-5);flex-wrap:wrap;justify-content:center}
+.ba-word-slots .bslot.filled{background:#fff;border-bottom-color:#8f6bff}
+.ba-input{width:100%;max-width:520px;box-sizing:border-box;font-family:var(--body);font-size:40px;font-weight:700;text-align:center;padding:var(--space-3) var(--space-4);border:4px solid var(--line);border-radius:22px;background:#fff;color:var(--ink);letter-spacing:.04em}
+.ba-input:focus{outline:none;border-color:#8f6bff;box-shadow:0 0 0 5px rgba(143,107,255,.2)}
+.ba-input::placeholder{color:#a7b6be;font-size:26px;letter-spacing:0;font-weight:400}
+.ba-check{min-width:240px}
+.ba-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ba-fb-art{flex:none}
+.ba-review{display:flex;flex-direction:column;gap:var(--space-4);max-width:760px;width:100%;box-sizing:border-box}
+.ba-review h2{margin:0}
+.ba-sub{margin:0;font-family:var(--display);font-weight:400;font-size:22px}
+.ba-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-3)}
+.ba-card{background:#fff;border:3px solid #e2d9ff;border-radius:20px;padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);align-items:flex-start;text-align:left}
+.ba-card .ba-hear{padding:var(--space-2) var(--space-4);min-width:0;flex-direction:row;font-size:16px;box-shadow:0 4px 0 #0c8b8a}
+.ba-card-w{font-family:var(--body);font-weight:700;font-size:30px;color:#5a3fd1;letter-spacing:.02em}
+.ba-card-w.big{font-size:48px}
+.ba-card p{margin:0}
+.ba-yay{font-family:var(--display);font-size:22px;color:var(--kelp);margin:0}
+.ba-actions{flex-wrap:wrap;justify-content:center}
+.ba-prio{font-weight:700;font-size:20px}
+.ba-add{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-3)}
+.ba-add input{font:inherit;padding:var(--space-2) var(--space-3);border-radius:14px;border:2px solid var(--line);min-height:48px;flex:1;min-width:0}
+.ba-parent .tbl td{white-space:nowrap}
+@media (max-width:520px){.ba .ba-head{flex-direction:column;text-align:center}.ba-head>div{align-items:center}.ba-input{font-size:32px}.ba-ask{font-size:22px}}
+@media (prefers-reduced-motion:reduce){.ba-hear.on{animation:none}}
 </style>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
@@ -3158,6 +3225,7 @@ function MapScreen({ data, startWorld, startDaily, startFinal, startContinue, go
     <h3 className="map-sec">${STORY.bonus.title} <small>${STORY.bonus.text}</small></h3>
     <button className="studio-entry panel nat-entry" onClick=${() => startWorld('nat')}><${Guide} id=${SUBJ.nat.guide} size=${104}/><div><span className="eyebrow">Nature & Society · Cívica</span><strong>${SUBJ.nat.world}</strong><span>${natDone ? '✓ Insignia Explorador del Océano ganada · misiones abiertas para practicar' : 'Termina las 5 misiones y gana la insignia Explorador del Océano'}</span><${MissionSegments} data=${data} sid="nat" compact=${true}/></div><span className="arrow">›</span></button>
     <button className="studio-entry panel bq-entry" onClick=${() => go('banquet')}><${Diego} size=${100}/><div><span className="eyebrow">Alimentación · Español</span><strong>El Banquete Secreto del Arrecife</strong><span>${STORY.banquet.card}</span><${BqSegments} data=${data} compact=${true}/></div><span className="arrow">›</span></button>
+    <button className="studio-entry panel ba-entry" onClick=${() => go('brain')}><${Tuga} size=${96}/><div><span className="eyebrow">Science · English · Vocabulary</span><strong>Brain Academy</strong><span>${baMasteredCount()} of 20 words mastered · 4 lessons + final exam</span></div><span className="arrow">›</span></button>
     <button className="studio-entry panel music-entry" onClick=${() => go('music')}><${CaptainRhythm} size=${100}/><div><span className="eyebrow">Music · English</span><strong>The Tropical Orchestra</strong><span>Play, sing, discover, and create!</span></div><span className="arrow">›</span></button>
     <button className="studio-entry panel" onClick=${() => go('art')}><${Pincelin} size=${92}/><div><span className="eyebrow">Arte · Español</span><strong>El Taller Secreto del Artista</strong><span>Los bodegones de Cozumel</span></div><span className="arrow">›</span></button>
   </div>`;
@@ -3541,7 +3609,7 @@ function App() {
   const [saveFail, setSaveFail] = useState(false);
   useEffect(() => { dataRef.current = data; const ok = saveData(data); if (stored) setSaveFail(!ok); }, [data]);
   useEffect(() => { try { window.scrollTo(0, 0); } catch (e) { } }, [screen]);
-  const [musicView, setMusicView] = useState('start'); const [bqView, setBqView] = useState('hub'); const [wmSid, setWmSid] = useState(null);
+  const [baView, setBaView] = useState('hub'); const [musicView, setMusicView] = useState('start'); const [bqView, setBqView] = useState('hub'); const [wmSid, setWmSid] = useState(null);
   const openMissions = sid => { setWmSid(sid); setScreen('missions'); };
   // Pilot: Bahía de los Números mission 2 is the «El camino de las conchas» adventure (shellpath.js), not a challenge list.
   const startMission = (sid, n) => { if (isShellPath(sid, n)) { setScreen('shellintro'); return; } if (isBottle(sid, n)) { setScreen('bottleintro'); return; } const cfg = { mode: 'mission', subject: sid, mission: n }; if (sameAsActive(cfg)) resumeSession(); else prepare(cfg); };
@@ -3554,7 +3622,7 @@ function App() {
     if (n.activeSession && n.activeSession.cfg && isShellPath(n.activeSession.cfg.subject, n.activeSession.cfg.mode === 'mission' && n.activeSession.cfg.mission)) n.activeSession = null;
     dataRef.current = n; setData(n); setSum(summary); setScreen('summary');
   };
-  const go = s => { if (s.startsWith('music')) { setMusicView(s.split(':')[1] || 'start'); setScreen('music'); } else if (s.startsWith('banquet')) { setBqView(s.split(':').slice(1).join(':') || 'hub'); setScreen('banquet'); } else setScreen(s); };
+  const go = s => { if (s.startsWith('brain:') || s === 'brain') { setBaView(s.split(':')[1] || 'hub'); setScreen('brain'); return; } if (s.startsWith('music')) { setMusicView(s.split(':')[1] || 'start'); setScreen('music'); } else if (s.startsWith('banquet')) { setBqView(s.split(':').slice(1).join(':') || 'hub'); setScreen('banquet'); } else setScreen(s); };
   const prepare = cfg => { const s = createSession(cfg, dataRef.current); sessRef.current = s; setPending(s); setScreen('worldintro'); };
   // The open session (its challenges, position and answers) is saved with the progress, so leaving or
   // reloading never loses it. Answers are only counted once: results[idx] exists = already counted.
@@ -3621,6 +3689,8 @@ function App() {
   else if (screen === 'parent') body = html`<${Parent} data=${data} setData=${setData} go=${go} startCfg=${prepare} stored=${stored} saveFail=${saveFail}/>`;
   else if (screen === 'music') body = html`<${MusicWorld} key=${musicView} data=${data} setData=${setData} go=${go} startView=${musicView}/>`;
   else if (screen === 'banquet') body = html`<${BanquetWorld} key=${bqView} view=${bqView} data=${data} setData=${setData} go=${go}/>`;
+  else if (screen === 'brain') body = html`<${BrainAcademy} key=${baView} view=${baView} go=${go}/>`;
+  else if (screen === 'braingate') body = html`<${Gate} go=${t => go(t === 'parent' ? 'brain:parent' : 'brain:hub')}/>`;
   else if (screen === 'art') body = html`<${ArtStudio} data=${data} setData=${setData} go=${go}/>`;
   else if (screen === 'certificate') body = html`<${Certificate} data=${data} go=${go}/>`;
   else body = html`<${Home} data=${data} go=${go} stored=${stored} saveFail=${saveFail} setData=${setData}/>`;
@@ -5365,6 +5435,388 @@ const isBottle = (sid, n) => sid === BOTTLE.sid && n === BOTTLE.n;
 function BottleIntro({ onBack, onGo }) {
   return html`<${MissionIntroCard} title=${SUBJ.eng.world} mission=${{ n: 3, total: MISSIONS_PER_WORLD, name: WORLD_MISSIONS.eng[2].t }}
     message=${STORY.worlds.eng.m[2][0]} guide="coralina" info="Oraciones · mayúsculas y punto · 3 pedazos del mensaje · puedes parar cuando quieras" goLabel="¡Abramos la botella!" backLabel="Volver" onBack=${onBack} onGo=${onGo}/>`;
+}
+
+
+/* ================= BRAIN ACADEMY · VOCABULARY CHALLENGE =================
+   Independent section. Its own storage (BA_KEY + player id); it never reads or writes the Cozumel progress
+   (STORE_KEY), pearls, missions, characters or certificates. Evaluation rules:
+   one attempt per question · no hints · no highlighted answers · full-word comparison · corrections only in a
+   later review stage · mastery = 3 independent correct rounds incl. at least 1 written answer. */
+const BA_LESSONS = [
+  { n: 1, t: 'The Brain', words: [
+    { w: 'hemisphere', def: 'one half of the brain' },
+    { w: 'cerebellum', def: 'the part of the brain that helps you balance and move' },
+    { w: 'memory', def: 'what helps you remember things' },
+    { w: 'adaptable', def: 'able to change when something is new' },
+    { w: 'brain stem', def: 'the part of the brain that keeps you breathing and your heart beating' }] },
+  { n: 2, t: 'The Five Senses', words: [
+    { w: 'sight', def: 'the sense you use with your eyes' },
+    { w: 'hearing', def: 'the sense you use with your ears' },
+    { w: 'smell', def: 'the sense you use with your nose' },
+    { w: 'taste', def: 'the sense you use with your tongue' },
+    { w: 'touch', def: 'the sense you use with your skin and hands' }] },
+  { n: 3, t: 'Healthy Habits', words: [
+    { w: 'habits', def: 'things you do again and again' },
+    { w: 'hygiene', def: 'keeping your body clean' },
+    { w: 'sleep', def: 'resting your body and brain at night' },
+    { w: 'exercise', def: 'moving your body to make it strong' },
+    { w: 'hydrated', def: 'having enough water in your body' }] },
+  { n: 4, t: 'Food Groups', words: [
+    { w: 'fruit', def: 'sweet food from plants, like mango and apples' },
+    { w: 'vegetables', def: 'plants we eat, like carrots and broccoli' },
+    { w: 'grains', def: 'foods like rice, bread and corn' },
+    { w: 'protein', def: 'foods that help your muscles grow, like eggs, fish and beans' },
+    { w: 'dairy', def: 'foods made from milk, like cheese and yogurt' }] },
+];
+const BA_WORDS = BA_LESSONS.flatMap(l => l.words.map(x => Object.assign({ L: l.n }, x)));
+const BA_W = Object.fromEntries(BA_WORDS.map(x => [x.w, x]));
+const BA_WRITTEN = { write: 1, meanwrite: 1 };
+const BA_KIND_ES = { listen: 'Escuchar y elegir', meaning: 'Significado', build: 'Armar la palabra', write: 'Dictado', meanwrite: 'Significado escrito' };
+const BA_ACT = {
+  listen: { t: 'Listen & Meaning', s: 'Hear a word or read a meaning. Pick the word.', kinds: ['listen', 'meaning'] },
+  build: { t: 'Build the Word', s: 'Hear the word. Build it with the letters.', kinds: ['build'] },
+  write: { t: 'Spell It', s: 'Hear the word. Write it all by yourself.', kinds: ['write'] },
+};
+
+/* ---------- storage: index of players + one key per player ---------- */
+const BA_KEY = 'perlas-brain-academy-v1';
+const baPKey = id => BA_KEY + ':' + id;
+function baIndex() { try { const r = localStorage.getItem(BA_KEY); if (r) { const o = JSON.parse(r); if (o && Array.isArray(o.players) && o.players.length) { if (!o.players.some(p => p.id === o.current)) o.current = o.players[0].id; return o; } } } catch (e) { } return { current: 'diego', players: [{ id: 'diego', name: 'Diego' }] }; }
+function baSaveIndex(ix) { try { localStorage.setItem(BA_KEY, JSON.stringify(ix)); return true; } catch (e) { return false; } }
+function baFresh() { return { v: 1, words: {}, rounds: [], exams: [], log: [] }; }
+function baLoad(id) { try { const r = localStorage.getItem(baPKey(id)); if (r) { const o = JSON.parse(r); return Object.assign(baFresh(), o); } } catch (e) { } return baFresh(); }
+function baSave(id, P) { try { if (P.log.length > 3000) P.log = P.log.slice(-3000); localStorage.setItem(baPKey(id), JSON.stringify(P)); return true; } catch (e) { return false; } }
+function baWS(P, w) { if (!P.words[w]) P.words[w] = { att: 0, first: 0, firstOK: 0, err: 0, after: 0, afterOK: 0, ev: [], mastered: false, lapses: 0, last: 0 }; return P.words[w]; }
+const baStatus = s => !s || !s.att ? 'new' : s.mastered ? 'mastered' : 'practice';
+const BA_ST_EN = { new: 'Not yet', practice: 'Practicing', mastered: 'Mastered' };
+const BA_ST_ES = { new: 'Sin evaluar', practice: 'En práctica', mastered: 'Dominada' };
+const BA_ST_PILL = { new: 'none', practice: 'learning', mastered: 'mastered' };
+function baMasteredCount() { try { const P = baLoad(baIndex().current); return BA_WORDS.filter(x => baStatus(P.words[x.w]) === 'mastered').length; } catch (e) { return 0; } }
+const baNorm = s => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+
+/* ---------- recording one answer. ph: 'first' (counts for evidence) | 'retry' | 'review' ----------
+   Evidence: a round gives a word one independent success only if every first presentation of that word in the
+   round was correct. Mastered = evidence from 3 different rounds, at least one of them written. A first-attempt
+   miss on a mastered word sends it back to «En práctica» and clears its evidence. */
+function baRecord(P, round, q, answer, ok) {
+  const s = baWS(P, q.w); s.att++; s.last = Date.now();
+  P.log.push({ t: Date.now(), r: round.id, w: q.w, k: q.k, a: answer, ok, ph: q.ph });
+  if (q.ph === 'first') {
+    s.first++; if (ok) s.firstOK++; else { s.err++; s.ek = s.ek || {}; s.ek[q.k] = (s.ek[q.k] || 0) + 1; s.lastFail = q.k; }
+    s.lastFirst = ok;
+    if (round.kind !== 'review') {
+      round.rs = round.rs || {}; const rs = round.rs[q.w] = round.rs[q.w] || { ok: true, wr: false };
+      if (!ok) rs.ok = false; else if (BA_WRITTEN[q.k]) rs.wr = true;
+      if (!ok && s.mastered) { s.mastered = false; s.ev = []; s.lapses++; }
+      s.ev = s.ev.filter(e => e.r !== round.id);
+      if (rs.ok) s.ev.push({ r: round.id, wr: rs.wr });
+      if (!s.mastered && s.ev.length >= 3 && s.ev.some(e => e.wr)) s.mastered = true;
+    }
+  } else { s.after++; if (ok) s.afterOK++; }
+}
+
+/* ---------- building rounds ---------- */
+function baSpread(qs) {
+  let out = shuffle(qs);
+  for (let pass = 0; pass < 6; pass++) {
+    let fixed = true;
+    for (let i = 1; i < out.length; i++) if (out[i].w === out[i - 1].w) { fixed = false; const j = out.findIndex((x, k) => k > i && x.w !== out[i - 1].w && (!out[k + 1] || out[k + 1].w !== out[i].w)); if (j > 0) [out[i], out[j]] = [out[j], out[i]]; }
+    if (fixed) break;
+  }
+  return out;
+}
+const baKindFor = k => CAN_SPEAK ? k : k === 'listen' ? 'meaning' : k === 'write' ? 'meanwrite' : k;
+function baMakeRound(kind, list, kinds, label) {
+  let qs = [];
+  if (kind === 'exam') { const ws = shuffle(list); qs = ws.map((x, i) => ({ w: x.w, k: baKindFor(i % 2 ? 'meanwrite' : 'write'), ph: 'first' })); qs = baSpread(qs); }
+  else list.forEach(x => kinds.forEach(k => qs.push({ w: x.w, k: baKindFor(k), ph: kind === 'review' ? 'review' : 'first' })));
+  if (kind !== 'exam') qs = baSpread(qs);
+  return { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), kind, label, qs, at: Date.now() };
+}
+
+/* ---------- option order: reshuffled every time, and never the same slot as last time for that word ---------- */
+const BA_LASTPOS = {};
+function baOptions(q) {
+  const x = BA_W[q.w]; const same = BA_WORDS.filter(o => o.L === x.L && o.w !== x.w); const other = BA_WORDS.filter(o => o.L !== x.L);
+  const ds = q.k === 'meaning' ? shuffle(same).slice(0, 3) : shuffle(same).slice(0, 2).concat(shuffle(other).slice(0, 1));
+  let opts = shuffle([x.w].concat(ds.map(d => d.w))); const key = q.w + q.k;
+  for (let g = 0; g < 6 && opts.indexOf(x.w) === BA_LASTPOS[key]; g++) opts = shuffle(opts);
+  BA_LASTPOS[key] = opts.indexOf(x.w); return opts;
+}
+function baTiles(w) {
+  const letters = w.replace(/ /g, '').split('');
+  const extra = shuffle('bcdfghklmnprstvwz'.split('').filter(c => !letters.includes(c))).slice(0, letters.length > 6 ? 3 : 2);
+  let t = shuffle(letters.concat(extra)); for (let g = 0; g < 6 && t.join('').startsWith(letters.join('')); g++) t = shuffle(t);
+  return t.map((c, i) => ({ c, i, used: false }));
+}
+
+/* ---------- question views (one attempt each) ---------- */
+function BaHear({ text, auto, label = 'Listen' }) {
+  const [on, setOn] = useState(false);
+  const play = () => { setOn(true); speak(text, 'en'); setTimeout(() => setOn(false), 900 + text.length * 70); };
+  useEffect(() => { if (auto && CAN_SPEAK) { const t = setTimeout(play, 350); return () => { clearTimeout(t); try { window.speechSynthesis.cancel(); } catch (e) { } }; } }, []);
+  if (!CAN_SPEAK) return null;
+  return html`<button className=${'ba-hear' + (on ? ' on' : '')} onClick=${play} aria-label=${label}><${Icon} n="speaker" size=${40}/><span>${label}</span></button>`;
+}
+function BaChoice({ q, onAnswer, locked }) {
+  const [opts] = useState(() => baOptions(q)); const [picked, setPicked] = useState(null); const x = BA_W[q.w];
+  const choose = o => { if (picked || locked) return; setPicked(o); onAnswer(o, o === q.w); };
+  return html`<div className="ba-q">
+    ${q.k === 'listen' ? html`<p className="ba-ask">Listen. Which word do you hear?</p><${BaHear} text=${x.w} auto=${true}/>`
+      : html`<p className="ba-ask">Which word means this?</p><div className="ba-def">${x.def}</div><${BaHear} text=${x.def} label="Listen to the meaning"/>`}
+    <div className="opts grid ba-opts">${opts.map(o => html`<button key=${o} className=${'opt' + (picked === o ? ' picked' : '')} disabled=${!!picked || locked} onClick=${() => choose(o)}>${o}</button>`)}</div>
+  </div>`;
+}
+function BaBuild({ q, onAnswer, locked }) {
+  const x = BA_W[q.w]; const [tiles, setTiles] = useState(() => baTiles(q.w));
+  const n = q.w.replace(/ /g, '').length; const [slots, setSlots] = useState(() => Array(n).fill(null)); const [sent, setSent] = useState(false);
+  const put = t => { if (sent || t.used) return; const i = slots.indexOf(null); if (i < 0) return; const s = slots.slice(); s[i] = t.i; setSlots(s); setTiles(tiles.map(o => o.i === t.i ? Object.assign({}, o, { used: true }) : o)); };
+  const take = i => { if (sent || slots[i] === null) return; const ti = slots[i]; const s = slots.slice(); s[i] = null; setSlots(s); setTiles(tiles.map(o => o.i === ti ? Object.assign({}, o, { used: false }) : o)); };
+  const letter = i => slots[i] === null ? '' : tiles.find(o => o.i === slots[i]).c;
+  const check = () => { if (sent || slots.includes(null)) return; setSent(true); let k = 0; const built = q.w.split('').map(c => c === ' ' ? ' ' : letter(k++)).join(''); onAnswer(built, built === q.w); };
+  let k = 0;
+  const parts = q.w.split(' ').map((part, pi) => html`<div key=${pi} className="bslots ba-word-slots">${part.split('').map(() => { const i = k++; return html`<button key=${i} className=${'bslot' + (slots[i] !== null ? ' filled' : '')} onClick=${() => take(i)} disabled=${sent || locked} aria-label=${slots[i] !== null ? 'Letter ' + letter(i) + '. Tap to take it back.' : 'Empty'}>${letter(i)}</button>`; })}</div>`);
+  return html`<div className="ba-q">
+    <p className="ba-ask">${CAN_SPEAK ? 'Listen. Build the word.' : 'Build the word that means:'}</p>
+    ${CAN_SPEAK ? html`<${BaHear} text=${x.w} auto=${true}/>` : html`<div className="ba-def">${x.def}</div>`}
+    <div className="ba-slots-wrap">${parts}</div>
+    <div className="tiles">${tiles.map(t => html`<button key=${t.i} className=${'tile' + (t.used ? ' ghost' : '')} disabled=${t.used || sent || locked} onClick=${() => put(t)}>${t.used ? '' : t.c}</button>`)}</div>
+    <button className="btn go big ba-check" disabled=${slots.includes(null) || sent || locked} onClick=${check}>Check my word</button>
+  </div>`;
+}
+function BaWrite({ q, onAnswer, locked, exam }) {
+  const x = BA_W[q.w]; const [v, setV] = useState(''); const [sent, setSent] = useState(false); const ref = useRef(null);
+  useEffect(() => { const t = setTimeout(() => { try { ref.current && ref.current.focus({ preventScroll: true }); } catch (e) { } }, 400); return () => clearTimeout(t); }, []);
+  const send = () => { if (sent || locked || !v.trim()) return; setSent(true); try { ref.current && ref.current.blur(); } catch (e) { } onAnswer(v, baNorm(v) === q.w); };
+  return html`<div className="ba-q">
+    ${q.k === 'write' ? html`<p className="ba-ask">Listen and write the word.</p><${BaHear} text=${x.w} auto=${true}/>`
+      : html`<p className="ba-ask">Write the word that means:</p><div className="ba-def">${x.def}</div><${BaHear} text=${x.def} label="Listen to the meaning"/>`}
+    <label className="ba-sr" htmlFor=${'ba-in-' + q.w.replace(' ', '-')}>Your word</label>
+    <input id=${'ba-in-' + q.w.replace(' ', '-')} ref=${ref} className="ba-input" type="text" value=${v} disabled=${sent || locked}
+      onInput=${e => setV(e.target.value)} onKeyDown=${e => { if (e.key === 'Enter') { e.preventDefault(); send(); } }}
+      onFocus=${e => { const el = e.target; setTimeout(() => { try { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (er) { } }, 300); }}
+      autoComplete="off" autoCorrect="off" autoCapitalize="none" spellCheck=${false} inputMode="text" enterKeyHint="done" maxLength="24" placeholder="Type the word"/>
+    <button className="btn go big ba-check" disabled=${!v.trim() || sent || locked} onClick=${send}>${exam ? 'Submit my answer' : 'Check my answer'}</button>
+  </div>`;
+}
+
+/* ---------- a round: practice (with later retries) · review · exam (no feedback until the end) ---------- */
+function BaRound({ round, pid, onEnd, onQuit }) {
+  const [qs, setQs] = useState(round.qs); const [i, setI] = useState(0); const [fb, setFb] = useState(null);
+  const [res, setRes] = useState([]); const [quit, setQuit] = useState(false); const [saveOK, setSaveOK] = useState(true);
+  const exam = round.kind === 'exam'; const q = qs[i];
+  const answer = (a, ok) => {
+    const P = baLoad(pid); baRecord(P, round, q, a, ok); setSaveOK(baSave(pid, P));
+    const r = res.concat([{ w: q.w, k: q.k, ph: q.ph, a, ok }]); setRes(r);
+    if (exam) { try { window.speechSynthesis.cancel(); } catch (e) { } if (i + 1 >= qs.length) onEnd(r); else setI(i + 1); return; }
+    let retry = false;
+    if (!ok && !exam && q.ph === 'first' && qs.length - (i + 1) >= 2) { retry = true; const n = qs.slice(); n.splice(Math.min(i + 3, n.length), 0, { w: q.w, k: q.k, ph: 'retry' }); setQs(n); }
+    setFb({ ok, retry, written: !!BA_WRITTEN[q.k] });
+  };
+  const next = () => { try { window.speechSynthesis.cancel(); } catch (e) { } setFb(null); if (i + 1 >= qs.length) { onEnd(res); return; } setI(i + 1); };
+  const firstCount = qs.filter(x => x.ph !== 'retry').length; const firstDone = res.filter(x => x.ph !== 'retry').length; const posNow = qs.slice(0, i + 1).filter(x => x.ph !== 'retry').length;
+  const View = q.k === 'build' ? BaBuild : BA_WRITTEN[q.k] ? BaWrite : BaChoice;
+  let msg = null;
+  if (fb) msg = exam ? { c: 'bt-info', t: 'Answer saved.', p: i + 1 < qs.length ? 'One more word!' : 'That was the last word!' }
+    : fb.ok ? { c: 'right', t: fb.written ? 'Great! You got it on your own!' : 'You remembered it!', p: q.ph === 'retry' ? 'You came back and got it.' : '' }
+    : { c: 'try', t: 'Not quite!', p: fb.retry ? "Let's practice this one again in a little while." : "Let's practice this one again in the review." };
+  return html`<div className="screen play ba-play" style=${{ '--wc': '#8f6bff' }}>
+    <div className="topbar"><${NavBtn} icon="back" label="Salir" onClick=${() => setQuit(true)}/>
+      <span className="chip-w">${round.label}</span>
+      <span className="step-label">${q.ph === 'retry' ? 'Try again' : `Word ${posNow} of ${firstCount}`}</span>
+      <div className="dots" aria-hidden="true">${Array.from({ length: firstCount }, (_, k) => { const r = res.filter(x => x.ph !== 'retry')[k]; return html`<i key=${k} className=${r ? (exam ? 'tried' : r.ok ? 'ok' : 'tried') : k === firstDone ? 'now' : ''}></i>`; })}</div></div>
+    ${quit ? html`<${ConfirmDialog} title="¿Salir de esta ronda?" text=${saveOK ? 'Las respuestas que ya diste están guardadas.' : 'Este navegador no está guardando.'} cancelLabel="Seguir jugando" okLabel="Salir" onCancel=${() => setQuit(false)} onOk=${onQuit}/>` : null}
+    <div className="panel qcard">
+      <${View} key=${i + q.w + q.k} q=${q} onAnswer=${answer} locked=${!!fb} exam=${exam}/>
+      ${msg ? html`<div className=${'feedback ' + msg.c} role="status"><div className="fb-msg"><span className="ba-fb-art"><${Tuga} size=${64}/></span><div><strong>${msg.t}</strong>${msg.p ? html`<p>${msg.p}</p>` : null}</div></div>
+        <div className="fb-btns"><button className="btn go" autoFocus onClick=${next}>${i + 1 >= qs.length ? (exam ? 'See my results' : 'Finish') : 'Next word'}</button></div></div>` : null}
+      ${!saveOK ? html`<p className="warn" role="alert">No se pudo guardar esta respuesta en este navegador.</p>` : null}
+    </div>
+  </div>`;
+}
+
+/* ---------- review stage: corrective feedback, separate from the evaluation ---------- */
+function BaReview({ round, res, onPractice, onBack, onAgain }) {
+  const exam = round.kind === 'exam';
+  const firsts = res.filter(r => r.ph !== 'retry'); const okFirst = firsts.filter(r => r.ok).length;
+  const missed = []; res.forEach(r => { if (!r.ok && !missed.includes(r.w)) missed.push(r.w); });
+  const fixedLater = res.filter(r => r.ph === 'retry' && r.ok).length;
+  const ansOf = w => (firsts.find(r => r.w === w && !r.ok) || res.find(r => r.w === w && !r.ok) || {}).a;
+  return html`<div className="screen center"><div className="panel ba-review">
+    <div className="ba-head"><${Tuga} size=${96}/><div><span className="eyebrow">${exam ? 'Final exam' : round.kind === 'review' ? 'Review practice' : 'Round complete'}</span>
+      <h2>${exam ? `${okFirst} of ${firsts.length} words right` : okFirst === firsts.length ? 'Every word on the first try!' : `${okFirst} of ${firsts.length} right on the first try`}</h2>
+      ${fixedLater ? html`<p className="muted">${fixedLater} more after practicing again.</p>` : null}</div></div>
+    ${missed.length ? html`<h3 className="ba-sub">Review time: let's learn these</h3>
+      <div className="ba-cards">${missed.map(w => { const x = BA_W[w]; const a = ansOf(w); return html`<div key=${w} className="ba-card">
+        <div className="ba-card-w">${w}</div><p>${x.def}</p>
+        ${a && exam ? html`<p className="muted">You wrote: <s>${a}</s></p>` : null}
+        <${BaHear} text=${w} label="Hear it"/></div>`; })}</div>` : html`<p className="ba-yay">${exam ? 'Amazing! You knew all 20 words.' : 'Great job! Keep going to master every word.'}</p>`}
+    <div className="row-btns ba-actions">
+      ${missed.length ? html`<button className="btn go big" onClick=${() => onPractice(missed)}>Practice these words</button>` : null}
+      ${onAgain ? html`<button className="btn lagoon" onClick=${onAgain}>${exam ? 'Take the exam again' : 'Play this round again'}</button>` : null}
+      <button className="btn ghost" onClick=${onBack}>Back</button>
+    </div>
+  </div></div>`;
+}
+
+/* ---------- study cards (not scored) ---------- */
+function BaStudy({ lesson, onDone }) {
+  const [i, setI] = useState(0); const x = lesson.words[i];
+  return html`<div className="screen play ba-play"><div className="topbar"><${NavBtn} icon="back" label="Lesson" onClick=${onDone}/><span className="chip-w">Study · no score</span><span className="step-label">Card ${i + 1} of 5</span></div>
+    <div className="panel qcard ba-q ba-study">
+      <span className="eyebrow">Lesson ${lesson.n} · ${lesson.t}</span>
+      <div className="ba-card-w big">${x.w}</div>
+      <${BaHear} key=${x.w} text=${x.w} auto=${true} label="Hear the word"/>
+      <div className="ba-def">${x.def}</div>
+      <div className="row-btns">${i > 0 ? html`<button className="btn ghost" onClick=${() => setI(i - 1)}>Back</button>` : null}
+        <button className="btn go big" onClick=${() => i < 4 ? setI(i + 1) : onDone()}>${i < 4 ? 'Next card' : "I'm ready!"}</button></div>
+    </div></div>`;
+}
+
+/* ---------- what each word needs (kids' view): replaces the colored dots ----------
+   fix  = missed on the first try last time it was asked → shows which skill tripped him
+   grow = right so far, still collecting its 3 rounds (and the written one)
+   new / done */
+const BA_SKILL_EN = { listen: 'hearing it', meaning: 'its meaning', build: 'building it', write: 'spelling it', meanwrite: 'spelling it' };
+const BA_SKILL_ES = { listen: 'reconocerla al oírla', meaning: 'su significado', build: 'armarla', write: 'escribirla (dictado)', meanwrite: 'escribirla desde el significado' };
+function baNeed(s) {
+  if (!s || !s.att) return { k: 'new' };
+  if (s.mastered) return { k: 'done' };
+  if (s.lastFirst === false) return { k: 'fix', skill: s.lastFail };
+  return { k: 'grow', rounds: Math.min(s.ev.length, 3), written: s.ev.some(e => e.wr) };
+}
+function baNeedText(n) {
+  if (n.k === 'new') return 'New word. Study it first.';
+  if (n.k === 'done') return 'Mastered!';
+  if (n.k === 'fix') return `Missed last time: ${BA_SKILL_EN[n.skill] || 'this word'}.`;
+  const left = 3 - n.rounds; const bits = [];
+  if (left > 0) bits.push(`${left} more ${left === 1 ? 'round' : 'rounds'}`);
+  if (!n.written) bits.push('write it by yourself once');
+  return bits.length ? 'Keep going: ' + bits.join(' + ') + '.' : 'Almost there!';
+}
+// Practice round aimed at what failed: the skill he missed + one written check.
+function baTrickyRound(words, P, label) {
+  const qs = []; words.forEach(x => { const s = P.words[x.w] || {}; const k = baKindFor(s.lastFail || 'meaning'); qs.push({ w: x.w, k, ph: 'first' }); if (!BA_WRITTEN[k]) qs.push({ w: x.w, k: baKindFor('write'), ph: 'first' }); });
+  return { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), kind: 'practice', label, qs: baSpread(qs), at: Date.now() };
+}
+const baToFix = (P, list) => list.filter(x => baNeed(P.words[x.w]).k === 'fix');
+function BaWordList({ P, list }) {
+  return html`<ul className="ba-wl">${list.map(x => { const n = baNeed(P.words[x.w]);
+    return html`<li key=${x.w} className=${'ba-wr ' + n.k}>
+      <span className="ba-wr-ic" aria-hidden="true">${n.k === 'done' ? '★' : n.k === 'fix' ? '!' : n.k === 'new' ? '+' : ''}</span>
+      <div className="ba-wr-txt"><b>${x.w}</b><span>${baNeedText(n)}</span></div>
+      ${n.k === 'grow' || n.k === 'done' ? html`<span className="ba-steps" role="img" aria-label=${`${n.k === 'done' ? 3 : n.rounds} of 3 rounds${n.k === 'done' || n.written ? ', written' : ''}`}>
+        ${[0, 1, 2].map(k => html`<i key=${k} className=${(n.k === 'done' || k < n.rounds) ? 'on' : ''}></i>`)}<em className=${n.k === 'done' || n.written ? 'on' : ''}>✎</em></span>` : null}
+    </li>`; })}</ul>`;
+}
+function baLessonLine(P, l) {
+  const c = { done: 0, fix: 0, grow: 0, new: 0 }; l.words.forEach(x => c[baNeed(P.words[x.w]).k]++);
+  const out = [`${c.done} of 5 mastered`]; if (c.fix) out.push(`${c.fix} to fix`); if (c.new) out.push(`${c.new} new`);
+  return { c, text: out.join(' · ') };
+}
+
+/* ---------- parents' panel (behind the shared gate) ---------- */
+function BaParent({ pid, ix, setIx, onBack, startRound }) {
+  const [P, setP] = useState(() => baLoad(pid)); const [newName, setNewName] = useState(''); const [confirm, setConfirm] = useState(false);
+  const rows = BA_WORDS.map(x => ({ x, s: P.words[x.w] || null, st: baStatus(P.words[x.w]) }));
+  const cnt = k => rows.filter(r => r.st === k).length;
+  const tot = rows.reduce((a, r) => { const s = r.s; if (s) { a.first += s.first; a.firstOK += s.firstOK; a.after += s.after; a.afterOK += s.afterOK; a.att += s.att; } return a; }, { first: 0, firstOK: 0, after: 0, afterOK: 0, att: 0 });
+  const pct = (a, b) => b ? Math.round(a / b * 100) + '%' : '—';
+  const prio = rows.filter(r => r.s && r.st !== 'mastered').sort((a, b) => (b.s.err - b.s.firstOK * 0.5) - (a.s.err - a.s.firstOK * 0.5)).slice(0, 6)
+    .concat(rows.filter(r => !r.s)).slice(0, 6);
+  const fmt = t => t ? new Date(t).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' }) : '—';
+  const addPlayer = () => { const name = newName.trim(); if (!name) return; let id = name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'nino'; while (ix.players.some(p => p.id === id)) id += '-2'; const n = { current: id, players: ix.players.concat([{ id, name }]) }; baSaveIndex(n); setIx(n); setNewName(''); };
+  const switchTo = id => { const n = Object.assign({}, ix, { current: id }); baSaveIndex(n); setIx(n); };
+  const reset = () => { baSave(pid, baFresh()); setP(baFresh()); setConfirm(false); };
+  const name = (ix.players.find(p => p.id === pid) || {}).name || pid;
+  return html`<div className="screen parent ba-parent">
+    <div className="topbar"><${NavBtn} icon="back" label="Brain Academy" onClick=${onBack}/><h2>Brain Academy · Panel de mamá y papá</h2></div>
+    <section className="panel"><h3>Jugador</h3>
+      <div className="seg">${ix.players.map(p => html`<button key=${p.id} className=${p.id === pid ? 'on' : ''} onClick=${() => switchTo(p.id)}>${p.name}</button>`)}</div>
+      <p className="muted">Cada niño guarda su progreso por separado en este dispositivo. Este progreso es independiente de la aventura de Cozumel.</p>
+      <div className="ba-add"><label className="ba-sr" htmlFor="ba-new">Nombre</label><input id="ba-new" type="text" value=${newName} onInput=${e => setNewName(e.target.value)} placeholder="Agregar otro niño" autoComplete="off" maxLength="20"/><button className="btn ghost" onClick=${addPlayer} disabled=${!newName.trim()}>Agregar</button></div>
+    </section>
+    <section className="panel"><h3>Resumen de ${name}</h3>
+      <div className="kpis"><div><b>${cnt('mastered')}/20</b><span>dominadas</span></div><div><b>${cnt('practice')}</b><span>en práctica</span></div><div><b>${cnt('new')}</b><span>sin evaluar</span></div>
+        <div><b>${pct(tot.firstOK, tot.first)}</b><span>exactitud del primer intento (${tot.firstOK}/${tot.first})</span></div>
+        <div><b>${tot.afterOK}/${tot.after}</b><span>aciertos después de repaso</span></div><div><b>${tot.att}</b><span>intentos en total</span></div></div>
+      <p className="muted">Dominada = 3 rondas distintas con la palabra correcta al primer intento, incluyendo al menos una escrita sin pistas (dictado o examen). Reconocer la palabra entre opciones no sustituye escribirla. Los aciertos después de un error o en el repaso se cuentan aparte y no suman al dominio. Si una palabra dominada se falla después, vuelve a «En práctica» y necesita sus 3 rondas otra vez.</p>
+    </section>
+    <section className="panel"><h3>Palabras prioritarias</h3>
+      ${prio.length ? html`<p className="ba-prio">${prio.map(r => r.x.w + (r.s && r.s.lastFail && r.s.lastFirst === false ? ` (${BA_SKILL_ES[r.s.lastFail]})` : '')).join(' · ')}</p><button className="btn go" onClick=${() => startRound(baMakeRound('practice', prio.map(r => r.x), ['meaning', 'build', 'write'], 'Priority words'))}>Practicar estas palabras</button>` : html`<p>¡Las 20 palabras están dominadas!</p>`}
+    </section>
+    <section className="panel"><h3>Rendimiento por lección</h3>
+      <div className="tbl-wrap" tabIndex="0" role="region" aria-label="Lecciones"><table className="tbl"><thead><tr><th>Lección</th><th>Dominadas</th><th>1er intento</th><th>Errores</th><th>Tras repaso</th></tr></thead><tbody>
+      ${BA_LESSONS.map(l => { const rs = rows.filter(r => r.x.L === l.n); const f = rs.reduce((a, r) => a + (r.s ? r.s.first : 0), 0), fo = rs.reduce((a, r) => a + (r.s ? r.s.firstOK : 0), 0), er = rs.reduce((a, r) => a + (r.s ? r.s.err : 0), 0), af = rs.reduce((a, r) => a + (r.s ? r.s.after : 0), 0), afo = rs.reduce((a, r) => a + (r.s ? r.s.afterOK : 0), 0);
+        return html`<tr key=${l.n}><td>${l.n} · ${l.t}</td><td>${rs.filter(r => r.st === 'mastered').length}/5</td><td>${pct(fo, f)} <small className="muted">(${fo}/${f})</small></td><td>${er}</td><td>${afo}/${af}</td></tr>`; })}
+      </tbody></table></div></section>
+    <section className="panel"><h3>Palabra por palabra</h3>
+      <div className="tbl-wrap" tabIndex="0" role="region" aria-label="Palabras"><table className="tbl"><thead><tr><th>Palabra</th><th>Lección</th><th>Estado</th><th>Intentos</th><th>1er intento ✓</th><th>Errores</th><th>Tras repaso ✓</th><th>Evidencia</th><th>Falla en</th><th>Última vez</th></tr></thead><tbody>
+      ${rows.map(r => { const s = r.s; return html`<tr key=${r.x.w}><td><b>${r.x.w}</b></td><td>${r.x.L}</td><td><span className=${'pill ' + BA_ST_PILL[r.st]}>${BA_ST_ES[r.st]}</span></td>
+        <td>${s ? s.att : 0}</td><td>${s ? `${s.firstOK}/${s.first}` : '0/0'}</td><td>${s ? s.err : 0}</td><td>${s ? `${s.afterOK}/${s.after}` : '0/0'}</td>
+        <td>${s ? `${Math.min(s.ev.length, 3)}/3 rondas · ${s.ev.some(e => e.wr) ? 'escrita ✓' : 'falta escrita'}` : '—'}${s && s.lapses ? html` <small className="muted">(se olvidó ${s.lapses}×)</small>` : null}</td><td style=${{ whiteSpace: 'normal' }}>${s && s.ek ? Object.entries(s.ek).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${BA_SKILL_ES[k]} (${v})`).join(', ') : '—'}</td><td>${fmt(s && s.last)}</td></tr>`; })}
+      </tbody></table></div></section>
+    <section className="panel"><h3>Exámenes finales</h3>
+      ${P.exams.length ? html`<div className="tbl-wrap" tabIndex="0" role="region" aria-label="Exámenes"><table className="tbl"><thead><tr><th>Fecha</th><th>Resultado</th><th>Palabras falladas</th></tr></thead><tbody>
+        ${P.exams.slice().reverse().map((e, k) => html`<tr key=${k}><td>${fmt(e.at)}</td><td><b>${e.score}/${e.total}</b></td><td style=${{ whiteSpace: 'normal' }}>${e.missed.length ? e.missed.map(m => `${m.w} («${m.a}»)`).join(', ') : '—'}</td></tr>`)}
+      </tbody></table></div>` : html`<p className="muted">Todavía no hay exámenes.</p>`}
+    </section>
+    <section className="panel"><h3>Borrar progreso de ${name}</h3>
+      ${confirm ? html`<p><b>Se borrarán todos los intentos, el dominio y los exámenes de Brain Academy de ${name}.</b> La aventura de Cozumel no se toca.</p><div className="row-btns"><button className="btn ghost" onClick=${() => setConfirm(false)}>Cancelar</button><button className="btn coral" onClick=${reset}>Sí, borrar</button></div>`
+        : html`<button className="btn ghost danger" onClick=${() => setConfirm(true)}>Borrar progreso de Brain Academy</button>`}
+    </section>
+  </div>`;
+}
+
+/* ---------- section shell ---------- */
+function BrainAcademy({ view: initView, go }) {
+  const [ix, setIx] = useState(baIndex); const pid = ix.current;
+  const [view, setView] = useState(initView || 'hub'); const [L, setL] = useState(1);
+  const [round, setRound] = useState(null); const [res, setRes] = useState(null); const [, bump] = useState(0);
+  const P = baLoad(pid);
+  const start = r => { setRound(r); setRes(null); setView('round'); };
+  const endRound = r => {
+    const D = baLoad(pid);
+    D.rounds.push({ id: round.id, kind: round.kind, label: round.label, at: Date.now(), n: r.filter(x => x.ph !== 'retry').length, ok: r.filter(x => x.ph !== 'retry' && x.ok).length });
+    if (round.kind === 'exam') D.exams.push({ at: Date.now(), score: r.filter(x => x.ok).length, total: r.length, missed: r.filter(x => !x.ok).map(x => ({ w: x.w, a: x.a })) });
+    if (D.rounds.length > 400) D.rounds = D.rounds.slice(-400);
+    baSave(pid, D); setRes(r); setView('review');
+  };
+  const back = () => { setRound(null); setView(round && round.L ? 'lesson' : 'hub'); bump(x => x + 1); };
+  if (view === 'parent') return html`<${BaParent} key=${pid} pid=${pid} ix=${ix} setIx=${setIx} onBack=${() => setView('hub')} startRound=${r => start(r)}/>`;
+  if (view === 'round' && round) return html`<${BaRound} key=${round.id} round=${round} pid=${pid} onEnd=${endRound} onQuit=${back}/>`;
+  if (view === 'review' && round && res) return html`<${BaReview} round=${round} res=${res} onBack=${back}
+    onPractice=${ws => start(Object.assign(baMakeRound('review', ws.map(w => BA_W[w]), round.kind === 'exam' ? ['write'] : Array.from(new Set(res.filter(x => !x.ok).map(x => x.k))).slice(0, 2), 'Review practice'), { L: round.L }))}
+    onAgain=${round.kind === 'review' ? null : () => start(Object.assign(baMakeRound(round.kind, round.kind === 'exam' ? BA_WORDS : BA_LESSONS[round.L - 1].words, round.kinds, round.label), { L: round.L, kinds: round.kinds }))}/>`;
+  if (view === 'study') return html`<${BaStudy} lesson=${BA_LESSONS[L - 1]} onDone=${() => setView('lesson')}/>`;
+  const name = (ix.players.find(p => p.id === pid) || {}).name || 'Diego';
+  if (view === 'lesson') {
+    const les = BA_LESSONS[L - 1];
+    return html`<div className="screen ba">
+      <div className="topbar"><${NavBtn} icon="back" label="Brain Academy" onClick=${() => setView('hub')}/><h2>Lesson ${les.n} · ${les.t}</h2></div>
+      <div className="panel ba-head"><${Tuga} size=${96}/><div><p className="m-bubble">${baToFix(P, les.words).length ? 'Some words need a little more practice. Let\'s fix them!' : 'Learn the words first. Then show me what you remember!'}</p></div></div>
+      <div className="panel"><h3 className="ba-sub">My words</h3><${BaWordList} P=${P} list=${les.words}/>
+        ${baToFix(P, les.words).length ? html`<button className="btn coral big ba-fix" onClick=${() => start(Object.assign(baTrickyRound(baToFix(P, les.words), P, 'Fix my words'), { L: les.n }))}>Practice the words I missed</button>` : null}</div>
+      <div className="ba-acts">
+        <button className="studio-entry panel ba-act" onClick=${() => setView('study')}><span className="ba-act-n">1</span><div><span className="eyebrow">No score</span><strong>Study the words</strong><span>Hear each word and its meaning.</span></div><span className="arrow">›</span></button>
+        ${['listen', 'build', 'write'].map((a, k) => html`<button key=${a} className="studio-entry panel ba-act" onClick=${() => start(Object.assign(baMakeRound('practice', les.words, BA_ACT[a].kinds, BA_ACT[a].t), { L: les.n, kinds: BA_ACT[a].kinds }))}>
+          <span className="ba-act-n">${k + 2}</span><div><span className="eyebrow">${a === 'write' ? 'Counts as written' : 'Practice'}</span><strong>${BA_ACT[a].t}</strong><span>${BA_ACT[a].s}</span></div><span className="arrow">›</span></button>`)}
+      </div></div>`;
+  }
+  const mastered = BA_WORDS.filter(x => baStatus(P.words[x.w]) === 'mastered').length;
+  return html`<div className="screen ba">
+    <div className="topbar"><${NavBtn} icon="back" label="Mapa" onClick=${() => go('map')}/><h2>Brain Academy</h2><span className="chip-w">Player: ${name}</span></div>
+    <div className="panel ba-head"><${Tuga} size=${110}/><div><span className="eyebrow">Vocabulary Challenge</span><h2 className="ba-h">${mastered === 20 ? 'You mastered all 20 words!' : `${mastered} of 20 words mastered`}</h2>
+      <p className="m-bubble">A word is mastered when you get it right in 3 different rounds, and you write it by yourself at least once.</p></div></div>
+    ${baToFix(P, BA_WORDS).length ? html`<div className="panel ba-fixbox"><h3 className="ba-sub">Words to fix</h3><${BaWordList} P=${P} list=${baToFix(P, BA_WORDS).slice(0, 6)}/>
+      <button className="btn coral big ba-fix" onClick=${() => start(Object.assign(baTrickyRound(baToFix(P, BA_WORDS).slice(0, 6), P, 'Fix my words'), { L: 0 }))}>Practice the words I missed</button></div>` : null}
+    <div className="ba-lessons">${BA_LESSONS.map(l => { const m = l.words.filter(x => baStatus(P.words[x.w]) === 'mastered').length; return html`<button key=${l.n} className="panel ba-lesson" onClick=${() => { setL(l.n); setView('lesson'); }}>
+      <span className="eyebrow">Lesson ${l.n}</span><strong>${l.t}</strong><span className=${'ba-lline' + (baLessonLine(P, l).c.fix ? ' fix' : '')}>${baLessonLine(P, l).text}</span></button>`; })}</div>
+    <button className="studio-entry panel ba-exam" onClick=${() => start(Object.assign(baMakeRound('exam', BA_WORDS, null, 'Final Exam'), { L: 0 }))}>
+      <span className="ba-act-n">★</span><div><span className="eyebrow">All 4 lessons · no hints</span><strong>Final Exam · 20 words</strong><span>Write every word. You see your results at the end.</span></div><span className="arrow">›</span></button>
+    <button className="parent-link ba-plink" onClick=${() => go('braingate')}>Panel de mamá y papá · Brain Academy</button>
+  </div>`;
 }
 
 </script>
